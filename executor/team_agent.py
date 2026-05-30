@@ -6,7 +6,16 @@ from executor.memory import save
 def _ask(role, goal):
     prompt = f"""
 Είσαι ο ρόλος: {role}
-Σύστημα: ΝΟΥΣ AI OS σε Android/Termux.
+
+Σημαντικό context ΝΟΥΣ AI OS:
+- Τρέχει σε Android / Termux.
+- Backend: Python 3.13 και Flask.
+- Τα plugins είναι ΜΟΝΟ Python αρχεία μέσα στο executor/plugins/.
+- Κάθε plugin πρέπει να έχει def run(): και να επιστρέφει dict.
+- Μην προτείνεις npm, JavaScript, plugin.json, manifest ή Node εργαλεία.
+- Μην ξανασχεδιάζεις τον ΝΟΥΣ από την αρχή.
+- Πρότεινε μικρά, ασφαλή βήματα πάνω στο υπάρχον σύστημα.
+
 Στόχος:
 {goal}
 
