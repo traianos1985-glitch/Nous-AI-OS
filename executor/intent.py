@@ -177,6 +177,13 @@ def detect_intent(text):
     if t in ["clear schedules", "καθάρισε προγραμματισμένα"]:
         return {"type": "tool", "action": "clear_schedules"}
 
+    
+    if t.startswith("recall ") or t.startswith("θυμάσαι "):
+        return {"type": "tool", "action": "recall"}
+
+    if t in ["who am i", "τι ξέρεις για μένα", "τι θυμάσαι"]:
+        return {"type": "tool", "action": "recall"}
+
     return {"type": "chat", "action": "chat"}
 
 

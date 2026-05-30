@@ -1,3 +1,4 @@
+from executor.long_memory import recall
 from executor.scheduler_agent import add_schedule, list_schedules, clear_schedules
 from executor.agent_executor import solve_goal, solve_and_checkpoint
 from executor.agent_review import review_last
@@ -229,6 +230,12 @@ def run_tool(intent, context=None):
 
     if action == "clear_schedules":
         return clear_schedules()
+
+
+    
+    if action == "recall":
+        q = context.get("command", "").replace("recall ", "").replace("θυμάσαι ", "").strip()
+        return recall(q)
 
 
     return "UNKNOWN TOOL"
