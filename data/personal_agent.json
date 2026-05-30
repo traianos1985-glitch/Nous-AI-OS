@@ -14,7 +14,12 @@
       "id": 1780155400,
       "project": "ΝΟΥΣ AI OS mobile agent",
       "status": "active",
-      "steps": []
+      "steps": [
+        {
+          "step": "όρισε το επόμενο μικρό πρακτικό βήμα",
+          "status": "suggested"
+        }
+      ]
     }
   ],
   "decisions": []
