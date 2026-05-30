@@ -251,5 +251,12 @@
       "type": "tool",
       "action": "plan"
     }
+  },
+  {
+    "command": "σχέδιο στόχου να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+    "intent": {
+      "type": "tool",
+      "action": "plan_goal"
+    }
   }
 ]

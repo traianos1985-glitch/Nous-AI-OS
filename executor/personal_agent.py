@@ -43,6 +43,9 @@ def plan_goal(text):
     prompt = f"""
 Είσαι ο ΝΟΥΣ AI OS ως προσωπικός συνεργάτης.
 Φτιάξε πρακτικό σχέδιο στα ελληνικά.
+Σημαντικό: Ο ΝΟΥΣ υπάρχει ήδη και τρέχει σε Android/Termux με Flask UI, remote LLM, plugins, memory, GitHub backup και tools.
+Μην προτείνεις να χτιστεί από το μηδέν με Android Studio, iOS, Play Store ή νέο app.
+Πρότεινε βήματα βελτίωσης του υπάρχοντος συστήματος.
 
 Στόχος:
 {text}
