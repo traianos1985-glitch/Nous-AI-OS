@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlparse, parse_qs, unquote
 
 HEADERS = {"User-Agent": "Mozilla/5.0 NOUS-AI-OS"}
 
@@ -13,6 +13,11 @@ def web_search(query):
     for a in soup.select(".result__a")[:5]:
         title = a.get_text(" ", strip=True)
         href = a.get("href")
+        if href and "uddg=" in href:
+            qs = parse_qs(urlparse(href).query)
+            href = unquote(qs.get("uddg", [href])[0])
+        if href and href.startswith("//"):
+            href = "https:" + href
         results.append({"title": title, "url": href})
 
     return {"query": query, "results": results}

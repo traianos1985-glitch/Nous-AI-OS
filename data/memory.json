@@ -677,5 +677,12 @@
       "type": "tool",
       "action": "internet"
     }
+  },
+  {
+    "command": "ψάξε Python Flask tutorial",
+    "intent": {
+      "type": "tool",
+      "action": "web_search"
+    }
   }
 ]
