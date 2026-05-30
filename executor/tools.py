@@ -1,3 +1,4 @@
+from executor.research_agent import web_search, fetch_page, research
 from executor.code_forge import forge_plugin
 from executor.app_builder import make_web_app, list_apps
 from executor.git_agent import git_status, git_checkpoint
@@ -187,6 +188,20 @@ def run_tool(intent, context=None):
     
     if action == "list_apps":
         return list_apps()
+
+    
+    if action == "web_search":
+        q = context.get("command", "").replace("search ", "").replace("ψάξε ", "").strip()
+        return web_search(q)
+
+    if action == "fetch_page":
+        url = context.get("command", "").replace("open url ", "").replace("άνοιξε url ", "").strip()
+        return fetch_page(url)
+
+    if action == "research":
+        q = context.get("command", "").replace("research ", "").replace("έρευνα ", "").strip()
+        return research(q)
+
 
     return "UNKNOWN TOOL"
 

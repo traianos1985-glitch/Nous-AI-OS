@@ -147,6 +147,16 @@ def detect_intent(text):
     if t in ["apps", "my apps", "εφαρμογές"]:
         return {"type": "tool", "action": "list_apps"}
 
+    
+    if t.startswith("search ") or t.startswith("ψάξε "):
+        return {"type": "tool", "action": "web_search"}
+
+    if t.startswith("open url ") or t.startswith("άνοιξε url "):
+        return {"type": "tool", "action": "fetch_page"}
+
+    if t.startswith("research ") or t.startswith("έρευνα "):
+        return {"type": "tool", "action": "research"}
+
     return {"type": "chat", "action": "chat"}
 
 
