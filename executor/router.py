@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
 from executor.security import check_token
@@ -65,6 +65,17 @@ from executor.android_sense import sense as android_sense
 @app.route("/sense")
 def sense_route():
     return jsonify(android_sense())
+
+
+from executor.app_builder import list_apps
+
+@app.route("/apps")
+def apps_list():
+    return jsonify(list_apps())
+
+@app.route("/apps/<name>/")
+def open_generated_app(name):
+    return send_from_directory(f"generated_apps/{name}", "index.html")
 
 if __name__ == "__main__":
     print("🧠 NUS AI OS LEVEL 22 RUNNING")

@@ -1,5 +1,5 @@
 from executor.code_forge import forge_plugin
-from executor.app_builder import make_web_app
+from executor.app_builder import make_web_app, list_apps
 from executor.git_agent import git_status, git_checkpoint
 from executor.daily_brief import daily_brief
 from executor.battery_guard import battery_guard
@@ -184,7 +184,12 @@ def run_tool(intent, context=None):
         return forge_plugin(goal)
 
 
+    
+    if action == "list_apps":
+        return list_apps()
+
     return "UNKNOWN TOOL"
+
 
 
 

@@ -143,7 +143,12 @@ def detect_intent(text):
     if t.startswith("forge plugin ") or t.startswith("γράψε τέλειο plugin "):
         return {"type": "tool", "action": "forge_plugin"}
 
+    
+    if t in ["apps", "my apps", "εφαρμογές"]:
+        return {"type": "tool", "action": "list_apps"}
+
     return {"type": "chat", "action": "chat"}
+
 
 
 
