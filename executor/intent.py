@@ -191,6 +191,13 @@ def detect_intent(text):
     if t.startswith("team solve ") or t.startswith("ομάδα λύσε "):
         return {"type": "tool", "action": "team_solve"}
 
+    
+    if t in ["repair system", "system repair", "επισκευή συστήματος"]:
+        return {"type": "tool", "action": "repair_system"}
+
+    if t in ["repair advice", "διάγνωση επισκευής"]:
+        return {"type": "tool", "action": "repair_advice"}
+
     return {"type": "chat", "action": "chat"}
 
 

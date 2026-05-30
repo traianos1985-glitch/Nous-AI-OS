@@ -1,3 +1,4 @@
+from executor.repair_agent import repair_check, repair_advice
 from executor.team_agent import team_plan, team_solve
 from executor.long_memory import recall
 from executor.scheduler_agent import add_schedule, list_schedules, clear_schedules
@@ -247,6 +248,14 @@ def run_tool(intent, context=None):
     if action == "team_solve":
         goal = context.get("command", "").replace("team solve ", "").replace("ομάδα λύσε ", "").strip()
         return team_solve(goal)
+
+
+    
+    if action == "repair_system":
+        return repair_check()
+
+    if action == "repair_advice":
+        return repair_advice()
 
 
     return "UNKNOWN TOOL"
