@@ -7,6 +7,7 @@ from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
 from executor.security import check_token, check_admin_token
 from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats
+from executor import autonomy as autonomy_state
 
 app = Flask(__name__)
 
@@ -131,9 +132,27 @@ def sense_route():
 from executor.app_builder import list_apps
 
 
+
+@app.route("/remote/autonomy/start", methods=["POST"])
+def remote_autonomy_start_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify({"result": autonomy_state.start()})
+
+
+@app.route("/remote/autonomy/stop", methods=["POST"])
+def remote_autonomy_stop_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify({"result": autonomy_state.stop()})
+
+
+@app.route("/remote/autonomy/status")
+def remote_autonomy_status_route():
+    return jsonify(autonomy_state.status())
+
 @app.route("/remote/status")
 def remote_status_route():
-    from executor import autonomy as autonomy_state
     from executor.scheduler_agent import list_schedules
     from executor.battery_guard import battery_guard
     from executor.agent_review import review_last
@@ -162,20 +181,82 @@ def dashboard_route():
     body { font-family: sans-serif; padding: 16px; background: #111; color: #eee; }
     .card { background: #1d1d1d; padding: 14px; margin: 12px 0; border-radius: 12px; }
     pre { white-space: pre-wrap; word-break: break-word; }
-    button { padding: 10px 14px; border-radius: 10px; border: 0; }
+    input { width: 100%; padding: 10px; border-radius: 10px; border: 0; margin: 6px 0; }
+    button { padding: 10px 14px; border-radius: 10px; border: 0; margin: 4px; }
   </style>
 </head>
 <body>
   <h2>🧠 NOUS AI OS</h2>
-  <button onclick="loadStatus()">Refresh</button>
+
+  <div class="card">
+    <h3>Token</h3>
+    <input id="token" placeholder="X-NOUS-TOKEN">
+  </div>
+
+  <div class="card">
+    <h3>Controls</h3>
+    <button onclick="loadStatus()">Refresh</button>
+    <button onclick="autonomyStart()">Autonomy Start</button>
+    <button onclick="autonomyStop()">Autonomy Stop</button>
+    <button onclick="autonomyStatus()">Autonomy Status</button>
+  </div>
+
+  <div class="card">
+    <h3>Command</h3>
+    <input id="command" placeholder="π.χ. τι θυμάσαι?">
+    <button onclick="sendCommand()">Send</button>
+  </div>
+
   <div class="card"><pre id="out">Loading...</pre></div>
 
 <script>
+function getToken() {
+  return document.getElementById('token').value.trim();
+}
+
+function show(obj) {
+  document.getElementById('out').textContent = JSON.stringify(obj, null, 2);
+}
+
 async function loadStatus() {
   const r = await fetch('/remote/status');
-  const j = await r.json();
-  document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+  show(await r.json());
 }
+
+async function autonomyStatus() {
+  const r = await fetch('/remote/autonomy/status');
+  show(await r.json());
+}
+
+async function autonomyStart() {
+  const r = await fetch('/remote/autonomy/start', {
+    method: 'POST',
+    headers: {'X-NOUS-TOKEN': getToken()}
+  });
+  show(await r.json());
+}
+
+async function autonomyStop() {
+  const r = await fetch('/remote/autonomy/stop', {
+    method: 'POST',
+    headers: {'X-NOUS-TOKEN': getToken()}
+  });
+  show(await r.json());
+}
+
+async function sendCommand() {
+  const command = document.getElementById('command').value;
+  const r = await fetch('/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-NOUS-TOKEN': getToken()
+    },
+    body: JSON.stringify({command})
+  });
+  show(await r.json());
+}
+
 loadStatus();
 </script>
 </body>
