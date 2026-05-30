@@ -1937,5 +1937,12 @@
         "sim_state": "absent"
       }
     }
+  },
+  {
+    "command": "autonomy status",
+    "intent": {
+      "type": "tool",
+      "action": "autonomy_status"
+    }
   }
 ]

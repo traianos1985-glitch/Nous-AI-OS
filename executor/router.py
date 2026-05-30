@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
 from executor.security import check_token
+from executor.api_tokens import create_token, list_tokens, revoke_token
 
 app = Flask(__name__)
 
@@ -28,6 +29,25 @@ from executor.health import status as health_status
 def health():
     return jsonify(health_status())
 
+
+
+@app.route("/token/create", methods=["POST"])
+def token_create_route():
+    data = request.get_json(silent=True) or {}
+    name = data.get("name", "remote")
+    return jsonify(create_token(name))
+
+
+@app.route("/token/list")
+def token_list_route():
+    return jsonify(list_tokens())
+
+
+@app.route("/token/revoke", methods=["POST"])
+def token_revoke_route():
+    data = request.get_json(silent=True) or {}
+    token_id = data.get("id")
+    return jsonify(revoke_token(token_id))
 
 @app.route("/runtime")
 def runtime_route():
