@@ -4,8 +4,15 @@ from executor.memory import load
 
 BAD_GREEK_MARKERS = [
     "Έλεγχοςτελευταίων",
+    "Έλεγχος τελευταίωνενεργειών",
+    "τελευταίωνενεργειών",
     "τοModified",
     "Καταγράψτε",
+    "Προσθέστε",
+    "εκecute",
+    "εκτελείτε",
+    "εκπιπτόμενο",
+    "aim to",
     "\u202f",
 ]
 
@@ -15,6 +22,10 @@ def clean_review(text):
     text = text.replace("Έλεγχοςτελευταίων", "Έλεγχος τελευταίων")
     text = text.replace("τοModified", "το τροποποιημένο")
     text = text.replace("Καταγράψτε", "Κατέγραψε")
+    text = text.replace("Προσθέστε", "Πρόσθεσε")
+    text = text.replace("Έλεγχος τελευταίωνενεργειών", "Έλεγχος τελευταίων ενεργειών")
+    text = text.replace("τελευταίωνενεργειών", "τελευταίων ενεργειών")
+    text = text.replace("εκecute", "εκτέλεση")
     return text.strip()
 
 
