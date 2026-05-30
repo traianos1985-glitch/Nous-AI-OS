@@ -593,5 +593,33 @@
       "type": "tool",
       "action": "git_checkpoint"
     }
+  },
+  {
+    "command": "cloud info",
+    "intent": {
+      "type": "tool",
+      "action": "cloud_info"
+    }
+  },
+  {
+    "command": "make app test app",
+    "intent": {
+      "type": "tool",
+      "action": "make_app"
+    }
+  },
+  {
+    "command": "git status",
+    "intent": {
+      "type": "tool",
+      "action": "git_status"
+    }
+  },
+  {
+    "command": "stable",
+    "intent": {
+      "type": "tool",
+      "action": "stable"
+    }
   }
 ]
