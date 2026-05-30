@@ -1,3 +1,5 @@
+from executor.agent_executor import solve_goal, solve_and_checkpoint
+from executor.agent_review import review_last
 from executor.research_agent import web_search, fetch_page, research
 from executor.code_forge import forge_plugin
 from executor.app_builder import make_web_app, list_apps
@@ -201,6 +203,19 @@ def run_tool(intent, context=None):
     if action == "research":
         q = context.get("command", "").replace("research ", "").replace("έρευνα ", "").strip()
         return research(q)
+
+
+    
+    if action == "agent_solve":
+        goal = context.get("command", "").replace("agent solve ", "").replace("λύσε στόχο ", "").strip()
+        return solve_goal(goal)
+
+    if action == "agent_checkpoint":
+        goal = context.get("command", "").replace("agent checkpoint ", "").replace("λύσε και σώσε ", "").strip()
+        return solve_and_checkpoint(goal)
+
+    if action == "agent_review":
+        return review_last()
 
 
     return "UNKNOWN TOOL"

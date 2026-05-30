@@ -157,6 +157,16 @@ def detect_intent(text):
     if t.startswith("research ") or t.startswith("έρευνα "):
         return {"type": "tool", "action": "research"}
 
+    
+    if t.startswith("agent solve ") or t.startswith("λύσε στόχο "):
+        return {"type": "tool", "action": "agent_solve"}
+
+    if t.startswith("agent checkpoint ") or t.startswith("λύσε και σώσε "):
+        return {"type": "tool", "action": "agent_checkpoint"}
+
+    if t in ["agent review", "review agent", "έλεγχος agent"]:
+        return {"type": "tool", "action": "agent_review"}
+
     return {"type": "chat", "action": "chat"}
 
 
