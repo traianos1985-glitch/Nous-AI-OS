@@ -1,3 +1,7 @@
+import os
+import sys
+import platform
+import time
 from flask import Flask, request, jsonify, send_from_directory
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -23,6 +27,33 @@ from executor.health import status as health_status
 @app.route("/health")
 def health():
     return jsonify(health_status())
+
+
+@app.route("/runtime")
+def runtime_route():
+    return jsonify({
+        "system": "NOUS AI OS",
+        "level": 22,
+        "python": sys.version,
+        "platform": platform.platform(),
+        "time": time.time(),
+        "cloud_ready": True,
+        "host": "0.0.0.0",
+        "port": int(os.environ.get("PORT", "5000")),
+    })
+
+
+@app.route("/cloud/status")
+def cloud_status_route():
+    return jsonify({
+        "cloud_ready": True,
+        "runtime_endpoint": "/runtime",
+        "health_endpoint": "/health",
+        "chat_endpoint": "/chat",
+        "apps_endpoint": "/apps",
+        "port_env": os.environ.get("PORT"),
+        "default_port": 5000,
+    })
 
 @app.route("/backup")
 def backup_route():
@@ -79,4 +110,4 @@ def open_generated_app(name):
 
 if __name__ == "__main__":
     print("🧠 NUS AI OS LEVEL 22 RUNNING")
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "5000")))
