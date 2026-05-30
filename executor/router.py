@@ -9,6 +9,8 @@ from executor.security import check_token, check_admin_token
 from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats
 from executor import autonomy as autonomy_state
 from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle
+from executor.goal_executor import goal_executor_cycle
+from executor.task_queue import list_queue, clear_queue
 
 app = Flask(__name__)
 
@@ -135,6 +137,25 @@ from executor.app_builder import list_apps
 
 
 
+
+@app.route("/remote/queue")
+def remote_queue_route():
+    return jsonify(list_queue())
+
+
+@app.route("/remote/queue/clear", methods=["POST"])
+def remote_queue_clear_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(clear_queue())
+
+
+@app.route("/remote/goals/run", methods=["POST"])
+def remote_goals_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(goal_executor_cycle())
+
 @app.route("/remote/service/status")
 def remote_service_status_route():
     return jsonify(service_status())
@@ -196,6 +217,7 @@ def remote_status_route():
         "autonomy": autonomy_state.status(),
         "service": service_status(),
         "schedules": list_schedules(),
+        "queue": list_queue(),
         "review": review_last(),
         "time": time.time(),
         "tokens": token_stats(),
