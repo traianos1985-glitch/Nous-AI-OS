@@ -1,225 +1,46 @@
 [
   {
-    "id": 1780175619,
+    "id": 1780178619,
+    "task": "battery guard",
+    "raw": "κάθε 30 λεπτά battery guard",
+    "status": "scheduled",
+    "schedule_type": "interval",
+    "hour": null,
+    "minute": null,
+    "interval_seconds": 1800,
+    "next_run": 1780180419.6385198,
+    "created": 1780178619.6370518,
+    "last_run": 1780178619.6385198,
+    "last_result": {
+      "alert": false,
+      "level": 70,
+      "plugged": "UNPLUGGED"
+    }
+  },
+  {
+    "id": 1780178619,
+    "task": "repair system",
+    "raw": "κάθε ώρα repair system",
+    "status": "scheduled",
+    "schedule_type": "interval",
+    "hour": null,
+    "minute": null,
+    "interval_seconds": 3600,
+    "next_run": 1780182219.6375196,
+    "created": 1780178619.637524,
+    "last_run": null
+  },
+  {
+    "id": 1780178619,
     "task": "daily brief",
     "raw": "κάθε μέρα στις 09:00 daily brief",
     "status": "scheduled",
     "schedule_type": "daily",
     "hour": 9,
     "minute": 0,
-    "next_run": 1780293600.0,
-    "created": 1780175619.887116,
-    "last_run": 1780175619.8875804,
-    "last_result": {
-      "summary": "Ημερήσια εικόνα ΝΟΥΣ",
-      "goals": [
-        {
-          "id": 1780155389,
-          "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
-          "status": "active"
-        }
-      ],
-      "projects": [
-        {
-          "id": 1780155400,
-          "project": "ΝΟΥΣ AI OS mobile agent",
-          "status": "active",
-          "steps": [
-            {
-              "step": "όρισε το επόμενο μικρό πρακτικό βήμα",
-              "status": "suggested"
-            }
-          ]
-        }
-      ],
-      "recent_memory": [
-        {
-          "command": "git checkpoint planner fixed and agent plugin success",
-          "intent": {
-            "type": "tool",
-            "action": "git_checkpoint"
-          }
-        },
-        {
-          "command": "schedules",
-          "intent": {
-            "type": "tool",
-            "action": "list_schedules"
-          }
-        },
-        {
-          "command": "τι θυμάσαι?",
-          "intent": {
-            "type": "chat",
-            "action": "chat"
-          }
-        },
-        {
-          "command": "team plan κάνε τον ΝΟΥΣ cloud agent",
-          "intent": {
-            "type": "tool",
-            "action": "team_plan"
-          }
-        },
-        {
-          "command": "repair system",
-          "intent": {
-            "type": "tool",
-            "action": "repair_system"
-          }
-        },
-        {
-          "event": "repair_check",
-          "result": {
-            "compile": {
-              "executor/router.py": "ok",
-              "executor/kernel.py": "ok",
-              "executor/intent.py": "ok",
-              "executor/tools.py": "ok",
-              "executor/llm_core.py": "ok",
-              "executor/brain.py": "ok",
-              "executor/hybrid_agent.py": "ok",
-              "executor/control_center.py": "ok"
-            },
-            "git_status": " M data/memory.json\n",
-            "healthy": true
-          }
-        },
-        {
-          "command": "autonomy",
-          "intent": {
-            "type": "tool",
-            "action": "autonomy_cycle"
-          }
-        },
-        {
-          "event": "android_sense",
-          "data": {
-            "time": 1780172647.7777474,
-            "clipboard": "",
-            "battery": {
-              "present": true,
-              "technology": "Li-poly",
-              "health": "GOOD",
-              "plugged": "UNPLUGGED",
-              "status": "DISCHARGING",
-              "temperature": 32.7,
-              "voltage": 4174,
-              "current": 436034,
-              "percentage": 98,
-              "level": 98,
-              "scale": 100,
-              "charge_counter": 2375189
-            },
-            "device": {
-              "data_enabled": "false",
-              "data_activity": "none",
-              "data_state": "disconnected",
-              "device_id": null,
-              "device_software_version": "00",
-              "phone_count": 2,
-              "phone_type": "gsm",
-              "network_operator": "",
-              "network_operator_name": "",
-              "network_country_iso": "gr",
-              "network_type": "edge",
-              "network_roaming": false,
-              "sim_country_iso": "",
-              "sim_operator": "",
-              "sim_operator_name": "",
-              "sim_serial_number": null,
-              "sim_subscriber_id": null,
-              "sim_state": "absent"
-            }
-          }
-        },
-        {
-          "event": "android_sense",
-          "data": {
-            "time": 1780172650.112406,
-            "clipboard": "",
-            "battery": {
-              "present": true,
-              "technology": "Li-poly",
-              "health": "GOOD",
-              "plugged": "UNPLUGGED",
-              "status": "DISCHARGING",
-              "temperature": 32.7,
-              "voltage": 4174,
-              "current": 436034,
-              "percentage": 98,
-              "level": 98,
-              "scale": 100,
-              "charge_counter": 2375189
-            },
-            "device": {
-              "data_enabled": "false",
-              "data_activity": "none",
-              "data_state": "disconnected",
-              "device_id": null,
-              "device_software_version": "00",
-              "phone_count": 2,
-              "phone_type": "gsm",
-              "network_operator": "",
-              "network_operator_name": "",
-              "network_country_iso": "gr",
-              "network_type": "edge",
-              "network_roaming": false,
-              "sim_country_iso": "",
-              "sim_operator": "",
-              "sim_operator_name": "",
-              "sim_serial_number": null,
-              "sim_subscriber_id": null,
-              "sim_state": "absent"
-            }
-          }
-        },
-        {
-          "command": "git checkpoint autonomy upgrades passed",
-          "intent": {
-            "type": "tool",
-            "action": "git_checkpoint"
-          }
-        }
-      ],
-      "device": {
-        "time": 1780175620.427927,
-        "clipboard": "python - <<'PY'\nimport time\nfrom executor.scheduler_agent import clear_schedules, add_schedule, list_schedules, run_due_schedules\n\nclear_schedules()\nitem = add_schedule(\"κάθε μέρα στις 09:00 daily brief\")\n\ntasks = list_schedules()\ntasks[0][\"next_run\"] = time.time() - 1\n\nimport json\njson.dump(tasks, open(\"data/scheduled_tasks.json\", \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=2)\n\nprint(run_due_schedules())\nprint(list_schedules())\nPY",
-        "battery": {
-          "present": true,
-          "technology": "Li-poly",
-          "health": "GOOD",
-          "plugged": "UNPLUGGED",
-          "status": "DISCHARGING",
-          "temperature": 35.2,
-          "voltage": 4034,
-          "current": 486327,
-          "percentage": 85,
-          "level": 85,
-          "scale": 100,
-          "charge_counter": 2064787
-        },
-        "device": {
-          "data_enabled": "false",
-          "data_activity": "none",
-          "data_state": "disconnected",
-          "device_id": null,
-          "device_software_version": "00",
-          "phone_count": 2,
-          "phone_type": "gsm",
-          "network_operator": "",
-          "network_operator_name": "",
-          "network_country_iso": "gr",
-          "network_type": "edge",
-          "network_roaming": false,
-          "sim_country_iso": "",
-          "sim_operator": "",
-          "sim_operator_name": "",
-          "sim_serial_number": null,
-          "sim_subscriber_id": null,
-          "sim_state": "absent"
-        }
-      }
-    }
+    "interval_seconds": null,
+    "next_run": 1780207200.0,
+    "created": 1780178619.6380565,
+    "last_run": null
   }
 ]

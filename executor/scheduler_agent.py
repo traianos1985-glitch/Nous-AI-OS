@@ -29,6 +29,12 @@ def _today_at(hour, minute):
     return target.timestamp()
 
 
+def _next_daily_run(hour, minute):
+    now = datetime.now()
+    target = now.replace(hour=hour, minute=minute, second=0, microsecond=0) + timedelta(days=1)
+    return target.timestamp()
+
+
 def parse_schedule(text):
     raw = str(text).strip()
     lower = raw.lower()
@@ -40,6 +46,33 @@ def parse_schedule(text):
     if time_match:
         hour = int(time_match.group(1))
         minute = int(time_match.group(2))
+
+    every_minutes = re.search(r"κάθε\s+(\d+)\s+λεπ", lower) or re.search(r"every\s+(\d+)\s+min", lower)
+    if every_minutes:
+        interval = int(every_minutes.group(1))
+        task = re.sub(r"κάθε\s+\d+\s+λεπ\w*", "", raw, flags=re.I).strip()
+        task = re.sub(r"every\s+\d+\s+min\w*", "", task, flags=re.I).strip()
+        return {
+            "task": task or raw,
+            "schedule_type": "interval",
+            "hour": None,
+            "minute": None,
+            "interval_seconds": interval * 60,
+            "next_run": time.time() + interval * 60,
+        }
+
+    if "κάθε ώρα" in lower or "every hour" in lower or "hourly" in lower:
+        task = raw
+        task = re.sub(r"κάθε ώρα", "", task, flags=re.I).strip()
+        task = re.sub(r"every hour|hourly", "", task, flags=re.I).strip()
+        return {
+            "task": task or raw,
+            "schedule_type": "interval",
+            "hour": None,
+            "minute": None,
+            "interval_seconds": 3600,
+            "next_run": time.time() + 3600,
+        }
 
     if "κάθε μέρα" in lower or "daily" in lower or "every day" in lower:
         if hour is None:
@@ -57,6 +90,7 @@ def parse_schedule(text):
             "schedule_type": "daily",
             "hour": hour,
             "minute": minute,
+            "interval_seconds": None,
             "next_run": _today_at(hour, minute),
         }
 
@@ -65,6 +99,7 @@ def parse_schedule(text):
         "schedule_type": "manual",
         "hour": None,
         "minute": None,
+        "interval_seconds": None,
         "next_run": None,
     }
 
@@ -81,6 +116,7 @@ def add_schedule(text):
         "schedule_type": parsed["schedule_type"],
         "hour": parsed["hour"],
         "minute": parsed["minute"],
+        "interval_seconds": parsed.get("interval_seconds"),
         "next_run": parsed["next_run"],
         "created": time.time(),
         "last_run": None,
@@ -100,18 +136,20 @@ def clear_schedules():
     return {"cleared": True}
 
 
-def _next_daily_run(hour, minute):
-    now = datetime.now()
-    target = now.replace(hour=hour, minute=minute, second=0, microsecond=0) + timedelta(days=1)
-    return target.timestamp()
-
-
 def execute_scheduled_task(task_text):
     text = str(task_text).strip().lower()
 
     if text == "daily brief" or text == "ημερήσια εικόνα":
         from executor.daily_brief import daily_brief
         return daily_brief()
+
+    if text == "repair system" or text == "επισκευή συστήματος":
+        from executor.repair_agent import repair_check
+        return repair_check()
+
+    if text == "battery guard" or text == "έλεγχος μπαταρίας":
+        from executor.battery_guard import battery_guard
+        return battery_guard()
 
     return {
         "status": "skipped",
@@ -146,6 +184,8 @@ def run_due_schedules(now=None):
                     int(item.get("hour", 9)),
                     int(item.get("minute", 0)),
                 )
+            elif item.get("schedule_type") == "interval":
+                item["next_run"] = float(now) + int(item.get("interval_seconds", 3600))
             else:
                 item["status"] = "done"
 
