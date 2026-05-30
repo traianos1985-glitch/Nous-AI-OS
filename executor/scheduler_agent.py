@@ -48,7 +48,7 @@ def parse_schedule(text):
 
         task = raw
         task = re.sub(r"κάθε μέρα", "", task, flags=re.I).strip()
-        task = re.sub(r"daily|every day", "", task, flags=re.I).strip()
+        task = re.sub(r"^\s*(daily|every day)\s+", "", task, flags=re.I).strip()
         task = re.sub(r"στις\s+\d{1,2}:\d{2}", "", task, flags=re.I).strip()
         task = re.sub(r"at\s+\d{1,2}:\d{2}", "", task, flags=re.I).strip()
 

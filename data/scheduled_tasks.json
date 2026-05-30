@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1780175436,
+    "task": "daily brief",
+    "raw": "κάθε μέρα στις 09:00 daily brief",
+    "status": "scheduled",
+    "schedule_type": "daily",
+    "hour": 9,
+    "minute": 0,
+    "next_run": 1780207200.0,
+    "created": 1780175436.7842607,
+    "last_run": null
+  }
+]
