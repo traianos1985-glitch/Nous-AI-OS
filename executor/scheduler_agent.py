@@ -109,7 +109,7 @@ def add_schedule(text):
     parsed = parse_schedule(text)
 
     item = {
-        "id": int(time.time()),
+        "id": time.time_ns(),
         "task": parsed["task"],
         "raw": str(text).strip(),
         "status": "scheduled",

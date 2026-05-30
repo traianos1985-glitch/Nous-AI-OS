@@ -1561,5 +1561,54 @@
   {
     "event": "autonomy_stopped",
     "time": 1780178619.881397
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780178783.6785398,
+      "clipboard": "python - <<'PY'\nimport time, json\nfrom executor.agent_review import review_last\nfrom executor.scheduler_agent import clear_schedules, add_schedule, list_schedules, run_due_schedules\nfrom executor.intent import detect_intent\nfrom executor.tools import run_tool\n\nprint(\"---- REVIEW ----\")\nprint(review_last())\n\nprint(\"---- SCHEDULER ----\")\nclear_schedules()\nprint(add_schedule(\"κάθε 30 λεπτά battery guard\"))\nprint(add_schedule(\"κάθε ώρα repair system\"))\nprint(add_schedule(\"κάθε μέρα στις 09:00 daily brief\"))\n\ntasks = list_schedules()\ntasks[0][\"next_run\"] = time.time() - 1\njson.dump(tasks, open(\"data/scheduled_tasks.json\", \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=2)\nprint(run_due_schedules())\n\nprint(\"---- AUTONOMY COMMANDS ----\")\nfor cmd in [\"autonomy status\", \"autonomy start\", \"autonomy status\", \"autonomy stop\", \"autonomy status\"]:\n    intent = detect_intent(cmd)\n    print(cmd, \"=>\", intent, \"=>\", run_tool(intent, {\"command\": cmd}))\n\nprint(\"OK\")\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.2,
+        "voltage": 3937,
+        "current": 406249,
+        "percentage": 70,
+        "level": 70,
+        "scale": 100,
+        "charge_counter": 1701496
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "autonomy_started",
+    "time": 1780178783.8272996
+  },
+  {
+    "event": "autonomy_stopped",
+    "time": 1780178783.8356152
   }
 ]
