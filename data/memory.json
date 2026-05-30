@@ -1,0 +1,220 @@
+[
+  {
+    "command": "Τι κάνεις;",
+    "intent": {
+      "type": "chat",
+      "action": "chat"
+    }
+  },
+  {
+    "command": "Τι κάνεις?",
+    "intent": {
+      "type": "chat",
+      "action": "chat"
+    }
+  },
+  {
+    "command": "Τι κάνεις?",
+    "intent": {
+      "type": "chat",
+      "action": "chat"
+    }
+  },
+  {
+    "command": "Τι κάνεις?",
+    "intent": {
+      "type": "chat",
+      "action": "chat"
+    }
+  },
+  {
+    "command": "Τι κάνεις;",
+    "intent": {
+      "type": "chat",
+      "action": "chat"
+    }
+  },
+  {
+    "command": "sysinfo",
+    "intent": {
+      "type": "tool",
+      "action": "sysinfo"
+    }
+  },
+  {
+    "command": "snapshot",
+    "intent": {
+      "type": "tool",
+      "action": "snapshot"
+    }
+  },
+  {
+    "command": "compile",
+    "intent": {
+      "type": "tool",
+      "action": "compile"
+    }
+  },
+  {
+    "command": "sysinfo",
+    "intent": {
+      "type": "tool",
+      "action": "sysinfo"
+    }
+  },
+  {
+    "command": "snapshot",
+    "intent": {
+      "type": "tool",
+      "action": "snapshot"
+    }
+  },
+  {
+    "command": "compile",
+    "intent": {
+      "type": "tool",
+      "action": "compile"
+    }
+  },
+  {
+    "command": "memory summary",
+    "intent": {
+      "type": "tool",
+      "action": "memory_summary"
+    }
+  },
+  {
+    "command": "plan φτιάξε plugin calculator",
+    "intent": {
+      "type": "tool",
+      "action": "plan"
+    }
+  },
+  {
+    "command": "task να βελτιώσω το UI",
+    "intent": {
+      "type": "tool",
+      "action": "task"
+    }
+  },
+  {
+    "command": "tasks",
+    "intent": {
+      "type": "tool",
+      "action": "tasks"
+    }
+  },
+  {
+    "command": "read source executor/kernel.py",
+    "intent": {
+      "type": "tool",
+      "action": "read_source"
+    }
+  },
+  {
+    "command": "stable",
+    "intent": {
+      "type": "tool",
+      "action": "stable"
+    }
+  },
+  {
+    "command": "make plugin hello world",
+    "intent": {
+      "type": "tool",
+      "action": "make_plugin"
+    }
+  },
+  {
+    "command": "plugins",
+    "intent": {
+      "type": "tool",
+      "action": "plugin"
+    }
+  },
+  {
+    "command": "stable",
+    "intent": {
+      "type": "tool",
+      "action": "stable"
+    }
+  },
+  {
+    "command": "σκέψου πώς μπορώ να κάνω τον ΝΟΥΣ πιο χρήσιμο στην καθημερινότητα μου",
+    "intent": {
+      "type": "tool",
+      "action": "think_deep"
+    }
+  },
+  {
+    "thinking_session": "σκέψου πώς μπορώ να κάνω τον ΝΟΥΣ πιο χρήσιμο στην καθημερινότητα μου",
+    "result": null
+  },
+  {
+    "command": "λύσε γιατί συνέχεια σπάει ο κώδικας όταν κάνουμε πολλές αλλαγές",
+    "intent": {
+      "type": "tool",
+      "action": "solve_problem"
+    }
+  },
+  {
+    "command": "απόφαση να συνεχίσω με Termux ή να βάλω GitHub sync",
+    "intent": {
+      "type": "tool",
+      "action": "decide"
+    }
+  },
+  {
+    "command": "σκέψου πώς μπορώ να κάνω τον ΝΟΥΣ πιο χρήσιμο στην καθημερινότητα μου",
+    "intent": {
+      "type": "tool",
+      "action": "think_deep"
+    }
+  },
+  {
+    "thinking_session": "σκέψου πώς μπορώ να κάνω τον ΝΟΥΣ πιο χρήσιμο στην καθημερινότητα μου",
+    "result": "\n1. Περίληψη\nΟ ΝΟΥΣ AI OS μπορεί να γίνει πιο χρήσιμος στην καθημερινότητά σου με τη δημιουργία προσαρμοσμένων plugins, την αυτοματοποίηση εργασιών και την ενσωμάτωση σε υπάρχους workflows.\n\n2. Βασικά προβλήματα\n- Έλλειψη προσαρμοσμένης λειτουργικότητας για τις ανάγκες σου\n- Πιθανή αδυναμία ενσωμάτωσης με άλλες εφαρμογές/συστήματα\n- Περιορισμένη πρόσβαση σε δεδομένα ή εργαλεία που χρησιμοποιείς καθημερινά\n\n3. Πιθανές λύσεις\n- Δημιουργία plugins για"
+  },
+  {
+    "command": "λύσε γιατί συνέχεια σπάει ο κώδικας όταν κάνουμε πολλές αλλαγές",
+    "intent": {
+      "type": "tool",
+      "action": "solve_problem"
+    }
+  },
+  {
+    "command": "απόφαση να συνεχίσω με Termux ή να βάλω GitHub sync",
+    "intent": {
+      "type": "tool",
+      "action": "decide"
+    }
+  },
+  {
+    "command": ".",
+    "intent": {
+      "type": "chat",
+      "action": "chat"
+    }
+  },
+  {
+    "command": "απόφαση να συνεχίσω με Termux ή να βάλω GitHub sync",
+    "intent": {
+      "type": "tool",
+      "action": "decide"
+    }
+  },
+  {
+    "command": "απόφαση να συνεχίσω με Termux ή να βάλω GitHub sync",
+    "intent": {
+      "type": "tool",
+      "action": "decide"
+    }
+  },
+  {
+    "command": "απόφαση να συνεχίσω με Termux ή να βάλω GitHub sync",
+    "intent": {
+      "type": "tool",
+      "action": "decide"
+    }
+  }
+]
