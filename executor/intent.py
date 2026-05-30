@@ -105,6 +105,10 @@ def detect_intent(text):
     if t.startswith("σχέδιο στόχου ") or t.startswith("plan goal "):
         return {"type": "tool", "action": "plan_goal"}
 
+    
+    if t in ["sense", "/sense", "αισθήσεις", "android sense"]:
+        return {"type": "tool", "action": "sense"}
+
     return {"type": "chat", "action": "chat"}
 
 

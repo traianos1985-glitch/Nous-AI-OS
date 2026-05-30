@@ -56,6 +56,13 @@ def image_preview_route():
     path = data.get("path", "")
     return jsonify(image_preview(path))
 
+
+from executor.android_sense import sense as android_sense
+
+@app.route("/sense")
+def sense_route():
+    return jsonify(android_sense())
+
 if __name__ == "__main__":
     print("🧠 NUS AI OS LEVEL 22 RUNNING")
     app.run(host="0.0.0.0", port=5000)
