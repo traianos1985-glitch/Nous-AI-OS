@@ -200,6 +200,16 @@ def detect_intent(text):
         return {"type": "tool", "action": "repair_advice"}
 
     
+
+    if t in ["autonomy start", "start autonomy", "ξεκίνα αυτονομία", "έναρξη αυτονομίας"]:
+        return {"type": "tool", "action": "autonomy_start"}
+
+    if t in ["autonomy stop", "stop autonomy", "σταμάτα αυτονομία", "παύση αυτονομίας"]:
+        return {"type": "tool", "action": "autonomy_stop"}
+
+    if t in ["autonomy status", "status autonomy", "κατάσταση αυτονομίας"]:
+        return {"type": "tool", "action": "autonomy_status"}
+
     if t in ["autonomy", "autonomy cycle", "κύκλος αυτονομίας"]:
         return {"type": "tool", "action": "autonomy_cycle"}
 

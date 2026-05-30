@@ -1504,5 +1504,13 @@
       "scheduled_executed",
       "review"
     ]
+  },
+  {
+    "event": "autonomy_started",
+    "time": 1780178034.1869214
+  },
+  {
+    "event": "autonomy_stopped",
+    "time": 1780178034.1908424
   }
 ]

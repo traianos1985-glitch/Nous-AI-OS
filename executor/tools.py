@@ -1,4 +1,5 @@
 from executor.autonomy_v3 import autonomy_cycle
+from executor import autonomy as autonomy_state
 from executor.repair_agent import repair_check, repair_advice
 from executor.team_agent import team_plan, team_solve
 from executor.long_memory import recall
@@ -260,6 +261,17 @@ def run_tool(intent, context=None):
 
 
     
+
+    if action == "autonomy_start":
+        return autonomy_state.start()
+
+    if action == "autonomy_stop":
+        return autonomy_state.stop()
+
+    if action == "autonomy_status":
+        return autonomy_state.status()
+
+
     if action == "autonomy_cycle":
         return autonomy_cycle()
 
