@@ -65,3 +65,41 @@ def update_task(task_id, **updates):
 def clear_queue():
     _save([])
     return {"cleared": True}
+
+
+def retry_failed(max_attempts=3):
+    items = _load()
+    changed = []
+
+    for item in items:
+        if item.get("status") != "failed":
+            continue
+
+        if int(item.get("attempts", 0)) >= int(max_attempts):
+            continue
+
+        item["status"] = "pending"
+        item["last_error"] = None
+        changed.append(item)
+
+    _save(items)
+    return {"retried": changed}
+
+
+def recover_dead_tasks(max_age_seconds=900):
+    now = time.time()
+    items = _load()
+    recovered = []
+
+    for item in items:
+        if item.get("status") != "running":
+            continue
+
+        started = item.get("started") or 0
+        if now - float(started) >= float(max_age_seconds):
+            item["status"] = "pending"
+            item["last_error"] = "recovered_from_stale_running_state"
+            recovered.append(item)
+
+    _save(items)
+    return {"recovered": recovered}

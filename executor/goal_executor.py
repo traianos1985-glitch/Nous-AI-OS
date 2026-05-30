@@ -3,6 +3,7 @@ import time
 from executor.personal_agent import load_db
 from executor.task_queue import add_task, next_task, update_task, list_queue
 from executor.memory import save
+from executor.project_progress import project_summary
 
 
 def seed_goals_to_queue():
@@ -40,8 +41,9 @@ def execute_task(item):
         goal = item.get("payload", {}).get("goal", title)
         return {
             "summary": f"Ο στόχος '{goal}' είναι ενεργός.",
-            "next_step": "Ζήτησε από τον planner συγκεκριμένο μικρό βήμα ή σύνδεσέ τον με project step.",
+            "next_step": "Σύνδεσε τον στόχο με το πιο σχετικό project step.",
             "status": "reviewed",
+            "projects_progress": project_summary(),
         }
 
     return {

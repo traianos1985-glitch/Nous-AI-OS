@@ -8,11 +8,12 @@ from executor.control_center import CONTROL_CENTER_HTML
 from executor.security import check_token, check_admin_token
 from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats
 from executor import autonomy as autonomy_state
-from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle
+from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle, watchdog_check
 from executor.goal_executor import goal_executor_cycle
 from executor.project_progress import list_progress, project_summary, sync_projects, mark_step
 from executor.self_healing_runtime import self_heal_check
-from executor.task_queue import list_queue, clear_queue
+from executor.task_queue import list_queue, clear_queue, retry_failed, recover_dead_tasks
+from executor.runtime_metrics import collect_metrics
 
 app = Flask(__name__)
 
@@ -141,6 +142,30 @@ from executor.app_builder import list_apps
 
 
 
+
+@app.route("/remote/metrics")
+def remote_metrics_route():
+    return jsonify(collect_metrics())
+
+
+@app.route("/remote/service/watchdog")
+def remote_service_watchdog_route():
+    return jsonify(watchdog_check())
+
+
+@app.route("/remote/queue/retry-failed", methods=["POST"])
+def remote_queue_retry_failed_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(retry_failed())
+
+
+@app.route("/remote/queue/recover-dead", methods=["POST"])
+def remote_queue_recover_dead_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(recover_dead_tasks())
+
 @app.route("/remote/projects")
 def remote_projects_route():
     return jsonify(list_progress())
@@ -258,6 +283,7 @@ def remote_status_route():
         "schedules": list_schedules(),
         "queue": list_queue(),
         "projects_progress": project_summary(),
+        "metrics": collect_metrics(),
         "review": review_last(),
         "time": time.time(),
         "tokens": token_stats(),
