@@ -2,9 +2,31 @@ import time
 
 from executor import autonomy
 from executor.autonomy_v3 import autonomy_cycle
+from executor.battery_guard import battery_guard
 
 
-def run_once():
+def battery_allows_run(min_level=25):
+    info = battery_guard()
+    level = int(info.get("level", 100))
+    plugged = str(info.get("plugged", "")).upper()
+
+    if level < int(min_level) and plugged == "UNPLUGGED":
+        return False, info
+
+    return True, info
+
+
+def run_once(min_battery=25):
+    allowed, battery = battery_allows_run(min_battery)
+
+    if not allowed:
+        result = {
+            "skipped": True,
+            "reason": "low_battery",
+            "battery": battery,
+        }
+        return autonomy.mark_run(result)
+
     result = autonomy_cycle()
     return autonomy.mark_run(result)
 

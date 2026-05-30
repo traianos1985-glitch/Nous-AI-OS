@@ -1328,5 +1328,181 @@
   {
     "event": "autonomy_stopped",
     "time": 1780177069.4958298
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780177344.1814544,
+      "clipboard": "python - <<'PY'\nfrom executor.autonomous_loop import battery_allows_run, run_once\n\nprint(\"battery check:\", battery_allows_run())\nr = run_once()\nprint(\"run_once keys:\", r.keys())\nprint(\"skipped:\", r.get(\"skipped\"))\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.0,
+        "voltage": 3946,
+        "current": 479980,
+        "percentage": 78,
+        "level": 78,
+        "scale": 100,
+        "charge_counter": 1896644
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780177344.370511,
+      "clipboard": "python - <<'PY'\nfrom executor.autonomous_loop import battery_allows_run, run_once\n\nprint(\"battery check:\", battery_allows_run())\nr = run_once()\nprint(\"run_once keys:\", r.keys())\nprint(\"skipped:\", r.get(\"skipped\"))\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.0,
+        "voltage": 3946,
+        "current": 479980,
+        "percentage": 78,
+        "level": 78,
+        "scale": 100,
+        "charge_counter": 1896644
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780177344.5073285,
+      "clipboard": "python - <<'PY'\nfrom executor.autonomous_loop import battery_allows_run, run_once\n\nprint(\"battery check:\", battery_allows_run())\nr = run_once()\nprint(\"run_once keys:\", r.keys())\nprint(\"skipped:\", r.get(\"skipped\"))\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.0,
+        "voltage": 3946,
+        "current": 479980,
+        "percentage": 78,
+        "level": 78,
+        "scale": 100,
+        "charge_counter": 1896644
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780177344.648466,
+      "clipboard": "python - <<'PY'\nfrom executor.autonomous_loop import battery_allows_run, run_once\n\nprint(\"battery check:\", battery_allows_run())\nr = run_once()\nprint(\"run_once keys:\", r.keys())\nprint(\"skipped:\", r.get(\"skipped\"))\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.0,
+        "voltage": 3946,
+        "current": 479980,
+        "percentage": 78,
+        "level": 78,
+        "scale": 100,
+        "charge_counter": 1896644
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "autonomy_loop_run",
+    "time": 1780177354.01744,
+    "result_keys": [
+      "time",
+      "battery",
+      "daily_brief",
+      "scheduled",
+      "scheduled_executed",
+      "review"
+    ]
   }
 ]
