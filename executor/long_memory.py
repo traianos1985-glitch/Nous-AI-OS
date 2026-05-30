@@ -33,6 +33,24 @@ def as_list(value):
     return []
 
 
+def format_memory_item(item):
+    if isinstance(item, dict):
+        if "goal" in item:
+            return item.get("goal", "")
+        if "project" in item:
+            project = item.get("project", "")
+            steps = item.get("steps", [])
+            if steps and isinstance(steps, list):
+                first = steps[0]
+                if isinstance(first, dict) and first.get("step"):
+                    return f"{project} — επόμενο βήμα: {first.get('step')}"
+            return project
+        if "command" in item:
+            return item.get("command", "")
+        if "event" in item:
+            return f"event: {item.get('event')}"
+    return str(item)
+
 def recall(query=""):
     db = load_db()
     mem = load()
@@ -51,17 +69,17 @@ def recall(query=""):
             profile.append(text)
 
     for g in as_list(db.get("goals", [])):
-        text = str(g)
+        text = format_memory_item(g)
         if generic or q in text.lower():
             goals.append(text)
 
     for p in as_list(db.get("projects", [])):
-        text = str(p)
+        text = format_memory_item(p)
         if generic or q in text.lower():
             projects.append(text)
 
     for item in mem[-100:]:
-        text = str(item)
+        text = format_memory_item(item)
         if generic or q in text.lower():
             memories.append(text)
 
