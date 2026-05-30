@@ -109,6 +109,10 @@ def detect_intent(text):
     if t in ["sense", "/sense", "αισθήσεις", "android sense"]:
         return {"type": "tool", "action": "sense"}
 
+    
+    if t in ["sense think", "σκέψου αισθήσεις", "ανάλυσε κινητό"]:
+        return {"type": "tool", "action": "sense_think"}
+
     return {"type": "chat", "action": "chat"}
 
 

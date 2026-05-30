@@ -1,3 +1,4 @@
+from executor.sense_brain import sense_and_think
 from executor.android_sense import sense
 from executor.personal_agent import remember_fact, add_goal, add_project, list_state, plan_goal
 from executor.thinking_tools import think_deep, solve_problem, decide
@@ -132,6 +133,10 @@ def run_tool(intent, context=None):
     
     if action == "sense":
         return sense()
+
+    
+    if action == "sense_think":
+        return sense_and_think()
 
     return "UNKNOWN TOOL"
 

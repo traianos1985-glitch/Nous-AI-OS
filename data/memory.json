@@ -265,5 +265,36 @@
       "type": "tool",
       "action": "plan_goal"
     }
+  },
+  {
+    "command": "sense",
+    "intent": {
+      "type": "tool",
+      "action": "sense"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780155885.8892353,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3652,
+        "current": 276367,
+        "percentage": 29,
+        "level": 29,
+        "scale": 100,
+        "charge_counter": 681811
+      },
+      "device": {
+        "error": "Please grant the following permission to use this command: android.permission.READ_PHONE_STATE"
+      }
+    }
   }
 ]
