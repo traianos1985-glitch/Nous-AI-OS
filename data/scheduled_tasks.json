@@ -8,9 +8,14 @@
     "hour": null,
     "minute": null,
     "interval_seconds": 1800,
-    "next_run": 1780180698.9742954,
+    "next_run": 1780185345.820038,
     "created": 1780178898.9743018,
-    "last_run": null
+    "last_run": 1780183545.820038,
+    "last_result": {
+      "alert": false,
+      "level": 41,
+      "plugged": "UNPLUGGED"
+    }
   },
   {
     "id": 1780178898974842766,
@@ -21,9 +26,23 @@
     "hour": null,
     "minute": null,
     "interval_seconds": 3600,
-    "next_run": 1780182498.9748402,
+    "next_run": 1780187145.820038,
     "created": 1780178898.9748452,
-    "last_run": null
+    "last_run": 1780183545.820038,
+    "last_result": {
+      "compile": {
+        "executor/router.py": "ok",
+        "executor/kernel.py": "ok",
+        "executor/intent.py": "ok",
+        "executor/tools.py": "ok",
+        "executor/llm_core.py": "ok",
+        "executor/brain.py": "ok",
+        "executor/hybrid_agent.py": "ok",
+        "executor/control_center.py": "ok"
+      },
+      "git_status": " M data/memory.json\n M executor/router.py\n?? data/autonomy_service.json\n?? executor/autonomy_service.py\n",
+      "healthy": true
+    }
   },
   {
     "id": 1780178898975500161,
