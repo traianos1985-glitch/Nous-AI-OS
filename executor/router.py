@@ -5,8 +5,8 @@ import time
 from flask import Flask, request, jsonify, send_from_directory
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
-from executor.security import check_token
-from executor.api_tokens import create_token, list_tokens, revoke_token
+from executor.security import check_token, check_admin_token
+from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats
 
 app = Flask(__name__)
 
@@ -33,6 +33,9 @@ def health():
 
 @app.route("/token/create", methods=["POST"])
 def token_create_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
     data = request.get_json(silent=True) or {}
     name = data.get("name", "remote")
     return jsonify(create_token(name))
@@ -40,11 +43,17 @@ def token_create_route():
 
 @app.route("/token/list")
 def token_list_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
     return jsonify(list_tokens())
 
 
 @app.route("/token/revoke", methods=["POST"])
 def token_revoke_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
     data = request.get_json(silent=True) or {}
     token_id = data.get("id")
     return jsonify(revoke_token(token_id))
@@ -73,6 +82,7 @@ def cloud_status_route():
         "apps_endpoint": "/apps",
         "port_env": os.environ.get("PORT"),
         "default_port": 5000,
+        "tokens": token_stats(),
     })
 
 @app.route("/backup")
@@ -136,6 +146,7 @@ def remote_status_route():
         "schedules": list_schedules(),
         "review": review_last(),
         "time": time.time(),
+        "tokens": token_stats(),
     })
 
 

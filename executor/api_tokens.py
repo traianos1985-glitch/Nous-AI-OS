@@ -25,6 +25,23 @@ def _hash(token):
     return hashlib.sha256(token.encode("utf-8")).hexdigest()
 
 
+def active_tokens():
+    return [t for t in _load() if not t.get("revoked")]
+
+
+def has_active_tokens():
+    return len(active_tokens()) > 0
+
+
+def token_stats():
+    tokens = _load()
+    return {
+        "total": len(tokens),
+        "active": len([t for t in tokens if not t.get("revoked")]),
+        "revoked": len([t for t in tokens if t.get("revoked")]),
+    }
+
+
 def create_token(name="remote"):
     token = "nous_" + secrets.token_urlsafe(32)
     item = {
@@ -80,7 +97,6 @@ def token_allowed(token):
 
     h = _hash(str(token))
     tokens = _load()
-    changed = False
 
     for item in tokens:
         if item.get("revoked"):
@@ -88,11 +104,7 @@ def token_allowed(token):
 
         if item.get("token_hash") == h:
             item["last_used"] = time.time()
-            changed = True
             _save(tokens)
             return True
-
-    if changed:
-        _save(tokens)
 
     return False

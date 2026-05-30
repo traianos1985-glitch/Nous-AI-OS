@@ -1951,5 +1951,87 @@
       "type": "tool",
       "action": "autonomy_status"
     }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780181365.9080033,
+      "clipboard": "python - <<'PY'\nfrom executor.router import app\nfrom executor.api_tokens import token_stats\n\nclient = app.test_client()\n\nprint(\"stats:\", token_stats())\n\nr = client.get(\"/token/list\")\nprint(\"token/list without header:\", r.status_code, r.get_json())\n\nprint(\"cloud:\", client.get(\"/cloud/status\").status_code, client.get(\"/cloud/status\").get_json())\nprint(\"remote:\", client.get(\"/remote/status\").status_code, \"json\" if client.get(\"/remote/status\").is_json else \"html\")\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.2,
+        "voltage": 3795,
+        "current": 484863,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1337447
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780181366.162254,
+      "clipboard": "python - <<'PY'\nfrom executor.router import app\nfrom executor.api_tokens import token_stats\n\nclient = app.test_client()\n\nprint(\"stats:\", token_stats())\n\nr = client.get(\"/token/list\")\nprint(\"token/list without header:\", r.status_code, r.get_json())\n\nprint(\"cloud:\", client.get(\"/cloud/status\").status_code, client.get(\"/cloud/status\").get_json())\nprint(\"remote:\", client.get(\"/remote/status\").status_code, \"json\" if client.get(\"/remote/status\").is_json else \"html\")\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.2,
+        "voltage": 3795,
+        "current": 484863,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1337447
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
   }
 ]
