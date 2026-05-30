@@ -100,6 +100,57 @@ def sense_route():
 
 from executor.app_builder import list_apps
 
+
+@app.route("/remote/status")
+def remote_status_route():
+    from executor import autonomy as autonomy_state
+    from executor.scheduler_agent import list_schedules
+    from executor.battery_guard import battery_guard
+    from executor.agent_review import review_last
+
+    return jsonify({
+        "system": "NOUS AI OS",
+        "level": 22,
+        "battery": battery_guard(),
+        "autonomy": autonomy_state.status(),
+        "schedules": list_schedules(),
+        "review": review_last(),
+        "time": time.time(),
+    })
+
+
+@app.route("/dashboard")
+def dashboard_route():
+    return """
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOUS Remote Dashboard</title>
+  <style>
+    body { font-family: sans-serif; padding: 16px; background: #111; color: #eee; }
+    .card { background: #1d1d1d; padding: 14px; margin: 12px 0; border-radius: 12px; }
+    pre { white-space: pre-wrap; word-break: break-word; }
+    button { padding: 10px 14px; border-radius: 10px; border: 0; }
+  </style>
+</head>
+<body>
+  <h2>🧠 NOUS AI OS</h2>
+  <button onclick="loadStatus()">Refresh</button>
+  <div class="card"><pre id="out">Loading...</pre></div>
+
+<script>
+async function loadStatus() {
+  const r = await fetch('/remote/status');
+  const j = await r.json();
+  document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+}
+loadStatus();
+</script>
+</body>
+</html>
+"""
+
 @app.route("/apps")
 def apps_list():
     return jsonify(list_apps())
