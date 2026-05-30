@@ -62,3 +62,24 @@ def run(goal="keep alive", interval=300, max_cycles=None):
         "cycles": cycles,
         "status": autonomy.status(),
     }
+
+
+if __name__ == "__main__":
+    import sys
+
+    interval = 300
+
+    if len(sys.argv) > 1:
+        try:
+            interval = int(sys.argv[1])
+        except ValueError:
+            interval = 300
+
+    print(f"Starting NOUS autonomy loop every {interval} seconds.")
+    print("Press CTRL+C to stop.")
+
+    try:
+        run(interval=interval)
+    except KeyboardInterrupt:
+        autonomy.stop()
+        print("\nAutonomy loop stopped.")
