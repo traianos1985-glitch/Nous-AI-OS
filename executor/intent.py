@@ -139,6 +139,10 @@ def detect_intent(text):
     if t in ["cloud info", "cloud"]:
         return {"type": "tool", "action": "cloud_info"}
 
+    
+    if t.startswith("forge plugin ") or t.startswith("γράψε τέλειο plugin "):
+        return {"type": "tool", "action": "forge_plugin"}
+
     return {"type": "chat", "action": "chat"}
 
 

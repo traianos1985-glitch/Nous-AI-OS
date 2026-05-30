@@ -1,3 +1,4 @@
+from executor.code_forge import forge_plugin
 from executor.app_builder import make_web_app
 from executor.git_agent import git_status, git_checkpoint
 from executor.daily_brief import daily_brief
@@ -175,6 +176,12 @@ def run_tool(intent, context=None):
             "files": ["requirements.txt", "Procfile", "Dockerfile", "runtime.txt"],
             "run": "python -m executor.router"
         }
+
+
+    
+    if action == "forge_plugin":
+        goal = context.get("command", "").replace("forge plugin ", "").replace("γράψε τέλειο plugin ", "").strip()
+        return forge_plugin(goal)
 
 
     return "UNKNOWN TOOL"
