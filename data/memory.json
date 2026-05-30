@@ -296,5 +296,95 @@
         "error": "Please grant the following permission to use this command: android.permission.READ_PHONE_STATE"
       }
     }
+  },
+  {
+    "command": "sense think",
+    "intent": {
+      "type": "tool",
+      "action": "sense_think"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780156086.7392063,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3651,
+        "current": 378906,
+        "percentage": 28,
+        "level": 28,
+        "scale": 100,
+        "charge_counter": 658217
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "sense_thought",
+    "sense": {
+      "time": 1780156086.7392063,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3651,
+        "current": 378906,
+        "percentage": 28,
+        "level": 28,
+        "scale": 100,
+        "charge_counter": 658217
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    },
+    "thought": "1. Παρατηρώ ότι η πλαισιά είναι 28%, διαχαρεί και δεν είναι συνδεδεμένη. Επιπλέον, η SIM είναι αποсутή και η δουλειά των δεδομένων είναι απενεργοποιημένη.  \n\n2. Σημαντικό είναι η χαμηλή πλαισιά και η αποσυμπίεση SIM, που μπορεί να επηρεάσει την λειτουργία του κινητού.  \n\n3. Προτείνω να φοβάσει τη πλαισιά και να ελέγξει τη SIM για να βεβαιωθεί ότι είναι σωστά εγκατεστημένη.  \n\n4. Δεν είναι απαραίτητη αυτόματη ενέργεια, αλλά μπορεί να προτείνεται να ειδοποιήσει τον χρήστη για τη χαμηλή πλαισιά ή την αποσυμπίεση SIM."
   }
 ]
