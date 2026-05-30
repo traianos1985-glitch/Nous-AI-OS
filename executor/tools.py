@@ -1,3 +1,4 @@
+from executor.personal_agent import remember_fact, add_goal, add_project, list_state, plan_goal
 from executor.thinking_tools import think_deep, solve_problem, decide
 from executor.plugin_ai import generate_plugin
 from executor.plugin_tester import test_plugin
@@ -106,6 +107,26 @@ def run_tool(intent, context=None):
 
     if action == "decide":
         return decide(context.get("command", ""))
+
+    
+    if action == "remember_fact":
+        text = context.get("command", "").replace("θυμήσου ", "").replace("remember ", "").strip()
+        return remember_fact(text)
+
+    if action == "add_goal":
+        text = context.get("command", "").replace("στόχος ", "").replace("goal ", "").strip()
+        return add_goal(text)
+
+    if action == "add_project":
+        text = context.get("command", "").replace("project ", "").replace("έργο ", "").strip()
+        return add_project(text)
+
+    if action == "personal_state":
+        return list_state()
+
+    if action == "plan_goal":
+        text = context.get("command", "").replace("σχέδιο στόχου ", "").replace("plan goal ", "").strip()
+        return plan_goal(text)
 
     return "UNKNOWN TOOL"
 

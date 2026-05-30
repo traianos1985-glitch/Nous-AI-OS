@@ -86,6 +86,22 @@ def detect_intent(text):
     if t.startswith("απόφαση ") or t.startswith("decide "):
         return {"type": "tool", "action": "decide"}
 
+    
+    if t.startswith("θυμήσου ") or t.startswith("remember "):
+        return {"type": "tool", "action": "remember_fact"}
+
+    if t.startswith("στόχος ") or t.startswith("goal "):
+        return {"type": "tool", "action": "add_goal"}
+
+    if t.startswith("project ") or t.startswith("έργο "):
+        return {"type": "tool", "action": "add_project"}
+
+    if t in ["profile", "state", "personal state", "κατάσταση νου"]:
+        return {"type": "tool", "action": "personal_state"}
+
+    if t.startswith("σχέδιο στόχου ") or t.startswith("plan goal "):
+        return {"type": "tool", "action": "plan_goal"}
+
     return {"type": "chat", "action": "chat"}
 
 
