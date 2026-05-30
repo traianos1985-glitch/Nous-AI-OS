@@ -72,6 +72,23 @@ async function uploadFile(){
  bubble(JSON.stringify(data,null,2),"ai");
 }
 
+
+async function showApps(){
+ let r=await fetch("/apps");
+ let apps=await r.json();
+ if(!apps.length){ bubble("Δεν υπάρχουν εφαρμογές ακόμα.","ai"); return; }
+
+ bubble("Εφαρμογές ΝΟΥΣ:", "ai");
+
+ apps.forEach(a=>{
+   let d=document.createElement("div");
+   d.className="msg ai";
+   d.innerHTML='<button onclick="window.open(\\''+a.url+'\\',\\'_blank\\')">Άνοιγμα '+a.title+'</button>';
+   document.getElementById("chat").appendChild(d);
+   d.scrollIntoView();
+ });
+}
+
 </script>
 </body>
 </html>
