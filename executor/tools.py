@@ -1,3 +1,4 @@
+from executor.team_agent import team_plan, team_solve
 from executor.long_memory import recall
 from executor.scheduler_agent import add_schedule, list_schedules, clear_schedules
 from executor.agent_executor import solve_goal, solve_and_checkpoint
@@ -236,6 +237,16 @@ def run_tool(intent, context=None):
     if action == "recall":
         q = context.get("command", "").replace("recall ", "").replace("θυμάσαι ", "").strip()
         return recall(q)
+
+
+    
+    if action == "team_plan":
+        goal = context.get("command", "").replace("team plan ", "").replace("ομάδα σχέδιο ", "").strip()
+        return team_plan(goal)
+
+    if action == "team_solve":
+        goal = context.get("command", "").replace("team solve ", "").replace("ομάδα λύσε ", "").strip()
+        return team_solve(goal)
 
 
     return "UNKNOWN TOOL"
