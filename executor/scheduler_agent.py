@@ -98,3 +98,66 @@ def list_schedules():
 def clear_schedules():
     _save([])
     return {"cleared": True}
+
+
+def _next_daily_run(hour, minute):
+    now = datetime.now()
+    target = now.replace(hour=hour, minute=minute, second=0, microsecond=0) + timedelta(days=1)
+    return target.timestamp()
+
+
+def execute_scheduled_task(task_text):
+    text = str(task_text).strip().lower()
+
+    if text == "daily brief" or text == "ημερήσια εικόνα":
+        from executor.daily_brief import daily_brief
+        return daily_brief()
+
+    return {
+        "status": "skipped",
+        "reason": "unknown scheduled task",
+        "task": task_text,
+    }
+
+
+def run_due_schedules(now=None):
+    if now is None:
+        now = time.time()
+
+    tasks = _load()
+    executed = []
+
+    for item in tasks:
+        if item.get("status") != "scheduled":
+            continue
+
+        next_run = item.get("next_run")
+        if not next_run:
+            continue
+
+        if float(next_run) <= float(now):
+            result = execute_scheduled_task(item.get("task", ""))
+
+            item["last_run"] = now
+            item["last_result"] = result
+
+            if item.get("schedule_type") == "daily":
+                item["next_run"] = _next_daily_run(
+                    int(item.get("hour", 9)),
+                    int(item.get("minute", 0)),
+                )
+            else:
+                item["status"] = "done"
+
+            executed.append({
+                "id": item.get("id"),
+                "task": item.get("task"),
+                "result": result,
+            })
+
+    _save(tasks)
+
+    return {
+        "checked": len(tasks),
+        "executed": executed,
+    }
