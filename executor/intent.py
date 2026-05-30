@@ -1,6 +1,7 @@
 def detect_intent(text):
 
     t = str(text).lower().strip()
+    t = t.strip("?.!,;:·…")
 
     if t in ["/status", "status", "κατάσταση"]:
         return {"type": "system", "action": "status"}
