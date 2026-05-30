@@ -786,5 +786,146 @@
       "type": "tool",
       "action": "git_checkpoint"
     }
+  },
+  {
+    "command": "schedules",
+    "intent": {
+      "type": "tool",
+      "action": "list_schedules"
+    }
+  },
+  {
+    "command": "τι θυμάσαι?",
+    "intent": {
+      "type": "chat",
+      "action": "chat"
+    }
+  },
+  {
+    "command": "team plan κάνε τον ΝΟΥΣ cloud agent",
+    "intent": {
+      "type": "tool",
+      "action": "team_plan"
+    }
+  },
+  {
+    "command": "repair system",
+    "intent": {
+      "type": "tool",
+      "action": "repair_system"
+    }
+  },
+  {
+    "event": "repair_check",
+    "result": {
+      "compile": {
+        "executor/router.py": "ok",
+        "executor/kernel.py": "ok",
+        "executor/intent.py": "ok",
+        "executor/tools.py": "ok",
+        "executor/llm_core.py": "ok",
+        "executor/brain.py": "ok",
+        "executor/hybrid_agent.py": "ok",
+        "executor/control_center.py": "ok"
+      },
+      "git_status": " M data/memory.json\n",
+      "healthy": true
+    }
+  },
+  {
+    "command": "autonomy",
+    "intent": {
+      "type": "tool",
+      "action": "autonomy_cycle"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780172647.7777474,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 32.7,
+        "voltage": 4174,
+        "current": 436034,
+        "percentage": 98,
+        "level": 98,
+        "scale": 100,
+        "charge_counter": 2375189
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780172650.112406,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 32.7,
+        "voltage": 4174,
+        "current": 436034,
+        "percentage": 98,
+        "level": 98,
+        "scale": 100,
+        "charge_counter": 2375189
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "command": "git checkpoint autonomy upgrades passed",
+    "intent": {
+      "type": "tool",
+      "action": "git_checkpoint"
+    }
   }
 ]
