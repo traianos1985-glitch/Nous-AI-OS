@@ -1,3 +1,8 @@
+from executor.git_agent import git_status, git_checkpoint
+from executor.daily_brief import daily_brief
+from executor.battery_guard import battery_guard
+from executor.project_agent import next_action
+from executor.action_log import log_action, recent_actions
 from executor.sense_brain import sense_and_think
 from executor.android_sense import sense
 from executor.personal_agent import remember_fact, add_goal, add_project, list_state, plan_goal
@@ -137,6 +142,26 @@ def run_tool(intent, context=None):
     
     if action == "sense_think":
         return sense_and_think()
+
+    
+    if action == "git_status":
+        return git_status()
+
+    if action == "git_checkpoint":
+        msg = context.get("command", "").replace("git checkpoint", "").replace("checkpoint", "").strip() or "NOUS auto checkpoint"
+        return git_checkpoint(msg)
+
+    if action == "daily_brief":
+        return daily_brief()
+
+    if action == "battery_guard":
+        return battery_guard()
+
+    if action == "next_action":
+        return next_action(context.get("command", ""))
+
+    if action == "action_log":
+        return recent_actions()
 
     return "UNKNOWN TOOL"
 

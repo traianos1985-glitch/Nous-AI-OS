@@ -113,6 +113,25 @@ def detect_intent(text):
     if t in ["sense think", "σκέψου αισθήσεις", "ανάλυσε κινητό"]:
         return {"type": "tool", "action": "sense_think"}
 
+    
+    if t in ["git status", "git"]:
+        return {"type": "tool", "action": "git_status"}
+
+    if t.startswith("git checkpoint") or t.startswith("checkpoint"):
+        return {"type": "tool", "action": "git_checkpoint"}
+
+    if t in ["daily brief", "ημερήσια εικόνα"]:
+        return {"type": "tool", "action": "daily_brief"}
+
+    if t in ["battery guard", "έλεγχος μπαταρίας"]:
+        return {"type": "tool", "action": "battery_guard"}
+
+    if t.startswith("next action") or t.startswith("επόμενη ενέργεια"):
+        return {"type": "tool", "action": "next_action"}
+
+    if t in ["actions", "action log", "ιστορικό ενεργειών"]:
+        return {"type": "tool", "action": "action_log"}
+
     return {"type": "chat", "action": "chat"}
 
 
