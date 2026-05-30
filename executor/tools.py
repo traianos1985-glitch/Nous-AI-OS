@@ -1,3 +1,4 @@
+from executor.autonomy_v3 import autonomy_cycle
 from executor.repair_agent import repair_check, repair_advice
 from executor.team_agent import team_plan, team_solve
 from executor.long_memory import recall
@@ -256,6 +257,11 @@ def run_tool(intent, context=None):
 
     if action == "repair_advice":
         return repair_advice()
+
+
+    
+    if action == "autonomy_cycle":
+        return autonomy_cycle()
 
 
     return "UNKNOWN TOOL"

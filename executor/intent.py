@@ -198,6 +198,10 @@ def detect_intent(text):
     if t in ["repair advice", "διάγνωση επισκευής"]:
         return {"type": "tool", "action": "repair_advice"}
 
+    
+    if t in ["autonomy", "autonomy cycle", "κύκλος αυτονομίας"]:
+        return {"type": "tool", "action": "autonomy_cycle"}
+
     return {"type": "chat", "action": "chat"}
 
 
