@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1780184561284933314,
+    "project": "ΝΟΥΣ AI OS mobile agent",
+    "status": "active",
+    "created": 1780184561.2849352,
+    "updated": 1780184561.284936,
+    "steps": [
+      {
+        "step": "όρισε το επόμενο μικρό πρακτικό βήμα",
+        "status": "suggested"
+      }
+    ]
+  }
+]

@@ -10,6 +10,8 @@ from executor.api_tokens import create_token, list_tokens, revoke_token, token_s
 from executor import autonomy as autonomy_state
 from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle
 from executor.goal_executor import goal_executor_cycle
+from executor.project_progress import list_progress, project_summary, sync_projects, mark_step
+from executor.self_healing_runtime import self_heal_check
 from executor.task_queue import list_queue, clear_queue
 
 app = Flask(__name__)
@@ -138,6 +140,43 @@ from executor.app_builder import list_apps
 
 
 
+
+@app.route("/remote/projects")
+def remote_projects_route():
+    return jsonify(list_progress())
+
+
+@app.route("/remote/projects/summary")
+def remote_projects_summary_route():
+    return jsonify(project_summary())
+
+
+@app.route("/remote/projects/sync", methods=["POST"])
+def remote_projects_sync_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(sync_projects())
+
+
+@app.route("/remote/projects/mark-step", methods=["POST"])
+def remote_projects_mark_step_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(mark_step(
+        data.get("project", ""),
+        data.get("step", ""),
+        data.get("status", "done")
+    ))
+
+
+@app.route("/remote/self-heal/check", methods=["POST"])
+def remote_self_heal_check_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(self_heal_check())
+
 @app.route("/remote/queue")
 def remote_queue_route():
     return jsonify(list_queue())
@@ -218,6 +257,7 @@ def remote_status_route():
         "service": service_status(),
         "schedules": list_schedules(),
         "queue": list_queue(),
+        "projects_progress": project_summary(),
         "review": review_last(),
         "time": time.time(),
         "tokens": token_stats(),
