@@ -132,6 +132,13 @@ def detect_intent(text):
     if t in ["actions", "action log", "ιστορικό ενεργειών"]:
         return {"type": "tool", "action": "action_log"}
 
+    
+    if t.startswith("make app ") or t.startswith("φτιάξε app "):
+        return {"type": "tool", "action": "make_app"}
+
+    if t in ["cloud info", "cloud"]:
+        return {"type": "tool", "action": "cloud_info"}
+
     return {"type": "chat", "action": "chat"}
 
 

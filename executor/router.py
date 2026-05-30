@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
+from executor.security import check_token
 
 app = Flask(__name__)
 
@@ -10,6 +11,8 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
+    if not check_token(request):
+        return jsonify({"error": "unauthorized"}), 401
     data = request.get_json()
     cmd = data.get("command", "")
     return jsonify(handle(cmd, {}))
