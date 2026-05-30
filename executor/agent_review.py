@@ -2,6 +2,36 @@ from executor.llm_core import ask
 from executor.memory import load
 
 
+BAD_GREEK_MARKERS = [
+    "Έλεγχοςτελευταίων",
+    "τοModified",
+    "Καταγράψτε",
+    "\u202f",
+]
+
+
+def clean_review(text):
+    text = str(text).replace("\u202f", " ")
+    text = text.replace("Έλεγχοςτελευταίων", "Έλεγχος τελευταίων")
+    text = text.replace("τοModified", "το τροποποιημένο")
+    text = text.replace("Καταγράψτε", "Κατέγραψε")
+    return text.strip()
+
+
+def fallback_review(mem):
+    return (
+        "Έλεγχος τελευταίων ενεργειών\n\n"
+        "1. Τι έγινε:\n"
+        "- Ελέγχθηκαν οι τελευταίες ενέργειες του ΝΟΥΣ.\n\n"
+        "2. Αν πέτυχε:\n"
+        "- Μερικώς. Το σύστημα απάντησε, αλλά η ποιότητα ελληνικών του review χρειάζεται βελτίωση.\n\n"
+        "3. Πρόβλημα ή ρίσκο:\n"
+        "- Το review μπορεί να εμφανίσει κολλημένες λέξεις ή άσχημες μεταφράσεις.\n\n"
+        "4. Επόμενο μικρό βήμα:\n"
+        "- Συνέχισε με μικρά patches και έλεγχο compile πριν από κάθε commit."
+    )
+
+
 def review_last():
     mem = load()[-10:]
 
@@ -15,8 +45,9 @@ Context συστήματος:
 - Στόχος σου είναι να κάνεις καθαρό, χρήσιμο έλεγχο των τελευταίων ενεργειών.
 - Μην προτείνεις npm, JavaScript, plugin.json ή manifest.
 - Μην ξανασχεδιάζεις τον ΝΟΥΣ από την αρχή.
-- Μην χρησιμοποιείς περίεργες ή κακές ελληνικές μεταφράσεις.
 - Γράψε φυσικά ελληνικά, σαν τεχνικός συνεργάτης.
+- Απόφυγε κολλημένες λέξεις και άσχημες μεταφράσεις.
+- Μην χρησιμοποιείς προστακτική πληθυντικού όπως "Καταγράψτε". Μίλα στον χρήστη φιλικά στον ενικό.
 
 Πρόσφατα γεγονότα:
 {mem}
@@ -39,4 +70,10 @@ Context συστήματος:
 """
 
     res = ask(prompt)
-    return res.get("response", str(res)) if isinstance(res, dict) else str(res)
+    text = res.get("response", str(res)) if isinstance(res, dict) else str(res)
+    text = clean_review(text)
+
+    if any(marker in text for marker in BAD_GREEK_MARKERS):
+        return fallback_review(mem)
+
+    return text
