@@ -45,6 +45,9 @@ def detect_intent(text):
         return {"type": "tool", "action": "memory_summary"}
 
     
+    if t.startswith("σχέδιο στόχου ") or t.startswith("plan goal "):
+        return {"type": "tool", "action": "plan_goal"}
+
     if t.startswith("plan ") or t.startswith("σχέδιο "):
         return {"type": "tool", "action": "plan"}
 

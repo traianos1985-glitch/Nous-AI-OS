@@ -216,5 +216,40 @@
       "type": "tool",
       "action": "decide"
     }
+  },
+  {
+    "command": "θυμήσου ότι θέλω ο ΝΟΥΣ να γίνει προσωπικός συνεργάτης για κώδικα, σκέψη και οργάνωση",
+    "intent": {
+      "type": "tool",
+      "action": "remember_fact"
+    }
+  },
+  {
+    "command": "στόχος να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+    "intent": {
+      "type": "tool",
+      "action": "add_goal"
+    }
+  },
+  {
+    "command": "project ΝΟΥΣ AI OS mobile agent",
+    "intent": {
+      "type": "tool",
+      "action": "add_project"
+    }
+  },
+  {
+    "command": "κατάσταση νου",
+    "intent": {
+      "type": "tool",
+      "action": "personal_state"
+    }
+  },
+  {
+    "command": "σχέδιο στόχου να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+    "intent": {
+      "type": "tool",
+      "action": "plan"
+    }
   }
 ]
