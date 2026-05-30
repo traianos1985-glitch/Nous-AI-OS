@@ -1,3 +1,4 @@
+from executor.scheduler_agent import add_schedule, list_schedules, clear_schedules
 from executor.agent_executor import solve_goal, solve_and_checkpoint
 from executor.agent_review import review_last
 from executor.research_agent import web_search, fetch_page, research
@@ -216,6 +217,18 @@ def run_tool(intent, context=None):
 
     if action == "agent_review":
         return review_last()
+
+
+    
+    if action == "schedule_task":
+        text = context.get("command", "").replace("schedule ", "").replace("προγραμμάτισε ", "").strip()
+        return add_schedule(text)
+
+    if action == "list_schedules":
+        return list_schedules()
+
+    if action == "clear_schedules":
+        return clear_schedules()
 
 
     return "UNKNOWN TOOL"

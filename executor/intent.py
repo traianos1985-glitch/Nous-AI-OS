@@ -167,6 +167,16 @@ def detect_intent(text):
     if t in ["agent review", "review agent", "έλεγχος agent"]:
         return {"type": "tool", "action": "agent_review"}
 
+    
+    if t.startswith("schedule ") or t.startswith("προγραμμάτισε "):
+        return {"type": "tool", "action": "schedule_task"}
+
+    if t in ["schedules", "scheduled tasks", "προγραμματισμένα"]:
+        return {"type": "tool", "action": "list_schedules"}
+
+    if t in ["clear schedules", "καθάρισε προγραμματισμένα"]:
+        return {"type": "tool", "action": "clear_schedules"}
+
     return {"type": "chat", "action": "chat"}
 
 
