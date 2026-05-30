@@ -1944,5 +1944,12 @@
       "type": "tool",
       "action": "autonomy_status"
     }
+  },
+  {
+    "command": "autonomy status",
+    "intent": {
+      "type": "tool",
+      "action": "autonomy_status"
+    }
   }
 ]
