@@ -927,5 +927,128 @@
       "type": "tool",
       "action": "git_checkpoint"
     }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780175620.427927,
+      "clipboard": "python - <<'PY'\nimport time\nfrom executor.scheduler_agent import clear_schedules, add_schedule, list_schedules, run_due_schedules\n\nclear_schedules()\nitem = add_schedule(\"κάθε μέρα στις 09:00 daily brief\")\n\ntasks = list_schedules()\ntasks[0][\"next_run\"] = time.time() - 1\n\nimport json\njson.dump(tasks, open(\"data/scheduled_tasks.json\", \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=2)\n\nprint(run_due_schedules())\nprint(list_schedules())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.2,
+        "voltage": 4034,
+        "current": 486327,
+        "percentage": 85,
+        "level": 85,
+        "scale": 100,
+        "charge_counter": 2064787
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780175813.4929914,
+      "clipboard": "python - <<'PY'\nfrom executor.autonomy_v3 import autonomy_cycle\n\nr = autonomy_cycle()\nprint(r.keys())\nprint(r.get(\"scheduled_executed\"))\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.2,
+        "voltage": 4031,
+        "current": 415527,
+        "percentage": 84,
+        "level": 84,
+        "scale": 100,
+        "charge_counter": 2042387
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780175813.6199925,
+      "clipboard": "python - <<'PY'\nfrom executor.autonomy_v3 import autonomy_cycle\n\nr = autonomy_cycle()\nprint(r.keys())\nprint(r.get(\"scheduled_executed\"))\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.2,
+        "voltage": 4031,
+        "current": 415527,
+        "percentage": 84,
+        "level": 84,
+        "scale": 100,
+        "charge_counter": 2042387
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
   }
 ]
