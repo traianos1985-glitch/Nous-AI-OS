@@ -691,5 +691,56 @@
       "type": "tool",
       "action": "web_search"
     }
+  },
+  {
+    "command": "agent solve φτιάξε plugin calculator που επιστρέφει 10+15",
+    "intent": {
+      "type": "tool",
+      "action": "agent_solve"
+    }
+  },
+  {
+    "event": "agent_solve",
+    "goal": "φτιάξε plugin calculator που επιστρέφει 10+15",
+    "result": {
+      "goal": "φτιάξε plugin calculator που επιστρέφει 10+15",
+      "steps": [
+        "Δημιούργησε ένα νέο φάκελο `calculator-plugin` στον каталόγό του OS",
+        "Πρόσθεσε ένα αρχείο `plugin.json` με τα metadata (όνομα, έκδοση, entry‑point)",
+        "Υλοποίησε τη λειτουργία `calculate.js` που εκτελεί το `10 + 15` και επιστρέφει το αποτέλεσμα.  4. Εγγραφή του plugin στο manifest του OS ώστε να ενεργοποιηθεί αυτόματα",
+        "Εκτέλεσε το OS για να δοκιμάσεις το plugin· επαλήθευσε ότι η απάντηση είναι `25`"
+      ],
+      "actions": [
+        {
+          "code_forge": {
+            "success": true,
+            "plugin": "forge_plugin_1780160152",
+            "path": "executor/plugins/forge_plugin_1780160152.py",
+            "test": {
+              "success": true,
+              "result": {
+                "sum": 25,
+                "calculator": "10+15"
+              }
+            }
+          }
+        }
+      ],
+      "status": "running"
+    }
+  },
+  {
+    "command": "plugins",
+    "intent": {
+      "type": "tool",
+      "action": "plugin"
+    }
+  },
+  {
+    "command": "agent review",
+    "intent": {
+      "type": "tool",
+      "action": "agent_review"
+    }
   }
 ]
