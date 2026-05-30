@@ -621,5 +621,40 @@
       "type": "tool",
       "action": "stable"
     }
+  },
+  {
+    "command": "forge plugin calculator που επιστρέφει 2+2",
+    "intent": {
+      "type": "tool",
+      "action": "forge_plugin"
+    }
+  },
+  {
+    "command": "plugins",
+    "intent": {
+      "type": "tool",
+      "action": "plugin"
+    }
+  },
+  {
+    "command": "run plugin ΟΝΟΜΑ_PLUGIN",
+    "intent": {
+      "type": "tool",
+      "action": "run_plugin"
+    }
+  },
+  {
+    "command": "run plugin forge_plugin_1780157672",
+    "intent": {
+      "type": "tool",
+      "action": "run_plugin"
+    }
+  },
+  {
+    "command": "git checkpoint code forge success",
+    "intent": {
+      "type": "tool",
+      "action": "git_checkpoint"
+    }
   }
 ]
