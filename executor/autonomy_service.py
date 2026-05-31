@@ -6,6 +6,7 @@ from pathlib import Path
 from executor.autonomous_loop import run_once
 from executor.battery_guard import battery_guard
 from executor.learning_engine import auto_learning_cycle
+from executor.master_agent import master_cycle
 
 STATE_FILE = "data/autonomy_service.json"
 LOG_FILE = "data/autonomy.log"
@@ -94,6 +95,7 @@ def run_cycle():
     try:
         result = run_once()
         result["learning"] = auto_learning_cycle()
+        result["master"] = master_cycle(real_research=False)
         state["last_run"] = time.time()
         state["last_error"] = None
         state["cycles"] = int(state.get("cycles", 0)) + 1

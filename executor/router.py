@@ -21,6 +21,9 @@ from executor.app_evolver import app_evolution_status, queue_app_improvement
 from executor.local_llm_adapter import local_llm_status, ask_local
 from executor.decision_engine import decide_next_action, prioritize_goals
 from executor.real_action_executor import agent_act_cycle
+from executor.guardian_policy import check_action, policy_status
+from executor.real_research_engine import research_to_knowledge, research_status, learned_items
+from executor.master_agent import master_state, choose_master_priority, master_cycle
 from executor.agent_journal import list_journal
 from executor.progress_linker import progress_snapshot, link_task_to_project
 from executor.goal_progress import list_goal_progress, refresh_goal_progress, goal_progress_summary
@@ -218,6 +221,58 @@ def remote_progress_link_task_route():
 
     data = request.get_json(silent=True) or {}
     return jsonify(link_task_to_project(data))
+
+
+@app.route("/remote/master/status")
+def remote_master_status_route():
+    return jsonify(master_state())
+
+
+@app.route("/remote/master/priority")
+def remote_master_priority_route():
+    return jsonify(choose_master_priority())
+
+
+@app.route("/remote/master/cycle", methods=["POST"])
+def remote_master_cycle_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(master_cycle(bool(data.get("real_research", False))))
+
+
+@app.route("/remote/guardian/policy")
+def remote_guardian_policy_route():
+    return jsonify(policy_status())
+
+
+@app.route("/remote/guardian/check", methods=["POST"])
+def remote_guardian_check_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(check_action(data.get("action", ""), data.get("payload", {})))
+
+
+@app.route("/remote/research/status")
+def remote_real_research_status_route():
+    return jsonify(research_status())
+
+
+@app.route("/remote/research/learned")
+def remote_real_research_learned_route():
+    return jsonify(learned_items())
+
+
+@app.route("/remote/research/learn-topic", methods=["POST"])
+def remote_real_research_learn_topic_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(research_to_knowledge(data.get("topic")))
 
 @app.route("/remote/agent/decide")
 def remote_agent_decide_route():
@@ -567,6 +622,8 @@ def remote_status_route():
         "app_evolver": app_evolution_status(),
         "local_llm": local_llm_status(),
         "agent": decide_next_action(),
+        "master": master_state(),
+        "guardian": policy_status(),
         "progress": progress_snapshot(),
         "goal_progress": goal_progress_summary(),
         "android": android_safe_commands(),
