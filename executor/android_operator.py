@@ -56,5 +56,16 @@ def operator_capabilities():
         "input_exists": os.path.exists(ANDROID_INPUT),
         "am": ANDROID_AM,
         "am_exists": os.path.exists(ANDROID_AM),
-        "real_gestures": os.path.exists(ANDROID_INPUT),
+        "real_gestures_binary": os.path.exists(ANDROID_INPUT),
+        "real_gestures_permission": gesture_permission_test().get("allowed"),
+    }
+
+
+def gesture_permission_test():
+    result = _cmd(f"{ANDROID_INPUT} keyevent 4")
+    allowed = bool(result.get("ok"))
+    return {
+        "allowed": allowed,
+        "result": result,
+        "reason": None if allowed else "INJECT_EVENTS permission required or input injection blocked",
     }
