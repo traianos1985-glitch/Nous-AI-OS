@@ -30,6 +30,9 @@ from executor.complex_action_runner import complex_action_status, run_complex_ac
 from executor.deploy_operator import deploy_operator_status, prepare_real_deploy
 from executor.reality_gate import reality_status
 from executor.real_action_chains import real_chain_status, run_real_chain
+from executor.deploy_provider_manager import deploy_provider_status, deploy_with_provider
+from executor.browser_driver_operator import browser_driver_status, run_browser_actions
+from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
 from executor.android_operator import android_operator_status, tap as android_tap, swipe as android_swipe, keyevent as android_keyevent
 from executor.browser_operator import browser_operator_status, open_url as operator_open_url, prepare_click, prepare_fill_form, prepare_login
@@ -243,6 +246,42 @@ def remote_progress_link_task_route():
 
 
 
+
+
+@app.route("/remote/operator/capabilities")
+def remote_operator_capabilities_route():
+    return jsonify(operator_capability_status())
+
+
+@app.route("/remote/operator/reality-flags")
+def remote_operator_reality_flags_route():
+    return jsonify(reality_flags())
+
+
+@app.route("/remote/browser-driver/status")
+def remote_browser_driver_status_route():
+    return jsonify(browser_driver_status())
+
+
+@app.route("/remote/browser-driver/run", methods=["POST"])
+def remote_browser_driver_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_browser_actions(data.get("url", ""), data.get("actions", [])))
+
+
+@app.route("/remote/deploy/providers")
+def remote_deploy_providers_route():
+    return jsonify(deploy_provider_status())
+
+
+@app.route("/remote/deploy/provider-run", methods=["POST"])
+def remote_deploy_provider_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(deploy_with_provider(data.get("provider", ""), data.get("path", ".")))
 
 @app.route("/remote/real-actions/status")
 def remote_real_actions_status_route():
