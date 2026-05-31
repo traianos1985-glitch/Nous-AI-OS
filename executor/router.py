@@ -14,6 +14,7 @@ from executor.project_progress import list_progress, project_summary, sync_proje
 from executor.self_healing_runtime import self_heal_check
 from executor.task_queue import list_queue, clear_queue, retry_failed, recover_dead_tasks
 from executor.runtime_metrics import collect_metrics
+from executor.curiosity_agent import curiosity_cycle, knowledge_status, load_queue, load_knowledge, add_topic, mark_learned, active_learning_topics
 
 app = Flask(__name__)
 
@@ -142,6 +143,55 @@ from executor.app_builder import list_apps
 
 
 
+
+
+@app.route("/remote/knowledge")
+def remote_knowledge_route():
+    return jsonify(knowledge_status())
+
+
+@app.route("/remote/knowledge/queue")
+def remote_knowledge_queue_route():
+    return jsonify(load_queue())
+
+
+@app.route("/remote/knowledge/base")
+def remote_knowledge_base_route():
+    return jsonify(load_knowledge())
+
+
+@app.route("/remote/knowledge/cycle", methods=["POST"])
+def remote_knowledge_cycle_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(curiosity_cycle())
+
+
+@app.route("/remote/knowledge/add", methods=["POST"])
+def remote_knowledge_add_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(add_topic(
+        data.get("topic", ""),
+        data.get("reason", "manual"),
+        data.get("priority", 5),
+        "remote"
+    ))
+
+
+@app.route("/remote/knowledge/learned", methods=["POST"])
+def remote_knowledge_learned_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(mark_learned(
+        data.get("topic", ""),
+        data.get("summary", ""),
+        data.get("source", "remote")
+    ))
 
 @app.route("/remote/metrics")
 def remote_metrics_route():
@@ -284,6 +334,8 @@ def remote_status_route():
         "queue": list_queue(),
         "projects_progress": project_summary(),
         "metrics": collect_metrics(),
+        "knowledge": knowledge_status(),
+        "active_learning_topics": active_learning_topics(),
         "review": review_last(),
         "time": time.time(),
         "tokens": token_stats(),

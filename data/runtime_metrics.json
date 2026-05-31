@@ -1,8 +1,8 @@
 {
-  "time": 1780185024.6254752,
+  "time": 1780185534.05,
   "battery": {
     "alert": false,
-    "level": 32,
+    "level": 29,
     "plugged": "UNPLUGGED"
   },
   "service": {
@@ -14,7 +14,7 @@
     "cycles": 1,
     "battery": {
       "alert": false,
-      "level": 32,
+      "level": 29,
       "plugged": "UNPLUGGED"
     },
     "log_file": "data/autonomy.log"
