@@ -6,6 +6,7 @@ from executor.project_progress import project_summary
 from executor.scheduler_agent import list_schedules
 from executor.battery_guard import battery_guard
 from executor.curiosity_agent import knowledge_status
+from executor.goal_progress import goal_progress_summary
 from executor.agent_journal import write_journal
 
 
@@ -47,6 +48,7 @@ def decide_next_action():
     projects = project_summary()
     schedules = list_schedules()
     knowledge = knowledge_status()
+    goal_progress = goal_progress_summary()
 
     if int(battery.get("level", 100)) < 25 and str(battery.get("plugged", "")).upper() == "UNPLUGGED":
         decision = {
@@ -99,6 +101,7 @@ def decide_next_action():
         "projects": projects,
         "schedules": len(schedules),
         "knowledge": knowledge,
+        "goal_progress": goal_progress,
         "time": time.time(),
     }
 
