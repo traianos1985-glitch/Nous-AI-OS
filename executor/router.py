@@ -22,6 +22,7 @@ from executor.local_llm_adapter import local_llm_status, ask_local
 from executor.decision_engine import decide_next_action, prioritize_goals
 from executor.real_action_executor import agent_act_cycle
 from executor.agent_journal import list_journal
+from executor.progress_linker import progress_snapshot, link_task_to_project
 from executor.app_factory_v2 import create_app_from_idea, queue_app_idea, app_factory_status
 from executor.code_assistant import code_health, code_advice
 from executor.research_browser_agent import research_query, read_url
@@ -185,6 +186,20 @@ def remote_browser_read_route():
 
 
 
+
+
+@app.route("/remote/progress/snapshot")
+def remote_progress_snapshot_route():
+    return jsonify(progress_snapshot())
+
+
+@app.route("/remote/progress/link-task", methods=["POST"])
+def remote_progress_link_task_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(link_task_to_project(data))
 
 @app.route("/remote/agent/decide")
 def remote_agent_decide_route():
@@ -534,6 +549,7 @@ def remote_status_route():
         "app_evolver": app_evolution_status(),
         "local_llm": local_llm_status(),
         "agent": decide_next_action(),
+        "progress": progress_snapshot(),
         "android": android_safe_commands(),
         "active_learning_topics": active_learning_topics(),
         "review": review_last(),

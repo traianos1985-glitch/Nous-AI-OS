@@ -4,6 +4,7 @@ from executor.personal_agent import load_db
 from executor.task_queue import add_task, next_task, update_task, list_queue
 from executor.memory import save
 from executor.project_progress import project_summary
+from executor.progress_linker import link_task_to_project
 
 
 def seed_goals_to_queue():
@@ -73,8 +74,9 @@ def run_next_task():
             result=result,
             last_error=None,
         )
-        save({"event": "goal_executor_task_done", "task": updated})
-        return {"ok": True, "task": updated}
+        project_link = link_task_to_project(updated)
+        save({"event": "goal_executor_task_done", "task": updated, "project_link": project_link})
+        return {"ok": True, "task": updated, "project_link": project_link}
     except Exception as e:
         updated = update_task(
             item["id"],
