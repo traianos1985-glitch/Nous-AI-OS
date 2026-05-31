@@ -2,6 +2,9 @@ import subprocess, time
 from executor.operator_approval import request_approval, is_approved
 from executor.agent_journal import write_journal
 
+ANDROID_INPUT = "/system/bin/input"
+ANDROID_AM = "/system/bin/am"
+
 def _cmd(command):
     try:
         p = subprocess.run(command, shell=True, text=True, capture_output=True, timeout=10)
@@ -23,7 +26,7 @@ def tap(x, y, approval_id=None):
         return request_approval("android_tap", payload, "tap requires approval")
     if not is_approved(approval_id):
         return {"ok": False, "error": "approval_required", "approval_id": approval_id}
-    res = _cmd(f"input tap {int(x)} {int(y)}")
+    res = _cmd(f"{ANDROID_INPUT} tap {int(x)} {int(y)}")
     write_journal("android_tap", {"payload": payload, "result": res})
     return res
 
@@ -33,7 +36,7 @@ def swipe(x1, y1, x2, y2, duration=300, approval_id=None):
         return request_approval("android_swipe", payload, "swipe requires approval")
     if not is_approved(approval_id):
         return {"ok": False, "error": "approval_required", "approval_id": approval_id}
-    res = _cmd(f"input swipe {int(x1)} {int(y1)} {int(x2)} {int(y2)} {int(duration)}")
+    res = _cmd(f"{ANDROID_INPUT} swipe {int(x1)} {int(y1)} {int(x2)} {int(y2)} {int(duration)}")
     write_journal("android_swipe", {"payload": payload, "result": res})
     return res
 
@@ -41,6 +44,17 @@ def keyevent(name):
     codes = {"back": 4, "home": 3, "enter": 66}
     if name not in codes:
         return {"ok": False, "error": "key_not_allowed"}
-    res = _cmd(f"input keyevent {codes[name]}")
+    res = _cmd(f"{ANDROID_INPUT} keyevent {codes[name]}")
     write_journal("android_keyevent", {"name": name, "result": res})
     return res
+
+
+def operator_capabilities():
+    import os
+    return {
+        "input": ANDROID_INPUT,
+        "input_exists": os.path.exists(ANDROID_INPUT),
+        "am": ANDROID_AM,
+        "am_exists": os.path.exists(ANDROID_AM),
+        "real_gestures": os.path.exists(ANDROID_INPUT),
+    }
