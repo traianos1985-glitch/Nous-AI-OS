@@ -28,6 +28,7 @@ from executor.self_improvement_engine import self_improvement_status, create_pat
 from executor.internet_learning_pipeline import internet_learning_status, internet_learn_topic, internet_learn_url
 from executor.complex_action_runner import complex_action_status, run_complex_action
 from executor.deploy_operator import deploy_operator_status, prepare_real_deploy
+from executor.reality_gate import reality_status
 from executor.android_operator import android_operator_status, tap as android_tap, swipe as android_swipe, keyevent as android_keyevent
 from executor.browser_operator import browser_operator_status, open_url as operator_open_url, prepare_click, prepare_fill_form, prepare_login
 from executor.operator_approval import list_approvals, approve, reject
@@ -238,6 +239,11 @@ def remote_progress_link_task_route():
 
 
 
+
+
+@app.route("/remote/reality/status")
+def remote_reality_status_route():
+    return jsonify(reality_status())
 
 @app.route("/remote/operator/status")
 def remote_operator_status_route():
