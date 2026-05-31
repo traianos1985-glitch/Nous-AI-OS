@@ -24,6 +24,7 @@ from executor.real_action_executor import agent_act_cycle
 from executor.guardian_policy import check_action, policy_status
 from executor.real_research_engine import research_to_knowledge, research_status, learned_items
 from executor.master_agent import master_state, choose_master_priority, master_cycle
+from executor.self_improvement_engine import self_improvement_status, create_patch_request, list_patches, apply_patch
 from executor.agent_journal import list_journal
 from executor.progress_linker import progress_snapshot, link_task_to_project
 from executor.goal_progress import list_goal_progress, refresh_goal_progress, goal_progress_summary
@@ -222,6 +223,38 @@ def remote_progress_link_task_route():
     data = request.get_json(silent=True) or {}
     return jsonify(link_task_to_project(data))
 
+
+
+@app.route("/remote/self-improve/status")
+def remote_self_improve_status_route():
+    return jsonify(self_improvement_status())
+
+
+@app.route("/remote/self-improve/patches")
+def remote_self_improve_patches_route():
+    return jsonify(list_patches())
+
+
+@app.route("/remote/self-improve/create-patch", methods=["POST"])
+def remote_self_improve_create_patch_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_patch_request(
+        data.get("file", ""),
+        data.get("content", ""),
+        data.get("reason", "remote")
+    ))
+
+
+@app.route("/remote/self-improve/apply-patch", methods=["POST"])
+def remote_self_improve_apply_patch_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(apply_patch(data.get("id")))
 
 @app.route("/remote/master/status")
 def remote_master_status_route():
@@ -624,6 +657,7 @@ def remote_status_route():
         "agent": decide_next_action(),
         "master": master_state(),
         "guardian": policy_status(),
+        "self_improvement": self_improvement_status(),
         "progress": progress_snapshot(),
         "goal_progress": goal_progress_summary(),
         "android": android_safe_commands(),

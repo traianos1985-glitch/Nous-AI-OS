@@ -1,96 +1,5 @@
 [
   {
-    "command": "next action",
-    "intent": {
-      "type": "tool",
-      "action": "next_action"
-    }
-  },
-  {
-    "command": "git checkpoint stable level after agent",
-    "intent": {
-      "type": "tool",
-      "action": "git_checkpoint"
-    }
-  },
-  {
-    "command": "cloud info",
-    "intent": {
-      "type": "tool",
-      "action": "cloud_info"
-    }
-  },
-  {
-    "command": "make app test app",
-    "intent": {
-      "type": "tool",
-      "action": "make_app"
-    }
-  },
-  {
-    "command": "git status",
-    "intent": {
-      "type": "tool",
-      "action": "git_status"
-    }
-  },
-  {
-    "command": "stable",
-    "intent": {
-      "type": "tool",
-      "action": "stable"
-    }
-  },
-  {
-    "command": "forge plugin calculator που επιστρέφει 2+2",
-    "intent": {
-      "type": "tool",
-      "action": "forge_plugin"
-    }
-  },
-  {
-    "command": "plugins",
-    "intent": {
-      "type": "tool",
-      "action": "plugin"
-    }
-  },
-  {
-    "command": "run plugin ΟΝΟΜΑ_PLUGIN",
-    "intent": {
-      "type": "tool",
-      "action": "run_plugin"
-    }
-  },
-  {
-    "command": "run plugin forge_plugin_1780157672",
-    "intent": {
-      "type": "tool",
-      "action": "run_plugin"
-    }
-  },
-  {
-    "command": "git checkpoint code forge success",
-    "intent": {
-      "type": "tool",
-      "action": "git_checkpoint"
-    }
-  },
-  {
-    "command": "make app test app",
-    "intent": {
-      "type": "tool",
-      "action": "make_app"
-    }
-  },
-  {
-    "command": "plugins",
-    "intent": {
-      "type": "tool",
-      "action": "plugin"
-    }
-  },
-  {
     "command": "internet status",
     "intent": {
       "type": "tool",
@@ -5622,6 +5531,280 @@
   {
     "event": "goal_progress_refreshed",
     "changed": []
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780231541.832018,
+      "clipboard": "python - <<'PY'\nfrom executor.self_improvement_engine import self_improvement_status, create_patch_request\nfrom executor.router import app\n\nprint(\"status keys:\", self_improvement_status().keys())\n\nprint(\"blocked core:\", create_patch_request(\n    \"executor/router.py\",\n    \"broken\",\n    \"should be blocked\"\n))\n\nclient = app.test_client()\n\nfor path in [\"/remote/self-improve/status\", \"/remote/self-improve/patches\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-improve/create-patch\", json={\n    \"file\": \"executor/agent_review.py\",\n    \"content\": \"broken\",\n    \"reason\": \"test\"\n})\nprint(\"create patch without token:\", r.status_code, r.get_json())\n\nr = client.post(\"/remote/self-improve/apply-patch\", json={\"id\": 123})\nprint(\"apply patch without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.5,
+        "voltage": 3720,
+        "current": 555663,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1289707
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780231542.0598826,
+      "clipboard": "python - <<'PY'\nfrom executor.self_improvement_engine import self_improvement_status, create_patch_request\nfrom executor.router import app\n\nprint(\"status keys:\", self_improvement_status().keys())\n\nprint(\"blocked core:\", create_patch_request(\n    \"executor/router.py\",\n    \"broken\",\n    \"should be blocked\"\n))\n\nclient = app.test_client()\n\nfor path in [\"/remote/self-improve/status\", \"/remote/self-improve/patches\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-improve/create-patch\", json={\n    \"file\": \"executor/agent_review.py\",\n    \"content\": \"broken\",\n    \"reason\": \"test\"\n})\nprint(\"create patch without token:\", r.status_code, r.get_json())\n\nr = client.post(\"/remote/self-improve/apply-patch\", json={\"id\": 123})\nprint(\"apply patch without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.5,
+        "voltage": 3720,
+        "current": 555663,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1289707
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780231542.2050803,
+      "clipboard": "python - <<'PY'\nfrom executor.self_improvement_engine import self_improvement_status, create_patch_request\nfrom executor.router import app\n\nprint(\"status keys:\", self_improvement_status().keys())\n\nprint(\"blocked core:\", create_patch_request(\n    \"executor/router.py\",\n    \"broken\",\n    \"should be blocked\"\n))\n\nclient = app.test_client()\n\nfor path in [\"/remote/self-improve/status\", \"/remote/self-improve/patches\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-improve/create-patch\", json={\n    \"file\": \"executor/agent_review.py\",\n    \"content\": \"broken\",\n    \"reason\": \"test\"\n})\nprint(\"create patch without token:\", r.status_code, r.get_json())\n\nr = client.post(\"/remote/self-improve/apply-patch\", json={\"id\": 123})\nprint(\"apply patch without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.5,
+        "voltage": 3720,
+        "current": 278320,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1289629
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780231542.334711,
+      "clipboard": "python - <<'PY'\nfrom executor.self_improvement_engine import self_improvement_status, create_patch_request\nfrom executor.router import app\n\nprint(\"status keys:\", self_improvement_status().keys())\n\nprint(\"blocked core:\", create_patch_request(\n    \"executor/router.py\",\n    \"broken\",\n    \"should be blocked\"\n))\n\nclient = app.test_client()\n\nfor path in [\"/remote/self-improve/status\", \"/remote/self-improve/patches\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-improve/create-patch\", json={\n    \"file\": \"executor/agent_review.py\",\n    \"content\": \"broken\",\n    \"reason\": \"test\"\n})\nprint(\"create patch without token:\", r.status_code, r.get_json())\n\nr = client.post(\"/remote/self-improve/apply-patch\", json={\"id\": 123})\nprint(\"apply patch without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.5,
+        "voltage": 3720,
+        "current": 278320,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1289629
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780231543.4091892,
+      "clipboard": "python - <<'PY'\nfrom executor.self_improvement_engine import self_improvement_status, create_patch_request\nfrom executor.router import app\n\nprint(\"status keys:\", self_improvement_status().keys())\n\nprint(\"blocked core:\", create_patch_request(\n    \"executor/router.py\",\n    \"broken\",\n    \"should be blocked\"\n))\n\nclient = app.test_client()\n\nfor path in [\"/remote/self-improve/status\", \"/remote/self-improve/patches\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-improve/create-patch\", json={\n    \"file\": \"executor/agent_review.py\",\n    \"content\": \"broken\",\n    \"reason\": \"test\"\n})\nprint(\"create patch without token:\", r.status_code, r.get_json())\n\nr = client.post(\"/remote/self-improve/apply-patch\", json={\"id\": 123})\nprint(\"apply patch without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.5,
+        "voltage": 3720,
+        "current": 510741,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1289488
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780231543.5939124,
+      "clipboard": "python - <<'PY'\nfrom executor.self_improvement_engine import self_improvement_status, create_patch_request\nfrom executor.router import app\n\nprint(\"status keys:\", self_improvement_status().keys())\n\nprint(\"blocked core:\", create_patch_request(\n    \"executor/router.py\",\n    \"broken\",\n    \"should be blocked\"\n))\n\nclient = app.test_client()\n\nfor path in [\"/remote/self-improve/status\", \"/remote/self-improve/patches\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-improve/create-patch\", json={\n    \"file\": \"executor/agent_review.py\",\n    \"content\": \"broken\",\n    \"reason\": \"test\"\n})\nprint(\"create patch without token:\", r.status_code, r.get_json())\n\nr = client.post(\"/remote/self-improve/apply-patch\", json={\"id\": 123})\nprint(\"apply patch without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 35.5,
+        "voltage": 3720,
+        "current": 510741,
+        "percentage": 55,
+        "level": 55,
+        "scale": 100,
+        "charge_counter": 1289488
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
   },
   {
     "event": "goal_progress_refreshed",
