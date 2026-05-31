@@ -27,6 +27,10 @@ from executor.master_agent import master_state, choose_master_priority, master_c
 from executor.self_improvement_engine import self_improvement_status, create_patch_request, list_patches, apply_patch
 from executor.internet_learning_pipeline import internet_learning_status, internet_learn_topic, internet_learn_url
 from executor.complex_action_runner import complex_action_status, run_complex_action
+from executor.deploy_operator import deploy_operator_status, prepare_real_deploy
+from executor.android_operator import android_operator_status, tap as android_tap, swipe as android_swipe, keyevent as android_keyevent
+from executor.browser_operator import browser_operator_status, open_url as operator_open_url, prepare_click, prepare_fill_form, prepare_login
+from executor.operator_approval import list_approvals, approve, reject
 from executor.git_workflow import git_workflow_status, git_safe_checkpoint
 from executor.web_deploy_manager import deploy_status, register_local_deploy, deploy_git_status
 from executor.android_actions_v2 import android_actions_status, run_android_action
@@ -233,6 +237,101 @@ def remote_progress_link_task_route():
 
 
 
+
+
+@app.route("/remote/operator/status")
+def remote_operator_status_route():
+    return jsonify({
+        "browser": browser_operator_status(),
+        "android": android_operator_status(),
+        "deploy": deploy_operator_status(),
+        "approvals": list_approvals()
+    })
+
+
+@app.route("/remote/operator/approvals")
+def remote_operator_approvals_route():
+    return jsonify(list_approvals())
+
+
+@app.route("/remote/operator/approve", methods=["POST"])
+def remote_operator_approve_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(approve(data.get("id")))
+
+
+@app.route("/remote/operator/reject", methods=["POST"])
+def remote_operator_reject_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(reject(data.get("id")))
+
+
+@app.route("/remote/operator/browser/open", methods=["POST"])
+def remote_operator_browser_open_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(operator_open_url(data.get("url", "")))
+
+
+@app.route("/remote/operator/browser/click", methods=["POST"])
+def remote_operator_browser_click_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(prepare_click(data.get("url", ""), data.get("selector", ""), data.get("approval_id")))
+
+
+@app.route("/remote/operator/browser/fill-form", methods=["POST"])
+def remote_operator_browser_fill_form_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(prepare_fill_form(data.get("url", ""), data.get("fields", {}), data.get("approval_id")))
+
+
+@app.route("/remote/operator/browser/login", methods=["POST"])
+def remote_operator_browser_login_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(prepare_login(data.get("url", ""), data.get("username_field", "username"), data.get("password_field", "password")))
+
+
+@app.route("/remote/operator/android/tap", methods=["POST"])
+def remote_operator_android_tap_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(android_tap(data.get("x", 0), data.get("y", 0), data.get("approval_id")))
+
+
+@app.route("/remote/operator/android/swipe", methods=["POST"])
+def remote_operator_android_swipe_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(android_swipe(data.get("x1", 0), data.get("y1", 0), data.get("x2", 0), data.get("y2", 0), data.get("duration", 300), data.get("approval_id")))
+
+
+@app.route("/remote/operator/android/keyevent", methods=["POST"])
+def remote_operator_android_keyevent_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(android_keyevent(data.get("name", "")))
+
+
+@app.route("/remote/operator/deploy", methods=["POST"])
+def remote_operator_deploy_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(prepare_real_deploy(data.get("provider", ""), data.get("app", ""), data.get("approval_id")))
 
 @app.route("/remote/hands/status")
 def remote_hands_status_route():
