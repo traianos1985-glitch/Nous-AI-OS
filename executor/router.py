@@ -25,6 +25,8 @@ from executor.guardian_policy import check_action, policy_status
 from executor.real_research_engine import research_to_knowledge, research_status, learned_items
 from executor.master_agent import master_state, choose_master_priority, master_cycle
 from executor.self_improvement_engine import self_improvement_status, create_patch_request, list_patches, apply_patch
+from executor.internet_learning_pipeline import internet_learning_status, internet_learn_topic, internet_learn_url
+from executor.multi_agent_team import team_status, team_cycle
 from executor.agent_journal import list_journal
 from executor.progress_linker import progress_snapshot, link_task_to_project
 from executor.goal_progress import list_goal_progress, refresh_goal_progress, goal_progress_summary
@@ -224,6 +226,49 @@ def remote_progress_link_task_route():
     return jsonify(link_task_to_project(data))
 
 
+
+
+@app.route("/remote/team/status")
+def remote_team_status_route():
+    return jsonify(team_status())
+
+
+@app.route("/remote/team/cycle", methods=["POST"])
+def remote_team_cycle_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(team_cycle(bool(data.get("real_research", False))))
+
+
+@app.route("/remote/internet-learning/status")
+def remote_internet_learning_status_route():
+    return jsonify(internet_learning_status())
+
+
+@app.route("/remote/internet-learning/topic", methods=["POST"])
+def remote_internet_learning_topic_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(internet_learn_topic(
+        data.get("topic"),
+        data.get("query")
+    ))
+
+
+@app.route("/remote/internet-learning/url", methods=["POST"])
+def remote_internet_learning_url_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(internet_learn_url(
+        data.get("url", ""),
+        data.get("topic")
+    ))
 
 @app.route("/remote/self-improve/status")
 def remote_self_improve_status_route():
@@ -658,6 +703,8 @@ def remote_status_route():
         "master": master_state(),
         "guardian": policy_status(),
         "self_improvement": self_improvement_status(),
+        "team": team_status(),
+        "internet_learning": internet_learning_status(),
         "progress": progress_snapshot(),
         "goal_progress": goal_progress_summary(),
         "android": android_safe_commands(),
