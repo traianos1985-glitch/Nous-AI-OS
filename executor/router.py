@@ -16,7 +16,9 @@ from executor.task_queue import list_queue, clear_queue, retry_failed, recover_d
 from executor.runtime_metrics import collect_metrics
 from executor.curiosity_agent import curiosity_cycle, knowledge_status, load_queue, load_knowledge, add_topic, mark_learned, active_learning_topics
 from executor.learning_engine import learning_status, learning_run
-from executor.android_control import android_status, android_notify, android_safe_commands
+from executor.android_control import android_status, android_notify, android_safe_commands, android_open_url
+from executor.app_evolver import app_evolution_status, queue_app_improvement
+from executor.local_llm_adapter import local_llm_status, ask_local
 from executor.app_factory_v2 import create_app_from_idea, queue_app_idea, app_factory_status
 from executor.code_assistant import code_health, code_advice
 from executor.research_browser_agent import research_query, read_url
@@ -178,6 +180,47 @@ def remote_browser_read_route():
         data.get("topic")
     ))
 
+
+
+@app.route("/remote/local-llm/status")
+def remote_local_llm_status_route():
+    return jsonify(local_llm_status())
+
+
+@app.route("/remote/local-llm/ask", methods=["POST"])
+def remote_local_llm_ask_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(ask_local(data.get("prompt", ""), int(data.get("timeout", 60))))
+
+
+@app.route("/remote/app-evolver/status")
+def remote_app_evolver_status_route():
+    return jsonify(app_evolution_status())
+
+
+@app.route("/remote/app-evolver/queue", methods=["POST"])
+def remote_app_evolver_queue_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(queue_app_improvement(
+        data.get("app", ""),
+        data.get("request", "βελτίωσε την εφαρμογή"),
+        int(data.get("priority", 4))
+    ))
+
+
+@app.route("/remote/android/open-url", methods=["POST"])
+def remote_android_open_url_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(android_open_url(data.get("url", "")))
 
 @app.route("/remote/code/health")
 def remote_code_health_route():
@@ -463,6 +506,8 @@ def remote_status_route():
         "learning": learning_status(),
         "code": code_health(),
         "app_factory": app_factory_status(),
+        "app_evolver": app_evolution_status(),
+        "local_llm": local_llm_status(),
         "android": android_safe_commands(),
         "active_learning_topics": active_learning_topics(),
         "review": review_last(),

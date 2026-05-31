@@ -33,3 +33,17 @@ def learning_run(max_topics=1, research=False):
     })
 
     return result
+
+
+def auto_learning_cycle():
+    """
+    Safe automatic learning cycle.
+    It updates curiosity topics but does not perform internet research automatically.
+    Real web research remains admin-triggered.
+    """
+    result = learning_run(max_topics=1, research=False)
+    save({
+        "event": "auto_learning_cycle",
+        "open": result.get("status", {}).get("knowledge", {}).get("open"),
+    })
+    return result

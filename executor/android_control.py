@@ -56,3 +56,13 @@ def android_safe_commands():
         ],
         "note": "Android control είναι σε safe mode. Πρώτα μόνο status/notifications."
     }
+
+
+def android_open_url(url):
+    u = str(url).strip()
+    if not (u.startswith("http://") or u.startswith("https://")):
+        return {"ok": False, "error": "only_http_https_allowed"}
+
+    result = _cmd(f'am start -a android.intent.action.VIEW -d "{u}"')
+    save({"event": "android_open_url", "url": u, "ok": result.get("ok")})
+    return result
