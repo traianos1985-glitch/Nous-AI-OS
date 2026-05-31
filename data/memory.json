@@ -2,1296 +2,6 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780181961.425468,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\n\nclient = app.test_client()\n\nfor path in [\"/dashboard\", \"/remote/autonomy/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/autonomy/start\")\nprint(\"start without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.0,
-        "voltage": 3733,
-        "current": 485839,
-        "percentage": 51,
-        "level": 51,
-        "scale": 100,
-        "charge_counter": 1244565
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780182115.3548431,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\n\nclient = app.test_client()\n\nfor path in [\"/dashboard\", \"/remote/autonomy/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/autonomy/start\")\nprint(\"start without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 35.5,
-        "voltage": 3777,
-        "current": 473632,
-        "percentage": 50,
-        "level": 50,
-        "scale": 100,
-        "charge_counter": 1220314
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780182166.3852818,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\n\nclient = app.test_client()\n\nfor path in [\"/dashboard\", \"/remote/autonomy/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/autonomy/start\")\nprint(\"start without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 35.7,
-        "voltage": 3829,
-        "current": 491210,
-        "percentage": 49,
-        "level": 49,
-        "scale": 100,
-        "charge_counter": 1213024
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780182347.728883,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\n\nclient = app.test_client()\n\nfor path in [\"/dashboard\", \"/remote/autonomy/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/autonomy/start\")\nprint(\"start without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 35.7,
-        "voltage": 3736,
-        "current": 541503,
-        "percentage": 48,
-        "level": 48,
-        "scale": 100,
-        "charge_counter": 1187029
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780182587.6120424,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\n\nclient = app.test_client()\n\nfor path in [\"/dashboard\", \"/remote/autonomy/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/autonomy/start\")\nprint(\"start without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.0,
-        "voltage": 3756,
-        "current": 532226,
-        "percentage": 47,
-        "level": 47,
-        "scale": 100,
-        "charge_counter": 1148951
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "autonomy_started",
-    "time": 1780182587.8218305
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780182786.7535303,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\n\nclient = app.test_client()\n\nr = client.post(\"/remote/autonomy/start\")\nprint(\"start without token:\", r.status_code, r.get_json())\n\nprint(\"/remote/autonomy/status:\", client.get(\"/remote/autonomy/status\").status_code)\nprint(\"/remote/status:\", client.get(\"/remote/status\").status_code)\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3788,
-        "current": 681640,
-        "percentage": 45,
-        "level": 45,
-        "scale": 100,
-        "charge_counter": 1118904
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183545.1860037,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 507812,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005919
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183545.4282691,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 507812,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005919
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183545.5594923,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 507812,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005919
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183545.6856909,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 507812,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005919
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183545.8202095,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 507812,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005919
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "repair_check",
-    "result": {
-      "compile": {
-        "executor/router.py": "ok",
-        "executor/kernel.py": "ok",
-        "executor/intent.py": "ok",
-        "executor/tools.py": "ok",
-        "executor/llm_core.py": "ok",
-        "executor/brain.py": "ok",
-        "executor/hybrid_agent.py": "ok",
-        "executor/control_center.py": "ok"
-      },
-      "git_status": " M data/memory.json\n M executor/router.py\n?? data/autonomy_service.json\n?? executor/autonomy_service.py\n",
-      "healthy": true
-    }
-  },
-  {
-    "event": "autonomy_loop_run",
-    "time": 1780183546.0202866,
-    "result_keys": [
-      "time",
-      "battery",
-      "daily_brief",
-      "scheduled",
-      "scheduled_executed",
-      "review"
-    ]
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183546.0558195,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 507812,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005919
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183546.1716762,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 474609,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005787
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780183546.296844,
-      "clipboard": "python - <<'PY'\nfrom executor.autonomy_service import enable, disable, status, run_cycle\nfrom executor.router import app\n\nprint(\"service enable:\", enable(60))\nprint(\"service status:\", status())\nprint(\"service run:\", run_cycle().keys())\nprint(\"service disable:\", disable())\n\nclient = app.test_client()\nfor path in [\"/remote/service/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/service/enable\", json={\"interval\": 60})\nprint(\"enable without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3687,
-        "current": 474609,
-        "percentage": 41,
-        "level": 41,
-        "scale": 100,
-        "charge_counter": 1005787
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "goal_executor_task_done",
-    "task": {
-      "id": 1780184373620755469,
-      "title": "Δούλεψε στόχο: να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
-      "kind": "goal",
-      "priority": 3,
-      "payload": {
-        "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου"
-      },
-      "status": "done",
-      "created": 1780184373.6207628,
-      "started": 1780184373.6211164,
-      "finished": 1780184373.621327,
-      "attempts": 1,
-      "last_error": null,
-      "result": {
-        "summary": "Ο στόχος 'να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου' είναι ενεργός.",
-        "next_step": "Ζήτησε από τον planner συγκεκριμένο μικρό βήμα ή σύνδεσέ τον με project step.",
-        "status": "reviewed"
-      }
-    }
-  },
-  {
-    "event": "repair_check",
-    "result": {
-      "compile": {
-        "executor/router.py": "ok",
-        "executor/kernel.py": "ok",
-        "executor/intent.py": "ok",
-        "executor/tools.py": "ok",
-        "executor/llm_core.py": "ok",
-        "executor/brain.py": "ok",
-        "executor/hybrid_agent.py": "ok",
-        "executor/control_center.py": "ok"
-      },
-      "git_status": " M executor/router.py\n?? data/project_progress.json\n?? executor/project_progress.py\n?? executor/self_healing_runtime.py\n",
-      "healthy": true
-    }
-  },
-  {
-    "event": "self_heal_check",
-    "result": {
-      "checked": true,
-      "healthy": true,
-      "action": "none",
-      "snapshot": {
-        "time": 1780184561.3322942,
-        "repair": {
-          "compile": {
-            "executor/router.py": "ok",
-            "executor/kernel.py": "ok",
-            "executor/intent.py": "ok",
-            "executor/tools.py": "ok",
-            "executor/llm_core.py": "ok",
-            "executor/brain.py": "ok",
-            "executor/hybrid_agent.py": "ok",
-            "executor/control_center.py": "ok"
-          },
-          "git_status": " M executor/router.py\n?? data/project_progress.json\n?? executor/project_progress.py\n?? executor/self_healing_runtime.py\n",
-          "healthy": true
-        },
-        "healthy": true
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184561.3472626,
-      "clipboard": "python - <<'PY'\nfrom executor.project_progress import sync_projects, list_progress, project_summary\nfrom executor.self_healing_runtime import self_heal_check\nfrom executor.router import app\n\nprint(\"sync:\", sync_projects().keys())\nprint(\"progress:\", list_progress())\nprint(\"summary:\", project_summary())\nprint(\"self heal:\", self_heal_check().keys())\n\nclient = app.test_client()\nfor path in [\"/remote/projects\", \"/remote/projects/summary\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-heal/check\")\nprint(\"self-heal without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.5,
-        "voltage": 3675,
-        "current": 153320,
-        "percentage": 34,
-        "level": 34,
-        "scale": 100,
-        "charge_counter": 855029
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184561.5561955,
-      "clipboard": "python - <<'PY'\nfrom executor.project_progress import sync_projects, list_progress, project_summary\nfrom executor.self_healing_runtime import self_heal_check\nfrom executor.router import app\n\nprint(\"sync:\", sync_projects().keys())\nprint(\"progress:\", list_progress())\nprint(\"summary:\", project_summary())\nprint(\"self heal:\", self_heal_check().keys())\n\nclient = app.test_client()\nfor path in [\"/remote/projects\", \"/remote/projects/summary\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-heal/check\")\nprint(\"self-heal without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.5,
-        "voltage": 3675,
-        "current": 367675,
-        "percentage": 34,
-        "level": 34,
-        "scale": 100,
-        "charge_counter": 854927
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "repair_check",
-    "result": {
-      "compile": {
-        "executor/router.py": "ok",
-        "executor/kernel.py": "ok",
-        "executor/intent.py": "ok",
-        "executor/tools.py": "ok",
-        "executor/llm_core.py": "ok",
-        "executor/brain.py": "ok",
-        "executor/hybrid_agent.py": "ok",
-        "executor/control_center.py": "ok"
-      },
-      "git_status": "",
-      "healthy": true
-    }
-  },
-  {
-    "event": "self_heal_check",
-    "result": {
-      "checked": true,
-      "healthy": true,
-      "action": "none",
-      "snapshot": {
-        "time": 1780184612.7958553,
-        "repair": {
-          "compile": {
-            "executor/router.py": "ok",
-            "executor/kernel.py": "ok",
-            "executor/intent.py": "ok",
-            "executor/tools.py": "ok",
-            "executor/llm_core.py": "ok",
-            "executor/brain.py": "ok",
-            "executor/hybrid_agent.py": "ok",
-            "executor/control_center.py": "ok"
-          },
-          "git_status": "",
-          "healthy": true
-        },
-        "healthy": true
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184612.8112516,
-      "clipboard": "python - <<'PY'\nfrom executor.project_progress import sync_projects, list_progress, project_summary\nfrom executor.self_healing_runtime import self_heal_check\nfrom executor.router import app\n\nprint(\"sync:\", sync_projects().keys())\nprint(\"progress:\", list_progress())\nprint(\"summary:\", project_summary())\nprint(\"self heal:\", self_heal_check().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/projects\",\n    \"/remote/projects/summary\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-heal/check\")\nprint(\"self-heal without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3691,
-        "current": 678222,
-        "percentage": 34,
-        "level": 34,
-        "scale": 100,
-        "charge_counter": 848157
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184612.959435,
-      "clipboard": "python - <<'PY'\nfrom executor.project_progress import sync_projects, list_progress, project_summary\nfrom executor.self_healing_runtime import self_heal_check\nfrom executor.router import app\n\nprint(\"sync:\", sync_projects().keys())\nprint(\"progress:\", list_progress())\nprint(\"summary:\", project_summary())\nprint(\"self heal:\", self_heal_check().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/projects\",\n    \"/remote/projects/summary\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/self-heal/check\")\nprint(\"self-heal without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3691,
-        "current": 678222,
-        "percentage": 34,
-        "level": 34,
-        "scale": 100,
-        "charge_counter": 848157
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184880.412038,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 686523,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806725
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184880.5440497,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 686523,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806725
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184880.717499,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 439452,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806603
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184880.8323045,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 439452,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806603
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184880.9492273,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 439452,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806603
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184881.0679343,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 439452,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806603
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184881.1998384,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 439452,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806603
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780184881.3271275,
-      "clipboard": "python - <<'PY'\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import watchdog_check\nfrom executor.task_queue import retry_failed, recover_dead_tasks\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.router import app\n\nprint(\"metrics keys:\", collect_metrics().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"retry:\", retry_failed())\nprint(\"recover:\", recover_dead_tasks())\nprint(\"goal cycle:\", goal_executor_cycle().keys())\n\nclient = app.test_client()\n\nfor path in [\"/remote/metrics\", \"/remote/service/watchdog\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/queue/retry-failed\")\nprint(\"retry without token:\", r.status_code, r.get_json())\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3593,
-        "current": 439452,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 806603
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780185023.4117866,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import status, watchdog_check\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.project_progress import project_summary\nfrom executor.task_queue import list_queue\nfrom executor.scheduler_agent import list_schedules\nfrom executor.agent_review import review_last\n\nclient = app.test_client()\n\nprint(\"metrics:\", collect_metrics().keys())\nprint(\"service:\", status().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"goal:\", goal_executor_cycle().keys())\nprint(\"projects:\", project_summary())\nprint(\"queue:\", len(list_queue()))\nprint(\"schedules:\", len(list_schedules()))\nprint(\"review:\", review_last()[:120])\n\nfor path in [\n    \"/health\",\n    \"/runtime\",\n    \"/cloud/status\",\n    \"/remote/status\",\n    \"/remote/metrics\",\n    \"/remote/projects\",\n    \"/remote/queue\",\n    \"/dashboard\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nprint(\"OK\")\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.0,
-        "voltage": 3673,
-        "current": 212402,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 787713
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780185023.5673413,
-      "clipboard": "python - <<'PY'\nfrom executor.router import app\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import status, watchdog_check\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.project_progress import project_summary\nfrom executor.task_queue import list_queue\nfrom executor.scheduler_agent import list_schedules\nfrom executor.agent_review import review_last\n\nclient = app.test_client()\n\nprint(\"metrics:\", collect_metrics().keys())\nprint(\"service:\", status().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"goal:\", goal_executor_cycle().keys())\nprint(\"projects:\", project_summary())\nprint(\"queue:\", len(list_queue()))\nprint(\"schedules:\", len(list_schedules()))\nprint(\"review:\", review_last()[:120])\n\nfor path in [\n    \"/health\",\n    \"/runtime\",\n    \"/cloud/status\",\n    \"/remote/status\",\n    \"/remote/metrics\",\n    \"/remote/projects\",\n    \"/remote/queue\",\n    \"/dashboard\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nprint(\"OK\")\nPY",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.0,
-        "voltage": 3673,
-        "current": 212402,
-        "percentage": 32,
-        "level": 32,
-        "scale": 100,
-        "charge_counter": 787713
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
       "time": 1780185023.6954606,
       "clipboard": "python - <<'PY'\nfrom executor.router import app\nfrom executor.runtime_metrics import collect_metrics\nfrom executor.autonomy_service import status, watchdog_check\nfrom executor.goal_executor import goal_executor_cycle\nfrom executor.project_progress import project_summary\nfrom executor.task_queue import list_queue\nfrom executor.scheduler_agent import list_schedules\nfrom executor.agent_review import review_last\n\nclient = app.test_client()\n\nprint(\"metrics:\", collect_metrics().keys())\nprint(\"service:\", status().keys())\nprint(\"watchdog:\", watchdog_check())\nprint(\"goal:\", goal_executor_cycle().keys())\nprint(\"projects:\", project_summary())\nprint(\"queue:\", len(list_queue()))\nprint(\"schedules:\", len(list_schedules()))\nprint(\"review:\", review_last()[:120])\n\nfor path in [\n    \"/health\",\n    \"/runtime\",\n    \"/cloud/status\",\n    \"/remote/status\",\n    \"/remote/metrics\",\n    \"/remote/projects\",\n    \"/remote/queue\",\n    \"/dashboard\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nprint(\"OK\")\nPY",
       "battery": {
@@ -5764,6 +4474,460 @@
   {
     "event": "goal_progress_refreshed",
     "changed": []
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237451.152482,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 520995,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554953
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237451.4029787,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 520995,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554953
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237451.567993,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 447265,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554829
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237451.707413,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 447265,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554829
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237452.758295,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 702148,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554634
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237452.9648836,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 702148,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554634
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237454.099783,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 632323,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554459
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780237454.3229403,
+      "clipboard": "python - <<'PY'\nfrom executor.real_action_gate import real_actions_status, available_real_actions\nfrom executor.real_action_chains import real_chain_status\nfrom executor.router import app\n\nprint(\"available:\", available_real_actions())\nprint(\"status:\", real_actions_status().keys())\nprint(\"chain:\", real_chain_status().keys())\n\nclient = app.test_client()\n\nfor path in [\n    \"/remote/real-actions/status\",\n    \"/remote/real-chain/status\",\n    \"/remote/reality/status\",\n    \"/remote/status\"\n]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nfor path, payload in [\n    (\"/remote/real-actions/run\", {\"action\": \"internet_search\", \"payload\": {\"query\": \"Flask\"}}),\n    (\"/remote/real-actions/run\", {\"action\": \"android_gestures\", \"payload\": {}}),\n    (\"/remote/real-chain/run\", {\"steps\": []}),\n]:\n    r = client.post(path, json=payload)\n    print(path, \"without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 34.0,
+        "voltage": 3597,
+        "current": 632323,
+        "percentage": 24,
+        "level": 24,
+        "scale": 100,
+        "charge_counter": 554459
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
   },
   {
     "event": "goal_progress_refreshed",

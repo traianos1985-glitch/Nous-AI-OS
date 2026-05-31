@@ -29,6 +29,8 @@ from executor.internet_learning_pipeline import internet_learning_status, intern
 from executor.complex_action_runner import complex_action_status, run_complex_action
 from executor.deploy_operator import deploy_operator_status, prepare_real_deploy
 from executor.reality_gate import reality_status
+from executor.real_action_chains import real_chain_status, run_real_chain
+from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
 from executor.android_operator import android_operator_status, tap as android_tap, swipe as android_swipe, keyevent as android_keyevent
 from executor.browser_operator import browser_operator_status, open_url as operator_open_url, prepare_click, prepare_fill_form, prepare_login
 from executor.operator_approval import list_approvals, approve, reject
@@ -240,6 +242,32 @@ def remote_progress_link_task_route():
 
 
 
+
+
+@app.route("/remote/real-actions/status")
+def remote_real_actions_status_route():
+    return jsonify(real_actions_status())
+
+
+@app.route("/remote/real-actions/run", methods=["POST"])
+def remote_real_actions_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_real_action(data.get("action", ""), data.get("payload", {})))
+
+
+@app.route("/remote/real-chain/status")
+def remote_real_chain_status_route():
+    return jsonify(real_chain_status())
+
+
+@app.route("/remote/real-chain/run", methods=["POST"])
+def remote_real_chain_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_real_chain(data.get("steps", [])))
 
 @app.route("/remote/reality/status")
 def remote_reality_status_route():
@@ -890,6 +918,7 @@ def remote_status_route():
         "team": team_status(),
         "internet_learning": internet_learning_status(),
         "hands": {"browser": browser_status(), "android": android_actions_status(), "deploy": deploy_status(), "complex": complex_action_status()},
+        "real_actions": real_actions_status(),
         "progress": progress_snapshot(),
         "goal_progress": goal_progress_summary(),
         "android": android_safe_commands(),
