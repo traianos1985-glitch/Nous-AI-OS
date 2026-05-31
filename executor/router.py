@@ -31,6 +31,7 @@ from executor.deploy_operator import deploy_operator_status, prepare_real_deploy
 from executor.reality_gate import reality_status
 from executor.real_action_chains import real_chain_status, run_real_chain
 from executor.deploy_provider_manager import deploy_provider_status, deploy_with_provider
+from executor.vercel_deploy_integration import vercel_status, vercel_deploy
 from executor.remote_browser_bridge import remote_browser_bridge_status, create_browser_job, list_browser_jobs, complete_browser_job
 from executor.operator_backend_router import operator_backend_status, browser_backend_status, android_backend_status, deployment_backend_status
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
@@ -327,6 +328,23 @@ def remote_browser_driver_run_route():
     data = request.get_json(silent=True) or {}
     return jsonify(run_browser_actions(data.get("url", ""), data.get("actions", [])))
 
+
+
+@app.route("/remote/vercel/status")
+def remote_vercel_status_route():
+    return jsonify(vercel_status())
+
+
+@app.route("/remote/vercel/deploy", methods=["POST"])
+def remote_vercel_deploy_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(vercel_deploy(
+        data.get("path", ""),
+        bool(data.get("prod", True))
+    ))
 
 @app.route("/remote/deploy/providers")
 def remote_deploy_providers_route():
