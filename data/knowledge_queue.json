@@ -78,5 +78,15 @@
     "status": "open",
     "created": 1780185533.3218257,
     "updated": 1780185533.321826
+  },
+  {
+    "id": 1780186630629019660,
+    "topic": "Python Flask",
+    "reason": "detected from goals/projects/memory",
+    "priority": 4,
+    "source": "context_scan",
+    "status": "open",
+    "created": 1780186630.6290238,
+    "updated": 1780186630.6290252
   }
 ]
