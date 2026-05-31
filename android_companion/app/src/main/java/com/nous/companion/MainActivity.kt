@@ -3,6 +3,7 @@ package com.nous.companion
 import android.app.Activity
 import android.os.Bundle
 import android.provider.Settings
+import android.content.ComponentName
 import android.content.Intent
 import android.widget.Button
 import android.widget.LinearLayout
@@ -20,7 +21,7 @@ class MainActivity : Activity() {
         layout.setPadding(32, 32, 32, 32)
 
         val title = TextView(this)
-        title.text = "NOUS Companion v2"
+        title.text = "NOUS Companion v2.1"
         title.textSize = 22f
 
         statusView = TextView(this)
@@ -44,7 +45,6 @@ class MainActivity : Activity() {
         layout.addView(refreshButton)
 
         setContentView(layout)
-
         updateStatus()
     }
 
@@ -54,12 +54,28 @@ class MainActivity : Activity() {
     }
 
     private fun updateStatus() {
+        val enabled = isAccessibilityEnabled()
         val connected = NousAccessibilityService.instance != null
 
         statusView.text =
-            if (connected)
-                "Accessibility Service: CONNECTED"
-            else
-                "Accessibility Service: NOT CONNECTED"
+            "Accessibility setting enabled: $enabled\n" +
+            "Service runtime connected: $connected\n\n" +
+            if (enabled) {
+                "Status: Accessibility is enabled by Android."
+            } else {
+                "Status: Enable NOUS Companion Accessibility from settings."
+            }
+    }
+
+    private fun isAccessibilityEnabled(): Boolean {
+        val expected = ComponentName(this, NousAccessibilityService::class.java).flattenToString()
+        val enabledServices = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+
+        return enabledServices.split(":").any {
+            it.equals(expected, ignoreCase = true)
+        }
     }
 }
