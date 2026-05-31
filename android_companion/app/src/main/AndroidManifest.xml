@@ -25,5 +25,14 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config"/>
         </service>
+    
+        <receiver
+            android:name=".CommandReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.nous.companion.COMMAND"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 </manifest>
