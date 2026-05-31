@@ -2854,5 +2854,30 @@
         "time": 1780240194.4214623
       }
     }
+  },
+  {
+    "id": 1780240417150195621,
+    "time": 1780240417.150203,
+    "event": "vercel_deploy_run",
+    "data": {
+      "id": 1780240417138660985,
+      "path": "vercel_test_app",
+      "prod": true,
+      "ok": true,
+      "urls": [
+        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+        "https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH",
+        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+        "https://verceltestapp-eosin.vercel.app"
+      ],
+      "created": 1780240417.1386642,
+      "result": {
+        "ok": true,
+        "code": 0,
+        "stdout": "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+        "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\nRetrieving project…\nDeploying traianos1985-6056s-projects/vercel_test_app\n  Inspect     https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH\n▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nBuilding…\nBuilding…\nRunning build in Washington, D.C., USA (East) – iad1\nBuild machine configuration: 2 cores, 8 GB\nRetrieving list of deployment files...\nPrevious build caches not available.\nDownloading 2 deployment files...\nRunning \"vercel build\"\nVercel CLI 54.4.1\nBuild Completed in /vercel/output [23ms]\nDeploying outputs...\n\u001b[2K\u001b[1A\u001b[2K\u001b[G▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nCompleting…\n▲ Aliased     https://verceltestapp-eosin.vercel.app\n\n✓ Ready in 5s\n"
+      }
+    }
   }
 ]
