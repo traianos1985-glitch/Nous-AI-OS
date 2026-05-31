@@ -3856,5 +3856,313 @@
         "sim_state": "absent"
       }
     }
+  },
+  {
+    "event": "learning_engine_run",
+    "research": false,
+    "max_topics": 1,
+    "status": {
+      "time": 1780185946.2994168,
+      "knowledge": {
+        "topics": 8,
+        "open": 8,
+        "queued": 8,
+        "learned": 0,
+        "top_open": [
+          {
+            "id": 1780185533312059245,
+            "topic": "AI agents",
+            "reason": "core NOUS goal",
+            "priority": 1,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.31206,
+            "updated": 1780185533.3120606
+          },
+          {
+            "id": 1780185533311655183,
+            "topic": "Greek NLP",
+            "reason": "review quality improvement",
+            "priority": 2,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.311658,
+            "updated": 1780185533.311659
+          },
+          {
+            "id": 1780185533312262422,
+            "topic": "Android automation",
+            "reason": "NOUS runs on Android and Termux",
+            "priority": 2,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.312263,
+            "updated": 1780185533.3122633
+          },
+          {
+            "id": 1780185533312450235,
+            "topic": "Local LLM",
+            "reason": "future local intelligence",
+            "priority": 3,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.312451,
+            "updated": 1780185533.3124511
+          },
+          {
+            "id": 1780185533320954089,
+            "topic": "Autonomous agents",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.320955,
+            "updated": 1780185533.3209553
+          },
+          {
+            "id": 1780185533321234349,
+            "topic": "Schedulers",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.3212352,
+            "updated": 1780185533.3212352
+          },
+          {
+            "id": 1780185533321567006,
+            "topic": "Python",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.3215675,
+            "updated": 1780185533.3215678
+          },
+          {
+            "id": 1780185533321825131,
+            "topic": "Long-term memory",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.3218257,
+            "updated": 1780185533.321826
+          }
+        ]
+      },
+      "active_learning_topics": [
+        "AI agents",
+        "Greek NLP",
+        "Android automation",
+        "Local LLM",
+        "Autonomous agents"
+      ]
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780185946.3148596,
+      "clipboard": "python - <<'PY'\nfrom executor.learning_engine import learning_status, learning_run\nfrom executor.knowledge_research import next_open_topic\nfrom executor.daily_brief import daily_brief\nfrom executor.router import app\n\nprint(\"learning status:\", learning_status())\nprint(\"next topic:\", next_open_topic())\nprint(\"learning run no research:\", learning_run(max_topics=1, research=False).keys())\nprint(\"daily brief has learning:\", \"learning\" in daily_brief())\n\nclient = app.test_client()\n\nfor path in [\"/remote/learning/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/learning/run\", json={\"research\": False, \"max_topics\": 1})\nprint(\"learning run without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3599,
+        "current": 461425,
+        "percentage": 27,
+        "level": 27,
+        "scale": 100,
+        "charge_counter": 657452
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780185946.5372112,
+      "clipboard": "python - <<'PY'\nfrom executor.learning_engine import learning_status, learning_run\nfrom executor.knowledge_research import next_open_topic\nfrom executor.daily_brief import daily_brief\nfrom executor.router import app\n\nprint(\"learning status:\", learning_status())\nprint(\"next topic:\", next_open_topic())\nprint(\"learning run no research:\", learning_run(max_topics=1, research=False).keys())\nprint(\"daily brief has learning:\", \"learning\" in daily_brief())\n\nclient = app.test_client()\n\nfor path in [\"/remote/learning/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/learning/run\", json={\"research\": False, \"max_topics\": 1})\nprint(\"learning run without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3599,
+        "current": 461425,
+        "percentage": 27,
+        "level": 27,
+        "scale": 100,
+        "charge_counter": 657452
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780185946.662924,
+      "clipboard": "python - <<'PY'\nfrom executor.learning_engine import learning_status, learning_run\nfrom executor.knowledge_research import next_open_topic\nfrom executor.daily_brief import daily_brief\nfrom executor.router import app\n\nprint(\"learning status:\", learning_status())\nprint(\"next topic:\", next_open_topic())\nprint(\"learning run no research:\", learning_run(max_topics=1, research=False).keys())\nprint(\"daily brief has learning:\", \"learning\" in daily_brief())\n\nclient = app.test_client()\n\nfor path in [\"/remote/learning/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/learning/run\", json={\"research\": False, \"max_topics\": 1})\nprint(\"learning run without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3599,
+        "current": 461425,
+        "percentage": 27,
+        "level": 27,
+        "scale": 100,
+        "charge_counter": 657452
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780185946.7926846,
+      "clipboard": "python - <<'PY'\nfrom executor.learning_engine import learning_status, learning_run\nfrom executor.knowledge_research import next_open_topic\nfrom executor.daily_brief import daily_brief\nfrom executor.router import app\n\nprint(\"learning status:\", learning_status())\nprint(\"next topic:\", next_open_topic())\nprint(\"learning run no research:\", learning_run(max_topics=1, research=False).keys())\nprint(\"daily brief has learning:\", \"learning\" in daily_brief())\n\nclient = app.test_client()\n\nfor path in [\"/remote/learning/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/learning/run\", json={\"research\": False, \"max_topics\": 1})\nprint(\"learning run without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3599,
+        "current": 461425,
+        "percentage": 27,
+        "level": 27,
+        "scale": 100,
+        "charge_counter": 657452
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780185946.928898,
+      "clipboard": "python - <<'PY'\nfrom executor.learning_engine import learning_status, learning_run\nfrom executor.knowledge_research import next_open_topic\nfrom executor.daily_brief import daily_brief\nfrom executor.router import app\n\nprint(\"learning status:\", learning_status())\nprint(\"next topic:\", next_open_topic())\nprint(\"learning run no research:\", learning_run(max_topics=1, research=False).keys())\nprint(\"daily brief has learning:\", \"learning\" in daily_brief())\n\nclient = app.test_client()\n\nfor path in [\"/remote/learning/status\", \"/remote/status\"]:\n    r = client.get(path)\n    print(path, r.status_code, \"json\" if r.is_json else \"html\")\n\nr = client.post(\"/remote/learning/run\", json={\"research\": False, \"max_topics\": 1})\nprint(\"learning run without token:\", r.status_code, r.get_json())\nPY",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 36.5,
+        "voltage": 3599,
+        "current": 461425,
+        "percentage": 27,
+        "level": 27,
+        "scale": 100,
+        "charge_counter": 657452
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
   }
 ]

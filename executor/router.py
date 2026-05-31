@@ -15,6 +15,8 @@ from executor.self_healing_runtime import self_heal_check
 from executor.task_queue import list_queue, clear_queue, retry_failed, recover_dead_tasks
 from executor.runtime_metrics import collect_metrics
 from executor.curiosity_agent import curiosity_cycle, knowledge_status, load_queue, load_knowledge, add_topic, mark_learned, active_learning_topics
+from executor.learning_engine import learning_status, learning_run
+from executor.knowledge_research import research_next_topic, learning_cycle
 
 app = Flask(__name__)
 
@@ -144,6 +146,41 @@ from executor.app_builder import list_apps
 
 
 
+
+
+@app.route("/remote/learning/status")
+def remote_learning_status_route():
+    return jsonify(learning_status())
+
+
+@app.route("/remote/learning/run", methods=["POST"])
+def remote_learning_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    max_topics = int(data.get("max_topics", 1))
+    research = bool(data.get("research", False))
+
+    return jsonify(learning_run(max_topics=max_topics, research=research))
+
+
+@app.route("/remote/research/next", methods=["POST"])
+def remote_research_next_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    return jsonify(research_next_topic())
+
+
+@app.route("/remote/research/cycle", methods=["POST"])
+def remote_research_cycle_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    max_topics = int(data.get("max_topics", 1))
+    return jsonify(learning_cycle(max_topics=max_topics))
 
 @app.route("/remote/knowledge")
 def remote_knowledge_route():
@@ -335,6 +372,7 @@ def remote_status_route():
         "projects_progress": project_summary(),
         "metrics": collect_metrics(),
         "knowledge": knowledge_status(),
+        "learning": learning_status(),
         "active_learning_topics": active_learning_topics(),
         "review": review_last(),
         "time": time.time(),
