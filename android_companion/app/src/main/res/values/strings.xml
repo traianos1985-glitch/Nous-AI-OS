@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NOUS Companion</string>
+    <string name="accessibility_service_label">NOUS Companion Accessibility</string>
+</resources>
