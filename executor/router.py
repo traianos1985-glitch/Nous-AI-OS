@@ -34,6 +34,7 @@ from executor.deploy_provider_manager import deploy_provider_status, deploy_with
 from executor.vercel_deploy_integration import vercel_status, vercel_deploy
 from executor.remote_browser_bridge import remote_browser_bridge_status, create_browser_job, list_browser_jobs, complete_browser_job
 from executor.operator_backend_router import operator_backend_status, browser_backend_status, android_backend_status, deployment_backend_status
+from executor.device_control_backend import device_control_status, device_control_recommendation
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -251,6 +252,16 @@ def remote_progress_link_task_route():
 
 
 
+
+
+@app.route("/remote/device-control/status")
+def remote_device_control_status_route():
+    return jsonify(device_control_status())
+
+
+@app.route("/remote/device-control/recommendation")
+def remote_device_control_recommendation_route():
+    return jsonify(device_control_recommendation())
 
 @app.route("/remote/operator-backend/status")
 def remote_operator_backend_status_route():
