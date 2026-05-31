@@ -19,6 +19,9 @@ from executor.learning_engine import learning_status, learning_run
 from executor.android_control import android_status, android_notify, android_safe_commands, android_open_url
 from executor.app_evolver import app_evolution_status, queue_app_improvement
 from executor.local_llm_adapter import local_llm_status, ask_local
+from executor.decision_engine import decide_next_action, prioritize_goals
+from executor.real_action_executor import agent_act_cycle
+from executor.agent_journal import list_journal
 from executor.app_factory_v2 import create_app_from_idea, queue_app_idea, app_factory_status
 from executor.code_assistant import code_health, code_advice
 from executor.research_browser_agent import research_query, read_url
@@ -181,6 +184,28 @@ def remote_browser_read_route():
     ))
 
 
+
+
+@app.route("/remote/agent/decide")
+def remote_agent_decide_route():
+    return jsonify(decide_next_action())
+
+
+@app.route("/remote/agent/act", methods=["POST"])
+def remote_agent_act_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(agent_act_cycle())
+
+
+@app.route("/remote/agent/goals")
+def remote_agent_goals_route():
+    return jsonify(prioritize_goals())
+
+
+@app.route("/remote/agent/journal")
+def remote_agent_journal_route():
+    return jsonify(list_journal())
 
 @app.route("/remote/local-llm/status")
 def remote_local_llm_status_route():
@@ -508,6 +533,7 @@ def remote_status_route():
         "app_factory": app_factory_status(),
         "app_evolver": app_evolution_status(),
         "local_llm": local_llm_status(),
+        "agent": decide_next_action(),
         "android": android_safe_commands(),
         "active_learning_topics": active_learning_topics(),
         "review": review_last(),
