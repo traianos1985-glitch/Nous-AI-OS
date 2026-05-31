@@ -2261,5 +2261,144 @@
         "time": 1780232309.717742
       }
     }
+  },
+  {
+    "id": 1780232562495964589,
+    "time": 1780232562.4959657,
+    "event": "internet_topic_learned",
+    "data": {
+      "ok": true,
+      "topic": "Python Flask",
+      "query": "Python Flask",
+      "research": {
+        "query": "Python Flask",
+        "result": {
+          "query": "Python Flask",
+          "results": [
+            {
+              "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+              "url": "https://flask.palletsprojects.com/"
+            },
+            {
+              "title": "Flask Tutorial - GeeksforGeeks",
+              "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+            },
+            {
+              "title": "Flask · PyPI",
+              "url": "https://pypi.org/project/Flask/"
+            },
+            {
+              "title": "Flask (web framework) - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+            },
+            {
+              "title": "How To Build a Web Application Using Flask in Python 3",
+              "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+            }
+          ]
+        },
+        "learned": null,
+        "time": 1780232562.472835
+      },
+      "learned": {
+        "marked": true,
+        "knowledge": {
+          "id": 1780232562491337818,
+          "topic": "Python Flask",
+          "summary": "{'query': 'Python Flask', 'results': [{'title': 'Welcome to Flask — Flask Documentation (3.1.x)', 'url': 'https://flask.palletsprojects.com/'}, {'title': 'Flask Tutorial - GeeksforGeeks', 'url': 'https://www.geeksforgeeks.org/python/flask-tutorial/'}, {'title': 'Flask · PyPI', 'url': 'https://pypi.org/project/Flask/'}, {'title': 'Flask (web framework) - Wikipedia', 'url': 'https://en.wikipedia.org/wiki/Flask_(web_framework)'}, {'title': 'How To Build a Web Application Using Flask in Python 3', 'url': 'https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3'}]}",
+          "source": "internet_learning_pipeline",
+          "created": 1780232562.4913392
+        }
+      },
+      "knowledge": {
+        "topics": 10,
+        "open": 8,
+        "queued": 9,
+        "learned": 1,
+        "top_open": [
+          {
+            "id": 1780185533312059245,
+            "topic": "AI agents",
+            "reason": "core NOUS goal",
+            "priority": 1,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.31206,
+            "updated": 1780185533.3120606
+          },
+          {
+            "id": 1780185533311655183,
+            "topic": "Greek NLP",
+            "reason": "review quality improvement",
+            "priority": 2,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.311658,
+            "updated": 1780185533.311659
+          },
+          {
+            "id": 1780185533312262422,
+            "topic": "Android automation",
+            "reason": "NOUS runs on Android and Termux",
+            "priority": 2,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.312263,
+            "updated": 1780185533.3122633
+          },
+          {
+            "id": 1780185533312450235,
+            "topic": "Local LLM",
+            "reason": "future local intelligence",
+            "priority": 3,
+            "source": "seed",
+            "status": "open",
+            "created": 1780185533.312451,
+            "updated": 1780185533.3124511
+          },
+          {
+            "id": 1780185533320954089,
+            "topic": "Autonomous agents",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.320955,
+            "updated": 1780185533.3209553
+          },
+          {
+            "id": 1780185533321234349,
+            "topic": "Schedulers",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.3212352,
+            "updated": 1780185533.3212352
+          },
+          {
+            "id": 1780185533321567006,
+            "topic": "Python",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.3215675,
+            "updated": 1780185533.3215678
+          },
+          {
+            "id": 1780185533321825131,
+            "topic": "Long-term memory",
+            "reason": "detected from goals/projects/memory",
+            "priority": 4,
+            "source": "context_scan",
+            "status": "open",
+            "created": 1780185533.3218257,
+            "updated": 1780185533.321826
+          }
+        ]
+      },
+      "time": 1780232562.4945855
+    }
   }
 ]

@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1780232562491337818,
+    "topic": "Python Flask",
+    "summary": "{'query': 'Python Flask', 'results': [{'title': 'Welcome to Flask — Flask Documentation (3.1.x)', 'url': 'https://flask.palletsprojects.com/'}, {'title': 'Flask Tutorial - GeeksforGeeks', 'url': 'https://www.geeksforgeeks.org/python/flask-tutorial/'}, {'title': 'Flask · PyPI', 'url': 'https://pypi.org/project/Flask/'}, {'title': 'Flask (web framework) - Wikipedia', 'url': 'https://en.wikipedia.org/wiki/Flask_(web_framework)'}, {'title': 'How To Build a Web Application Using Flask in Python 3', 'url': 'https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3'}]}",
+    "source": "internet_learning_pipeline",
+    "created": 1780232562.4913392
+  }
+]

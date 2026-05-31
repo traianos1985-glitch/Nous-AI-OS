@@ -85,8 +85,8 @@
     "reason": "detected from goals/projects/memory",
     "priority": 4,
     "source": "context_scan",
-    "status": "open",
+    "status": "learned",
     "created": 1780186630.6290238,
-    "updated": 1780186630.6290252
+    "updated": 1780232562.4913342
   }
 ]
