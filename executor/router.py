@@ -31,6 +31,8 @@ from executor.deploy_operator import deploy_operator_status, prepare_real_deploy
 from executor.reality_gate import reality_status
 from executor.real_action_chains import real_chain_status, run_real_chain
 from executor.deploy_provider_manager import deploy_provider_status, deploy_with_provider
+from executor.remote_browser_bridge import remote_browser_bridge_status, create_browser_job, list_browser_jobs, complete_browser_job
+from executor.operator_backend_router import operator_backend_status, browser_backend_status, android_backend_status, deployment_backend_status
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -247,6 +249,61 @@ def remote_progress_link_task_route():
 
 
 
+
+
+@app.route("/remote/operator-backend/status")
+def remote_operator_backend_status_route():
+    return jsonify(operator_backend_status())
+
+
+@app.route("/remote/operator-backend/browser")
+def remote_operator_backend_browser_route():
+    return jsonify(browser_backend_status())
+
+
+@app.route("/remote/operator-backend/android")
+def remote_operator_backend_android_route():
+    return jsonify(android_backend_status())
+
+
+@app.route("/remote/operator-backend/deploy")
+def remote_operator_backend_deploy_route():
+    return jsonify(deployment_backend_status())
+
+
+@app.route("/remote/browser-bridge/status")
+def remote_browser_bridge_status_route():
+    return jsonify(remote_browser_bridge_status())
+
+
+@app.route("/remote/browser-bridge/jobs")
+def remote_browser_bridge_jobs_route():
+    return jsonify(list_browser_jobs())
+
+
+@app.route("/remote/browser-bridge/create", methods=["POST"])
+def remote_browser_bridge_create_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_browser_job(
+        data.get("url", ""),
+        data.get("actions", []),
+        data.get("reason", "remote browser required")
+    ))
+
+
+@app.route("/remote/browser-bridge/complete", methods=["POST"])
+def remote_browser_bridge_complete_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(complete_browser_job(
+        data.get("id"),
+        data.get("result", {})
+    ))
 
 @app.route("/remote/operator/capabilities")
 def remote_operator_capabilities_route():

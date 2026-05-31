@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1780238667617020194,
+    "url": "https://example.com",
+    "actions": [
+      {
+        "type": "click",
+        "selector": "body"
+      }
+    ],
+    "reason": "remote browser required",
+    "status": "pending_remote_worker",
+    "created": 1780238667.6170232,
+    "result": null
+  }
+]

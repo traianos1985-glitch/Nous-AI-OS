@@ -2400,5 +2400,314 @@
       },
       "time": 1780232562.4945855
     }
+  },
+  {
+    "id": 1780238041581297464,
+    "time": 1780238041.5813005,
+    "event": "decision_made",
+    "data": {
+      "action": "seed_goal_task",
+      "reason": "active_goal_available",
+      "priority": 4,
+      "goal": {
+        "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+        "priority": 2,
+        "status": "active"
+      },
+      "context": {
+        "battery": {
+          "alert": true,
+          "level": 19
+        },
+        "pending_queue": 0,
+        "failed_queue": 0,
+        "goals": [
+          {
+            "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+            "priority": 2,
+            "status": "active"
+          }
+        ],
+        "projects": [
+          {
+            "project": "ΝΟΥΣ AI OS mobile agent",
+            "status": "active",
+            "steps_total": 2,
+            "steps_done": 1,
+            "progress_percent": 50
+          }
+        ],
+        "schedules": 3,
+        "knowledge": {
+          "topics": 10,
+          "open": 8,
+          "queued": 9,
+          "learned": 1,
+          "top_open": [
+            {
+              "id": 1780185533312059245,
+              "topic": "AI agents",
+              "reason": "core NOUS goal",
+              "priority": 1,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.31206,
+              "updated": 1780185533.3120606
+            },
+            {
+              "id": 1780185533311655183,
+              "topic": "Greek NLP",
+              "reason": "review quality improvement",
+              "priority": 2,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.311658,
+              "updated": 1780185533.311659
+            },
+            {
+              "id": 1780185533312262422,
+              "topic": "Android automation",
+              "reason": "NOUS runs on Android and Termux",
+              "priority": 2,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.312263,
+              "updated": 1780185533.3122633
+            },
+            {
+              "id": 1780185533312450235,
+              "topic": "Local LLM",
+              "reason": "future local intelligence",
+              "priority": 3,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.312451,
+              "updated": 1780185533.3124511
+            },
+            {
+              "id": 1780185533320954089,
+              "topic": "Autonomous agents",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.320955,
+              "updated": 1780185533.3209553
+            },
+            {
+              "id": 1780185533321234349,
+              "topic": "Schedulers",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.3212352,
+              "updated": 1780185533.3212352
+            },
+            {
+              "id": 1780185533321567006,
+              "topic": "Python",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.3215675,
+              "updated": 1780185533.3215678
+            },
+            {
+              "id": 1780185533321825131,
+              "topic": "Long-term memory",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.3218257,
+              "updated": 1780185533.321826
+            }
+          ]
+        },
+        "goal_progress": {
+          "total": 1,
+          "active": 1,
+          "done": 0,
+          "goals": [
+            {
+              "id": 1780230012937763225,
+              "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+              "status": "active",
+              "progress_percent": 50,
+              "created": 1780230012.9377656,
+              "updated": 1780238041.5555222,
+              "last_reason": "no_change"
+            }
+          ]
+        },
+        "time": 1780238041.578258
+      }
+    }
+  },
+  {
+    "id": 1780238667625709048,
+    "time": 1780238667.6257122,
+    "event": "remote_browser_job_created",
+    "data": {
+      "id": 1780238667617020194,
+      "url": "https://example.com",
+      "actions": [
+        {
+          "type": "click",
+          "selector": "body"
+        }
+      ],
+      "reason": "remote browser required",
+      "status": "pending_remote_worker",
+      "created": 1780238667.6170232,
+      "result": null
+    }
+  },
+  {
+    "id": 1780238669801374933,
+    "time": 1780238669.8013778,
+    "event": "decision_made",
+    "data": {
+      "action": "seed_goal_task",
+      "reason": "active_goal_available",
+      "priority": 4,
+      "goal": {
+        "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+        "priority": 2,
+        "status": "active"
+      },
+      "context": {
+        "battery": {
+          "alert": true,
+          "level": 15
+        },
+        "pending_queue": 0,
+        "failed_queue": 0,
+        "goals": [
+          {
+            "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+            "priority": 2,
+            "status": "active"
+          }
+        ],
+        "projects": [
+          {
+            "project": "ΝΟΥΣ AI OS mobile agent",
+            "status": "active",
+            "steps_total": 2,
+            "steps_done": 1,
+            "progress_percent": 50
+          }
+        ],
+        "schedules": 3,
+        "knowledge": {
+          "topics": 10,
+          "open": 8,
+          "queued": 9,
+          "learned": 1,
+          "top_open": [
+            {
+              "id": 1780185533312059245,
+              "topic": "AI agents",
+              "reason": "core NOUS goal",
+              "priority": 1,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.31206,
+              "updated": 1780185533.3120606
+            },
+            {
+              "id": 1780185533311655183,
+              "topic": "Greek NLP",
+              "reason": "review quality improvement",
+              "priority": 2,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.311658,
+              "updated": 1780185533.311659
+            },
+            {
+              "id": 1780185533312262422,
+              "topic": "Android automation",
+              "reason": "NOUS runs on Android and Termux",
+              "priority": 2,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.312263,
+              "updated": 1780185533.3122633
+            },
+            {
+              "id": 1780185533312450235,
+              "topic": "Local LLM",
+              "reason": "future local intelligence",
+              "priority": 3,
+              "source": "seed",
+              "status": "open",
+              "created": 1780185533.312451,
+              "updated": 1780185533.3124511
+            },
+            {
+              "id": 1780185533320954089,
+              "topic": "Autonomous agents",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.320955,
+              "updated": 1780185533.3209553
+            },
+            {
+              "id": 1780185533321234349,
+              "topic": "Schedulers",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.3212352,
+              "updated": 1780185533.3212352
+            },
+            {
+              "id": 1780185533321567006,
+              "topic": "Python",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.3215675,
+              "updated": 1780185533.3215678
+            },
+            {
+              "id": 1780185533321825131,
+              "topic": "Long-term memory",
+              "reason": "detected from goals/projects/memory",
+              "priority": 4,
+              "source": "context_scan",
+              "status": "open",
+              "created": 1780185533.3218257,
+              "updated": 1780185533.321826
+            }
+          ]
+        },
+        "goal_progress": {
+          "total": 1,
+          "active": 1,
+          "done": 0,
+          "goals": [
+            {
+              "id": 1780230012937763225,
+              "goal": "να κάνω τον ΝΟΥΣ πραγματικό ai agent στο κινητό μου",
+              "status": "active",
+              "progress_percent": 50,
+              "created": 1780230012.9377656,
+              "updated": 1780238669.7777689,
+              "last_reason": "no_change"
+            }
+          ]
+        },
+        "time": 1780238669.7992094
+      }
+    }
   }
 ]
