@@ -7,25 +7,31 @@ import android.content.ComponentName
 import android.content.Intent
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 
 class MainActivity : Activity() {
 
     private lateinit var statusView: TextView
+    private lateinit var resultView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val scroll = ScrollView(this)
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
         layout.setPadding(32, 32, 32, 32)
 
         val title = TextView(this)
-        title.text = "NOUS Companion v2.1"
+        title.text = "NOUS Companion v3.1"
         title.textSize = 22f
 
         statusView = TextView(this)
         statusView.textSize = 16f
+
+        resultView = TextView(this)
+        resultView.textSize = 13f
 
         val settingsButton = Button(this)
         settingsButton.text = "Open Accessibility Settings"
@@ -34,7 +40,7 @@ class MainActivity : Activity() {
         }
 
         val refreshButton = Button(this)
-        refreshButton.text = "Refresh Status"
+        refreshButton.text = "Refresh Status / Last Result"
         refreshButton.setOnClickListener {
             updateStatus()
         }
@@ -43,8 +49,10 @@ class MainActivity : Activity() {
         layout.addView(statusView)
         layout.addView(settingsButton)
         layout.addView(refreshButton)
+        layout.addView(resultView)
 
-        setContentView(layout)
+        scroll.addView(layout)
+        setContentView(scroll)
         updateStatus()
     }
 
@@ -59,12 +67,9 @@ class MainActivity : Activity() {
 
         statusView.text =
             "Accessibility setting enabled: $enabled\n" +
-            "Service runtime connected: $connected\n\n" +
-            if (enabled) {
-                "Status: Accessibility is enabled by Android."
-            } else {
-                "Status: Enable NOUS Companion Accessibility from settings."
-            }
+            "Service runtime connected: $connected\n"
+
+        resultView.text = "\nLast Companion State:\n${CompanionState.summary()}"
     }
 
     private fun isAccessibilityEnabled(): Boolean {

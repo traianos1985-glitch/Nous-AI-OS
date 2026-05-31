@@ -7,30 +7,35 @@ import android.util.Log
 
 class CommandReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        val action = intent?.getStringExtra("command") ?: return
+        val command = intent?.getStringExtra("command") ?: return
         val service = NousAccessibilityService.instance
 
-        Log.i("NOUS_COMPANION", "Received command: $action")
+        Log.i("NOUS_COMPANION", "Received command: $command")
 
         if (service == null) {
+            CompanionState.update(command, "ERROR: Accessibility service not connected")
             Log.w("NOUS_COMPANION", "Accessibility service not connected")
             return
         }
 
-        when (action) {
-            "back" -> service.pressBack()
-            "home" -> service.pressHome()
+        val result = when (command) {
+            "back" -> "back=${service.pressBack()}"
+            "home" -> "home=${service.pressHome()}"
             "tap" -> {
                 val x = intent.getFloatExtra("x", -1f)
                 val y = intent.getFloatExtra("y", -1f)
                 if (x >= 0 && y >= 0) {
-                    service.tap(x, y)
+                    "tap=${service.tap(x, y)} x=$x y=$y"
+                } else {
+                    "ERROR: invalid tap coordinates x=$x y=$y"
                 }
             }
-            "ui_tree" -> {
-                Log.i("NOUS_COMPANION_UI_TREE", service.rootSummary())
-            }
-            else -> Log.w("NOUS_COMPANION", "Unknown command: $action")
+            "ui_tree" -> service.rootSummary()
+            "state" -> CompanionState.summary()
+            else -> "ERROR: unknown command $command"
         }
+
+        CompanionState.update(command, result)
+        Log.i("NOUS_COMPANION_RESULT", result.take(3500))
     }
 }
