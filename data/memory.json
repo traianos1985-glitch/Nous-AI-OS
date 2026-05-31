@@ -4385,5 +4385,10 @@
   {
     "event": "code_health",
     "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask tutorial",
+    "learn": false
   }
 ]
