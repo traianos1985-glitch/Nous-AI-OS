@@ -26,6 +26,11 @@ from executor.real_research_engine import research_to_knowledge, research_status
 from executor.master_agent import master_state, choose_master_priority, master_cycle
 from executor.self_improvement_engine import self_improvement_status, create_patch_request, list_patches, apply_patch
 from executor.internet_learning_pipeline import internet_learning_status, internet_learn_topic, internet_learn_url
+from executor.complex_action_runner import complex_action_status, run_complex_action
+from executor.git_workflow import git_workflow_status, git_safe_checkpoint
+from executor.web_deploy_manager import deploy_status, register_local_deploy, deploy_git_status
+from executor.android_actions_v2 import android_actions_status, run_android_action
+from executor.browser_automation import browser_status, browser_search, browser_read
 from executor.multi_agent_team import team_status, team_cycle
 from executor.agent_journal import list_journal
 from executor.progress_linker import progress_snapshot, link_task_to_project
@@ -227,6 +232,80 @@ def remote_progress_link_task_route():
 
 
 
+
+
+@app.route("/remote/hands/status")
+def remote_hands_status_route():
+    return jsonify({
+        "browser": browser_status(),
+        "android": android_actions_status(),
+        "deploy": deploy_status(),
+        "git": git_workflow_status(),
+        "complex": complex_action_status()
+    })
+
+
+@app.route("/remote/browser/search", methods=["POST"])
+def remote_browser_search_v2_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(browser_search(data.get("query", "")))
+
+
+@app.route("/remote/browser/read-url", methods=["POST"])
+def remote_browser_read_v2_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(browser_read(data.get("url", "")))
+
+
+@app.route("/remote/android/action", methods=["POST"])
+def remote_android_action_v2_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_android_action(data.get("action", ""), data.get("payload", {})))
+
+
+@app.route("/remote/deploy/status")
+def remote_deploy_status_route():
+    return jsonify(deploy_status())
+
+
+@app.route("/remote/deploy/local", methods=["POST"])
+def remote_deploy_local_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(register_local_deploy(data.get("app", "")))
+
+
+@app.route("/remote/git/status")
+def remote_git_status_route():
+    return jsonify(git_workflow_status())
+
+
+@app.route("/remote/git/checkpoint", methods=["POST"])
+def remote_git_checkpoint_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(git_safe_checkpoint(data.get("message", "NOUS checkpoint")))
+
+
+@app.route("/remote/complex/status")
+def remote_complex_status_route():
+    return jsonify(complex_action_status())
+
+
+@app.route("/remote/complex/run", methods=["POST"])
+def remote_complex_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_complex_action(data.get("steps", [])))
 
 @app.route("/remote/team/status")
 def remote_team_status_route():
@@ -705,6 +784,7 @@ def remote_status_route():
         "self_improvement": self_improvement_status(),
         "team": team_status(),
         "internet_learning": internet_learning_status(),
+        "hands": {"browser": browser_status(), "android": android_actions_status(), "deploy": deploy_status(), "complex": complex_action_status()},
         "progress": progress_snapshot(),
         "goal_progress": goal_progress_summary(),
         "android": android_safe_commands(),
