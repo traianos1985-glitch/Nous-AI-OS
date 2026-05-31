@@ -9,25 +9,57 @@ import android.widget.LinearLayout
 import android.widget.TextView
 
 class MainActivity : Activity() {
+    private lateinit var status: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        buildUi()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        updateStatus()
+    }
+
+    private fun buildUi() {
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
         layout.setPadding(32, 32, 32, 32)
 
         val title = TextView(this)
-        title.text = "NOUS Companion v1\nEnable Accessibility Service to give NOUS real device control."
-        title.textSize = 18f
+        title.text = "NOUS Companion v2"
+        title.textSize = 22f
 
-        val button = Button(this)
-        button.text = "Open Accessibility Settings"
-        button.setOnClickListener {
+        status = TextView(this)
+        status.textSize = 16f
+
+        val openSettings = Button(this)
+        openSettings.text = "Open Accessibility Settings"
+        openSettings.setOnClickListener {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
 
+        val refresh = Button(this)
+        refresh.text = "Refresh Status"
+        refresh.setOnClickListener {
+            updateStatus()
+        }
+
         layout.addView(title)
-        layout.addView(button)
+        layout.addView(status)
+        layout.addView(openSettings)
+        layout.addView(refresh)
         setContentView(layout)
+
+        updateStatus()
+    }
+
+    private fun updateStatus() {
+        val serviceConnected = NousAccessibilityService.instance != null
+        status.text = if (serviceConnected) {
+            "Accessibility Service: CONNECTED"
+        } else {
+            "Accessibility Service: NOT CONNECTED\nEnable it from Accessibility Settings, then return here."
+        }
     }
 }
