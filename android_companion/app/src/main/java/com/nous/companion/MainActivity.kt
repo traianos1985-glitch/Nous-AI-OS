@@ -9,19 +9,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 
 class MainActivity : Activity() {
-    private lateinit var status: TextView
+
+    private lateinit var statusView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        buildUi()
-    }
 
-    override fun onResume() {
-        super.onResume()
-        updateStatus()
-    }
-
-    private fun buildUi() {
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
         layout.setPadding(32, 32, 32, 32)
@@ -30,36 +23,43 @@ class MainActivity : Activity() {
         title.text = "NOUS Companion v2"
         title.textSize = 22f
 
-        status = TextView(this)
-        status.textSize = 16f
+        statusView = TextView(this)
+        statusView.textSize = 16f
 
-        val openSettings = Button(this)
-        openSettings.text = "Open Accessibility Settings"
-        openSettings.setOnClickListener {
+        val settingsButton = Button(this)
+        settingsButton.text = "Open Accessibility Settings"
+        settingsButton.setOnClickListener {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
 
-        val refresh = Button(this)
-        refresh.text = "Refresh Status"
-        refresh.setOnClickListener {
+        val refreshButton = Button(this)
+        refreshButton.text = "Refresh Status"
+        refreshButton.setOnClickListener {
             updateStatus()
         }
 
         layout.addView(title)
-        layout.addView(status)
-        layout.addView(openSettings)
-        layout.addView(refresh)
+        layout.addView(statusView)
+        layout.addView(settingsButton)
+        layout.addView(refreshButton)
+
         setContentView(layout)
 
         updateStatus()
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateStatus()
+    }
+
     private fun updateStatus() {
-        val serviceConnected = NousAccessibilityService.instance != null
-        status.text = if (serviceConnected) {
-            "Accessibility Service: CONNECTED"
-        } else {
-            "Accessibility Service: NOT CONNECTED\nEnable it from Accessibility Settings, then return here."
-        }
+        val connected = NousAccessibilityService.instance != null
+
+        statusView.text =
+            if (connected)
+                "Accessibility Service: CONNECTED"
+            else
+                "Accessibility Service: NOT CONNECTED"
     }
 }
