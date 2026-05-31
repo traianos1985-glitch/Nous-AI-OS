@@ -6,3 +6,4 @@ snapshots/
 .env
 *.key
 *.pem
+data/runtime_metrics.json
