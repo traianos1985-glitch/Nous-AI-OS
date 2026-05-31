@@ -16,6 +16,10 @@ from executor.task_queue import list_queue, clear_queue, retry_failed, recover_d
 from executor.runtime_metrics import collect_metrics
 from executor.curiosity_agent import curiosity_cycle, knowledge_status, load_queue, load_knowledge, add_topic, mark_learned, active_learning_topics
 from executor.learning_engine import learning_status, learning_run
+from executor.android_control import android_status, android_notify, android_safe_commands
+from executor.app_factory_v2 import create_app_from_idea, queue_app_idea, app_factory_status
+from executor.code_assistant import code_health, code_advice
+from executor.research_browser_agent import research_query, read_url
 from executor.knowledge_research import research_next_topic, learning_cycle
 
 app = Flask(__name__)
@@ -147,6 +151,90 @@ from executor.app_builder import list_apps
 
 
 
+
+
+@app.route("/remote/research/query", methods=["POST"])
+def remote_research_query_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(research_query(
+        data.get("query", ""),
+        bool(data.get("learn", False)),
+        data.get("topic")
+    ))
+
+
+@app.route("/remote/browser/read", methods=["POST"])
+def remote_browser_read_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(read_url(
+        data.get("url", ""),
+        bool(data.get("learn", False)),
+        data.get("topic")
+    ))
+
+
+@app.route("/remote/code/health")
+def remote_code_health_route():
+    return jsonify(code_health())
+
+
+@app.route("/remote/code/advice")
+def remote_code_advice_route():
+    return jsonify(code_advice())
+
+
+@app.route("/remote/app-factory/status")
+def remote_app_factory_status_route():
+    return jsonify(app_factory_status())
+
+
+@app.route("/remote/app-factory/create", methods=["POST"])
+def remote_app_factory_create_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_app_from_idea(data.get("idea", "")))
+
+
+@app.route("/remote/app-factory/queue", methods=["POST"])
+def remote_app_factory_queue_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(queue_app_idea(
+        data.get("idea", ""),
+        int(data.get("priority", 4))
+    ))
+
+
+@app.route("/remote/android/status")
+def remote_android_status_route():
+    return jsonify(android_status())
+
+
+@app.route("/remote/android/safe-commands")
+def remote_android_safe_commands_route():
+    return jsonify(android_safe_commands())
+
+
+@app.route("/remote/android/notify", methods=["POST"])
+def remote_android_notify_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(android_notify(
+        data.get("title", "ΝΟΥΣ AI"),
+        data.get("message", "Ο ΝΟΥΣ είναι ενεργός")
+    ))
 
 @app.route("/remote/learning/status")
 def remote_learning_status_route():
@@ -373,6 +461,9 @@ def remote_status_route():
         "metrics": collect_metrics(),
         "knowledge": knowledge_status(),
         "learning": learning_status(),
+        "code": code_health(),
+        "app_factory": app_factory_status(),
+        "android": android_safe_commands(),
         "active_learning_topics": active_learning_topics(),
         "review": review_last(),
         "time": time.time(),
