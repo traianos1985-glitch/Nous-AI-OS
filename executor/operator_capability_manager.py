@@ -1,3 +1,4 @@
+import os
 import time
 from executor.code_assistant import run_cmd
 
@@ -22,7 +23,7 @@ def operator_capabilities():
     return {
         "time": time.time(),
         "commands": caps,
-        "browser_driver_ready": caps.get("playwright") or caps.get("chromium") or caps.get("firefox"),
+        "browser_driver_ready": (caps.get("playwright") or caps.get("chromium") or caps.get("firefox")) and not os.path.exists("/data/data/com.termux"),
         "node_ready": caps.get("node") and caps.get("npm") and caps.get("npx"),
         "deploy_ready": caps.get("vercel") or caps.get("railway") or caps.get("render"),
         "install_hints": {
