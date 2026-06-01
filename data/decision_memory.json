@@ -360,5 +360,48 @@
       "approval"
     ],
     "created": 1780338072.1677234
+  },
+  {
+    "id": 1780339650799646222,
+    "title": "Proposed mission for goal: Improve NOUS user interface",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547945471638,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780339650799177003,
+      "status": "pending",
+      "created": 1780339650.799179,
+      "goal_id": 1780327547945471638,
+      "goal_title": "Improve NOUS user interface",
+      "goal_progress": 45,
+      "kind": "ui",
+      "title": "Advance goal: Improve NOUS user interface",
+      "description": "Auto-proposed mission to advance goal progress for: Improve NOUS user interface",
+      "tasks": [
+        {
+          "title": "Check code health",
+          "action": "code_health"
+        },
+        {
+          "title": "Check git status",
+          "action": "git_status"
+        },
+        {
+          "title": "Run full validation after UI planning",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "ui"
+    ],
+    "created": 1780339650.7996497
   }
 ]

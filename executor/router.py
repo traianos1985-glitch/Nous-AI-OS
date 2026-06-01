@@ -52,6 +52,7 @@ from executor.recommendation_actions import execute_recommendation, reject_recom
 from executor.executive_scheduler import executive_scheduler_status, run_executive_review, list_executive_reviews
 from executor.executive_scheduler_loop import scheduler_loop_status, start_scheduler_loop, stop_scheduler_loop, run_scheduler_once, reconcile_scheduler_loop_state
 from executor.goal_progress_intelligence import goal_progress_intelligence_status, analyze_goal_progress, apply_goal_progress_intelligence
+from executor.mission_planner import mission_planner_status, list_mission_proposals, propose_mission_for_goal, approve_mission_proposal, reject_mission_proposal
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -303,6 +304,43 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/mission-planner/status")
+def remote_mission_planner_status():
+    return jsonify(mission_planner_status())
+
+
+@app.route("/remote/mission-planner/proposals")
+def remote_mission_planner_proposals():
+    return jsonify(list_mission_proposals())
+
+
+@app.route("/remote/mission-planner/propose", methods=["POST"])
+def remote_mission_planner_propose():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(propose_mission_for_goal(data.get("goal_id")))
+
+
+@app.route("/remote/mission-planner/approve", methods=["POST"])
+def remote_mission_planner_approve():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(approve_mission_proposal(data.get("proposal_id")))
+
+
+@app.route("/remote/mission-planner/reject", methods=["POST"])
+def remote_mission_planner_reject():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(reject_mission_proposal(
+        data.get("proposal_id"),
+        data.get("reason", "User rejected mission proposal")
+    ))
 
 @app.route("/remote/goal-progress-intelligence/status")
 def remote_goal_progress_intelligence_status():
