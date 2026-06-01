@@ -125,6 +125,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('backup')">☁️ Backup</button>
       <button onclick="showSection('settings')">⚙ Settings</button>
       <button onclick="showSection('scheduler')">⏱ Scheduler</button>
+      <button onclick="showSection('planner')">🧩 Planner</button>
     </div>
 
     <div class="card">
@@ -391,6 +392,32 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Status</h3>
           <pre id="schedulerStatus">Loading...</pre>
+        </div>
+      </section>
+
+
+      <section id="planner" class="section">
+        <div class="hero">
+          <h1>🧩 Mission Planner</h1>
+          <p>Ο ΝΟΥΣ προτείνει αποστολές για goals, και εσύ τις εγκρίνεις ή τις απορρίπτεις.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Planner Actions</h3>
+            <button class="miniBtn" onclick="proposeMission()">➕ Propose New Mission</button>
+            <button class="miniBtn" onclick="loadPlanner()">🔄 Refresh</button>
+          </div>
+
+          <div class="card">
+            <h3>Planner Status</h3>
+            <div id="plannerStatus">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Mission Proposals</h3>
+          <div id="plannerProposals">Loading...</div>
         </div>
       </section>
 
@@ -764,6 +791,72 @@ async function sendPrompt(){
   const d=await postJson("/remote/executive/run",{prompt:text,max_steps:2,execute:true});
   renderObject(d);
   addMsg(JSON.stringify(d,null,2));
+}
+
+
+
+async function loadPlanner(){
+  const status = await getJson("/remote/mission-planner/status");
+  const proposals = await getJson("/remote/mission-planner/proposals");
+
+  renderObject({status, proposals});
+
+  document.getElementById("plannerStatus").innerHTML =
+    kv("total", status.total ?? "-") +
+    kv("pending", status.pending ?? "-") +
+    kv("approved", status.approved ?? "-") +
+    kv("rejected", status.rejected ?? "-");
+
+  if(!proposals || proposals.length===0){
+    document.getElementById("plannerProposals").innerHTML = "No proposals yet.";
+    return;
+  }
+
+  document.getElementById("plannerProposals").innerHTML = proposals.slice().reverse().map(p=>`
+    <div class="card">
+      <h3>${p.title}</h3>
+      ${kv("status", p.status)}
+      ${kv("goal", p.goal_title || "-")}
+      ${kv("kind", p.kind || "-")}
+      ${kv("risk", p.risk || "-")}
+      ${kv("impact", p.expected_impact || "-")}
+      <div class="small">${p.reason || ""}</div>
+      <h4>Tasks</h4>
+      <pre>${JSON.stringify(p.tasks || [], null, 2)}</pre>
+      ${
+        p.status === "pending"
+        ? `<button class="miniBtn" onclick="approveProposal('${p.id}')">✅ Approve Mission</button>
+           <button class="miniBtn" onclick="rejectProposal('${p.id}')">❌ Reject</button>`
+        : ""
+      }
+    </div>
+  `).join("");
+}
+
+async function proposeMission(){
+  const data = await postJson("/remote/mission-planner/propose", {});
+  renderObject(data);
+  feed("Mission proposal created");
+  await loadPlanner();
+}
+
+async function approveProposal(id){
+  const ok = confirm("Να εγκρίνω αυτή την πρόταση και να δημιουργηθεί mission;");
+  if(!ok) return;
+  const data = await postJson("/remote/mission-planner/approve", {proposal_id:id});
+  renderObject(data);
+  feed("Mission proposal approved");
+  await loadPlanner();
+  if(typeof loadMissions === "function") await loadMissions();
+  if(typeof loadGoals === "function") await loadGoals();
+}
+
+async function rejectProposal(id){
+  const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected mission proposal";
+  const data = await postJson("/remote/mission-planner/reject", {proposal_id:id, reason});
+  renderObject(data);
+  feed("Mission proposal rejected");
+  await loadPlanner();
 }
 
 
