@@ -190,5 +190,194 @@
       "ui"
     ],
     "created": 1780341318.7853682
+  },
+  {
+    "id": 1780343988659419266,
+    "lesson": "Mission task completed: Check reality gate",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780323331619630930,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "reality_status"
+    ],
+    "created": 1780343988.6594222
+  },
+  {
+    "id": 1780344009874268476,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344009.874279
+  },
+  {
+    "id": 1780344052283272262,
+    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "test"
+    ],
+    "created": 1780344052.2832735
+  },
+  {
+    "id": 1780344200791192935,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344200.7911968
+  },
+  {
+    "id": 1780344211573908451,
+    "lesson": "Mission task completed: Check companion",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780323331619630930,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "companion_status"
+    ],
+    "created": 1780344211.5739121
+  },
+  {
+    "id": 1780344221094736000,
+    "lesson": "Mission task completed: Full validation",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780323331619630930,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "full_validation"
+    ],
+    "created": 1780344221.0947392
+  },
+  {
+    "id": 1780344230015027299,
+    "lesson": "Mission task completed: Check companion status",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780323843630738235,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "companion_status"
+    ],
+    "created": 1780344230.0150294
+  },
+  {
+    "id": 1780344232198731100,
+    "lesson": "Mission task completed: Request UI tree",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780323843630738235,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "companion_ui_tree"
+    ],
+    "created": 1780344232.1987336
+  },
+  {
+    "id": 1780344235254855682,
+    "lesson": "Mission task completed: Run reality check",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780323843630738235,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "reality_status"
+    ],
+    "created": 1780344235.2548583
+  },
+  {
+    "id": 1780344275200642542,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344275.2006454
+  },
+  {
+    "id": 1780344294568681753,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344294.5686839
+  },
+  {
+    "id": 1780344342101475954,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344342.1014786
+  },
+  {
+    "id": 1780344350408887617,
+    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "dashboard"
+    ],
+    "created": 1780344350.4088905
   }
 ]

@@ -56,6 +56,7 @@ from executor.mission_planner import mission_planner_status, list_mission_propos
 from executor.dashboard_action_audit import dashboard_action_audit
 from executor.self_diagnosis import self_diagnosis_status, run_self_diagnosis, apply_safe_self_fix
 from executor.autonomous_repair import repair_status, list_repair_proposals, propose_repair_from_diagnosis, approve_repair_proposal, reject_repair_proposal
+from executor.auto_mission_executor import auto_mission_executor_status, run_auto_mission_executor, set_auto_mission_executor_enabled
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -311,6 +312,37 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/auto-mission-executor/status")
+def remote_auto_mission_executor_status():
+    return jsonify(auto_mission_executor_status())
+
+
+@app.route("/remote/auto-mission-executor/run", methods=["POST"])
+def remote_auto_mission_executor_run():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_auto_mission_executor(
+        data.get("max_missions", 1),
+        data.get("max_steps_per_mission", 3),
+        data.get("trigger", "manual")
+    ))
+
+
+@app.route("/remote/auto-mission-executor/enable", methods=["POST"])
+def remote_auto_mission_executor_enable():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(set_auto_mission_executor_enabled(True))
+
+
+@app.route("/remote/auto-mission-executor/disable", methods=["POST"])
+def remote_auto_mission_executor_disable():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(set_auto_mission_executor_enabled(False))
 
 @app.route("/remote/autonomous-repair/status")
 def remote_autonomous_repair_status():

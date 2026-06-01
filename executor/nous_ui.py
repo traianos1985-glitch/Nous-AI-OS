@@ -129,6 +129,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('audit')">🧪 Audit</button>
       <button onclick="showSection('diagnosis')">🩺 Diagnosis</button>
       <button onclick="showSection('repair')">🛠 Repair</button>
+      <button onclick="showSection('autoexec')">🤖 AutoExec</button>
     </div>
 
     <div class="card">
@@ -477,6 +478,38 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Repair Proposals</h3>
           <div id="repairProposals">Loading...</div>
+        </div>
+      </section>
+
+
+      <section id="autoexec" class="section">
+        <div class="hero">
+          <h1>🤖 Auto Mission Executor</h1>
+          <p>Εκτελεί μόνο ασφαλείς, allowlisted αποστολές χωρίς deploy, tap, restore ή destructive actions.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>AutoExec Actions</h3>
+            <button class="miniBtn" onclick="loadAutoExec()">Refresh</button>
+            <button class="miniBtn" onclick="runAutoExec()">Run Safe Cycle</button>
+            <button class="miniBtn" onclick="enableAutoExec()">Enable</button>
+            <button class="miniBtn" onclick="disableAutoExec()">Disable</button>
+          </div>
+          <div class="card">
+            <h3>Status</h3>
+            <div id="autoExecStatus">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Safe Candidates</h3>
+          <pre id="autoExecCandidates">Loading...</pre>
+        </div>
+
+        <div class="card">
+          <h3>Blocked / Needs Approval</h3>
+          <pre id="autoExecBlocked">Loading...</pre>
         </div>
       </section>
 
@@ -899,6 +932,49 @@ async function sendPrompt(){
 
 
 
+
+
+
+async function loadAutoExec(){
+  const data = await getJson("/remote/auto-mission-executor/status");
+  renderObject(data);
+
+  document.getElementById("autoExecStatus").innerHTML =
+    kv("enabled", data.enabled) +
+    kv("candidates", (data.candidates || []).length) +
+    kv("blocked", (data.blocked || []).length);
+
+  document.getElementById("autoExecCandidates").textContent = JSON.stringify(data.candidates || [], null, 2);
+  document.getElementById("autoExecBlocked").textContent = JSON.stringify(data.blocked || [], null, 2);
+}
+
+async function runAutoExec(){
+  const ok = confirm("Να τρέξει safe auto mission cycle; Θα εκτελεστούν μόνο allowlisted safe tasks.");
+  if(!ok) return;
+  const data = await postJson("/remote/auto-mission-executor/run", {
+    max_missions: 1,
+    max_steps_per_mission: 3,
+    trigger: "dashboard"
+  });
+  renderObject(data);
+  if(data.ok){ feed("Auto mission executor completed"); }
+  else { feed("Auto mission executor failed: " + (data.error || "unknown")); }
+  await loadAutoExec();
+  if(typeof loadMissions === "function") await loadMissions();
+  if(typeof loadGoals === "function") await loadGoals();
+}
+
+async function enableAutoExec(){
+  const data = await postJson("/remote/auto-mission-executor/enable", {});
+  renderObject(data);
+  await loadAutoExec();
+}
+
+async function disableAutoExec(){
+  const data = await postJson("/remote/auto-mission-executor/disable", {});
+  renderObject(data);
+  await loadAutoExec();
+}
 
 
 async function loadRepair(){
