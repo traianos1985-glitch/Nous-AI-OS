@@ -45,6 +45,7 @@ from executor.goal_system import goal_status, list_goals, create_goal, seed_core
 from executor.brain_state import brain_status, build_brain_state, save_brain_state, load_brain_state
 from executor.cloud_brain_backup import brain_backup_status, create_brain_backup, list_brain_backups
 from executor.brain_restore import restore_status, inspect_brain_backup, restore_brain_backup
+from executor.decision_memory import decision_status, list_decisions, search_decisions, record_decision
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -284,6 +285,40 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/decision-memory/status")
+def remote_decision_memory_status_route():
+    return jsonify(decision_status())
+
+
+@app.route("/remote/decision-memory/list")
+def remote_decision_memory_list_route():
+    return jsonify(list_decisions())
+
+
+@app.route("/remote/decision-memory/search", methods=["POST"])
+def remote_decision_memory_search_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_decisions(data.get("query", ""), data.get("limit", 20)))
+
+
+@app.route("/remote/decision-memory/record", methods=["POST"])
+def remote_decision_memory_record_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(record_decision(
+        title=data.get("title", "Untitled decision"),
+        reason=data.get("reason", ""),
+        goal_id=data.get("goal_id"),
+        mission_id=data.get("mission_id"),
+        action=data.get("action"),
+        result=data.get("result"),
+        confidence=data.get("confidence", 0.7),
+        tags=data.get("tags", []),
+    ))
 
 @app.route("/remote/brain-restore/status")
 def remote_brain_restore_status_route():

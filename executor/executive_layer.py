@@ -3,6 +3,7 @@ import time
 from executor.autonomous_workspace import plan_from_prompt, create_workspace_mission, run_workspace_mission
 from executor.mission_system import mission_status
 from executor.agent_journal import write_journal
+from executor.decision_memory import remember_system_decision
 
 
 def executive_status():
@@ -52,4 +53,13 @@ def executive_run(prompt, max_steps=3, execute=True):
     }
 
     write_journal("executive_run", report)
+    remember_system_decision("executive_run", {
+        "title": "Executive run: " + str(prompt)[:80],
+        "reason": "NOUS planned and executed safe mission steps from user prompt.",
+        "mission_id": mission_id,
+        "action": "executive_run",
+        "result": report.get("summary"),
+        "confidence": 0.8,
+        "tags": ["executive", "mission", "autonomy"],
+    })
     return report

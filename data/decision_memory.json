@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1780331836668119268,
+    "title": "Test decision",
+    "reason": "testing memory",
+    "goal_id": null,
+    "mission_id": null,
+    "action": null,
+    "result": null,
+    "confidence": 0.7,
+    "tags": [
+      "test"
+    ],
+    "created": 1780331836.6681244
+  },
+  {
+    "id": 1780331836724481560,
+    "title": "Executive run: έλεγξε το android companion",
+    "reason": "NOUS planned and executed safe mission steps from user prompt.",
+    "goal_id": null,
+    "mission_id": 1780331836668684633,
+    "action": "executive_run",
+    "result": {
+      "created_mission": true,
+      "safe_steps_requested": 1,
+      "status": "active"
+    },
+    "confidence": 0.8,
+    "tags": [
+      "executive",
+      "mission",
+      "autonomy"
+    ],
+    "created": 1780331836.7244854
+  }
+]
