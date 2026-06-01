@@ -130,6 +130,8 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('diagnosis')">🩺 Diagnosis</button>
       <button onclick="showSection('repair')">🛠 Repair</button>
       <button onclick="showSection('autoexec')">🤖 AutoExec</button>
+      <button onclick="showSection('autoscheduler')">🔁 AutoSched</button>
+      <button onclick="showSection('analyst')">🧠 Analyst</button>
     </div>
 
     <div class="card">
@@ -510,6 +512,39 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Blocked / Needs Approval</h3>
           <pre id="autoExecBlocked">Loading...</pre>
+        </div>
+      </section>
+
+
+      <section id="autoscheduler" class="section">
+        <div class="hero">
+          <h1>🔁 Auto Mission Scheduler</h1>
+          <p>Τρέχει αυτόματα safe auto mission cycles σε χρονικό διάστημα.</p>
+        </div>
+        <div class="card">
+          <button class="miniBtn" onclick="loadAutoScheduler()">Refresh</button>
+          <button class="miniBtn" onclick="runAutoSchedulerOnce()">Run Once</button>
+          <button class="miniBtn" onclick="startAutoScheduler()">Start</button>
+          <button class="miniBtn" onclick="stopAutoScheduler()">Stop</button>
+        </div>
+        <div class="card">
+          <h3>Status</h3>
+          <pre id="autoSchedulerStatus">Loading...</pre>
+        </div>
+      </section>
+
+      <section id="analyst" class="section">
+        <div class="hero">
+          <h1>🧠 Code Analyst</h1>
+          <p>Αναλύει failures, βρίσκει πιθανή αιτία και προτείνει candidate files χωρίς να αλλάζει κώδικα.</p>
+        </div>
+        <div class="card">
+          <button class="miniBtn" onclick="analyzeLatestDiagnosis()">Analyze Latest Diagnosis</button>
+          <button class="miniBtn" onclick="loadCodeAnalyst()">Refresh</button>
+        </div>
+        <div class="card">
+          <h3>Reports</h3>
+          <pre id="codeAnalystReports">Loading...</pre>
         </div>
       </section>
 
@@ -933,6 +968,45 @@ async function sendPrompt(){
 
 
 
+
+
+
+async function loadAutoScheduler(){
+  const data = await getJson("/remote/auto-mission-scheduler/status");
+  renderObject(data);
+  document.getElementById("autoSchedulerStatus").textContent = JSON.stringify(data, null, 2);
+}
+
+async function runAutoSchedulerOnce(){
+  const data = await postJson("/remote/auto-mission-scheduler/run-once", {});
+  renderObject(data);
+  await loadAutoScheduler();
+}
+
+async function startAutoScheduler(){
+  const secs = prompt("Interval seconds", "900");
+  const data = await postJson("/remote/auto-mission-scheduler/start", {interval_seconds: parseInt(secs || "900")});
+  renderObject(data);
+  await loadAutoScheduler();
+}
+
+async function stopAutoScheduler(){
+  const data = await postJson("/remote/auto-mission-scheduler/stop", {});
+  renderObject(data);
+  await loadAutoScheduler();
+}
+
+async function loadCodeAnalyst(){
+  const data = await getJson("/remote/code-analyst/reports");
+  renderObject(data);
+  document.getElementById("codeAnalystReports").textContent = JSON.stringify(data, null, 2);
+}
+
+async function analyzeLatestDiagnosis(){
+  const data = await postJson("/remote/code-analyst/analyze-latest-diagnosis", {});
+  renderObject(data);
+  await loadCodeAnalyst();
+}
 
 
 async function loadAutoExec(){

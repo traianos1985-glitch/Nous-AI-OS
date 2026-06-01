@@ -57,6 +57,8 @@ from executor.dashboard_action_audit import dashboard_action_audit
 from executor.self_diagnosis import self_diagnosis_status, run_self_diagnosis, apply_safe_self_fix
 from executor.autonomous_repair import repair_status, list_repair_proposals, propose_repair_from_diagnosis, approve_repair_proposal, reject_repair_proposal
 from executor.auto_mission_executor import auto_mission_executor_status, run_auto_mission_executor, set_auto_mission_executor_enabled
+from executor.code_analyst import code_analyst_status, list_code_analysis_reports, analyze_problem, analyze_latest_diagnosis, generate_patch_suggestion
+from executor.auto_mission_scheduler import auto_mission_scheduler_status, start_auto_mission_scheduler, stop_auto_mission_scheduler, run_auto_mission_scheduler_once, reconcile_auto_mission_scheduler
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -80,6 +82,7 @@ app = Flask(__name__)
 
 try:
     reconcile_scheduler_loop_state()
+    reconcile_auto_mission_scheduler()
 except Exception:
     pass
 
@@ -313,6 +316,66 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/code-analyst/status")
+def remote_code_analyst_status():
+    return jsonify(code_analyst_status())
+
+
+@app.route("/remote/code-analyst/reports")
+def remote_code_analyst_reports():
+    return jsonify(list_code_analysis_reports())
+
+
+@app.route("/remote/code-analyst/analyze", methods=["POST"])
+def remote_code_analyst_analyze():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(analyze_problem(data.get("problem", data)))
+
+
+@app.route("/remote/code-analyst/analyze-latest-diagnosis", methods=["POST"])
+def remote_code_analyst_latest():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(analyze_latest_diagnosis())
+
+
+@app.route("/remote/code-analyst/patch-suggestion", methods=["POST"])
+def remote_code_analyst_patch_suggestion():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(generate_patch_suggestion(data.get("problem", data)))
+
+
+@app.route("/remote/auto-mission-scheduler/status")
+def remote_auto_mission_scheduler_status():
+    return jsonify(auto_mission_scheduler_status())
+
+
+@app.route("/remote/auto-mission-scheduler/start", methods=["POST"])
+def remote_auto_mission_scheduler_start():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(start_auto_mission_scheduler(data.get("interval_seconds", 900)))
+
+
+@app.route("/remote/auto-mission-scheduler/stop", methods=["POST"])
+def remote_auto_mission_scheduler_stop():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(stop_auto_mission_scheduler())
+
+
+@app.route("/remote/auto-mission-scheduler/run-once", methods=["POST"])
+def remote_auto_mission_scheduler_run_once():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(run_auto_mission_scheduler_once())
 
 @app.route("/remote/auto-mission-executor/status")
 def remote_auto_mission_executor_status():
