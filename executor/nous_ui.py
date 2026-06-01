@@ -120,6 +120,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('companion')">📱 Companion</button>
       <button onclick="showSection('deploy')">🚀 Deploy</button>
       <button onclick="showSection('system')">📊 System</button>
+      <button onclick="showSection('backup')">☁️ Backup</button>
       <button onclick="showSection('settings')">⚙ Settings</button>
     </div>
 
@@ -264,6 +265,38 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         </div>
       </section>
 
+      
+      <section id="backup" class="section">
+        <div class="hero">
+          <h1>☁️ Brain Backup / Restore</h1>
+          <p>Portable brain snapshots, verification και restore preview.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Backup Actions</h3>
+            <button class="miniBtn" onclick="createBrainBackup()">Create Brain Backup</button>
+            <button class="miniBtn" onclick="loadBackupPanel()">Refresh Backups</button>
+          </div>
+
+          <div class="card">
+            <h3>Restore Status</h3>
+            <div id="restoreStatus">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Available Backups</h3>
+          <div id="backupList">Loading...</div>
+        </div>
+
+        <div class="card">
+          <h3>Backup Inspection</h3>
+          <pre id="backupInspect">–</pre>
+        </div>
+      </section>
+
+
       <section id="settings" class="section">
         <div class="hero"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>
         <div class="card">
@@ -329,6 +362,57 @@ async function loadHome(){
   document.getElementById("homeCompanion").innerHTML=kv("available",cp.available?"✅":"❌")+kv("commands",(cp.commands||[]).join(", "));
   document.getElementById("homeMissions").innerHTML=kv("total",ms.total)+kv("active",ms.active)+kv("done",ms.done)+kv("blocked",ms.blocked);
   renderObject({status:st,missions:ms,companion:cp,reality:rt});
+}
+
+
+
+async function loadBackupPanel(){
+  const backups = await getJson("/remote/brain-backup/list");
+  const restore = await getJson("/remote/brain-restore/status");
+
+  renderObject({backups, restore});
+
+  document.getElementById("restoreStatus").innerHTML =
+    kv("restore_dir", restore.restore_dir || "-") +
+    kv("safety_backups", (restore.safety_backups || []).length) +
+    kv("blocked", (restore.blocked || []).join(", "));
+
+  if(!backups.backups || backups.backups.length===0){
+    document.getElementById("backupList").innerHTML="No backups yet.";
+    return;
+  }
+
+  document.getElementById("backupList").innerHTML = backups.backups.map(b=>`
+    <div class="card">
+      <h3>${b.name}</h3>
+      ${kv("size", b.size + " bytes")}
+      ${kv("sha256", b.sha256.slice(0,16)+"...")}
+      <div class="small">${b.path}</div>
+      <button class="miniBtn" onclick="inspectBackup('${b.path}')">Inspect Backup</button>
+      <button class="miniBtn" onclick="previewRestore('${b.path}')">Restore Preview</button>
+    </div>
+  `).join("");
+}
+
+async function createBrainBackup(){
+  const data = await postJson("/remote/brain-backup/create", {});
+  renderObject(data);
+  feed("Created brain backup");
+  await loadBackupPanel();
+}
+
+async function inspectBackup(path){
+  const data = await postJson("/remote/brain-restore/inspect", {path});
+  renderObject(data);
+  document.getElementById("backupInspect").textContent = JSON.stringify(data, null, 2);
+  feed("Inspected backup");
+}
+
+async function previewRestore(path){
+  const data = await postJson("/remote/brain-restore/apply", {path, apply:false});
+  renderObject(data);
+  document.getElementById("backupInspect").textContent = JSON.stringify(data, null, 2);
+  feed("Restore preview completed");
 }
 
 
