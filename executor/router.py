@@ -44,6 +44,7 @@ from executor.executive_layer import executive_status, executive_plan, executive
 from executor.goal_system import goal_status, list_goals, create_goal, seed_core_goals, add_goal_note, link_mission_to_goal, refresh_goal_progress, create_goal_mission
 from executor.brain_state import brain_status, build_brain_state, save_brain_state, load_brain_state
 from executor.cloud_brain_backup import brain_backup_status, create_brain_backup, list_brain_backups
+from executor.brain_restore import restore_status, inspect_brain_backup, restore_brain_backup
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -282,6 +283,30 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/brain-restore/status")
+def remote_brain_restore_status_route():
+    return jsonify(restore_status())
+
+
+@app.route("/remote/brain-restore/inspect", methods=["POST"])
+def remote_brain_restore_inspect_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(inspect_brain_backup(data.get("path", "")))
+
+
+@app.route("/remote/brain-restore/apply", methods=["POST"])
+def remote_brain_restore_apply_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(restore_brain_backup(
+        data.get("path", ""),
+        bool(data.get("apply", False))
+    ))
 
 @app.route("/remote/brain-backup/status")
 def remote_brain_backup_status_route():
