@@ -127,6 +127,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('scheduler')">⏱ Scheduler</button>
       <button onclick="showSection('planner')">🧩 Planner</button>
       <button onclick="showSection('audit')">🧪 Audit</button>
+      <button onclick="showSection('diagnosis')">🩺 Diagnosis</button>
     </div>
 
     <div class="card">
@@ -434,6 +435,22 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Audit Results</h3>
           <pre id="auditResults">–</pre>
+        </div>
+      </section>
+
+
+      <section id="diagnosis" class="section">
+        <div class="hero">
+          <h1>🩺 Self Diagnosis</h1>
+          <p>Ο ΝΟΥΣ ελέγχει backend, frontend endpoints, dashboard actions και προτείνει ασφαλείς διορθώσεις.</p>
+        </div>
+        <div class="card">
+          <button class="miniBtn" onclick="runSelfDiagnosis()">Run Self Diagnosis</button>
+          <button class="miniBtn" onclick="loadSelfDiagnosis()">Refresh Report</button>
+        </div>
+        <div class="card">
+          <h3>Diagnosis Report</h3>
+          <pre id="diagnosisReport">–</pre>
         </div>
       </section>
 
@@ -854,6 +871,21 @@ async function sendPrompt(){
 }
 
 
+
+
+
+async function loadSelfDiagnosis(){
+  const data = await getJson("/remote/self-diagnosis/status");
+  renderObject(data);
+  document.getElementById("diagnosisReport").textContent = JSON.stringify(data, null, 2);
+}
+
+async function runSelfDiagnosis(){
+  const data = await postJson("/remote/self-diagnosis/run", {});
+  renderObject(data);
+  document.getElementById("diagnosisReport").textContent = JSON.stringify(data, null, 2);
+  feed("Self diagnosis completed");
+}
 
 
 async function runDashboardAudit(){

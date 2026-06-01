@@ -54,6 +54,7 @@ from executor.executive_scheduler_loop import scheduler_loop_status, start_sched
 from executor.goal_progress_intelligence import goal_progress_intelligence_status, analyze_goal_progress, apply_goal_progress_intelligence
 from executor.mission_planner import mission_planner_status, list_mission_proposals, propose_mission_for_goal, approve_mission_proposal, reject_mission_proposal
 from executor.dashboard_action_audit import dashboard_action_audit
+from executor.self_diagnosis import self_diagnosis_status, run_self_diagnosis, apply_safe_self_fix
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -307,6 +308,26 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/self-diagnosis/status")
+def remote_self_diagnosis_status():
+    return jsonify(self_diagnosis_status())
+
+
+@app.route("/remote/self-diagnosis/run", methods=["POST"])
+def remote_self_diagnosis_run():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(run_self_diagnosis())
+
+
+@app.route("/remote/self-diagnosis/apply-fix", methods=["POST"])
+def remote_self_diagnosis_apply_fix():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(apply_safe_self_fix(data.get("fix_id")))
 
 @app.route("/remote/dashboard-action-audit")
 def remote_dashboard_action_audit():
