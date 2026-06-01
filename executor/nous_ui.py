@@ -327,6 +327,7 @@ async function loadGoals(){
       <div class="small">${g.description||""}</div>
       <div style="margin-top:8px">${(g.next_actions||[]).map(x=>`<span class="pill">${x}</span>`).join("")}</div>
       <button class="miniBtn" onclick="refreshGoal('${g.id}')">Refresh Progress</button>
+      <button class="miniBtn" onclick="createMissionForGoal('${g.id}', '${g.title.replace(/'/g, "\\'")}')">Create Mission For Goal</button>
     </div>
   `).join("");
 }
@@ -343,6 +344,31 @@ async function refreshGoal(id){
   renderObject(data);
   feed("Refreshed goal "+id);
   await loadGoals();
+}
+
+
+async function createMissionForGoal(goalId, goalTitle){
+  const title = prompt("Mission title:", "Advance goal: " + goalTitle);
+  if(!title) return;
+
+  const description = prompt("Mission description:", "Mission linked to goal: " + goalTitle) || "";
+
+  const data = await postJson("/remote/goals-v2/create-mission", {
+    goal_id: goalId,
+    title,
+    description,
+    tasks: [
+      {title:"Check code health", action:"code_health"},
+      {title:"Check git status", action:"git_status"},
+      {title:"Run reality check", action:"reality_status"},
+      {title:"Full validation", action:"full_validation"}
+    ]
+  });
+
+  renderObject(data);
+  feed("Created mission for goal");
+  await loadGoals();
+  await loadMissions();
 }
 
 async function loadMissions(){
