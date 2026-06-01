@@ -66,5 +66,54 @@
       "approval"
     ],
     "created": 1780336611.6931684
+  },
+  {
+    "id": 1780337177486948363,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "test",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 4,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 3,
+        "lessons_total": 3,
+        "lessons_success": 3,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780337177.4869509
   }
 ]
