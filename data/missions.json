@@ -457,5 +457,56 @@
     ],
     "approvals": [],
     "result": null
+  },
+  {
+    "id": 1780341318766849492,
+    "title": "Advance goal: Improve NOUS user interface",
+    "description": "Auto-proposed mission to advance goal progress for: Improve NOUS user interface",
+    "status": "active",
+    "created": 1780341318.7668524,
+    "updated": 1780341318.7668533,
+    "tasks": [
+      {
+        "id": 1780341318766856836,
+        "title": "Check code health",
+        "action": "code_health",
+        "payload": {},
+        "status": "pending",
+        "created": 1780341318.7668595,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780341318766866003,
+        "title": "Check git status",
+        "action": "git_status",
+        "payload": {},
+        "status": "pending",
+        "created": 1780341318.766868,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780341318766870588,
+        "title": "Run full validation after UI planning",
+        "action": "full_validation",
+        "payload": {},
+        "status": "pending",
+        "created": 1780341318.7668717,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      }
+    ],
+    "approvals": [],
+    "result": null
   }
 ]

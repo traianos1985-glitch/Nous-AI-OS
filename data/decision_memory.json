@@ -403,5 +403,324 @@
       "ui"
     ],
     "created": 1780339650.7996497
+  },
+  {
+    "id": 1780340162913997485,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 10,
+        "lessons_total": 9,
+        "lessons_success": 9,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340162.9140003
+  },
+  {
+    "id": 1780340456089549769,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 11,
+        "lessons_total": 10,
+        "lessons_success": 10,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340456.0895529
+  },
+  {
+    "id": 1780340985737999254,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 12,
+        "lessons_total": 11,
+        "lessons_success": 11,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340985.7380033
+  },
+  {
+    "id": 1780341318782701627,
+    "title": "Approved mission proposal: Advance goal: Improve NOUS user interface",
+    "reason": "User approved mission proposal.",
+    "goal_id": 1780327547945471638,
+    "mission_id": 1780341318766849492,
+    "action": "approve_mission_proposal",
+    "result": {
+      "ok": true,
+      "mission": {
+        "id": 1780341318766849492,
+        "title": "Advance goal: Improve NOUS user interface",
+        "description": "Auto-proposed mission to advance goal progress for: Improve NOUS user interface",
+        "status": "active",
+        "created": 1780341318.7668524,
+        "updated": 1780341318.7668533,
+        "tasks": [
+          {
+            "id": 1780341318766856836,
+            "title": "Check code health",
+            "action": "code_health",
+            "payload": {},
+            "status": "pending",
+            "created": 1780341318.7668595,
+            "started": null,
+            "finished": null,
+            "result": null,
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780341318766866003,
+            "title": "Check git status",
+            "action": "git_status",
+            "payload": {},
+            "status": "pending",
+            "created": 1780341318.766868,
+            "started": null,
+            "finished": null,
+            "result": null,
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780341318766870588,
+            "title": "Run full validation after UI planning",
+            "action": "full_validation",
+            "payload": {},
+            "status": "pending",
+            "created": 1780341318.7668717,
+            "started": null,
+            "finished": null,
+            "result": null,
+            "requires_approval": false,
+            "approved": false
+          }
+        ],
+        "approvals": [],
+        "result": null
+      },
+      "link": {
+        "ok": true,
+        "goal": {
+          "id": 1780327547945471638,
+          "title": "Improve NOUS user interface",
+          "description": "Make dashboard friendly, mobile-first, and agent-like.",
+          "priority": 2,
+          "status": "active",
+          "progress": 45,
+          "missions": [
+            1780341318766849492
+          ],
+          "notes": [
+            {
+              "time": 1780338712.9606273,
+              "note": "Goal progress intelligence updated progress from 0% to 45%.",
+              "evidence_count": 5
+            }
+          ],
+          "next_actions": [],
+          "created": 1780327547.9454741,
+          "updated": 1780341318.7808805
+        }
+      },
+      "refresh": {
+        "ok": true,
+        "goal": {
+          "id": 1780327547945471638,
+          "title": "Improve NOUS user interface",
+          "description": "Make dashboard friendly, mobile-first, and agent-like.",
+          "priority": 2,
+          "status": "active",
+          "progress": 0,
+          "missions": [
+            1780341318766849492
+          ],
+          "notes": [
+            {
+              "time": 1780338712.9606273,
+              "note": "Goal progress intelligence updated progress from 0% to 45%.",
+              "evidence_count": 5
+            }
+          ],
+          "next_actions": [
+            "Run remaining active missions."
+          ],
+          "created": 1780327547.9454741,
+          "updated": 1780341318.7822325
+        },
+        "linked_missions": [
+          {
+            "id": 1780341318766849492,
+            "title": "Advance goal: Improve NOUS user interface",
+            "description": "Auto-proposed mission to advance goal progress for: Improve NOUS user interface",
+            "status": "active",
+            "created": 1780341318.7668524,
+            "updated": 1780341318.7668533,
+            "tasks": [
+              {
+                "id": 1780341318766856836,
+                "title": "Check code health",
+                "action": "code_health",
+                "payload": {},
+                "status": "pending",
+                "created": 1780341318.7668595,
+                "started": null,
+                "finished": null,
+                "result": null,
+                "requires_approval": false,
+                "approved": false
+              },
+              {
+                "id": 1780341318766866003,
+                "title": "Check git status",
+                "action": "git_status",
+                "payload": {},
+                "status": "pending",
+                "created": 1780341318.766868,
+                "started": null,
+                "finished": null,
+                "result": null,
+                "requires_approval": false,
+                "approved": false
+              },
+              {
+                "id": 1780341318766870588,
+                "title": "Run full validation after UI planning",
+                "action": "full_validation",
+                "payload": {},
+                "status": "pending",
+                "created": 1780341318.7668717,
+                "started": null,
+                "finished": null,
+                "result": null,
+                "requires_approval": false,
+                "approved": false
+              }
+            ],
+            "approvals": [],
+            "result": null
+          }
+        ]
+      }
+    },
+    "confidence": 0.85,
+    "tags": [
+      "mission_planner",
+      "approved",
+      "ui"
+    ],
+    "created": 1780341318.7827044
   }
 ]

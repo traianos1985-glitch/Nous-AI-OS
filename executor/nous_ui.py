@@ -470,6 +470,50 @@ async function refreshSection(id){
   if(id==="approvals") return loadApprovals();
 }
 
+
+function getToken(){
+  return localStorage.getItem("NOUS_TOKEN") || "";
+}
+
+function authHeaders(extra){
+  const t = getToken();
+  const h = Object.assign({"Content-Type":"application/json"}, extra || {});
+  if(t){
+    h["X-NOUS-Token"] = t;
+    h["Authorization"] = "Bearer " + t;
+  }
+  return h;
+}
+
+async function getJson(url){
+  const r = await fetch(url, {headers: authHeaders({})});
+  const data = await r.json().catch(()=>({error:"invalid_json"}));
+  if(!r.ok){
+    const err = {ok:false, status:r.status, error:data.error || "request_failed", url, data};
+    renderObject(err);
+    feed("GET failed " + r.status + " " + url);
+    return err;
+  }
+  return data;
+}
+
+async function postJson(url, body){
+  const r = await fetch(url, {
+    method:"POST",
+    headers: authHeaders({}),
+    body: JSON.stringify(body || {})
+  });
+  const data = await r.json().catch(()=>({error:"invalid_json"}));
+  if(!r.ok || data.error){
+    const err = {ok:false, status:r.status, error:data.error || "request_failed", url, data};
+    renderObject(err);
+    feed("POST failed " + r.status + " " + url + " — " + err.error);
+    return err;
+  }
+  return data;
+}
+
+
 async function loadHome(){
   const st=await getJson("/remote/status"); const ms=await getJson("/remote/missions/status"); const cp=await getJson("/remote/companion/status"); const rt=await getJson("/remote/reality/status");
   document.getElementById("homeStatus").innerHTML=kv("status","online")+kv("keys",Object.keys(st).length);
@@ -825,8 +869,8 @@ async function loadPlanner(){
       <pre>${JSON.stringify(p.tasks || [], null, 2)}</pre>
       ${
         p.status === "pending"
-        ? `<button class="miniBtn" onclick="approveProposal('${p.id}')">✅ Approve Mission</button>
-           <button class="miniBtn" onclick="rejectProposal('${p.id}')">❌ Reject</button>`
+        ? `<button class="miniBtn" onclick="approveProposal(String('${p.id}'))">✅ Approve Mission</button>
+           <button class="miniBtn" onclick="rejectProposal(String('${p.id}'))">❌ Reject</button>`
         : ""
       }
     </div>
@@ -843,19 +887,21 @@ async function proposeMission(){
 async function approveProposal(id){
   const ok = confirm("Να εγκρίνω αυτή την πρόταση και να δημιουργηθεί mission;");
   if(!ok) return;
-  const data = await postJson("/remote/mission-planner/approve", {proposal_id:id});
+  const data = await postJson("/remote/mission-planner/approve", {proposal_id:String(id)});
+  document.getElementById("liveOutput").textContent = JSON.stringify(data, null, 2);
   renderObject(data);
-  feed("Mission proposal approved");
+  if(data.ok){ feed("Mission proposal approved"); }
+  else { feed("Mission proposal approval failed: " + (data.error || "unknown")); }
   await loadPlanner();
-  if(typeof loadMissions === "function") await loadMissions();
-  if(typeof loadGoals === "function") await loadGoals();
 }
 
 async function rejectProposal(id){
   const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected mission proposal";
-  const data = await postJson("/remote/mission-planner/reject", {proposal_id:id, reason});
+  const data = await postJson("/remote/mission-planner/reject", {proposal_id:String(id), reason});
+  document.getElementById("liveOutput").textContent = JSON.stringify(data, null, 2);
   renderObject(data);
-  feed("Mission proposal rejected");
+  if(data.ok){ feed("Mission proposal rejected"); }
+  else { feed("Mission proposal rejection failed: " + (data.error || "unknown")); }
   await loadPlanner();
 }
 

@@ -1,7 +1,7 @@
 [
   {
     "id": 1780339650799177003,
-    "status": "pending",
+    "status": "approved",
     "created": 1780339650.799179,
     "goal_id": 1780327547945471638,
     "goal_title": "Improve NOUS user interface",
@@ -25,6 +25,8 @@
     ],
     "risk": "low",
     "expected_impact": "+5% to +15% goal progress",
-    "reason": "Goal is active and can benefit from a safe mission plan."
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "approved": 1780341318.782527,
+    "mission_id": 1780341318766849492
   }
 ]

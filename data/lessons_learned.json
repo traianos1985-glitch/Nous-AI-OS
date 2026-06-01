@@ -130,5 +130,65 @@
       "approval"
     ],
     "created": 1780338072.1693587
+  },
+  {
+    "id": 1780340162915227068,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340162.9152286
+  },
+  {
+    "id": 1780340456090962582,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340456.0909643
+  },
+  {
+    "id": 1780340985739589671,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340985.739592
+  },
+  {
+    "id": 1780341318785366836,
+    "lesson": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface",
+    "outcome": "success",
+    "goal_id": 1780327547945471638,
+    "mission_id": 1780341318766849492,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission_planner",
+      "approved",
+      "ui"
+    ],
+    "created": 1780341318.7853682
   }
 ]
