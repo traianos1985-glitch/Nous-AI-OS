@@ -43,6 +43,7 @@ from executor.autonomous_workspace import workspace_status, plan_from_prompt, cr
 from executor.executive_layer import executive_status, executive_plan, executive_run
 from executor.goal_system import goal_status, list_goals, create_goal, seed_core_goals, add_goal_note, link_mission_to_goal, refresh_goal_progress, create_goal_mission
 from executor.brain_state import brain_status, build_brain_state, save_brain_state, load_brain_state
+from executor.cloud_brain_backup import brain_backup_status, create_brain_backup, list_brain_backups
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -280,6 +281,23 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/brain-backup/status")
+def remote_brain_backup_status_route():
+    return jsonify(brain_backup_status())
+
+
+@app.route("/remote/brain-backup/list")
+def remote_brain_backup_list_route():
+    return jsonify(list_brain_backups())
+
+
+@app.route("/remote/brain-backup/create", methods=["POST"])
+def remote_brain_backup_create_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(create_brain_backup())
 
 @app.route("/remote/brain/status")
 def remote_brain_status_route():
