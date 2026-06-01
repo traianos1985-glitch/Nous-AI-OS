@@ -226,3 +226,30 @@ def run_mission_cycle(mission_id, max_steps=3):
         "results": results,
         "time": time.time(),
     }
+
+
+def pending_approvals():
+    items = _load()
+    approvals = []
+
+    for mission in items:
+        for task in mission.get("tasks", []):
+            if task.get("status") == "waiting_approval" or (
+                task.get("requires_approval") and not task.get("approved") and task.get("status") in ["pending", "waiting_approval"]
+            ):
+                approvals.append({
+                    "mission_id": mission.get("id"),
+                    "mission_title": mission.get("title"),
+                    "task_id": task.get("id"),
+                    "task_title": task.get("title"),
+                    "action": task.get("action"),
+                    "status": task.get("status"),
+                    "approved": task.get("approved"),
+                    "created": task.get("created"),
+                })
+
+    return {
+        "time": time.time(),
+        "count": len(approvals),
+        "approvals": approvals,
+    }

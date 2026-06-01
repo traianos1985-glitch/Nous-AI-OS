@@ -295,7 +295,43 @@ async function loadMissions(){
 async function loadCompanion(){const d=await getJson("/remote/companion/status");document.getElementById("companionStatus").innerHTML=kv("package",d.package)+kv("available",d.available?"✅":"❌")+kv("commands",(d.commands||[]).join(", "));renderObject(d)}
 async function loadDeploy(){const d=await getJson("/remote/vercel/status");document.getElementById("deployStatus").innerHTML=kv("installed",d.installed?"✅":"❌")+kv("logged in",d.logged_in?"✅":"❌")+kv("deployments",(d.deployments||[]).length);renderObject(d)}
 async function loadSystem(){const r=await getJson("/remote/reality/status");const o=await getJson("/remote/ops/status");document.getElementById("realityStatus").innerHTML=kv("internet",r.internet?.real?"✅":"❌")+kv("browser read",r.browser_read?.real?"✅":"❌")+kv("gestures",r.android?.real_gestures?"✅":"❌");document.getElementById("opsStatus").innerHTML=kv("safe actions",(o.safe_actions||[]).length)+kv("blocked",(o.blocked||[]).length);renderObject({reality:r,ops:o})}
-async function loadApprovals(){const list=await getJson("/remote/missions");const waiting=[];for(const m of list){for(const t of (m.tasks||[])){if(t.status==="waiting_approval")waiting.push({mission:m.id,task:t})}}document.getElementById("approvalsBox").textContent=JSON.stringify(waiting,null,2);renderObject(waiting)}
+async function loadApprovals(){
+  const data=await getJson("/remote/missions/approvals");
+  renderObject(data);
+
+  if(!data.approvals || data.approvals.length===0){
+    document.getElementById("approvalsBox").innerHTML="No pending approvals.";
+    return;
+  }
+
+  document.getElementById("approvalsBox").innerHTML=data.approvals.map(a=>`
+    <div class="card">
+      <h3>${a.task_title}</h3>
+      ${kv("mission",a.mission_title)}
+      ${kv("action",a.action)}
+      ${kv("status",a.status)}
+      <button class="miniBtn" onclick="approveTask('${a.mission_id}','${a.task_id}')">✅ Approve Task</button>
+      <button class="miniBtn" onclick="runMission('${a.mission_id}')">▶ Run Mission</button>
+    </div>
+  `).join("");
+}
+
+
+async function approveTask(missionId, taskId){
+  const data=await postJson("/remote/missions/approve-task",{mission_id:missionId,task_id:taskId});
+  renderObject(data);
+  feed("Approved task "+taskId);
+  await loadApprovals();
+  await loadMissions();
+}
+
+async function runMission(id){
+  const data=await postJson("/remote/missions/run-cycle",{id:id,max_steps:3});
+  renderObject(data);
+  feed("Ran mission "+id);
+  await loadApprovals();
+  await loadMissions();
+}
 
 async function postAction(path){closeMenu();const data=await postJson(path,{});renderObject(data);feed("Action "+path);addMsg("Action: "+path+"\n"+JSON.stringify(data,null,2))}
 async function ops(action){closeMenu();const payload={};if(action==="checkpoint")payload.message=prompt("Commit message:","NOUS safe checkpoint")||"NOUS safe checkpoint";const data=await postJson("/remote/ops/run",{action,payload});renderObject(data);feed("Ops "+action);addMsg("Ops: "+action+"\n"+JSON.stringify(data,null,2))}

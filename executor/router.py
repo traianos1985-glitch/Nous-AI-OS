@@ -38,7 +38,7 @@ from executor.operator_backend_router import operator_backend_status, browser_ba
 from executor.device_control_backend import device_control_status, device_control_recommendation
 from executor.companion_bridge import companion_status, companion_home, companion_back, companion_ui_tree, companion_tap, companion_logs, companion_ui_tree_with_logs
 from executor.ops_console import ops_status, run_ops_action
-from executor.mission_system import mission_status, list_missions, create_mission, create_standard_mission, run_next_mission_task, run_mission_cycle, approve_task
+from executor.mission_system import mission_status, list_missions, create_mission, create_standard_mission, run_next_mission_task, run_mission_cycle, approve_task, pending_approvals
 from executor.autonomous_workspace import workspace_status, plan_from_prompt, create_workspace_mission, run_workspace_mission
 from executor.executive_layer import executive_status, executive_plan, executive_run
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
@@ -378,6 +378,11 @@ def remote_missions_run_cycle_route():
     data = request.get_json(silent=True) or {}
     return jsonify(run_mission_cycle(data.get("id"), data.get("max_steps", 3)))
 
+
+
+@app.route("/remote/missions/approvals")
+def remote_missions_approvals_route():
+    return jsonify(pending_approvals())
 
 @app.route("/remote/missions/approve-task", methods=["POST"])
 def remote_missions_approve_task_route():
