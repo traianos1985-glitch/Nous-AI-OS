@@ -51,6 +51,7 @@ from executor.executive_intelligence import executive_intelligence_status, execu
 from executor.recommendation_actions import execute_recommendation, reject_recommendation
 from executor.executive_scheduler import executive_scheduler_status, run_executive_review, list_executive_reviews
 from executor.executive_scheduler_loop import scheduler_loop_status, start_scheduler_loop, stop_scheduler_loop, run_scheduler_once, reconcile_scheduler_loop_state
+from executor.goal_progress_intelligence import goal_progress_intelligence_status, analyze_goal_progress, apply_goal_progress_intelligence
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -301,6 +302,23 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/goal-progress-intelligence/status")
+def remote_goal_progress_intelligence_status():
+    return jsonify(goal_progress_intelligence_status())
+
+
+@app.route("/remote/goal-progress-intelligence/analyze")
+def remote_goal_progress_intelligence_analyze():
+    return jsonify(analyze_goal_progress())
+
+
+@app.route("/remote/goal-progress-intelligence/apply", methods=["POST"])
+def remote_goal_progress_intelligence_apply():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(apply_goal_progress_intelligence())
 
 @app.route("/remote/executive-scheduler-loop/status")
 def remote_executive_scheduler_loop_status():

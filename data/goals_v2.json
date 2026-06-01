@@ -5,12 +5,18 @@
     "description": "NOUS should survive device loss and run from cloud.",
     "priority": 1,
     "status": "active",
-    "progress": 0,
+    "progress": 50,
     "missions": [],
-    "notes": [],
+    "notes": [
+      {
+        "time": 1780338712.9606113,
+        "note": "Goal progress intelligence updated progress from 0% to 50%.",
+        "evidence_count": 9
+      }
+    ],
     "next_actions": [],
     "created": 1780327547.9287705,
-    "updated": 1780327547.928775
+    "updated": 1780338712.9606082
   },
   {
     "id": 1780327547945471638,
@@ -18,12 +24,18 @@
     "description": "Make dashboard friendly, mobile-first, and agent-like.",
     "priority": 2,
     "status": "active",
-    "progress": 0,
+    "progress": 45,
     "missions": [],
-    "notes": [],
+    "notes": [
+      {
+        "time": 1780338712.9606273,
+        "note": "Goal progress intelligence updated progress from 0% to 45%.",
+        "evidence_count": 5
+      }
+    ],
     "next_actions": [],
     "created": 1780327547.9454741,
-    "updated": 1780327547.945475
+    "updated": 1780338712.9606256
   },
   {
     "id": 1780327547958112159,
@@ -31,24 +43,41 @@
     "description": "Give NOUS reliable Android eyes and hands.",
     "priority": 1,
     "status": "active",
-    "progress": 0,
+    "progress": 70,
     "missions": [],
-    "notes": [],
+    "notes": [
+      {
+        "time": 1780338712.9606354,
+        "note": "Goal progress intelligence updated progress from 0% to 70%.",
+        "evidence_count": 8
+      }
+    ],
     "next_actions": [],
     "created": 1780327547.9581134,
-    "updated": 1780327547.9581141
+    "updated": 1780338712.9606345
   },
   {
     "id": 1780327547970773305,
     "title": "Strengthen safe autonomy",
     "description": "Missions, approvals, execution and reports.",
     "priority": 1,
-    "status": "active",
-    "progress": 0,
+    "status": "done",
+    "progress": 80,
     "missions": [],
-    "notes": [],
+    "notes": [
+      {
+        "time": 1780338712.9606414,
+        "note": "Goal progress intelligence updated progress from 0% to 100%.",
+        "evidence_count": 20
+      },
+      {
+        "time": 1780339050.89185,
+        "note": "Goal progress intelligence recalibrated progress from 100% to 80%.",
+        "evidence_count": 20
+      }
+    ],
     "next_actions": [],
     "created": 1780327547.970775,
-    "updated": 1780327547.9707754
+    "updated": 1780339050.891848
   }
 ]
