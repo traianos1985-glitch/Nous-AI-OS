@@ -120,6 +120,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('companion')">📱 Companion</button>
       <button onclick="showSection('deploy')">🚀 Deploy</button>
       <button onclick="showSection('system')">📊 System</button>
+      <button onclick="showSection('learning')">🎓 Learning</button>
       <button onclick="showSection('backup')">☁️ Backup</button>
       <button onclick="showSection('settings')">⚙ Settings</button>
     </div>
@@ -266,6 +267,39 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       </section>
 
       
+      
+      <section id="learning" class="section">
+        <div class="hero">
+          <h1>🎓 Learning Memory</h1>
+          <p>Τι έχει μάθει ο ΝΟΥΣ από missions, decisions και εκτελέσεις.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Learning Status</h3>
+            <div id="learningStatus">Loading...</div>
+          </div>
+
+          <div class="card">
+            <h3>Search Lessons</h3>
+            <textarea id="lessonSearch" placeholder="π.χ. backup, companion, mission"></textarea>
+            <button class="miniBtn" onclick="searchLessons()">Search</button>
+            <button class="miniBtn" onclick="loadLearning()">Refresh</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Recent Lessons</h3>
+          <div id="lessonList">Loading...</div>
+        </div>
+
+        <div class="card">
+          <h3>Lesson Search Results</h3>
+          <pre id="lessonSearchResults">–</pre>
+        </div>
+      </section>
+
+
       <section id="backup" class="section">
         <div class="hero">
           <h1>☁️ Brain Backup / Restore</h1>
@@ -364,6 +398,43 @@ async function loadHome(){
   renderObject({status:st,missions:ms,companion:cp,reality:rt});
 }
 
+
+
+
+async function loadLearning(){
+  const status = await getJson("/remote/lessons/status");
+  const lessons = await getJson("/remote/lessons/list");
+
+  renderObject({status, lessons});
+
+  document.getElementById("learningStatus").innerHTML =
+    kv("total", status.total ?? "-") +
+    kv("success", status.success ?? "-") +
+    kv("failure", status.failure ?? "-");
+
+  if(!lessons || lessons.length===0){
+    document.getElementById("lessonList").innerHTML = "No lessons yet.";
+    return;
+  }
+
+  document.getElementById("lessonList").innerHTML = lessons.slice(-20).reverse().map(l=>`
+    <div class="card">
+      <h3>${l.lesson}</h3>
+      ${kv("outcome", l.outcome)}
+      ${kv("confidence", l.confidence)}
+      ${kv("mission", l.mission_id || "-")}
+      <div style="margin-top:8px">${(l.tags||[]).map(x=>`<span class="pill">${x}</span>`).join("")}</div>
+    </div>
+  `).join("");
+}
+
+async function searchLessons(){
+  const q = document.getElementById("lessonSearch").value || "";
+  const data = await postJson("/remote/lessons/search", {query:q});
+  renderObject(data);
+  document.getElementById("lessonSearchResults").textContent = JSON.stringify(data, null, 2);
+  feed("Searched lessons");
+}
 
 
 async function loadBackupPanel(){
