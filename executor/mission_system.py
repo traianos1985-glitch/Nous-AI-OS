@@ -4,6 +4,7 @@ import time
 
 from executor.ops_console import run_ops_action
 from executor.agent_journal import write_journal
+from executor.learning_memory import record_lesson
 
 FILE = "data/missions.json"
 
@@ -210,6 +211,18 @@ def run_next_mission_task(mission_id):
     _save(items)
 
     output = {"ok": True, "mission": m, "task": task}
+
+    try:
+        record_lesson(
+            lesson=f"Mission task completed: {task.get('title')}",
+            outcome="success" if task.get("status") == "done" else "failure",
+            mission_id=m.get("id"),
+            confidence=0.8,
+            tags=["mission", task.get("action", "unknown")]
+        )
+    except Exception:
+        pass
+
     write_journal("mission_task_run", output)
     return output
 

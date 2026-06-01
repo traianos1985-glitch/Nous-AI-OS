@@ -12,5 +12,33 @@
       "brain"
     ],
     "created": 1780334468.7946615
+  },
+  {
+    "id": 1780334649625617361,
+    "lesson": "Mission task completed: Companion status",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780334649602761892,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "companion_status"
+    ],
+    "created": 1780334649.6256194
+  },
+  {
+    "id": 1780334652105198662,
+    "lesson": "Mission task completed: Request UI tree",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": 1780334649602761892,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "mission",
+      "companion_ui_tree"
+    ],
+    "created": 1780334652.1052036
   }
 ]
