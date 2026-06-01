@@ -309,5 +309,72 @@
     ],
     "approvals": [],
     "result": null
+  },
+  {
+    "id": 1780326125156417827,
+    "title": "Android companion mission",
+    "description": "έλεγξε το android companion",
+    "status": "active",
+    "created": 1780326125.1564193,
+    "updated": 1780326125.1813533,
+    "tasks": [
+      {
+        "id": 1780326125156421525,
+        "title": "Check companion status",
+        "action": "companion_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780326125.1564233,
+        "started": 1780326125.1738174,
+        "finished": 1780326125.1813445,
+        "result": {
+          "ok": true,
+          "action": "companion_status",
+          "result": {
+            "package": "com.nous.companion",
+            "receiver": "com.nous.companion/.CommandReceiver",
+            "available": true,
+            "commands": [
+              "home",
+              "back",
+              "ui_tree",
+              "tap"
+            ],
+            "time": 1780326125.1745012
+          },
+          "time": 1780326125.1745021
+        },
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780326125156427672,
+        "title": "Request UI tree",
+        "action": "companion_ui_tree",
+        "payload": {},
+        "status": "pending",
+        "created": 1780326125.1564298,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780326125156431266,
+        "title": "Run reality check",
+        "action": "reality_status",
+        "payload": {},
+        "status": "pending",
+        "created": 1780326125.156432,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      }
+    ],
+    "approvals": [],
+    "result": null
   }
 ]

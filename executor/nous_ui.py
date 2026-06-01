@@ -157,7 +157,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <section id="chat" class="section">
         <div class="chat" style="height:calc(100vh - 96px)">
           <div class="chatlog" id="chatlog">
-            <div class="msg">Γράψε εντολή. Παραδείγματα: /status, /home, /back, /mission βελτίωσε το UI.</div>
+            <div class="msg">Γράψε εντολή. Παραδείγματα: /status, /home, /back, /plan βελτίωσε το UI, /run έλεγξε το companion. Αν γράψεις απλό στόχο, ο Executive Layer θα φτιάξει mission και θα τρέξει ασφαλή βήματα.</div>
           </div>
           <div class="composer">
             <div class="composer-inner">
@@ -308,7 +308,12 @@ async function sendPrompt(){
   if(text==="/home"){const d=await postJson("/remote/companion/home",{});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
   if(text==="/back"){const d=await postJson("/remote/companion/back",{});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
   if(text.startsWith("/mission ")){const d=await postJson("/remote/workspace/create-mission",{prompt:text.slice(9)});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
-  addMsg("Κατάλαβα. Για τώρα μπορώ: /status, /home, /back, /mission <στόχος>.");
+  if(text.startsWith("/plan ")){const d=await postJson("/remote/executive/plan",{prompt:text.slice(6)});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
+  if(text.startsWith("/run ")){const d=await postJson("/remote/executive/run",{prompt:text.slice(5),max_steps:3,execute:true});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
+
+  const d=await postJson("/remote/executive/run",{prompt:text,max_steps:2,execute:true});
+  renderObject(d);
+  addMsg(JSON.stringify(d,null,2));
 }
 
 async function boot(){

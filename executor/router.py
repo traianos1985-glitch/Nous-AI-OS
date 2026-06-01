@@ -40,6 +40,7 @@ from executor.companion_bridge import companion_status, companion_home, companio
 from executor.ops_console import ops_status, run_ops_action
 from executor.mission_system import mission_status, list_missions, create_mission, create_standard_mission, run_next_mission_task, run_mission_cycle, approve_task
 from executor.autonomous_workspace import workspace_status, plan_from_prompt, create_workspace_mission, run_workspace_mission
+from executor.executive_layer import executive_status, executive_plan, executive_run
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -274,6 +275,31 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/executive/status")
+def remote_executive_status_route():
+    return jsonify(executive_status())
+
+
+@app.route("/remote/executive/plan", methods=["POST"])
+def remote_executive_plan_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(executive_plan(data.get("prompt", "")))
+
+
+@app.route("/remote/executive/run", methods=["POST"])
+def remote_executive_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(executive_run(
+        data.get("prompt", ""),
+        data.get("max_steps", 3),
+        bool(data.get("execute", True))
+    ))
 
 @app.route("/remote/workspace/status")
 def remote_workspace_status_route():
