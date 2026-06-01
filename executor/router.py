@@ -3,6 +3,7 @@ import sys
 import platform
 import time
 from flask import Flask, request, jsonify, send_from_directory
+from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
 from executor.security import check_token, check_admin_token
@@ -35,6 +36,8 @@ from executor.vercel_deploy_integration import vercel_status, vercel_deploy
 from executor.remote_browser_bridge import remote_browser_bridge_status, create_browser_job, list_browser_jobs, complete_browser_job
 from executor.operator_backend_router import operator_backend_status, browser_backend_status, android_backend_status, deployment_backend_status
 from executor.device_control_backend import device_control_status, device_control_recommendation
+from executor.companion_bridge import companion_status, companion_home, companion_back, companion_ui_tree, companion_tap, companion_logs, companion_ui_tree_with_logs
+from executor.ops_console import ops_status, run_ops_action
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -253,6 +256,70 @@ def remote_progress_link_task_route():
 
 
 
+
+
+
+@app.route("/remote/companion/logs")
+def remote_companion_logs_route():
+    return jsonify(companion_logs())
+
+
+@app.route("/remote/companion/ui-tree-logs", methods=["POST"])
+def remote_companion_ui_tree_logs_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(companion_ui_tree_with_logs())
+
+
+@app.route("/remote/ops/status")
+def remote_ops_status_route():
+    return jsonify(ops_status())
+
+
+@app.route("/remote/ops/run", methods=["POST"])
+def remote_ops_run_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_ops_action(
+        data.get("action", ""),
+        data.get("payload", {})
+    ))
+
+@app.route("/remote/companion/status")
+def remote_companion_status_route():
+    return jsonify(companion_status())
+
+
+@app.route("/remote/companion/home", methods=["POST"])
+def remote_companion_home_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(companion_home())
+
+
+@app.route("/remote/companion/back", methods=["POST"])
+def remote_companion_back_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(companion_back())
+
+
+@app.route("/remote/companion/ui-tree", methods=["POST"])
+def remote_companion_ui_tree_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(companion_ui_tree())
+
+
+@app.route("/remote/companion/tap", methods=["POST"])
+def remote_companion_tap_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(companion_tap(data.get("x", 0), data.get("y", 0)))
 
 @app.route("/remote/device-control/status")
 def remote_device_control_status_route():
@@ -1055,98 +1122,8 @@ def remote_status_route():
 
 
 @app.route("/dashboard")
-def dashboard_route():
-    return """
-<!doctype html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NOUS Remote Dashboard</title>
-  <style>
-    body { font-family: sans-serif; padding: 16px; background: #111; color: #eee; }
-    .card { background: #1d1d1d; padding: 14px; margin: 12px 0; border-radius: 12px; }
-    pre { white-space: pre-wrap; word-break: break-word; }
-    input { width: 100%; padding: 10px; border-radius: 10px; border: 0; margin: 6px 0; }
-    button { padding: 10px 14px; border-radius: 10px; border: 0; margin: 4px; }
-  </style>
-</head>
-<body>
-  <h2>🧠 NOUS AI OS</h2>
-
-  <div class="card">
-    <h3>Token</h3>
-    <input id="token" placeholder="X-NOUS-TOKEN">
-  </div>
-
-  <div class="card">
-    <h3>Controls</h3>
-    <button onclick="loadStatus()">Refresh</button>
-    <button onclick="autonomyStart()">Autonomy Start</button>
-    <button onclick="autonomyStop()">Autonomy Stop</button>
-    <button onclick="autonomyStatus()">Autonomy Status</button>
-  </div>
-
-  <div class="card">
-    <h3>Command</h3>
-    <input id="command" placeholder="π.χ. τι θυμάσαι?">
-    <button onclick="sendCommand()">Send</button>
-  </div>
-
-  <div class="card"><pre id="out">Loading...</pre></div>
-
-<script>
-function getToken() {
-  return document.getElementById('token').value.trim();
-}
-
-function show(obj) {
-  document.getElementById('out').textContent = JSON.stringify(obj, null, 2);
-}
-
-async function loadStatus() {
-  const r = await fetch('/remote/status');
-  show(await r.json());
-}
-
-async function autonomyStatus() {
-  const r = await fetch('/remote/autonomy/status');
-  show(await r.json());
-}
-
-async function autonomyStart() {
-  const r = await fetch('/remote/autonomy/start', {
-    method: 'POST',
-    headers: {'X-NOUS-TOKEN': getToken()}
-  });
-  show(await r.json());
-}
-
-async function autonomyStop() {
-  const r = await fetch('/remote/autonomy/stop', {
-    method: 'POST',
-    headers: {'X-NOUS-TOKEN': getToken()}
-  });
-  show(await r.json());
-}
-
-async function sendCommand() {
-  const command = document.getElementById('command').value;
-  const r = await fetch('/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-NOUS-TOKEN': getToken()
-    },
-    body: JSON.stringify({command})
-  });
-  show(await r.json());
-}
-
-loadStatus();
-</script>
-</body>
-</html>
-"""
+def dashboard():
+    return nous_dashboard_html()
 
 @app.route("/apps")
 def apps_list():
