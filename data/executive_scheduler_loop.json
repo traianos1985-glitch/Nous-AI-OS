@@ -1,0 +1,29 @@
+{
+  "enabled": false,
+  "interval_seconds": 1800,
+  "last_run": 1780337578.296504,
+  "last_result": {
+    "ok": true,
+    "review_id": 1780337578292746283,
+    "next_best_action": {
+      "priority": 1,
+      "type": "approval",
+      "title": "Resolve pending approval",
+      "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+      "action": "open_approvals",
+      "target": {
+        "mission_id": 1780326802824661037,
+        "mission_title": "Deploy verification",
+        "task_id": 1780326802824673069,
+        "task_title": "Deploy test app",
+        "action": "deploy_vercel_test_app",
+        "status": "waiting_approval",
+        "approved": false,
+        "created": 1780326802.8246746
+      }
+    }
+  },
+  "started": null,
+  "stopped": null,
+  "runs": 1
+}

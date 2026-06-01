@@ -50,6 +50,7 @@ from executor.learning_memory import lesson_status, list_lessons, search_lessons
 from executor.executive_intelligence import executive_intelligence_status, executive_intelligence_report
 from executor.recommendation_actions import execute_recommendation, reject_recommendation
 from executor.executive_scheduler import executive_scheduler_status, run_executive_review, list_executive_reviews
+from executor.executive_scheduler_loop import scheduler_loop_status, start_scheduler_loop, stop_scheduler_loop, run_scheduler_once
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -294,6 +295,33 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/executive-scheduler-loop/status")
+def remote_executive_scheduler_loop_status():
+    return jsonify(scheduler_loop_status())
+
+
+@app.route("/remote/executive-scheduler-loop/start", methods=["POST"])
+def remote_executive_scheduler_loop_start():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(start_scheduler_loop(data.get("interval_seconds", 1800)))
+
+
+@app.route("/remote/executive-scheduler-loop/stop", methods=["POST"])
+def remote_executive_scheduler_loop_stop():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(stop_scheduler_loop())
+
+
+@app.route("/remote/executive-scheduler-loop/run-once", methods=["POST"])
+def remote_executive_scheduler_loop_run_once():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(run_scheduler_once())
 
 @app.route("/remote/executive-scheduler/status")
 def remote_executive_scheduler_status():
