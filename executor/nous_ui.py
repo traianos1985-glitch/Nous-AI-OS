@@ -113,6 +113,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
     <div class="nav" id="nav">
       <button onclick="showSection('home')" class="active">🏠 Home</button>
       <button onclick="showSection('chat')">💬 Chat</button>
+      <button onclick="showSection('brain')">🧠 Brain</button>
       <button onclick="showSection('goals')">🏁 Goals</button>
       <button onclick="showSection('missions')">🎯 Missions</button>
       <button onclick="showSection('approvals')">✅ Approvals</button>
@@ -166,6 +167,32 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
               <button class="send" onclick="sendPrompt()">Send</button>
             </div>
           </div>
+        </div>
+      </section>
+
+
+      
+      <section id="brain" class="section">
+        <div class="hero">
+          <h1>🧠 Brain State</h1>
+          <p>Κεντρική εικόνα του ΝΟΥΣ: readiness, goals, missions, approvals και υγεία συστήματος.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Brain Status</h3>
+            <div id="brainStatus">Loading...</div>
+          </div>
+
+          <div class="card">
+            <h3>Readiness</h3>
+            <div id="brainReadiness">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Brain Snapshot</h3>
+          <pre id="brainSnapshot">Loading...</pre>
         </div>
       </section>
 
@@ -286,6 +313,7 @@ function labelFor(id){return ({home:"home",chat:"chat",missions:"missions",appro
 
 async function refreshSection(id){
   if(id==="home") return loadHome();
+  if(id==="brain") return loadBrain();
   if(id==="goals") return loadGoals();
   if(id==="missions") return loadMissions();
   if(id==="companion") return loadCompanion();
@@ -302,6 +330,33 @@ async function loadHome(){
   document.getElementById("homeMissions").innerHTML=kv("total",ms.total)+kv("active",ms.active)+kv("done",ms.done)+kv("blocked",ms.blocked);
   renderObject({status:st,missions:ms,companion:cp,reality:rt});
 }
+
+
+async function loadBrain(){
+  const status = await getJson("/remote/brain/status");
+  const state = await getJson("/remote/brain/state");
+
+  renderObject(status);
+
+  document.getElementById("brainStatus").innerHTML =
+    kv("goals", status.goals?.total ?? "-") +
+    kv("missions", status.missions?.total ?? "-") +
+    kv("blocked", status.missions?.blocked ?? "-") +
+    kv("approvals", status.approvals?.count ?? "-");
+
+  const r = status.readiness || {};
+
+  document.getElementById("brainReadiness").innerHTML =
+    kv("cloud_ready", r.cloud_ready_foundation) +
+    kv("device_ready", r.device_control_foundation) +
+    kv("pending_approvals", r.pending_approvals ?? 0) +
+    kv("ready_modules", (r.ready || []).length) +
+    kv("missing_modules", (r.missing || []).length);
+
+  document.getElementById("brainSnapshot").textContent =
+    JSON.stringify(state.readiness, null, 2);
+}
+
 
 async function loadGoals(){
   const data=await getJson("/remote/goals-v2/status");
