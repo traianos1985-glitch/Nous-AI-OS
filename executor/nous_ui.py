@@ -124,6 +124,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('learning')">🎓 Learning</button>
       <button onclick="showSection('backup')">☁️ Backup</button>
       <button onclick="showSection('settings')">⚙ Settings</button>
+      <button onclick="showSection('scheduler')">⏱ Scheduler</button>
     </div>
 
     <div class="card">
@@ -373,7 +374,27 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         </div>
       </section>
     </div>
-  </main>
+  
+      <section id="scheduler" class="section">
+        <div class="hero">
+          <h1>⏱ Executive Scheduler</h1>
+          <p>Safe executive review loop.</p>
+        </div>
+
+        <div class="card">
+          <button class="miniBtn" onclick="schedulerRunOnce()">Run Once</button>
+          <button class="miniBtn" onclick="schedulerStart()">Start</button>
+          <button class="miniBtn" onclick="schedulerStop()">Stop</button>
+          <button class="miniBtn" onclick="loadScheduler()">Refresh</button>
+        </div>
+
+        <div class="card">
+          <h3>Status</h3>
+          <pre id="schedulerStatus">Loading...</pre>
+        </div>
+      </section>
+
+</main>
 
   <aside class="right">
     <div class="card"><h3>Live Output</h3><pre id="raw">–</pre></div>
@@ -743,6 +764,32 @@ async function sendPrompt(){
   const d=await postJson("/remote/executive/run",{prompt:text,max_steps:2,execute:true});
   renderObject(d);
   addMsg(JSON.stringify(d,null,2));
+}
+
+
+async function loadScheduler(){
+  const data = await getJson("/remote/executive-scheduler-loop/status");
+  renderObject(data);
+  document.getElementById("schedulerStatus").textContent = JSON.stringify(data,null,2);
+}
+
+async function schedulerRunOnce(){
+  const data = await postJson("/remote/executive-scheduler-loop/run-once",{});
+  renderObject(data);
+  await loadScheduler();
+}
+
+async function schedulerStart(){
+  const secs = prompt("Interval seconds","1800");
+  const data = await postJson("/remote/executive-scheduler-loop/start",{interval_seconds:parseInt(secs||"1800")});
+  renderObject(data);
+  await loadScheduler();
+}
+
+async function schedulerStop(){
+  const data = await postJson("/remote/executive-scheduler-loop/stop",{});
+  renderObject(data);
+  await loadScheduler();
 }
 
 async function boot(){
