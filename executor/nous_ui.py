@@ -128,6 +128,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('planner')">🧩 Planner</button>
       <button onclick="showSection('audit')">🧪 Audit</button>
       <button onclick="showSection('diagnosis')">🩺 Diagnosis</button>
+      <button onclick="showSection('repair')">🛠 Repair</button>
     </div>
 
     <div class="card">
@@ -451,6 +452,31 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Diagnosis Report</h3>
           <pre id="diagnosisReport">–</pre>
+        </div>
+      </section>
+
+
+      <section id="repair" class="section">
+        <div class="hero">
+          <h1>🛠 Autonomous Repair</h1>
+          <p>Ο ΝΟΥΣ δημιουργεί ασφαλείς repair proposals από τη διάγνωση και τα εφαρμόζει μόνο με έγκριση.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Repair Actions</h3>
+            <button class="miniBtn" onclick="proposeRepair()">Generate Repair Proposal</button>
+            <button class="miniBtn" onclick="loadRepair()">Refresh</button>
+          </div>
+          <div class="card">
+            <h3>Repair Status</h3>
+            <div id="repairStatus">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Repair Proposals</h3>
+          <div id="repairProposals">Loading...</div>
         </div>
       </section>
 
@@ -872,6 +898,69 @@ async function sendPrompt(){
 
 
 
+
+
+
+async function loadRepair(){
+  const status = await getJson("/remote/autonomous-repair/status");
+  const proposals = await getJson("/remote/autonomous-repair/proposals");
+
+  renderObject({status, proposals});
+
+  document.getElementById("repairStatus").innerHTML =
+    kv("total", status.total ?? "-") +
+    kv("pending", status.pending ?? "-") +
+    kv("approved", status.approved ?? "-") +
+    kv("rejected", status.rejected ?? "-");
+
+  if(!proposals || proposals.length===0){
+    document.getElementById("repairProposals").innerHTML = "No repair proposals yet.";
+    return;
+  }
+
+  document.getElementById("repairProposals").innerHTML = proposals.slice().reverse().map(p=>`
+    <div class="card">
+      <h3>${p.title}</h3>
+      ${kv("status", p.status)}
+      ${kv("fix", p.fix_id)}
+      ${kv("risk", p.risk)}
+      <div class="small">${p.description || ""}</div>
+      <h4>Diff / Patch</h4>
+      <pre>${p.diff || ""}</pre>
+      ${
+        p.status === "pending" && p.fix_id !== "no_action_needed"
+        ? `<button class="miniBtn" onclick="approveRepair('${p.id}')">✅ Approve Repair</button>
+           <button class="miniBtn" onclick="rejectRepair('${p.id}')">❌ Reject</button>`
+        : ""
+      }
+    </div>
+  `).join("");
+}
+
+async function proposeRepair(){
+  const data = await postJson("/remote/autonomous-repair/propose", {});
+  renderObject(data);
+  feed("Repair proposal generated");
+  await loadRepair();
+}
+
+async function approveRepair(id){
+  const ok = confirm("Να εφαρμόσω αυτή την ασφαλή διόρθωση;");
+  if(!ok) return;
+  const data = await postJson("/remote/autonomous-repair/approve", {proposal_id:String(id)});
+  renderObject(data);
+  if(data.ok){ feed("Repair approved/applied"); }
+  else { feed("Repair failed: " + (data.error || "unknown")); }
+  await loadRepair();
+}
+
+async function rejectRepair(id){
+  const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected repair proposal";
+  const data = await postJson("/remote/autonomous-repair/reject", {proposal_id:String(id), reason});
+  renderObject(data);
+  feed("Repair proposal rejected");
+  await loadRepair();
+}
 
 
 async function loadSelfDiagnosis(){

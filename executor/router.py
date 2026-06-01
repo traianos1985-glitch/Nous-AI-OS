@@ -55,6 +55,7 @@ from executor.goal_progress_intelligence import goal_progress_intelligence_statu
 from executor.mission_planner import mission_planner_status, list_mission_proposals, propose_mission_for_goal, approve_mission_proposal, reject_mission_proposal
 from executor.dashboard_action_audit import dashboard_action_audit
 from executor.self_diagnosis import self_diagnosis_status, run_self_diagnosis, apply_safe_self_fix
+from executor.autonomous_repair import repair_status, list_repair_proposals, propose_repair_from_diagnosis, approve_repair_proposal, reject_repair_proposal
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -309,6 +310,42 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/autonomous-repair/status")
+def remote_autonomous_repair_status():
+    return jsonify(repair_status())
+
+
+@app.route("/remote/autonomous-repair/proposals")
+def remote_autonomous_repair_proposals():
+    return jsonify(list_repair_proposals())
+
+
+@app.route("/remote/autonomous-repair/propose", methods=["POST"])
+def remote_autonomous_repair_propose():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(propose_repair_from_diagnosis())
+
+
+@app.route("/remote/autonomous-repair/approve", methods=["POST"])
+def remote_autonomous_repair_approve():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(approve_repair_proposal(data.get("proposal_id")))
+
+
+@app.route("/remote/autonomous-repair/reject", methods=["POST"])
+def remote_autonomous_repair_reject():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(reject_repair_proposal(
+        data.get("proposal_id"),
+        data.get("reason", "User rejected repair proposal")
+    ))
 
 @app.route("/remote/self-diagnosis/status")
 def remote_self_diagnosis_status():
