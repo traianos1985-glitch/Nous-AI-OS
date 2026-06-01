@@ -120,6 +120,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('companion')">📱 Companion</button>
       <button onclick="showSection('deploy')">🚀 Deploy</button>
       <button onclick="showSection('system')">📊 System</button>
+      <button onclick="showSection('intelligence')">🧭 Intelligence</button>
       <button onclick="showSection('learning')">🎓 Learning</button>
       <button onclick="showSection('backup')">☁️ Backup</button>
       <button onclick="showSection('settings')">⚙ Settings</button>
@@ -268,6 +269,38 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 
       
       
+      
+      <section id="intelligence" class="section">
+        <div class="hero">
+          <h1>🧭 Executive Intelligence</h1>
+          <p>Τι πιστεύει ο ΝΟΥΣ ότι πρέπει να γίνει μετά, με βάση goals, missions, approvals, decisions και lessons.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Next Best Action</h3>
+            <div id="nextBestAction">Loading...</div>
+          </div>
+
+          <div class="card">
+            <h3>System Summary</h3>
+            <div id="intelligenceSummary">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Recommendations</h3>
+          <div id="intelligenceRecommendations">Loading...</div>
+        </div>
+
+        <div class="card">
+          <h3>Executive Report</h3>
+          <button class="miniBtn" onclick="loadIntelligence()">Refresh Intelligence</button>
+          <pre id="executiveReport">Loading...</pre>
+        </div>
+      </section>
+
+
       <section id="learning" class="section">
         <div class="hero">
           <h1>🎓 Learning Memory</h1>
@@ -399,6 +432,47 @@ async function loadHome(){
 }
 
 
+
+
+
+async function loadIntelligence(){
+  const status = await getJson("/remote/executive-intelligence/status");
+  const report = await getJson("/remote/executive-intelligence/report");
+
+  renderObject(status);
+
+  const n = status.next_best_action || {};
+  const sum = status.summary || {};
+
+  document.getElementById("nextBestAction").innerHTML =
+    kv("title", n.title || "-") +
+    kv("type", n.type || "-") +
+    kv("priority", n.priority ?? "-") +
+    kv("action", n.action || "-") +
+    `<div class="small" style="margin-top:8px">${n.reason || ""}</div>`;
+
+  document.getElementById("intelligenceSummary").innerHTML =
+    kv("goals", (sum.goals_active ?? "-") + " active / " + (sum.goals_total ?? "-")) +
+    kv("missions", (sum.missions_active ?? "-") + " active, " + (sum.missions_blocked ?? "-") + " blocked") +
+    kv("approvals", sum.approvals_pending ?? "-") +
+    kv("decisions", sum.decisions_total ?? "-") +
+    kv("lessons", (sum.lessons_total ?? "-") + " total") +
+    kv("cloud ready", sum.cloud_ready) +
+    kv("device ready", sum.device_ready);
+
+  const recs = status.recommendations || [];
+  document.getElementById("intelligenceRecommendations").innerHTML =
+    recs.map(r=>`
+      <div class="card">
+        <h3>${r.priority}. ${r.title}</h3>
+        ${kv("type", r.type)}
+        ${kv("action", r.action)}
+        <div class="small">${r.reason}</div>
+      </div>
+    `).join("");
+
+  document.getElementById("executiveReport").textContent = report.report || JSON.stringify(report, null, 2);
+}
 
 
 async function loadLearning(){
