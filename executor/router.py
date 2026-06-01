@@ -53,6 +53,7 @@ from executor.executive_scheduler import executive_scheduler_status, run_executi
 from executor.executive_scheduler_loop import scheduler_loop_status, start_scheduler_loop, stop_scheduler_loop, run_scheduler_once, reconcile_scheduler_loop_state
 from executor.goal_progress_intelligence import goal_progress_intelligence_status, analyze_goal_progress, apply_goal_progress_intelligence
 from executor.mission_planner import mission_planner_status, list_mission_proposals, propose_mission_for_goal, approve_mission_proposal, reject_mission_proposal
+from executor.dashboard_action_audit import dashboard_action_audit
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -305,6 +306,12 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/dashboard-action-audit")
+def remote_dashboard_action_audit():
+    from executor.security import TOKEN
+    return jsonify(dashboard_action_audit(app, TOKEN))
 
 @app.route("/remote/mission-planner/status")
 def remote_mission_planner_status():

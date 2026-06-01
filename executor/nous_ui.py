@@ -126,6 +126,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('settings')">⚙ Settings</button>
       <button onclick="showSection('scheduler')">⏱ Scheduler</button>
       <button onclick="showSection('planner')">🧩 Planner</button>
+      <button onclick="showSection('audit')">🧪 Audit</button>
     </div>
 
     <div class="card">
@@ -418,6 +419,21 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Mission Proposals</h3>
           <div id="plannerProposals">Loading...</div>
+        </div>
+      </section>
+
+
+      <section id="audit" class="section">
+        <div class="hero">
+          <h1>🧪 Dashboard Action Audit</h1>
+          <p>Έλεγχος ότι τα βασικά κουμπιά/endpoints του NOUS απαντούν σωστά.</p>
+        </div>
+        <div class="card">
+          <button class="miniBtn" onclick="runDashboardAudit()">Run Button Audit</button>
+        </div>
+        <div class="card">
+          <h3>Audit Results</h3>
+          <pre id="auditResults">–</pre>
         </div>
       </section>
 
@@ -837,6 +853,15 @@ async function sendPrompt(){
   addMsg(JSON.stringify(d,null,2));
 }
 
+
+
+
+async function runDashboardAudit(){
+  const data = await getJson("/remote/dashboard-action-audit");
+  renderObject(data);
+  document.getElementById("auditResults").textContent = JSON.stringify(data, null, 2);
+  feed("Dashboard action audit completed");
+}
 
 
 async function loadPlanner(){
