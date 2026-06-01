@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1780327547928758774,
+    "title": "Make NOUS cloud-native and restorable",
+    "description": "NOUS should survive device loss and run from cloud.",
+    "priority": 1,
+    "status": "active",
+    "progress": 0,
+    "missions": [],
+    "notes": [],
+    "next_actions": [],
+    "created": 1780327547.9287705,
+    "updated": 1780327547.928775
+  },
+  {
+    "id": 1780327547945471638,
+    "title": "Improve NOUS user interface",
+    "description": "Make dashboard friendly, mobile-first, and agent-like.",
+    "priority": 2,
+    "status": "active",
+    "progress": 0,
+    "missions": [],
+    "notes": [],
+    "next_actions": [],
+    "created": 1780327547.9454741,
+    "updated": 1780327547.945475
+  },
+  {
+    "id": 1780327547958112159,
+    "title": "Expand Android Companion control",
+    "description": "Give NOUS reliable Android eyes and hands.",
+    "priority": 1,
+    "status": "active",
+    "progress": 0,
+    "missions": [],
+    "notes": [],
+    "next_actions": [],
+    "created": 1780327547.9581134,
+    "updated": 1780327547.9581141
+  },
+  {
+    "id": 1780327547970773305,
+    "title": "Strengthen safe autonomy",
+    "description": "Missions, approvals, execution and reports.",
+    "priority": 1,
+    "status": "active",
+    "progress": 0,
+    "missions": [],
+    "notes": [],
+    "next_actions": [],
+    "created": 1780327547.970775,
+    "updated": 1780327547.9707754
+  }
+]

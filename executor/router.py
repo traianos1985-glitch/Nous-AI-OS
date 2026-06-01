@@ -41,6 +41,7 @@ from executor.ops_console import ops_status, run_ops_action
 from executor.mission_system import mission_status, list_missions, create_mission, create_standard_mission, run_next_mission_task, run_mission_cycle, approve_task, pending_approvals
 from executor.autonomous_workspace import workspace_status, plan_from_prompt, create_workspace_mission, run_workspace_mission
 from executor.executive_layer import executive_status, executive_plan, executive_run
+from executor.goal_system import goal_status, list_goals, create_goal, seed_core_goals, add_goal_note, link_mission_to_goal, refresh_goal_progress, create_goal_mission
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -276,6 +277,72 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/goals-v2/status")
+def remote_goals_v2_status_route():
+    return jsonify(goal_status())
+
+
+@app.route("/remote/goals-v2")
+def remote_goals_v2_list_route():
+    return jsonify(list_goals())
+
+
+@app.route("/remote/goals-v2/seed", methods=["POST"])
+def remote_goals_v2_seed_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(seed_core_goals())
+
+
+@app.route("/remote/goals-v2/create", methods=["POST"])
+def remote_goals_v2_create_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_goal(
+        data.get("title", "Untitled goal"),
+        data.get("description", ""),
+        data.get("priority", 3),
+    ))
+
+
+@app.route("/remote/goals-v2/note", methods=["POST"])
+def remote_goals_v2_note_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(add_goal_note(data.get("id"), data.get("note", "")))
+
+
+@app.route("/remote/goals-v2/link-mission", methods=["POST"])
+def remote_goals_v2_link_mission_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(link_mission_to_goal(data.get("goal_id"), data.get("mission_id")))
+
+
+@app.route("/remote/goals-v2/refresh", methods=["POST"])
+def remote_goals_v2_refresh_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(refresh_goal_progress(data.get("id")))
+
+
+@app.route("/remote/goals-v2/create-mission", methods=["POST"])
+def remote_goals_v2_create_mission_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_goal_mission(
+        data.get("goal_id"),
+        data.get("title", "Goal mission"),
+        data.get("description", ""),
+        data.get("tasks", []),
+    ))
 
 @app.route("/remote/executive/status")
 def remote_executive_status_route():
