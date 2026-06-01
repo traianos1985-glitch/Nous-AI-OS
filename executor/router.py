@@ -48,6 +48,7 @@ from executor.brain_restore import restore_status, inspect_brain_backup, restore
 from executor.decision_memory import decision_status, list_decisions, search_decisions, record_decision
 from executor.learning_memory import lesson_status, list_lessons, search_lessons, record_lesson
 from executor.executive_intelligence import executive_intelligence_status, executive_intelligence_report
+from executor.recommendation_actions import execute_recommendation, reject_recommendation
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -290,6 +291,25 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/executive-intelligence/execute-recommendation", methods=["POST"])
+def remote_execute_recommendation():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(execute_recommendation(data.get("index", 0)))
+
+
+@app.route("/remote/executive-intelligence/reject-recommendation", methods=["POST"])
+def remote_reject_recommendation():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(reject_recommendation(
+        data.get("index", 0),
+        data.get("reason", "User rejected recommendation")
+    ))
 
 @app.route("/remote/executive-intelligence/status")
 def remote_executive_intelligence_status():

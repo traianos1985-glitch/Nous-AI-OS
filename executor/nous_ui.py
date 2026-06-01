@@ -435,6 +435,28 @@ async function loadHome(){
 
 
 
+
+async function approveRecommendation(index){
+  const ok = confirm("Να εγκρίνω και να εκτελέσω αυτή την πρόταση;");
+  if(!ok) return;
+
+  const data = await postJson("/remote/executive-intelligence/execute-recommendation", {index});
+  renderObject(data);
+  feed("Approved recommendation " + index);
+  await loadIntelligence();
+  if(typeof loadApprovals === "function") await loadApprovals();
+  if(typeof loadMissions === "function") await loadMissions();
+}
+
+async function rejectRecommendation(index){
+  const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected recommendation";
+  const data = await postJson("/remote/executive-intelligence/reject-recommendation", {index, reason});
+  renderObject(data);
+  feed("Rejected recommendation " + index);
+  await loadIntelligence();
+}
+
+
 async function loadIntelligence(){
   const status = await getJson("/remote/executive-intelligence/status");
   const report = await getJson("/remote/executive-intelligence/report");
@@ -462,12 +484,14 @@ async function loadIntelligence(){
 
   const recs = status.recommendations || [];
   document.getElementById("intelligenceRecommendations").innerHTML =
-    recs.map(r=>`
+    recs.map((r,i)=>`
       <div class="card">
         <h3>${r.priority}. ${r.title}</h3>
         ${kv("type", r.type)}
         ${kv("action", r.action)}
         <div class="small">${r.reason}</div>
+        <button class="miniBtn" onclick="approveRecommendation(${i})">✅ Approve & Execute</button>
+        <button class="miniBtn" onclick="rejectRecommendation(${i})">❌ Reject</button>
       </div>
     `).join("");
 

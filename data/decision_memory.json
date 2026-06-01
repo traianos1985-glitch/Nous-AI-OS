@@ -32,5 +32,39 @@
       "autonomy"
     ],
     "created": 1780331836.7244854
+  },
+  {
+    "id": 1780336611693164725,
+    "title": "Rejected recommendation: Resolve pending approval",
+    "reason": "test reject",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "reject_recommendation",
+    "result": {
+      "recommendation": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      }
+    },
+    "confidence": 0.8,
+    "tags": [
+      "recommendation",
+      "rejected",
+      "approval"
+    ],
+    "created": 1780336611.6931684
   }
 ]
