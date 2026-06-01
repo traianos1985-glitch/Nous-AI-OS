@@ -216,6 +216,7 @@ pre{
       <button onclick="loadPanel('knowledge')">📚 Knowledge</button>
       <button onclick="loadPanel('deploy')">🚀 Deploy</button>
       <button onclick="loadPanel('queue')">🧾 Queue</button>
+      <button onclick="loadPanel('missions')">🎯 Missions</button>
     </div>
 
 
@@ -226,6 +227,8 @@ pre{
         <button onclick="ops('code_health')">🧪 Code Health</button>
         <button onclick="ops('reality_status')">✅ Reality Check</button>
         <button onclick="ops('full_validation')">🧠 Full Validation</button>
+        <button onclick="createMission('system_check')">🎯 Create System Check Mission</button>
+        <button onclick="createMission('android_check')">📱 Create Android Mission</button>
         <button onclick="ops('checkpoint')">💾 Safe Checkpoint</button>
         <button onclick="ops('deploy_vercel_test_app')">🚀 Deploy Test App</button>
       </div>
@@ -335,6 +338,7 @@ async function loadPanel(name){
   if(name==="knowledge") path="/remote/knowledge";
   if(name==="deploy") path="/remote/vercel/status";
   if(name==="queue") path="/remote/queue";
+  if(name==="missions") path="/remote/missions/status";
 
   data=await getJson(path);
   renderObject(data);
@@ -360,12 +364,35 @@ async function loadPanel(name){
     html+=kv("installed",data.installed ? "✅":"❌");
     html+=kv("logged in",data.logged_in ? "✅":"❌");
     html+=kv("deployments",(data.deployments||[]).length);
+  } else if(name==="missions"){
+    html+=kv("total",data.total ?? "-");
+    html+=kv("active",data.active ?? "-");
+    html+=kv("done",data.done ?? "-");
+    html+=kv("blocked",data.blocked ?? "-");
+    html+=`<button onclick="createMission('system_check')">Create System Check</button>`;
+    html+=`<button onclick="createMission('android_check')">Create Android Check</button>`;
   } else {
     html+=`<pre>${JSON.stringify(data,null,2)}</pre>`;
   }
   document.getElementById("panel").innerHTML=html;
 }
 
+
+
+async function createMission(kind){
+  closeMenu();
+  const data = await postJson("/remote/missions/create-standard", {kind});
+  renderObject(data);
+  addMsg("Created mission: "+kind+"\n"+JSON.stringify(data,null,2));
+  loadPanel("missions");
+}
+
+async function runMission(id){
+  const data = await postJson("/remote/missions/run-cycle", {id, max_steps:3});
+  renderObject(data);
+  addMsg("Mission cycle: "+id+"\n"+JSON.stringify(data,null,2));
+  loadPanel("missions");
+}
 
 async function ops(action){
   closeMenu();

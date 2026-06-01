@@ -1,0 +1,262 @@
+[
+  {
+    "id": 1780323331619630930,
+    "title": "System health and reality check",
+    "description": "Run safe checks across code, git, reality gate, companion and deploy state.",
+    "status": "active",
+    "created": 1780323331.6196322,
+    "updated": 1780323334.2991407,
+    "tasks": [
+      {
+        "id": 1780323331619634628,
+        "title": "Check code health",
+        "action": "code_health",
+        "payload": {},
+        "status": "done",
+        "created": 1780323331.6196368,
+        "started": 1780323331.6301494,
+        "finished": 1780323332.9852033,
+        "result": {
+          "ok": true,
+          "action": "code_health",
+          "result": {
+            "time": 1780323332.9303248,
+            "compile": {
+              "executor/router.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/intent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/tools.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/scheduler_agent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/autonomous_loop.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/autonomy_service.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/task_queue.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/goal_executor.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/project_progress.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/runtime_metrics.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/curiosity_agent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/learning_engine.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              }
+            },
+            "git": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/agent_journal.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+              "stderr": ""
+            }
+          },
+          "time": 1780323332.9723804
+        },
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780323331619640671,
+        "title": "Check git status",
+        "action": "git_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780323331.6196423,
+        "started": 1780323332.997445,
+        "finished": 1780323334.2991285,
+        "result": {
+          "ok": true,
+          "action": "git_status",
+          "result": {
+            "time": 1780323332.9979475,
+            "git": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/agent_journal.json\n M data/memory.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+              "stderr": ""
+            },
+            "health": {
+              "time": 1780323334.2764466,
+              "compile": {
+                "executor/router.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/intent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/tools.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/scheduler_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomous_loop.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomy_service.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/task_queue.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/goal_executor.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/project_progress.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/runtime_metrics.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/curiosity_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/learning_engine.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                }
+              },
+              "git": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/agent_journal.json\n M data/memory.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+                "stderr": ""
+              }
+            }
+          },
+          "time": 1780323334.2896388
+        },
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780323331619643849,
+        "title": "Check reality gate",
+        "action": "reality_status",
+        "payload": {},
+        "status": "pending",
+        "created": 1780323331.6196446,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780323331619645673,
+        "title": "Check companion",
+        "action": "companion_status",
+        "payload": {},
+        "status": "pending",
+        "created": 1780323331.6196465,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780323331619650049,
+        "title": "Full validation",
+        "action": "full_validation",
+        "payload": {},
+        "status": "pending",
+        "created": 1780323331.6196506,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      }
+    ],
+    "approvals": [],
+    "result": null
+  }
+]

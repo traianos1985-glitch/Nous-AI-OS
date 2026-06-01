@@ -38,6 +38,7 @@ from executor.operator_backend_router import operator_backend_status, browser_ba
 from executor.device_control_backend import device_control_status, device_control_recommendation
 from executor.companion_bridge import companion_status, companion_home, companion_back, companion_ui_tree, companion_tap, companion_logs, companion_ui_tree_with_logs
 from executor.ops_console import ops_status, run_ops_action
+from executor.mission_system import mission_status, list_missions, create_mission, create_standard_mission, run_next_mission_task, run_mission_cycle, approve_task
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -270,6 +271,65 @@ def remote_companion_ui_tree_logs_route():
         return jsonify({"error": "unauthorized"}), 401
     return jsonify(companion_ui_tree_with_logs())
 
+
+
+@app.route("/remote/missions/status")
+def remote_missions_status_route():
+    return jsonify(mission_status())
+
+
+@app.route("/remote/missions")
+def remote_missions_list_route():
+    return jsonify(list_missions())
+
+
+@app.route("/remote/missions/create", methods=["POST"])
+def remote_missions_create_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_mission(
+        data.get("title", "Untitled mission"),
+        data.get("description", ""),
+        data.get("tasks", [])
+    ))
+
+
+@app.route("/remote/missions/create-standard", methods=["POST"])
+def remote_missions_create_standard_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_standard_mission(data.get("kind", "system_check")))
+
+
+@app.route("/remote/missions/run-next", methods=["POST"])
+def remote_missions_run_next_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_next_mission_task(data.get("id")))
+
+
+@app.route("/remote/missions/run-cycle", methods=["POST"])
+def remote_missions_run_cycle_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_mission_cycle(data.get("id"), data.get("max_steps", 3)))
+
+
+@app.route("/remote/missions/approve-task", methods=["POST"])
+def remote_missions_approve_task_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(approve_task(data.get("mission_id"), data.get("task_id")))
 
 @app.route("/remote/ops/status")
 def remote_ops_status_route():
