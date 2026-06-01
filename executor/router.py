@@ -39,6 +39,7 @@ from executor.device_control_backend import device_control_status, device_contro
 from executor.companion_bridge import companion_status, companion_home, companion_back, companion_ui_tree, companion_tap, companion_logs, companion_ui_tree_with_logs
 from executor.ops_console import ops_status, run_ops_action
 from executor.mission_system import mission_status, list_missions, create_mission, create_standard_mission, run_next_mission_task, run_mission_cycle, approve_task
+from executor.autonomous_workspace import workspace_status, plan_from_prompt, create_workspace_mission, run_workspace_mission
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -272,6 +273,35 @@ def remote_companion_ui_tree_logs_route():
     return jsonify(companion_ui_tree_with_logs())
 
 
+
+
+@app.route("/remote/workspace/status")
+def remote_workspace_status_route():
+    return jsonify(workspace_status())
+
+
+@app.route("/remote/workspace/plan", methods=["POST"])
+def remote_workspace_plan_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(plan_from_prompt(data.get("prompt", "")))
+
+
+@app.route("/remote/workspace/create-mission", methods=["POST"])
+def remote_workspace_create_mission_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(create_workspace_mission(data.get("prompt", "")))
+
+
+@app.route("/remote/workspace/run-mission", methods=["POST"])
+def remote_workspace_run_mission_route():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_workspace_mission(data.get("id"), data.get("max_steps", 3)))
 
 @app.route("/remote/missions/status")
 def remote_missions_status_route():

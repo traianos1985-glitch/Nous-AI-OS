@@ -258,5 +258,56 @@
     ],
     "approvals": [],
     "result": null
+  },
+  {
+    "id": 1780323843630738235,
+    "title": "Android companion mission",
+    "description": "έλεγξε το android companion",
+    "status": "active",
+    "created": 1780323843.630739,
+    "updated": 1780323843.6307392,
+    "tasks": [
+      {
+        "id": 1780323843630740787,
+        "title": "Check companion status",
+        "action": "companion_status",
+        "payload": {},
+        "status": "pending",
+        "created": 1780323843.6307425,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780323843630745059,
+        "title": "Request UI tree",
+        "action": "companion_ui_tree",
+        "payload": {},
+        "status": "pending",
+        "created": 1780323843.6307466,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      },
+      {
+        "id": 1780323843630748081,
+        "title": "Run reality check",
+        "action": "reality_status",
+        "payload": {},
+        "status": "pending",
+        "created": 1780323843.630749,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": false,
+        "approved": false
+      }
+    ],
+    "approvals": [],
+    "result": null
   }
 ]
