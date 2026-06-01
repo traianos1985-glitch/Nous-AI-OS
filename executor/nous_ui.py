@@ -113,6 +113,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
     <div class="nav" id="nav">
       <button onclick="showSection('home')" class="active">🏠 Home</button>
       <button onclick="showSection('chat')">💬 Chat</button>
+      <button onclick="showSection('goals')">🏁 Goals</button>
       <button onclick="showSection('missions')">🎯 Missions</button>
       <button onclick="showSection('approvals')">✅ Approvals</button>
       <button onclick="showSection('companion')">📱 Companion</button>
@@ -166,6 +167,20 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
             </div>
           </div>
         </div>
+      </section>
+
+
+      <section id="goals" class="section">
+        <div class="hero"><h1>🏁 Goals</h1><p>Μακροπρόθεσμοι στόχοι, progress, linked missions και next actions.</p></div>
+        <div class="grid">
+          <div class="card">
+            <h3>Goal Actions</h3>
+            <button class="miniBtn" onclick="seedGoals()">Seed Core Goals</button>
+            <button class="miniBtn" onclick="loadGoals()">Refresh Goals</button>
+          </div>
+          <div class="card"><h3>Goal Status</h3><div id="goalStatus">Loading...</div></div>
+        </div>
+        <div class="card"><h3>Goal List</h3><div id="goalList">Loading...</div></div>
       </section>
 
       <section id="missions" class="section">
@@ -271,6 +286,7 @@ function labelFor(id){return ({home:"home",chat:"chat",missions:"missions",appro
 
 async function refreshSection(id){
   if(id==="home") return loadHome();
+  if(id==="goals") return loadGoals();
   if(id==="missions") return loadMissions();
   if(id==="companion") return loadCompanion();
   if(id==="deploy") return loadDeploy();
@@ -286,6 +302,49 @@ async function loadHome(){
   document.getElementById("homeMissions").innerHTML=kv("total",ms.total)+kv("active",ms.active)+kv("done",ms.done)+kv("blocked",ms.blocked);
   renderObject({status:st,missions:ms,companion:cp,reality:rt});
 }
+
+async function loadGoals(){
+  const data=await getJson("/remote/goals-v2/status");
+  renderObject(data);
+
+  document.getElementById("goalStatus").innerHTML=
+    kv("total",data.total ?? "-")+
+    kv("active",data.active ?? "-")+
+    kv("done",data.done ?? "-");
+
+  if(!data.goals || data.goals.length===0){
+    document.getElementById("goalList").innerHTML="No goals yet.";
+    return;
+  }
+
+  document.getElementById("goalList").innerHTML=data.goals.map(g=>`
+    <div class="card">
+      <h3>${g.title}</h3>
+      ${kv("priority",g.priority)}
+      ${kv("status",g.status)}
+      ${kv("progress",(g.progress ?? 0)+"%")}
+      ${kv("missions",(g.missions||[]).length)}
+      <div class="small">${g.description||""}</div>
+      <div style="margin-top:8px">${(g.next_actions||[]).map(x=>`<span class="pill">${x}</span>`).join("")}</div>
+      <button class="miniBtn" onclick="refreshGoal('${g.id}')">Refresh Progress</button>
+    </div>
+  `).join("");
+}
+
+async function seedGoals(){
+  const data=await postJson("/remote/goals-v2/seed",{});
+  renderObject(data);
+  feed("Seeded core goals");
+  await loadGoals();
+}
+
+async function refreshGoal(id){
+  const data=await postJson("/remote/goals-v2/refresh",{id});
+  renderObject(data);
+  feed("Refreshed goal "+id);
+  await loadGoals();
+}
+
 async function loadMissions(){
   const ms=await getJson("/remote/missions/status"); const list=await getJson("/remote/missions");
   document.getElementById("missionStatus").innerHTML=kv("total",ms.total)+kv("active",ms.active)+kv("done",ms.done)+kv("blocked",ms.blocked);
