@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1780334468794657534,
+    "lesson": "Backup ZIP creation works",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.8,
+    "tags": [
+      "backup",
+      "brain"
+    ],
+    "created": 1780334468.7946615
+  }
+]

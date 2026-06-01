@@ -46,6 +46,7 @@ from executor.brain_state import brain_status, build_brain_state, save_brain_sta
 from executor.cloud_brain_backup import brain_backup_status, create_brain_backup, list_brain_backups
 from executor.brain_restore import restore_status, inspect_brain_backup, restore_brain_backup
 from executor.decision_memory import decision_status, list_decisions, search_decisions, record_decision
+from executor.learning_memory import lesson_status, list_lessons, search_lessons, record_lesson
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -286,6 +287,39 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/lessons/status")
+def remote_lessons_status():
+    return jsonify(lesson_status())
+
+
+@app.route("/remote/lessons/list")
+def remote_lessons_list():
+    return jsonify(list_lessons())
+
+
+@app.route("/remote/lessons/search", methods=["POST"])
+def remote_lessons_search():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_lessons(data.get("query", "")))
+
+
+@app.route("/remote/lessons/record", methods=["POST"])
+def remote_lessons_record():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+    return jsonify(record_lesson(
+        lesson=data.get("lesson", ""),
+        outcome=data.get("outcome", "success"),
+        goal_id=data.get("goal_id"),
+        mission_id=data.get("mission_id"),
+        decision_id=data.get("decision_id"),
+        confidence=data.get("confidence", 0.8),
+        tags=data.get("tags", []),
+    ))
 
 @app.route("/remote/decision-memory/status")
 def remote_decision_memory_status_route():
