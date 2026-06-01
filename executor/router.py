@@ -50,7 +50,7 @@ from executor.learning_memory import lesson_status, list_lessons, search_lessons
 from executor.executive_intelligence import executive_intelligence_status, executive_intelligence_report
 from executor.recommendation_actions import execute_recommendation, reject_recommendation
 from executor.executive_scheduler import executive_scheduler_status, run_executive_review, list_executive_reviews
-from executor.executive_scheduler_loop import scheduler_loop_status, start_scheduler_loop, stop_scheduler_loop, run_scheduler_once
+from executor.executive_scheduler_loop import scheduler_loop_status, start_scheduler_loop, stop_scheduler_loop, run_scheduler_once, reconcile_scheduler_loop_state
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -71,6 +71,11 @@ from executor.research_browser_agent import research_query, read_url
 from executor.knowledge_research import research_next_topic, learning_cycle
 
 app = Flask(__name__)
+
+try:
+    reconcile_scheduler_loop_state()
+except Exception:
+    pass
 
 @app.route("/")
 def home():

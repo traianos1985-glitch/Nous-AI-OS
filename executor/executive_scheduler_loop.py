@@ -149,3 +149,21 @@ def run_scheduler_once():
         "result": result,
         "status": scheduler_loop_status(),
     }
+
+
+def reconcile_scheduler_loop_state():
+    """
+    If state says enabled=true but no thread is alive, resume the safe scheduler loop.
+    This runs no dangerous action directly; it only restarts the review loop.
+    """
+    state = _load_state()
+    alive = _thread.is_alive() if _thread else False
+
+    if state.get("enabled") and not alive:
+        return start_scheduler_loop(state.get("interval_seconds", 1800))
+
+    return {
+        "ok": True,
+        "resumed": False,
+        "status": scheduler_loop_status(),
+    }
