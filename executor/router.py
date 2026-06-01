@@ -47,6 +47,7 @@ from executor.cloud_brain_backup import brain_backup_status, create_brain_backup
 from executor.brain_restore import restore_status, inspect_brain_backup, restore_brain_backup
 from executor.decision_memory import decision_status, list_decisions, search_decisions, record_decision
 from executor.learning_memory import lesson_status, list_lessons, search_lessons, record_lesson
+from executor.executive_intelligence import executive_intelligence_status, executive_intelligence_report
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -288,6 +289,16 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/executive-intelligence/status")
+def remote_executive_intelligence_status():
+    return jsonify(executive_intelligence_status())
+
+
+@app.route("/remote/executive-intelligence/report")
+def remote_executive_intelligence_report():
+    return jsonify(executive_intelligence_report())
 
 @app.route("/remote/lessons/status")
 def remote_lessons_status():
