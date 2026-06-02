@@ -1,0 +1,1831 @@
+[
+  {
+    "id": 1780410773878147500,
+    "created": 1780410773.878149,
+    "status": "pending",
+    "title": "Patch proposal from deep code analysis",
+    "risk": "low",
+    "analysis": {
+      "id": 1780410773871400885,
+      "created": 1780410773.8714025,
+      "problem": {
+        "error": "401 unauthorized on mission planner approve"
+      },
+      "root_cause": "Authentication/token handling issue",
+      "probable_area": "auth",
+      "candidate_files": [
+        "executor/nous_ui.py",
+        "executor/router.py",
+        "executor/security.py"
+      ],
+      "keywords": [
+        "TOKEN",
+        "X-NOUS-Token",
+        "authorization",
+        "check_admin_token",
+        "unauthorized"
+      ],
+      "matched_routes": [
+        {
+          "path": "/remote/patch-generator/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomous-repair/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/mission-planner/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive/plan",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/workspace/plan",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        }
+      ],
+      "snippets": [
+        {
+          "file": "executor/nous_ui.py",
+          "line": 380,
+          "keyword_line": "        <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>",
+          "snippet": "376:       </section>\n377: \n378: \n379:       <section id=\"settings\" class=\"section\">\n380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 382,
+          "keyword_line": "          <h3>Token</h3>",
+          "snippet": "378: \n379:       <section id=\"settings\" class=\"section\">\n380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>\n388:   \n389:       <section id=\"scheduler\" class=\"section\">"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 383,
+          "keyword_line": "          <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>",
+          "snippet": "379:       <section id=\"settings\" class=\"section\">\n380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>\n388:   \n389:       <section id=\"scheduler\" class=\"section\">\n390:         <div class=\"hero\">"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 384,
+          "keyword_line": "          <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>",
+          "snippet": "380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>\n388:   \n389:       <section id=\"scheduler\" class=\"section\">\n390:         <div class=\"hero\">\n391:           <h1>⏱ Executive Scheduler</h1>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 667,
+          "keyword_line": "const tokenKey=\"NOUS_TOKEN\";",
+          "snippet": "663:   </aside>\n664: </div>\n665: \n666: <script>\n667: const tokenKey=\"NOUS_TOKEN\";\n668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 670,
+          "keyword_line": "function token(){",
+          "snippet": "666: <script>\n667: const tokenKey=\"NOUS_TOKEN\";\n668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 671,
+          "keyword_line": "  let t=localStorage.getItem(tokenKey);",
+          "snippet": "667: const tokenKey=\"NOUS_TOKEN\";\n668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}\n678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 672,
+          "keyword_line": "  if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }",
+          "snippet": "668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}\n678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}\n679: function feed(text){document.getElementById(\"activity\").innerHTML=new Date().toLocaleTimeString()+\" — \"+text+\"<br>\"+document.getElementById(\"activity\").innerHTML}"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 675,
+          "keyword_line": "function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }",
+          "snippet": "671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}\n678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}\n679: function feed(text){document.getElementById(\"activity\").innerHTML=new Date().toLocaleTimeString()+\" — \"+text+\"<br>\"+document.getElementById(\"activity\").innerHTML}\n680: function kv(k,v){return `<div class=\"kv\"><span>${k}</span><b>${v}</b></div>`}\n681: async function getJson(path){const r=await fetch(path);return await r.json()}\n682: async function postJson(path,body={}){const r=await fetch(path,{method:\"POST\",headers:{\"Content-Type\":\"application/json\",\"X-NOUS-TOKEN\":token()},body:JSON.stringify(body)});return await r.json()}"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 682,
+          "keyword_line": "async function postJson(path,body={}){const r=await fetch(path,{method:\"POST\",headers:{\"Content-Type\":\"application/json\",\"X-NOUS-TOKEN\":token()},body:JSON.stringify(body)});return await r.json()}",
+          "snippet": "678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}\n679: function feed(text){document.getElementById(\"activity\").innerHTML=new Date().toLocaleTimeString()+\" — \"+text+\"<br>\"+document.getElementById(\"activity\").innerHTML}\n680: function kv(k,v){return `<div class=\"kv\"><span>${k}</span><b>${v}</b></div>`}\n681: async function getJson(path){const r=await fetch(path);return await r.json()}\n682: async function postJson(path,body={}){const r=await fetch(path,{method:\"POST\",headers:{\"Content-Type\":\"application/json\",\"X-NOUS-TOKEN\":token()},body:JSON.stringify(body)});return await r.json()}\n683: function addMsg(text,cls=\"\"){const c=document.getElementById(\"chatlog\");const d=document.createElement(\"div\");d.className=\"msg \"+cls;d.textContent=text;c.appendChild(d);c.scrollTop=c.scrollHeight}\n684: \n685: function showSection(id){\n686:   closeMenu(); currentSection=id;\n687:   document.querySelectorAll(\".section\").forEach(x=>x.classList.remove(\"active\"));\n688:   document.getElementById(id).classList.add(\"active\");\n689:   document.querySelectorAll(\".nav button\").forEach(x=>x.classList.remove(\"active\"));"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 9,
+          "keyword_line": "from executor.security import check_token, check_admin_token",
+          "snippet": "5: from flask import Flask, request, jsonify, send_from_directory\n6: from executor.nous_ui import nous_dashboard_html\n7: from executor.kernel import handle\n8: from executor.control_center import CONTROL_CENTER_HTML\n9: from executor.security import check_token, check_admin_token\n10: from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats\n11: from executor import autonomy as autonomy_state\n12: from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle, watchdog_check\n13: from executor.goal_executor import goal_executor_cycle\n14: from executor.project_progress import list_progress, project_summary, sync_projects, mark_step\n15: from executor.self_healing_runtime import self_heal_check\n16: from executor.task_queue import list_queue, clear_queue, retry_failed, recover_dead_tasks"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 10,
+          "keyword_line": "from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats",
+          "snippet": "6: from executor.nous_ui import nous_dashboard_html\n7: from executor.kernel import handle\n8: from executor.control_center import CONTROL_CENTER_HTML\n9: from executor.security import check_token, check_admin_token\n10: from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats\n11: from executor import autonomy as autonomy_state\n12: from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle, watchdog_check\n13: from executor.goal_executor import goal_executor_cycle\n14: from executor.project_progress import list_progress, project_summary, sync_projects, mark_step\n15: from executor.self_healing_runtime import self_heal_check\n16: from executor.task_queue import list_queue, clear_queue, retry_failed, recover_dead_tasks\n17: from executor.runtime_metrics import collect_metrics"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 101,
+          "keyword_line": "    if not check_token(request):",
+          "snippet": "97:     return CONTROL_CENTER_HTML\n98: \n99: @app.route(\"/chat\", methods=[\"POST\"])\n100: def chat():\n101:     if not check_token(request):\n102:         return jsonify({\"error\": \"unauthorized\"}), 401\n103:     data = request.get_json()\n104:     cmd = data.get(\"command\", \"\")\n105:     return jsonify(handle(cmd, {}))\n106: \n107: from executor.health import backup as create_backup\n108: from executor.health import status as health_status"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 102,
+          "keyword_line": "        return jsonify({\"error\": \"unauthorized\"}), 401",
+          "snippet": "98: \n99: @app.route(\"/chat\", methods=[\"POST\"])\n100: def chat():\n101:     if not check_token(request):\n102:         return jsonify({\"error\": \"unauthorized\"}), 401\n103:     data = request.get_json()\n104:     cmd = data.get(\"command\", \"\")\n105:     return jsonify(handle(cmd, {}))\n106: \n107: from executor.health import backup as create_backup\n108: from executor.health import status as health_status\n109: "
+        },
+        {
+          "file": "executor/router.py",
+          "line": 116,
+          "keyword_line": "@app.route(\"/token/create\", methods=[\"POST\"])",
+          "snippet": "112:     return jsonify(health_status())\n113: \n114: \n115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 117,
+          "keyword_line": "def token_create_route():",
+          "snippet": "113: \n114: \n115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: "
+        },
+        {
+          "file": "executor/router.py",
+          "line": 118,
+          "keyword_line": "    if not check_admin_token(request):",
+          "snippet": "114: \n115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: "
+        },
+        {
+          "file": "executor/router.py",
+          "line": 119,
+          "keyword_line": "        return jsonify({\"error\": \"unauthorized\"}), 401",
+          "snippet": "115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: \n126: @app.route(\"/token/list\")"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 123,
+          "keyword_line": "    return jsonify(create_token(name))",
+          "snippet": "119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: \n126: @app.route(\"/token/list\")\n127: def token_list_route():\n128:     if not check_admin_token(request):\n129:         return jsonify({\"error\": \"unauthorized\"}), 401\n130: "
+        },
+        {
+          "file": "executor/router.py",
+          "line": 126,
+          "keyword_line": "@app.route(\"/token/list\")",
+          "snippet": "122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: \n126: @app.route(\"/token/list\")\n127: def token_list_route():\n128:     if not check_admin_token(request):\n129:         return jsonify({\"error\": \"unauthorized\"}), 401\n130: \n131:     return jsonify(list_tokens())\n132: \n133: "
+        }
+      ],
+      "confidence": 0.82,
+      "next_step": "Generate patch proposal. Do not apply without approval."
+    },
+    "patches": [
+      {
+        "path": "executor/nous_ui.py",
+        "diff": "--- executor/nous_ui.py.before\n+++ executor/nous_ui.py.after\n@@ -705,6 +705,7 @@\n }\n \n \n+\n function getToken(){\n   return localStorage.getItem(\"NOUS_TOKEN\") || \"\";\n }\n@@ -746,6 +747,7 @@\n   }\n   return data;\n }\n+\n \n \n async function loadHome(){\n",
+        "apply_strategy": "replace_file"
+      }
+    ],
+    "can_apply": true,
+    "reason": "Generated concrete patch where a safe known repair pattern was found."
+  },
+  {
+    "id": 1780410918912363070,
+    "created": 1780410918.9123664,
+    "status": "pending",
+    "title": "Patch proposal from deep code analysis",
+    "risk": "low",
+    "analysis": {
+      "id": 1780410918897881715,
+      "created": 1780410918.897885,
+      "problem": {
+        "ok": true,
+        "time": 1780408217.3781097,
+        "checks": {
+          "compile": {
+            "executor/router.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            "executor/nous_ui.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            "executor/mission_system.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            "executor/mission_planner.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            "executor/dashboard_action_audit.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            "executor/executive_intelligence.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            "executor/executive_scheduler_loop.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            "executor/goal_progress_intelligence.py": {
+              "ok": true,
+              "code": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          },
+          "endpoints": [
+            {
+              "path": "/dashboard",
+              "status": 200,
+              "ok": true,
+              "json": false
+            },
+            {
+              "path": "/remote/status",
+              "status": 200,
+              "ok": true,
+              "json": true
+            },
+            {
+              "path": "/remote/dashboard-action-audit",
+              "status": 200,
+              "ok": true,
+              "json": true
+            },
+            {
+              "path": "/remote/mission-planner/status",
+              "status": 200,
+              "ok": true,
+              "json": true
+            },
+            {
+              "path": "/remote/executive-intelligence/status",
+              "status": 200,
+              "ok": true,
+              "json": true
+            },
+            {
+              "path": "/remote/executive-scheduler-loop/status",
+              "status": 200,
+              "ok": true,
+              "json": true
+            },
+            {
+              "path": "/remote/goal-progress-intelligence/status",
+              "status": 200,
+              "ok": true,
+              "json": true
+            }
+          ],
+          "dashboard_action_audit": {
+            "failed": 0,
+            "ok": true,
+            "passed": 18,
+            "results": [
+              {
+                "error": null,
+                "json": false,
+                "method": "GET",
+                "name": "dashboard",
+                "ok": true,
+                "path": "/dashboard",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "remote_status",
+                "ok": true,
+                "path": "/remote/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "brain_status",
+                "ok": true,
+                "path": "/remote/brain/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "backup_list",
+                "ok": true,
+                "path": "/remote/brain-backup/list",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "restore_status",
+                "ok": true,
+                "path": "/remote/brain-restore/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "goals_status",
+                "ok": true,
+                "path": "/remote/goals-v2/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "missions_status",
+                "ok": true,
+                "path": "/remote/missions/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "approvals",
+                "ok": true,
+                "path": "/remote/missions/approvals",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "lessons_status",
+                "ok": true,
+                "path": "/remote/lessons/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "decision_memory",
+                "ok": true,
+                "path": "/remote/decision-memory/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "executive_intelligence",
+                "ok": true,
+                "path": "/remote/executive-intelligence/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "scheduler_loop",
+                "ok": true,
+                "path": "/remote/executive-scheduler-loop/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "mission_planner",
+                "ok": true,
+                "path": "/remote/mission-planner/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "mission_proposals",
+                "ok": true,
+                "path": "/remote/mission-planner/proposals",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "GET",
+                "name": "goal_progress_intelligence",
+                "ok": true,
+                "path": "/remote/goal-progress-intelligence/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "POST",
+                "name": "protected_planner_propose",
+                "ok": true,
+                "path": "/remote/mission-planner/propose",
+                "protected_ok": false,
+                "requires_auth": true,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "POST",
+                "name": "protected_scheduler_run_once",
+                "ok": true,
+                "path": "/remote/executive-scheduler-loop/run-once",
+                "protected_ok": false,
+                "requires_auth": true,
+                "status": 200
+              },
+              {
+                "error": null,
+                "json": true,
+                "method": "POST",
+                "name": "protected_backup_create",
+                "ok": true,
+                "path": "/remote/brain-backup/create",
+                "protected_ok": false,
+                "requires_auth": true,
+                "status": 200
+              }
+            ],
+            "time": 1780408362.198761,
+            "total": 18
+          },
+          "git_status": {
+            "ok": true,
+            "code": 0,
+            "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_loop_v2.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/brain_backups/nous_brain_backup_1780408077.zip\n?? data/brain_backups/nous_brain_backup_1780408126.zip\n?? data/brain_backups/nous_brain_backup_1780408147.zip\n?? data/brain_backups/nous_brain_backup_1780408197.zip\n?? data/brain_backups/nous_brain_backup_1780408263.zip\n?? data/brain_backups/nous_brain_backup_1780408284.zip\n?? data/brain_backups/nous_brain_backup_1780408329.zip\n?? data/brain_backups/nous_brain_backup_1780408341.zip\n?? data/brain_backups/nous_brain_backup_1780408362.zip\n?? executor/executive_command_center.py\n",
+            "stderr": ""
+          }
+        },
+        "problems": [],
+        "recommended_fixes": [
+          {
+            "id": "review_runtime_files",
+            "title": "Review runtime file changes",
+            "risk": "manual",
+            "description": "Runtime files changed. User should decide restore or commit."
+          }
+        ]
+      },
+      "root_cause": "Mission planner flow issue",
+      "probable_area": "mission_planner",
+      "candidate_files": [
+        "executor/mission_planner.py",
+        "executor/nous_ui.py",
+        "executor/router.py"
+      ],
+      "keywords": [
+        "approve_mission_proposal",
+        "fetch",
+        "getJson",
+        "mission-planner",
+        "onclick",
+        "postJson",
+        "proposal_id",
+        "propose_mission_for_goal",
+        "showSection"
+      ],
+      "matched_routes": [
+        {
+          "path": "/",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/token/create",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/token/list",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/runtime",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/cloud/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/backup",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/research/query",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser/read",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals/progress",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals/refresh",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals/summary",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/progress/snapshot",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/progress/link-task",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/companion/logs",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/companion/ui-tree-logs",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deep-code-analyst/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deep-code-analyst/reports",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deep-code-analyst/analyze",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deep-code-analyst/analyze-latest-diagnosis",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-healing/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-healing/run-analysis",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/patch-generator/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/patch-generator/proposals",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/patch-generator/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/patch-generator/reject",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/command-center/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/command-center/run-cycle",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-loop-v2/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-loop-v2/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/pending-review/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/code-analyst/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/code-analyst/reports",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/code-analyst/analyze",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/code-analyst/analyze-latest-diagnosis",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/code-analyst/patch-suggestion",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-scheduler/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-scheduler/start",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-scheduler/stop",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-scheduler/run-once",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-executor/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-executor/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-executor/enable",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/auto-mission-executor/disable",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomous-repair/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomous-repair/proposals",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomous-repair/propose",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomous-repair/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomous-repair/reject",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-diagnosis/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-diagnosis/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-diagnosis/apply-fix",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/dashboard-action-audit",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/mission-planner/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/mission-planner/proposals",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/mission-planner/propose",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/mission-planner/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/mission-planner/reject",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goal-progress-intelligence/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goal-progress-intelligence/analyze",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goal-progress-intelligence/apply",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-scheduler-loop/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-scheduler-loop/start",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-scheduler-loop/stop",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-scheduler-loop/run-once",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-scheduler/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-scheduler/reviews",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-scheduler/run-review",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-intelligence/execute-recommendation",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-intelligence/reject-recommendation",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-intelligence/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive-intelligence/report",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/lessons/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/lessons/list",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/lessons/search",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/lessons/record",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/decision-memory/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/decision-memory/list",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/decision-memory/search",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/decision-memory/record",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain-restore/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain-restore/inspect",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain-restore/apply",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain-backup/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain-backup/list",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain-backup/create",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain/state",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain/save",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/brain/load",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2/seed",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2/create",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2/note",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2/link-mission",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2/refresh",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals-v2/create-mission",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive/plan",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/executive/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/workspace/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/workspace/plan",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/workspace/create-mission",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/workspace/run-mission",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions/create",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions/create-standard",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions/run-next",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions/run-cycle",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions/approvals",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/missions/approve-task",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/ops/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/ops/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/companion/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/companion/home",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/companion/back",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/companion/ui-tree",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/companion/tap",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/device-control/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/device-control/recommendation",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator-backend/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator-backend/browser",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator-backend/android",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator-backend/deploy",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser-bridge/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser-bridge/jobs",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser-bridge/create",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser-bridge/complete",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/capabilities",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/reality-flags",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser-driver/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser-driver/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/vercel/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/vercel/deploy",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deploy/providers",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deploy/provider-run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/real-actions/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/real-actions/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/real-chain/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/real-chain/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/reality/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/approvals",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/approve",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/reject",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/browser/open",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/browser/click",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/browser/fill-form",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/browser/login",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/android/tap",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/android/swipe",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/android/keyevent",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/operator/deploy",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/hands/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser/search",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/browser/read-url",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/android/action",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deploy/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/deploy/local",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/git/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/git/checkpoint",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/complex/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/complex/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/team/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/team/cycle",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/internet-learning/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/internet-learning/topic",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/internet-learning/url",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-improve/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-improve/patches",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-improve/create-patch",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-improve/apply-patch",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/master/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/master/priority",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/master/cycle",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/guardian/policy",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/guardian/check",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/research/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/research/learned",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/research/learn-topic",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/agent/decide",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/agent/act",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/agent/goals",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/agent/journal",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/local-llm/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/local-llm/ask",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/app-evolver/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/app-evolver/queue",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/android/open-url",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/code/health",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/code/advice",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/app-factory/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/app-factory/create",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/app-factory/queue",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/android/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/android/safe-commands",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/android/notify",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/learning/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/learning/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/research/next",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/research/cycle",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/knowledge",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/knowledge/queue",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/knowledge/base",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/knowledge/cycle",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/knowledge/add",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/knowledge/learned",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/metrics",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/service/watchdog",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/queue/retry-failed",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/queue/recover-dead",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/projects",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/projects/summary",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/projects/sync",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/projects/mark-step",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/self-heal/check",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/queue",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/queue/clear",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/goals/run",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/service/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/service/enable",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/service/disable",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/service/run-once",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomy/start",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomy/stop",
+          "methods": "\"POST\"",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/autonomy/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/remote/status",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/dashboard",
+          "methods": "GET",
+          "file": "executor/router.py"
+        },
+        {
+          "path": "/",
+          "methods": "GET",
+          "file": "executor/server.py"
+        }
+      ],
+      "snippets": [
+        {
+          "file": "executor/mission_planner.py",
+          "line": 76,
+          "keyword_line": "def propose_mission_for_goal(goal_id=None):",
+          "snippet": "72:         {\"title\": \"Run full validation\", \"action\": \"full_validation\"},\n73:     ]\n74: \n75: \n76: def propose_mission_for_goal(goal_id=None):\n77:     goals = list_goals()\n78:     if goal_id:\n79:         candidates = [g for g in goals if str(g.get(\"id\")) == str(goal_id)]\n80:     else:\n81:         candidates = [g for g in goals if g.get(\"status\") == \"active\"]\n82: \n83:     if not candidates:"
+        },
+        {
+          "file": "executor/mission_planner.py",
+          "line": 150,
+          "keyword_line": "def _find(items, proposal_id):",
+          "snippet": "146:         \"recent\": items[-10:],\n147:     }\n148: \n149: \n150: def _find(items, proposal_id):\n151:     for p in items:\n152:         if str(p.get(\"id\")) == str(proposal_id):\n153:             return p\n154:     return None\n155: \n156: \n157: def approve_mission_proposal(proposal_id):"
+        },
+        {
+          "file": "executor/mission_planner.py",
+          "line": 152,
+          "keyword_line": "        if str(p.get(\"id\")) == str(proposal_id):",
+          "snippet": "148: \n149: \n150: def _find(items, proposal_id):\n151:     for p in items:\n152:         if str(p.get(\"id\")) == str(proposal_id):\n153:             return p\n154:     return None\n155: \n156: \n157: def approve_mission_proposal(proposal_id):\n158:     items = _load()\n159:     p = _find(items, proposal_id)"
+        },
+        {
+          "file": "executor/mission_planner.py",
+          "line": 157,
+          "keyword_line": "def approve_mission_proposal(proposal_id):",
+          "snippet": "153:             return p\n154:     return None\n155: \n156: \n157: def approve_mission_proposal(proposal_id):\n158:     items = _load()\n159:     p = _find(items, proposal_id)\n160:     if not p:\n161:         return {\"ok\": False, \"error\": \"proposal_not_found\"}\n162: \n163:     if p.get(\"status\") != \"pending\":\n164:         return {\"ok\": False, \"error\": \"proposal_not_pending\", \"proposal\": p}"
+        },
+        {
+          "file": "executor/mission_planner.py",
+          "line": 159,
+          "keyword_line": "    p = _find(items, proposal_id)",
+          "snippet": "155: \n156: \n157: def approve_mission_proposal(proposal_id):\n158:     items = _load()\n159:     p = _find(items, proposal_id)\n160:     if not p:\n161:         return {\"ok\": False, \"error\": \"proposal_not_found\"}\n162: \n163:     if p.get(\"status\") != \"pending\":\n164:         return {\"ok\": False, \"error\": \"proposal_not_pending\", \"proposal\": p}\n165: \n166:     created = create_goal_mission("
+        },
+        {
+          "file": "executor/mission_planner.py",
+          "line": 184,
+          "keyword_line": "        action=\"approve_mission_proposal\",",
+          "snippet": "180:         title=\"Approved mission proposal: \" + p.get(\"title\", \"\"),\n181:         reason=\"User approved mission proposal.\",\n182:         goal_id=p.get(\"goal_id\"),\n183:         mission_id=p.get(\"mission_id\"),\n184:         action=\"approve_mission_proposal\",\n185:         result=created,\n186:         confidence=0.85,\n187:         tags=[\"mission_planner\", \"approved\", p.get(\"kind\", \"general\")],\n188:     )\n189: \n190:     lesson = record_lesson(\n191:         lesson=\"Mission proposal approved and converted into mission: \" + p.get(\"title\", \"\"),"
+        },
+        {
+          "file": "executor/mission_planner.py",
+          "line": 202,
+          "keyword_line": "def reject_mission_proposal(proposal_id, reason=\"User rejected mission proposal\"):",
+          "snippet": "198: \n199:     return {\"ok\": True, \"proposal\": p, \"created\": created, \"decision\": decision, \"lesson\": lesson}\n200: \n201: \n202: def reject_mission_proposal(proposal_id, reason=\"User rejected mission proposal\"):\n203:     items = _load()\n204:     p = _find(items, proposal_id)\n205:     if not p:\n206:         return {\"ok\": False, \"error\": \"proposal_not_found\"}\n207: \n208:     p[\"status\"] = \"rejected\"\n209:     p[\"rejected\"] = time.time()"
+        },
+        {
+          "file": "executor/mission_planner.py",
+          "line": 204,
+          "keyword_line": "    p = _find(items, proposal_id)",
+          "snippet": "200: \n201: \n202: def reject_mission_proposal(proposal_id, reason=\"User rejected mission proposal\"):\n203:     items = _load()\n204:     p = _find(items, proposal_id)\n205:     if not p:\n206:         return {\"ok\": False, \"error\": \"proposal_not_found\"}\n207: \n208:     p[\"status\"] = \"rejected\"\n209:     p[\"rejected\"] = time.time()\n210:     p[\"reject_reason\"] = reason\n211:     _save(items)"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 105,
+          "keyword_line": "<button class=\"menuBtn\" onclick=\"openMenu()\">☰</button>",
+          "snippet": "101: }\n102: </style>\n103: </head>\n104: <body>\n105: <button class=\"menuBtn\" onclick=\"openMenu()\">☰</button>\n106: <div class=\"overlay\" id=\"overlay\" onclick=\"closeMenu()\"></div>\n107: \n108: <div class=\"app\">\n109:   <aside class=\"sidebar\" id=\"sidebar\">\n110:     <div class=\"logo\">🧠 NOUS AI OS</div>\n111:     <div class=\"sub\">Personal agent workspace</div>\n112: "
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 106,
+          "keyword_line": "<div class=\"overlay\" id=\"overlay\" onclick=\"closeMenu()\"></div>",
+          "snippet": "102: </style>\n103: </head>\n104: <body>\n105: <button class=\"menuBtn\" onclick=\"openMenu()\">☰</button>\n106: <div class=\"overlay\" id=\"overlay\" onclick=\"closeMenu()\"></div>\n107: \n108: <div class=\"app\">\n109:   <aside class=\"sidebar\" id=\"sidebar\">\n110:     <div class=\"logo\">🧠 NOUS AI OS</div>\n111:     <div class=\"sub\">Personal agent workspace</div>\n112: \n113:     <div class=\"nav\" id=\"nav\">"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 114,
+          "keyword_line": "      <button onclick=\"showSection('home')\" class=\"active\">🏠 Home</button>",
+          "snippet": "110:     <div class=\"logo\">🧠 NOUS AI OS</div>\n111:     <div class=\"sub\">Personal agent workspace</div>\n112: \n113:     <div class=\"nav\" id=\"nav\">\n114:       <button onclick=\"showSection('home')\" class=\"active\">🏠 Home</button>\n115:       <button onclick=\"showSection('chat')\">💬 Chat</button>\n116:       <button onclick=\"showSection('brain')\">🧠 Brain</button>\n117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 115,
+          "keyword_line": "      <button onclick=\"showSection('chat')\">💬 Chat</button>",
+          "snippet": "111:     <div class=\"sub\">Personal agent workspace</div>\n112: \n113:     <div class=\"nav\" id=\"nav\">\n114:       <button onclick=\"showSection('home')\" class=\"active\">🏠 Home</button>\n115:       <button onclick=\"showSection('chat')\">💬 Chat</button>\n116:       <button onclick=\"showSection('brain')\">🧠 Brain</button>\n117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>\n122:       <button onclick=\"showSection('system')\">📊 System</button>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 116,
+          "keyword_line": "      <button onclick=\"showSection('brain')\">🧠 Brain</button>",
+          "snippet": "112: \n113:     <div class=\"nav\" id=\"nav\">\n114:       <button onclick=\"showSection('home')\" class=\"active\">🏠 Home</button>\n115:       <button onclick=\"showSection('chat')\">💬 Chat</button>\n116:       <button onclick=\"showSection('brain')\">🧠 Brain</button>\n117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>\n122:       <button onclick=\"showSection('system')\">📊 System</button>\n123:       <button onclick=\"showSection('intelligence')\">🧭 Intelligence</button>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 117,
+          "keyword_line": "      <button onclick=\"showSection('goals')\">🏁 Goals</button>",
+          "snippet": "113:     <div class=\"nav\" id=\"nav\">\n114:       <button onclick=\"showSection('home')\" class=\"active\">🏠 Home</button>\n115:       <button onclick=\"showSection('chat')\">💬 Chat</button>\n116:       <button onclick=\"showSection('brain')\">🧠 Brain</button>\n117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>\n122:       <button onclick=\"showSection('system')\">📊 System</button>\n123:       <button onclick=\"showSection('intelligence')\">🧭 Intelligence</button>\n124:       <button onclick=\"showSection('learning')\">🎓 Learning</button>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 118,
+          "keyword_line": "      <button onclick=\"showSection('missions')\">🎯 Missions</button>",
+          "snippet": "114:       <button onclick=\"showSection('home')\" class=\"active\">🏠 Home</button>\n115:       <button onclick=\"showSection('chat')\">💬 Chat</button>\n116:       <button onclick=\"showSection('brain')\">🧠 Brain</button>\n117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>\n122:       <button onclick=\"showSection('system')\">📊 System</button>\n123:       <button onclick=\"showSection('intelligence')\">🧭 Intelligence</button>\n124:       <button onclick=\"showSection('learning')\">🎓 Learning</button>\n125:       <button onclick=\"showSection('backup')\">☁️ Backup</button>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 119,
+          "keyword_line": "      <button onclick=\"showSection('approvals')\">✅ Approvals</button>",
+          "snippet": "115:       <button onclick=\"showSection('chat')\">💬 Chat</button>\n116:       <button onclick=\"showSection('brain')\">🧠 Brain</button>\n117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>\n122:       <button onclick=\"showSection('system')\">📊 System</button>\n123:       <button onclick=\"showSection('intelligence')\">🧭 Intelligence</button>\n124:       <button onclick=\"showSection('learning')\">🎓 Learning</button>\n125:       <button onclick=\"showSection('backup')\">☁️ Backup</button>\n126:       <button onclick=\"showSection('settings')\">⚙ Settings</button>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 120,
+          "keyword_line": "      <button onclick=\"showSection('companion')\">📱 Companion</button>",
+          "snippet": "116:       <button onclick=\"showSection('brain')\">🧠 Brain</button>\n117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>\n122:       <button onclick=\"showSection('system')\">📊 System</button>\n123:       <button onclick=\"showSection('intelligence')\">🧭 Intelligence</button>\n124:       <button onclick=\"showSection('learning')\">🎓 Learning</button>\n125:       <button onclick=\"showSection('backup')\">☁️ Backup</button>\n126:       <button onclick=\"showSection('settings')\">⚙ Settings</button>\n127:       <button onclick=\"showSection('scheduler')\">⏱ Scheduler</button>"
+        },
+        {
+          "file": "executor/nous_ui.py",
+          "line": 121,
+          "keyword_line": "      <button onclick=\"showSection('deploy')\">🚀 Deploy</button>",
+          "snippet": "117:       <button onclick=\"showSection('goals')\">🏁 Goals</button>\n118:       <button onclick=\"showSection('missions')\">🎯 Missions</button>\n119:       <button onclick=\"showSection('approvals')\">✅ Approvals</button>\n120:       <button onclick=\"showSection('companion')\">📱 Companion</button>\n121:       <button onclick=\"showSection('deploy')\">🚀 Deploy</button>\n122:       <button onclick=\"showSection('system')\">📊 System</button>\n123:       <button onclick=\"showSection('intelligence')\">🧭 Intelligence</button>\n124:       <button onclick=\"showSection('learning')\">🎓 Learning</button>\n125:       <button onclick=\"showSection('backup')\">☁️ Backup</button>\n126:       <button onclick=\"showSection('settings')\">⚙ Settings</button>\n127:       <button onclick=\"showSection('scheduler')\">⏱ Scheduler</button>\n128:       <button onclick=\"showSection('planner')\">🧩 Planner</button>"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 55,
+          "keyword_line": "from executor.mission_planner import mission_planner_status, list_mission_proposals, propose_mission_for_goal, approve_mission_proposal, reject_mission_proposal",
+          "snippet": "51: from executor.recommendation_actions import execute_recommendation, reject_recommendation\n52: from executor.executive_scheduler import executive_scheduler_status, run_executive_review, list_executive_reviews\n53: from executor.executive_scheduler_loop import scheduler_loop_status, start_scheduler_loop, stop_scheduler_loop, run_scheduler_once, reconcile_scheduler_loop_state\n54: from executor.goal_progress_intelligence import goal_progress_intelligence_status, analyze_goal_progress, apply_goal_progress_intelligence\n55: from executor.mission_planner import mission_planner_status, list_mission_proposals, propose_mission_for_goal, approve_mission_proposal, reject_mission_proposal\n56: from executor.dashboard_action_audit import dashboard_action_audit\n57: from executor.self_diagnosis import self_diagnosis_status, run_self_diagnosis, apply_safe_self_fix\n58: from executor.autonomous_repair import repair_status, list_repair_proposals, propose_repair_from_diagnosis, approve_repair_proposal, reject_repair_proposal\n59: from executor.auto_mission_executor import auto_mission_executor_status, run_auto_mission_executor, set_auto_mission_executor_enabled\n60: from executor.code_analyst import code_analyst_status, list_code_analysis_reports, analyze_problem, analyze_latest_diagnosis, generate_patch_suggestion\n61: from executor.auto_mission_scheduler import auto_mission_scheduler_status, start_auto_mission_scheduler, stop_auto_mission_scheduler, run_auto_mission_scheduler_once, reconcile_auto_mission_scheduler\n62: from executor.executive_loop_v2 import executive_loop_v2_status, run_executive_loop_v2"
+        },
+        {
+          "file": "executor/router.py",
+          "line": 383,
+          "keyword_line": "    return jsonify(approve_patch_proposal(data.get(\"proposal_id\")))",
+          "snippet": "379: def remote_patch_generator_approve():\n380:     if not check_admin_token(request):\n381:         return jsonify({\"error\": \"unauthorized\"}), 401\n382:     data = request.get_json(silent=True) or {}\n383:     return jsonify(approve_patch_proposal(data.get(\"proposal_id\")))\n384: \n385: \n386: @app.route(\"/remote/patch-generator/reject\", methods=[\"POST\"])\n387: def remote_patch_generator_reject():\n388:     if not check_admin_token(request):\n389:         return jsonify({\"error\": \"unauthorized\"}), 401\n390:     data = request.get_json(silent=True) or {}"
+        }
+      ],
+      "confidence": 0.82,
+      "next_step": "Generate patch proposal. Do not apply without approval."
+    },
+    "patches": [
+      {
+        "path": "executor/nous_ui.py",
+        "diff": "--- executor/nous_ui.py.before\n+++ executor/nous_ui.py.after\n@@ -705,6 +705,7 @@\n }\n \n \n+\n function getToken(){\n   return localStorage.getItem(\"NOUS_TOKEN\") || \"\";\n }\n@@ -746,6 +747,7 @@\n   }\n   return data;\n }\n+\n \n \n async function loadHome(){\n",
+        "apply_strategy": "replace_file"
+      }
+    ],
+    "can_apply": true,
+    "reason": "Generated concrete patch where a safe known repair pattern was found."
+  }
+]
