@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from executor.document_chat_bridge import format_document_answer
 
 from executor.core import safe_execute_patch
 from executor.evolution import suggest_improvements
@@ -20,6 +21,28 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
+    try:
+        data = request.get_json(silent=True) or {}
+        msg = (
+            data.get("message")
+            or data.get("prompt")
+            or data.get("text")
+            or data.get("command")
+            or ""
+        )
+        doc_answer = format_document_answer(str(msg))
+        if doc_answer:
+            return jsonify({
+                "ok": True,
+                "source": "document_chat_bridge",
+                "mode": "document_recall",
+                "answer": doc_answer,
+                "response": doc_answer,
+                "text": doc_answer
+            })
+    except Exception as e:
+        pass
+
     data = request.json
     msg = data.get("message", "")
 

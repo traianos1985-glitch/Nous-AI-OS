@@ -2,7 +2,8 @@ import os
 import sys
 import platform
 import time
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
+from executor.document_chat_bridge import format_document_answer, send_from_directory
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -107,6 +108,28 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
+    try:
+        data = request.get_json(silent=True) or {}
+        msg = (
+            data.get("message")
+            or data.get("prompt")
+            or data.get("text")
+            or data.get("command")
+            or ""
+        )
+        doc_answer = format_document_answer(str(msg))
+        if doc_answer:
+            return jsonify({
+                "ok": True,
+                "source": "document_chat_bridge",
+                "mode": "document_recall",
+                "answer": doc_answer,
+                "response": doc_answer,
+                "text": doc_answer
+            })
+    except Exception as e:
+        pass
+
     if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json()

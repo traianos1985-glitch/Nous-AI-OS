@@ -1,139 +1,7 @@
 [
   {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414852.4371138,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.2,
-        "voltage": 3764,
-        "current": 1252929,
-        "percentage": 53,
-        "level": 53,
-        "scale": 100,
-        "charge_counter": 1257130
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
     "event": "goal_progress_refreshed",
     "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414854.7769644,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3691,
-        "current": 1385741,
-        "percentage": 53,
-        "level": 53,
-        "scale": 100,
-        "charge_counter": 1256472
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414854.968167,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3691,
-        "current": 1258300,
-        "percentage": 53,
-        "level": 53,
-        "scale": 100,
-        "charge_counter": 1256122
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
   },
   {
     "event": "browser_read_url",
@@ -141,9 +9,18 @@
     "learn": false
   },
   {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414871.3739676,
+      "time": 1780429961.5197225,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -151,13 +28,13 @@
         "health": "GOOD",
         "plugged": "UNPLUGGED",
         "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 1174315,
-        "percentage": 52,
-        "level": 52,
+        "temperature": 36.2,
+        "voltage": 3625,
+        "current": 934081,
+        "percentage": 45,
+        "level": 45,
         "scale": 100,
-        "charge_counter": 1251050
+        "charge_counter": 1055037
       },
       "device": {
         "data_enabled": "false",
@@ -184,7 +61,7 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780414871.9454525,
+      "time": 1780429961.948856,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -192,13 +69,13 @@
         "health": "GOOD",
         "plugged": "UNPLUGGED",
         "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 1290526,
-        "percentage": 52,
-        "level": 52,
+        "temperature": 36.2,
+        "voltage": 3625,
+        "current": 764159,
+        "percentage": 45,
+        "level": 45,
         "scale": 100,
-        "charge_counter": 1250692
+        "charge_counter": 1054825
       },
       "device": {
         "data_enabled": "false",
@@ -225,7 +102,7 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780414873.0148835,
+      "time": 1780429963.65986,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -233,13 +110,13 @@
         "health": "GOOD",
         "plugged": "UNPLUGGED",
         "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 934569,
-        "percentage": 52,
-        "level": 52,
+        "temperature": 36.2,
+        "voltage": 3625,
+        "current": 753417,
+        "percentage": 45,
+        "level": 45,
         "scale": 100,
-        "charge_counter": 1250432
+        "charge_counter": 1054615
       },
       "device": {
         "data_enabled": "false",
@@ -266,7 +143,7 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780414874.5967,
+      "time": 1780429963.8647478,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -274,13 +151,13 @@
         "health": "GOOD",
         "plugged": "UNPLUGGED",
         "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 958983,
-        "percentage": 52,
-        "level": 52,
+        "temperature": 36.2,
+        "voltage": 3625,
+        "current": 554198,
+        "percentage": 45,
+        "level": 45,
         "scale": 100,
-        "charge_counter": 1250166
+        "charge_counter": 1054461
       },
       "device": {
         "data_enabled": "false",
@@ -307,7 +184,7 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780414875.3016636,
+      "time": 1780429965.4585786,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -315,13 +192,13 @@
         "health": "GOOD",
         "plugged": "UNPLUGGED",
         "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 1032714,
-        "percentage": 52,
-        "level": 52,
+        "temperature": 36.2,
+        "voltage": 3625,
+        "current": 1150390,
+        "percentage": 45,
+        "level": 45,
         "scale": 100,
-        "charge_counter": 1249880
+        "charge_counter": 1054142
       },
       "device": {
         "data_enabled": "false",
@@ -346,208 +223,31 @@
     }
   },
   {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414876.4628415,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 1147948,
-        "percentage": 52,
-        "level": 52,
-        "scale": 100,
-        "charge_counter": 1249561
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414918.5984073,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 1110839,
-        "percentage": 52,
-        "level": 52,
-        "scale": 100,
-        "charge_counter": 1241151
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414918.9676573,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 1209472,
-        "percentage": 52,
-        "level": 52,
-        "scale": 100,
-        "charge_counter": 1240815
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414920.533055,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3697,
-        "current": 1122558,
-        "percentage": 52,
-        "level": 52,
-        "scale": 100,
-        "charge_counter": 1240503
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414921.806992,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 39.2,
-        "voltage": 3740,
-        "current": 953612,
-        "percentage": 52,
-        "level": 52,
-        "scale": 100,
-        "charge_counter": 1240251
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
+    "id": 1780433751842352,
+    "created_at": "2026-06-02T20:55:51.842365+00:00",
+    "source": "document_intelligence_engine",
+    "type": "learned_document",
+    "title": "test_manual.txt",
+    "document_hash": "b020ab0c52bd05899811967748e2bc21f9f3c85c3177ecc2a7f57aee8177bd94",
+    "summary": {
+      "chars": 233,
+      "words": 31,
+      "lines": 3,
+      "sample": "Εγχειρίδιο δοκιμής αποκρύψεων.\nΟι κρύπτες σε πέτρες συνήθως αναγνωρίζονται από σημάδια, τεχνητές ενώσεις, διαφορετική πατίνα και αφύσικη τοποθέτηση.\nΤο σύστημα πρέπει να ελέγχει συμφραζόμενα, θέση, βάθος και επαναλαμβανόμενα μοτίβα.",
+      "keywords": [
+        "εγχειρ",
+        "δοκιμ",
+        "αποκρ",
+        "αναγνωρ",
+        "ζονται",
+        "τεχνητ",
+        "διαφορετικ",
+        "τοποθ",
+        "στημα",
+        "συμφραζ",
+        "επαναλαμβαν"
+      ]
+    },
+    "instruction": "Use this document as a knowledge source for future answers."
   }
 ]
