@@ -192,7 +192,7 @@
     "can_apply": true,
     "reason": "Generated concrete patch where a safe known repair pattern was found.",
     "pipeline": {
-      "last_checked": "2026-06-02T19:45:22.162712+00:00",
+      "last_checked": "2026-06-02T19:49:37.854993+00:00",
       "state": "proposal_created"
     },
     "patch_draft": {
@@ -1855,7 +1855,7 @@
     "can_apply": true,
     "reason": "Generated concrete patch where a safe known repair pattern was found.",
     "pipeline": {
-      "last_checked": "2026-06-02T19:45:22.164293+00:00",
+      "last_checked": "2026-06-02T19:49:37.863495+00:00",
       "state": "proposal_created"
     },
     "patch_draft": {

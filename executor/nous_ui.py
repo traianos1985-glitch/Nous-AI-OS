@@ -100,6 +100,48 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
   .grid{grid-template-columns:1fr}
 }
 </style>
+
+<style id="nous-sidebar-groups-css">
+.navGroup{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  margin:8px 10px;
+  overflow:hidden;
+  background:rgba(255,255,255,.025);
+}
+.navGroup summary{
+  cursor:pointer;
+  padding:10px 12px;
+  font-weight:700;
+  opacity:.95;
+  list-style:none;
+  user-select:none;
+}
+.navGroup summary::-webkit-details-marker{display:none}
+.navGroup summary:after{
+  content:"▾";
+  float:right;
+  opacity:.65;
+}
+.navGroup:not([open]) summary:after{content:"▸"}
+.navGroup .navGroupBody{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  padding:0 8px 10px 8px;
+}
+.navGroup .navGroupBody button,
+.navGroup .navGroupBody a{
+  width:100%;
+  text-align:left;
+}
+.sidebarHint{
+  font-size:12px;
+  opacity:.65;
+  padding:6px 18px 2px 18px;
+}
+</style>
+
 </head>
 <body>
 <button class="menuBtn" onclick="openMenu()">☰</button>
@@ -111,36 +153,37 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
     <div class="sub">Personal agent workspace</div>
 
     <div class="nav" id="nav">
-      <button onclick="showSection('home')" class="active">🏠 Home</button>
-      <button onclick="showSection('chat')">💬 Chat</button>
-      <button onclick="showSection('brain')">🧠 Brain</button>
-      <button onclick="showSection('goals')">🏁 Goals</button>
-      <button onclick="showSection('missions')">🎯 Missions</button>
-      <button onclick="showSection('approvals')">✅ Approvals</button>
-      <button onclick="showSection('companion')">📱 Companion</button>
-      <button onclick="showSection('deploy')">🚀 Deploy</button>
-      <button onclick="showSection('system')">📊 System</button>
-      <button onclick="showSection('intelligence')">🧭 Intelligence</button>
-      <button onclick="showSection('learning')">🎓 Learning</button>
-      <button onclick="showSection('backup')">☁️ Backup</button>
-      <button onclick="showSection('settings')">⚙ Settings</button>
-      <button onclick="showSection('scheduler')">⏱ Scheduler</button>
-      <button onclick="showSection('planner')">🧩 Planner</button>
-      <button onclick="showSection('audit')">🧪 Audit</button>
-      <button onclick="showSection('diagnosis')">🩺 Diagnosis</button>
-      <button onclick="showSection('repair')">🛠 Repair</button>
-      <button onclick="showSection('autoexec')">🤖 AutoExec</button>
-      <button onclick="showSection('autoscheduler')">🔁 AutoSched</button>
-      <button onclick="showSection('analyst')">🧠 Analyst</button>
-      <button onclick="showSection('pending')">📥 Pending</button>
-      <button onclick="showSection('loopv2')">♻ Loop v2</button>
-      <button onclick="showSection('command')">🧭 Command</button>
-      <button onclick="showSection('selfheal')">🧬 SelfHeal</button>
-      <button onclick="showSection('mega')">🧱 Mega</button>
-      <button onclick="showSection('upgrades')">📦 Upgrades</button>
-      <button onclick="showSection('patchapply')">🩹 PatchApply</button>
-      <button onclick="showSection('graphs')">🕸 Graphs</button>
-      <button onclick="showSection('loopv3')">👑 LoopV3</button>
+      <div class="sidebarHint">NOUS modules grouped</div>
+<details class="navGroup" open><summary>🏠 Κέντρο</summary><div class="navGroupBody"><button onclick="showSection('home')" class="active">🏠 Home</button>
+<button onclick="showSection('command')">🧭 Command</button></div></details>
+<details class="navGroup"><summary>🎯 Goals & Missions</summary><div class="navGroupBody"><button onclick="showSection('goals')">🏁 Goals</button>
+<button onclick="showSection('missions')">🎯 Missions</button>
+<button onclick="showSection('planner')">🧩 Planner</button></div></details>
+<details class="navGroup"><summary>🧠 Memory & Knowledge</summary><div class="navGroupBody"><button onclick="showSection('brain')">🧠 Brain</button></div></details>
+<details class="navGroup"><summary>🛠 Maintenance</summary><div class="navGroupBody"><button onclick="showSection('diagnosis')">🩺 Diagnosis</button>
+<button onclick="showSection('repair')">🛠 Repair</button>
+<button onclick="showSection('patchapply')">🩹 PatchApply</button></div></details>
+<details class="navGroup"><summary>🤖 Automation</summary><div class="navGroupBody"><button onclick="showSection('scheduler')">⏱ Scheduler</button>
+<button onclick="showSection('autoexec')">🤖 AutoExec</button>
+<button onclick="showSection('autoscheduler')">🔁 AutoSched</button>
+<button onclick="showSection('loopv2')">♻ Loop v2</button>
+<button onclick="showSection('loopv3')">👑 LoopV3</button></div></details>
+<details class="navGroup"><summary>☁ Cloud & Deploy</summary><div class="navGroupBody"><button onclick="showSection('deploy')">🚀 Deploy</button>
+<button onclick="showSection('backup')">☁️ Backup</button></div></details>
+<details class="navGroup"><summary>⚙ Settings</summary><div class="navGroupBody"><button onclick="showSection('settings')">⚙ Settings</button></div></details>
+<details class="navGroup"><summary>📦 Other</summary><div class="navGroupBody"><button onclick="showSection('chat')">💬 Chat</button>
+<button onclick="showSection('approvals')">✅ Approvals</button>
+<button onclick="showSection('companion')">📱 Companion</button>
+<button onclick="showSection('system')">📊 System</button>
+<button onclick="showSection('intelligence')">🧭 Intelligence</button>
+<button onclick="showSection('learning')">🎓 Learning</button>
+<button onclick="showSection('audit')">🧪 Audit</button>
+<button onclick="showSection('analyst')">🧠 Analyst</button>
+<button onclick="showSection('pending')">📥 Pending</button>
+<button onclick="showSection('selfheal')">🧬 SelfHeal</button>
+<button onclick="showSection('mega')">🧱 Mega</button>
+<button onclick="showSection('upgrades')">📦 Upgrades</button>
+<button onclick="showSection('graphs')">🕸 Graphs</button></div></details>
     </div>
 
     <div class="card">
