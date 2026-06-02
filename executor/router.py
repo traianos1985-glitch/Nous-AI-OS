@@ -62,6 +62,13 @@ from executor.auto_mission_scheduler import auto_mission_scheduler_status, start
 from executor.executive_loop_v2 import executive_loop_v2_status, run_executive_loop_v2
 from executor.pending_review import pending_review_status
 from executor.executive_command_center import executive_command_center_status, run_executive_command_cycle
+from executor.deep_code_analyst import deep_code_analyst_status, list_deep_code_reports, analyze_failure, analyze_latest_diagnosis_deep
+from executor.self_healing_loop import self_healing_status, run_self_healing_analysis
+from executor.patch_generator import patch_generator_status, list_patch_proposals, approve_patch_proposal, reject_patch_proposal
+from executor.cleanup_engine import cleanup_status, list_cleanup_reports, run_cleanup_preview, apply_cleanup
+from executor.goal_manager_v2 import goal_manager_status, generate_projects_from_goals, update_project_progress, list_goal_projects
+from executor.executive_memory_v3 import executive_memory_status, search_executive_memory, learn_from_recent_state
+from executor.upgrade_planner import upgrade_planner_status, list_upgrade_plans, propose_upgrade_plan, approve_upgrade_plan, reject_upgrade_plan
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -322,6 +329,172 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+
+@app.route("/remote/cleanup/status")
+def remote_cleanup_status():
+    return jsonify(cleanup_status())
+
+
+@app.route("/remote/cleanup/reports")
+def remote_cleanup_reports():
+    return jsonify(list_cleanup_reports())
+
+
+@app.route("/remote/cleanup/preview", methods=["POST"])
+def remote_cleanup_preview():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(run_cleanup_preview())
+
+
+@app.route("/remote/cleanup/apply", methods=["POST"])
+def remote_cleanup_apply():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(apply_cleanup())
+
+
+@app.route("/remote/goal-manager-v2/status")
+def remote_goal_manager_v2_status():
+    return jsonify(goal_manager_status())
+
+
+@app.route("/remote/goal-manager-v2/projects")
+def remote_goal_manager_v2_projects():
+    return jsonify(list_goal_projects())
+
+
+@app.route("/remote/goal-manager-v2/generate", methods=["POST"])
+def remote_goal_manager_v2_generate():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(generate_projects_from_goals())
+
+
+@app.route("/remote/goal-manager-v2/update-progress", methods=["POST"])
+def remote_goal_manager_v2_update():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(update_project_progress())
+
+
+@app.route("/remote/executive-memory-v3/status")
+def remote_executive_memory_v3_status():
+    return jsonify(executive_memory_status())
+
+
+@app.route("/remote/executive-memory-v3/search", methods=["POST"])
+def remote_executive_memory_v3_search():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_executive_memory(data.get("query", "")))
+
+
+@app.route("/remote/executive-memory-v3/learn", methods=["POST"])
+def remote_executive_memory_v3_learn():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(learn_from_recent_state())
+
+
+@app.route("/remote/upgrade-planner/status")
+def remote_upgrade_planner_status():
+    return jsonify(upgrade_planner_status())
+
+
+@app.route("/remote/upgrade-planner/plans")
+def remote_upgrade_planner_plans():
+    return jsonify(list_upgrade_plans())
+
+
+@app.route("/remote/upgrade-planner/propose", methods=["POST"])
+def remote_upgrade_planner_propose():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(propose_upgrade_plan())
+
+
+@app.route("/remote/upgrade-planner/approve", methods=["POST"])
+def remote_upgrade_planner_approve():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(approve_upgrade_plan(data.get("plan_id")))
+
+
+@app.route("/remote/upgrade-planner/reject", methods=["POST"])
+def remote_upgrade_planner_reject():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(reject_upgrade_plan(data.get("plan_id"), data.get("reason", "User rejected upgrade plan")))
+
+@app.route("/remote/deep-code-analyst/status")
+def remote_deep_code_analyst_status():
+    return jsonify(deep_code_analyst_status())
+
+
+@app.route("/remote/deep-code-analyst/reports")
+def remote_deep_code_analyst_reports():
+    return jsonify(list_deep_code_reports())
+
+
+@app.route("/remote/deep-code-analyst/analyze", methods=["POST"])
+def remote_deep_code_analyst_analyze():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(analyze_failure(data.get("problem", data)))
+
+
+@app.route("/remote/deep-code-analyst/analyze-latest-diagnosis", methods=["POST"])
+def remote_deep_code_analyst_latest():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(analyze_latest_diagnosis_deep())
+
+
+@app.route("/remote/self-healing/status")
+def remote_self_healing_status():
+    return jsonify(self_healing_status())
+
+
+@app.route("/remote/self-healing/run-analysis", methods=["POST"])
+def remote_self_healing_run_analysis():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_self_healing_analysis(data.get("problem")))
+
+
+@app.route("/remote/patch-generator/status")
+def remote_patch_generator_status():
+    return jsonify(patch_generator_status())
+
+
+@app.route("/remote/patch-generator/proposals")
+def remote_patch_generator_proposals():
+    return jsonify(list_patch_proposals())
+
+
+@app.route("/remote/patch-generator/approve", methods=["POST"])
+def remote_patch_generator_approve():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(approve_patch_proposal(data.get("proposal_id")))
+
+
+@app.route("/remote/patch-generator/reject", methods=["POST"])
+def remote_patch_generator_reject():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(reject_patch_proposal(
+        data.get("proposal_id"),
+        data.get("reason", "User rejected patch proposal")
+    ))
 
 @app.route("/remote/command-center/status")
 def remote_command_center_status():

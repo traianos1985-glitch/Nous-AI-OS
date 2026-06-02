@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1780411582659590473,
+    "created": 1780411582.6595917,
+    "status": "pending",
+    "title": "NOUS Next Upgrade Plan",
+    "upgrades": [
+      {
+        "title": "True Patch Generator",
+        "priority": 1,
+        "reason": "Turns code analysis into concrete diffs.",
+        "modules": [
+          "deep_code_analyst",
+          "patch_generator",
+          "self_healing_loop"
+        ]
+      },
+      {
+        "title": "Real Code Evolution Engine",
+        "priority": 2,
+        "reason": "Build route/UI/service dependency graph and multi-file patches.",
+        "modules": [
+          "repository_index",
+          "route_graph",
+          "ui_action_graph"
+        ]
+      },
+      {
+        "title": "Cloud Brain Sync",
+        "priority": 3,
+        "reason": "Protects the brain from device loss.",
+        "modules": [
+          "brain_backup",
+          "cloud_sync",
+          "restore_verify"
+        ]
+      },
+      {
+        "title": "Approval Center Actions",
+        "priority": 4,
+        "reason": "Approve/reject directly from Pending Inbox.",
+        "modules": [
+          "pending_review",
+          "approval_router",
+          "ui_buttons"
+        ]
+      }
+    ]
+  }
+]

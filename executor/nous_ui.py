@@ -135,6 +135,9 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('pending')">📥 Pending</button>
       <button onclick="showSection('loopv2')">♻ Loop v2</button>
       <button onclick="showSection('command')">🧭 Command</button>
+      <button onclick="showSection('selfheal')">🧬 SelfHeal</button>
+      <button onclick="showSection('mega')">🧱 Mega</button>
+      <button onclick="showSection('upgrades')">📦 Upgrades</button>
     </div>
 
     <div class="card">
@@ -625,6 +628,77 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         </div>
       </section>
 
+
+      <section id="selfheal" class="section">
+        <div class="hero">
+          <h1>🧬 Self-Healing Lab</h1>
+          <p>Deep code analysis, patch proposals και safe apply μόνο με έγκριση.</p>
+        </div>
+
+        <div class="card">
+          <button class="miniBtn" onclick="runSelfHealing()">Run Self-Healing Analysis</button>
+          <button class="miniBtn" onclick="loadSelfHealing()">Refresh</button>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Status</h3>
+            <div id="selfHealingStatus">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Patch Proposals</h3>
+            <div id="patchProposals">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Full Self-Healing Data</h3>
+          <pre id="selfHealingFull">Loading...</pre>
+        </div>
+      </section>
+
+
+      <section id="mega" class="section">
+        <div class="hero">
+          <h1>🧱 Mega Systems</h1>
+          <p>Cleanup Engine, Goal Manager V2 και Executive Memory V3.</p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Cleanup Engine</h3>
+            <button class="miniBtn" onclick="cleanupPreview()">Preview Cleanup</button>
+            <button class="miniBtn" onclick="cleanupApply()">Apply Cleanup</button>
+            <pre id="cleanupBox">–</pre>
+          </div>
+          <div class="card">
+            <h3>Goal Manager V2</h3>
+            <button class="miniBtn" onclick="generateGoalProjects()">Generate Projects</button>
+            <button class="miniBtn" onclick="loadMegaSystems()">Refresh</button>
+            <pre id="goalManagerBox">–</pre>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Executive Memory V3</h3>
+          <button class="miniBtn" onclick="learnExecutiveMemory()">Learn From Current State</button>
+          <pre id="execMemoryBox">–</pre>
+        </div>
+      </section>
+
+      <section id="upgrades" class="section">
+        <div class="hero">
+          <h1>📦 Upgrade Planner</h1>
+          <p>Ο ΝΟΥΣ προτείνει μεγάλα upgrade packs και τα βάζει σε pending review.</p>
+        </div>
+        <div class="card">
+          <button class="miniBtn" onclick="proposeUpgradePlan()">Propose Upgrade Plan</button>
+          <button class="miniBtn" onclick="loadUpgradePlans()">Refresh</button>
+        </div>
+        <div class="card">
+          <h3>Upgrade Plans</h3>
+          <div id="upgradePlansBox">Loading...</div>
+        </div>
+      </section>
+
 </main>
 
   <aside class="right">
@@ -1048,6 +1122,153 @@ async function sendPrompt(){
 
 
 
+
+
+
+
+async function loadMegaSystems(){
+  const cleanup = await getJson("/remote/cleanup/status");
+  const goals = await getJson("/remote/goal-manager-v2/status");
+  const mem = await getJson("/remote/executive-memory-v3/status");
+
+  renderObject({cleanup, goals, mem});
+  document.getElementById("cleanupBox").textContent = JSON.stringify(cleanup, null, 2);
+  document.getElementById("goalManagerBox").textContent = JSON.stringify(goals, null, 2);
+  document.getElementById("execMemoryBox").textContent = JSON.stringify(mem, null, 2);
+}
+
+async function cleanupPreview(){
+  const data = await postJson("/remote/cleanup/preview", {});
+  renderObject(data);
+  document.getElementById("cleanupBox").textContent = JSON.stringify(data, null, 2);
+}
+
+async function cleanupApply(){
+  const ok = confirm("Να εφαρμοστεί cleanup; Θα απορρίψει duplicate pending proposals και θα κρατήσει λίγα backups.");
+  if(!ok) return;
+  const data = await postJson("/remote/cleanup/apply", {});
+  renderObject(data);
+  document.getElementById("cleanupBox").textContent = JSON.stringify(data, null, 2);
+  if(typeof loadPendingReview === "function") await loadPendingReview();
+}
+
+async function generateGoalProjects(){
+  const data = await postJson("/remote/goal-manager-v2/generate", {});
+  renderObject(data);
+  document.getElementById("goalManagerBox").textContent = JSON.stringify(data, null, 2);
+}
+
+async function learnExecutiveMemory(){
+  const data = await postJson("/remote/executive-memory-v3/learn", {});
+  renderObject(data);
+  document.getElementById("execMemoryBox").textContent = JSON.stringify(data, null, 2);
+}
+
+async function loadUpgradePlans(){
+  const data = await getJson("/remote/upgrade-planner/plans");
+  renderObject(data);
+  if(!data || data.length===0){
+    document.getElementById("upgradePlansBox").innerHTML = "No upgrade plans.";
+    return;
+  }
+  document.getElementById("upgradePlansBox").innerHTML = data.slice().reverse().map(p=>`
+    <div class="card">
+      <h3>${p.title}</h3>
+      ${kv("status", p.status)}
+      <pre>${JSON.stringify(p.upgrades || [], null, 2)}</pre>
+      ${
+        p.status === "pending"
+        ? `<button class="miniBtn" onclick="approveUpgradePlan('${p.id}')">✅ Approve Plan</button>
+           <button class="miniBtn" onclick="rejectUpgradePlan('${p.id}')">❌ Reject</button>`
+        : ""
+      }
+    </div>
+  `).join("");
+}
+
+async function proposeUpgradePlan(){
+  const data = await postJson("/remote/upgrade-planner/propose", {});
+  renderObject(data);
+  await loadUpgradePlans();
+  if(typeof loadPendingReview === "function") await loadPendingReview();
+}
+
+async function approveUpgradePlan(id){
+  const data = await postJson("/remote/upgrade-planner/approve", {plan_id:String(id)});
+  renderObject(data);
+  await loadUpgradePlans();
+}
+
+async function rejectUpgradePlan(id){
+  const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected upgrade plan";
+  const data = await postJson("/remote/upgrade-planner/reject", {plan_id:String(id), reason});
+  renderObject(data);
+  await loadUpgradePlans();
+}
+
+
+async function loadSelfHealing(){
+  const status = await getJson("/remote/self-healing/status");
+  const proposals = await getJson("/remote/patch-generator/proposals");
+
+  renderObject({status, proposals});
+
+  const pg = status.patch_generator || {};
+  document.getElementById("selfHealingStatus").innerHTML =
+    kv("patch total", pg.total ?? 0) +
+    kv("pending", pg.pending ?? 0) +
+    kv("approved", pg.approved ?? 0) +
+    kv("rejected", pg.rejected ?? 0);
+
+  if(!proposals || proposals.length === 0){
+    document.getElementById("patchProposals").innerHTML = "No patch proposals.";
+  } else {
+    document.getElementById("patchProposals").innerHTML = proposals.slice().reverse().map(p=>`
+      <div class="card">
+        <h3>${p.title}</h3>
+        ${kv("status", p.status)}
+        ${kv("risk", p.risk)}
+        ${kv("can apply", p.can_apply)}
+        <div class="small">${p.reason || ""}</div>
+        <pre>${JSON.stringify(p.patches || [], null, 2)}</pre>
+        ${
+          p.status === "pending"
+          ? `<button class="miniBtn" onclick="approvePatch('${p.id}')">✅ Approve Patch</button>
+             <button class="miniBtn" onclick="rejectPatch('${p.id}')">❌ Reject Patch</button>`
+          : ""
+        }
+      </div>
+    `).join("");
+  }
+
+  document.getElementById("selfHealingFull").textContent = JSON.stringify({status, proposals}, null, 2);
+}
+
+async function runSelfHealing(){
+  const data = await postJson("/remote/self-healing/run-analysis", {});
+  renderObject(data);
+  feed("Self-healing analysis completed");
+  await loadSelfHealing();
+  if(typeof loadPendingReview === "function") await loadPendingReview();
+}
+
+async function approvePatch(id){
+  const ok = confirm("Να εφαρμοστεί αυτό το patch; Θα γίνει compile check μετά.");
+  if(!ok) return;
+  const data = await postJson("/remote/patch-generator/approve", {proposal_id:String(id)});
+  renderObject(data);
+  if(data.ok){ feed("Patch approved/applied"); }
+  else { feed("Patch approval failed: " + (data.error || "unknown")); }
+  await loadSelfHealing();
+}
+
+async function rejectPatch(id){
+  const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected patch proposal";
+  const data = await postJson("/remote/patch-generator/reject", {proposal_id:String(id), reason});
+  renderObject(data);
+  feed("Patch proposal rejected");
+  await loadSelfHealing();
+}
 
 
 async function loadCommandCenter(){

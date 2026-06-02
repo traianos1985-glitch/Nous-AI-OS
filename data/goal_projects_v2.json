@@ -1,0 +1,275 @@
+[
+  {
+    "id": 1780411574192391049,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "category": "cloud",
+    "title": "Cloud Brain Backup",
+    "status": "active",
+    "progress": 0,
+    "created": 1780411574.1923933,
+    "updated": 1780411574.192394,
+    "milestones": [
+      {
+        "id": 1780411574192396518,
+        "title": "backup status",
+        "status": "pending",
+        "created": 1780411574.1923974,
+        "updated": null
+      },
+      {
+        "id": 1780411574192399696,
+        "title": "backup retention",
+        "status": "pending",
+        "created": 1780411574.1924005,
+        "updated": null
+      },
+      {
+        "id": 1780411574192401207,
+        "title": "restore preview",
+        "status": "pending",
+        "created": 1780411574.1924014,
+        "updated": null
+      },
+      {
+        "id": 1780411574192401989,
+        "title": "cloud sync plan",
+        "status": "pending",
+        "created": 1780411574.1924021,
+        "updated": null
+      }
+    ]
+  },
+  {
+    "id": 1780411574192406674,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "category": "cloud",
+    "title": "Deploy Readiness",
+    "status": "active",
+    "progress": 0,
+    "created": 1780411574.1924076,
+    "updated": 1780411574.1924078,
+    "milestones": [
+      {
+        "id": 1780411574192408705,
+        "title": "vercel status",
+        "status": "pending",
+        "created": 1780411574.192409,
+        "updated": null
+      },
+      {
+        "id": 1780411574192409644,
+        "title": "safe deploy approval",
+        "status": "pending",
+        "created": 1780411574.1924098,
+        "updated": null
+      },
+      {
+        "id": 1780411574192410478,
+        "title": "deployment history",
+        "status": "pending",
+        "created": 1780411574.1924107,
+        "updated": null
+      }
+    ]
+  },
+  {
+    "id": 1780411574192428340,
+    "goal_id": 1780327547945471638,
+    "goal_title": "Improve NOUS user interface",
+    "category": "ui",
+    "title": "Mobile Dashboard UX",
+    "status": "active",
+    "progress": 0,
+    "created": 1780411574.1924288,
+    "updated": 1780411574.192429,
+    "milestones": [
+      {
+        "id": 1780411574192429590,
+        "title": "command center",
+        "status": "pending",
+        "created": 1780411574.1924298,
+        "updated": null
+      },
+      {
+        "id": 1780411574192430373,
+        "title": "pending inbox",
+        "status": "pending",
+        "created": 1780411574.1924305,
+        "updated": null
+      },
+      {
+        "id": 1780411574192431103,
+        "title": "home badge",
+        "status": "pending",
+        "created": 1780411574.1924314,
+        "updated": null
+      },
+      {
+        "id": 1780411574192431833,
+        "title": "button audit",
+        "status": "pending",
+        "created": 1780411574.1924322,
+        "updated": null
+      }
+    ]
+  },
+  {
+    "id": 1780411574192434278,
+    "goal_id": 1780327547945471638,
+    "goal_title": "Improve NOUS user interface",
+    "category": "ui",
+    "title": "Control Center Flow",
+    "status": "active",
+    "progress": 0,
+    "created": 1780411574.1924348,
+    "updated": 1780411574.192435,
+    "milestones": [
+      {
+        "id": 1780411574192435528,
+        "title": "approve/reject everywhere",
+        "status": "pending",
+        "created": 1780411574.1924357,
+        "updated": null
+      },
+      {
+        "id": 1780411574192436519,
+        "title": "live output clarity",
+        "status": "pending",
+        "created": 1780411574.1924367,
+        "updated": null
+      },
+      {
+        "id": 1780411574192437405,
+        "title": "navigation cleanup",
+        "status": "pending",
+        "created": 1780411574.1924374,
+        "updated": null
+      }
+    ]
+  },
+  {
+    "id": 1780411574192454747,
+    "goal_id": 1780327547958112159,
+    "goal_title": "Expand Android Companion control",
+    "category": "android",
+    "title": "Android Companion Safe Control",
+    "status": "active",
+    "progress": 0,
+    "created": 1780411574.192455,
+    "updated": 1780411574.1924555,
+    "milestones": [
+      {
+        "id": 1780411574192456101,
+        "title": "companion status",
+        "status": "pending",
+        "created": 1780411574.1924565,
+        "updated": null
+      },
+      {
+        "id": 1780411574192457196,
+        "title": "ui tree",
+        "status": "pending",
+        "created": 1780411574.1924574,
+        "updated": null
+      },
+      {
+        "id": 1780411574192457926,
+        "title": "safe intents",
+        "status": "pending",
+        "created": 1780411574.1924582,
+        "updated": null
+      },
+      {
+        "id": 1780411574192458812,
+        "title": "tap approval gate",
+        "status": "pending",
+        "created": 1780411574.192459,
+        "updated": null
+      }
+    ]
+  },
+  {
+    "id": 1780411574192475997,
+    "goal_id": 1780327547970773305,
+    "goal_title": "Strengthen safe autonomy",
+    "category": "autonomy",
+    "title": "Executive Loop",
+    "status": "active",
+    "progress": 0,
+    "created": 1780411574.1924765,
+    "updated": 1780411574.1924765,
+    "milestones": [
+      {
+        "id": 1780411574192477299,
+        "title": "scheduler",
+        "status": "pending",
+        "created": 1780411574.1924777,
+        "updated": null
+      },
+      {
+        "id": 1780411574192478237,
+        "title": "safe executor",
+        "status": "pending",
+        "created": 1780411574.1924784,
+        "updated": null
+      },
+      {
+        "id": 1780411574192478967,
+        "title": "self diagnosis",
+        "status": "pending",
+        "created": 1780411574.1924791,
+        "updated": null
+      },
+      {
+        "id": 1780411574192479750,
+        "title": "self healing proposals",
+        "status": "pending",
+        "created": 1780411574.19248,
+        "updated": null
+      }
+    ]
+  },
+  {
+    "id": 1780411574192481830,
+    "goal_id": 1780327547970773305,
+    "goal_title": "Strengthen safe autonomy",
+    "category": "autonomy",
+    "title": "Code Evolution",
+    "status": "active",
+    "progress": 0,
+    "created": 1780411574.1924822,
+    "updated": 1780411574.1924822,
+    "milestones": [
+      {
+        "id": 1780411574192483184,
+        "title": "deep analyst",
+        "status": "pending",
+        "created": 1780411574.1924834,
+        "updated": null
+      },
+      {
+        "id": 1780411574192483966,
+        "title": "patch generator",
+        "status": "pending",
+        "created": 1780411574.1924844,
+        "updated": null
+      },
+      {
+        "id": 1780411574192484697,
+        "title": "compile audit",
+        "status": "pending",
+        "created": 1780411574.1924849,
+        "updated": null
+      },
+      {
+        "id": 1780411574192485427,
+        "title": "approval apply",
+        "status": "pending",
+        "created": 1780411574.1924856,
+        "updated": null
+      }
+    ]
+  }
+]

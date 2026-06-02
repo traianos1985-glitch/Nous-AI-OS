@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1780411574187053757,
+    "time": 1780411574.1870553,
+    "apply": false,
+    "mission_proposals": {
+      "ok": true,
+      "file": "data/mission_proposals.json",
+      "apply": false,
+      "changed": [],
+      "count": 0
+    },
+    "patch_proposals": {
+      "ok": true,
+      "file": "data/patch_proposals.json",
+      "apply": false,
+      "changed": [
+        {
+          "id": 1780410918912363070,
+          "old": "pending",
+          "new": "rejected",
+          "reason": "duplicate_pending_patch_proposal"
+        }
+      ],
+      "count": 1
+    },
+    "repair_proposals": {
+      "ok": true,
+      "file": "data/repair_proposals.json",
+      "apply": false,
+      "changed": [],
+      "count": 0
+    },
+    "brain_backups": {
+      "ok": true,
+      "apply": false,
+      "keep": 3,
+      "changed": [],
+      "count": 0
+    }
+  },
+  {
+    "id": 1780411684747716580,
+    "time": 1780411684.74772,
+    "apply": false,
+    "mission_proposals": {
+      "ok": true,
+      "file": "data/mission_proposals.json",
+      "apply": false,
+      "changed": [],
+      "count": 0
+    },
+    "patch_proposals": {
+      "ok": true,
+      "file": "data/patch_proposals.json",
+      "apply": false,
+      "changed": [
+        {
+          "id": 1780410918912363070,
+          "old": "pending",
+          "new": "rejected",
+          "reason": "duplicate_pending_patch_proposal"
+        }
+      ],
+      "count": 1
+    },
+    "repair_proposals": {
+      "ok": true,
+      "file": "data/repair_proposals.json",
+      "apply": false,
+      "changed": [],
+      "count": 0
+    },
+    "brain_backups": {
+      "ok": true,
+      "apply": false,
+      "keep": 3,
+      "changed": [],
+      "count": 0
+    }
+  }
+]

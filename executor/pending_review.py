@@ -4,6 +4,42 @@ import time
 def pending_review_status():
     items = []
 
+
+
+    try:
+        from executor.upgrade_planner import list_upgrade_plans
+        for p in list_upgrade_plans():
+            if p.get("status") == "pending":
+                items.append({
+                    "type": "upgrade_plan",
+                    "id": p.get("id"),
+                    "title": p.get("title"),
+                    "risk": "strategic",
+                    "created": p.get("created"),
+                    "source": "Upgrade Planner",
+                    "action_tab": "upgrades",
+                    "data": p,
+                })
+    except Exception as e:
+        items.append({"type": "error", "title": "Upgrade planner error", "error": str(e)})
+
+    try:
+        from executor.patch_generator import list_patch_proposals
+        for p in list_patch_proposals():
+            if p.get("status") == "pending":
+                items.append({
+                    "type": "patch_proposal",
+                    "id": p.get("id"),
+                    "title": p.get("title"),
+                    "risk": p.get("risk"),
+                    "created": p.get("created"),
+                    "source": "Patch Generator",
+                    "action_tab": "selfheal",
+                    "data": p,
+                })
+    except Exception as e:
+        items.append({"type": "error", "title": "Patch proposals error", "error": str(e)})
+
     try:
         from executor.autonomous_repair import list_repair_proposals
         for p in list_repair_proposals():
@@ -81,6 +117,8 @@ def pending_review_status():
         "items": items,
         "counts": {
             "repair_proposals": len([x for x in items if x.get("type") == "repair_proposal"]),
+            "patch_proposals": len([x for x in items if x.get("type") == "patch_proposal"]),
+            "upgrade_plans": len([x for x in items if x.get("type") == "upgrade_plan"]),
             "mission_proposals": len([x for x in items if x.get("type") == "mission_proposal"]),
             "mission_task_approvals": len([x for x in items if x.get("type") == "mission_task_approval"]),
             "executive_recommendations": len([x for x in items if x.get("type") == "executive_recommendation"]),
