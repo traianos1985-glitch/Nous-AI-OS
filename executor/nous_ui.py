@@ -132,6 +132,8 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('autoexec')">🤖 AutoExec</button>
       <button onclick="showSection('autoscheduler')">🔁 AutoSched</button>
       <button onclick="showSection('analyst')">🧠 Analyst</button>
+      <button onclick="showSection('pending')">📥 Pending</button>
+      <button onclick="showSection('loopv2')">♻ Loop v2</button>
     </div>
 
     <div class="card">
@@ -545,6 +547,40 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Reports</h3>
           <pre id="codeAnalystReports">Loading...</pre>
+        </div>
+      </section>
+
+
+      <section id="pending" class="section">
+        <div class="hero">
+          <h1>📥 Pending Review Inbox</h1>
+          <p>Όλα όσα περιμένουν την έγκρισή σου από Planner, Repair, Approvals και Executive Intelligence.</p>
+        </div>
+        <div class="card">
+          <button class="miniBtn" onclick="loadPendingReview()">Refresh Pending</button>
+        </div>
+        <div class="card">
+          <h3>Pending Summary</h3>
+          <div id="pendingSummary">Loading...</div>
+        </div>
+        <div class="card">
+          <h3>Pending Items</h3>
+          <div id="pendingItems">Loading...</div>
+        </div>
+      </section>
+
+      <section id="loopv2" class="section">
+        <div class="hero">
+          <h1>♻ Executive Loop v2</h1>
+          <p>Τρέχει diagnosis, code analysis, repair proposal, mission planner, safe execution και goal progress.</p>
+        </div>
+        <div class="card">
+          <button class="miniBtn" onclick="runExecutiveLoopV2()">Run Executive Loop v2</button>
+          <button class="miniBtn" onclick="loadExecutiveLoopV2()">Refresh</button>
+        </div>
+        <div class="card">
+          <h3>Loop v2 Status</h3>
+          <pre id="loopV2Status">Loading...</pre>
         </div>
       </section>
 
@@ -969,6 +1005,53 @@ async function sendPrompt(){
 
 
 
+
+
+
+async function loadPendingReview(){
+  const data = await getJson("/remote/pending-review/status");
+  renderObject(data);
+
+  document.getElementById("pendingSummary").innerHTML =
+    kv("total", data.total ?? 0) +
+    kv("repair", data.counts?.repair_proposals ?? 0) +
+    kv("missions", data.counts?.mission_proposals ?? 0) +
+    kv("approvals", data.counts?.mission_task_approvals ?? 0) +
+    kv("executive", data.counts?.executive_recommendations ?? 0);
+
+  const items = data.items || [];
+  if(items.length === 0){
+    document.getElementById("pendingItems").innerHTML = "No pending items.";
+    return;
+  }
+
+  document.getElementById("pendingItems").innerHTML = items.map(x=>`
+    <div class="card">
+      <h3>${x.title || "-"}</h3>
+      ${kv("type", x.type)}
+      ${kv("source", x.source)}
+      ${kv("risk", x.risk || "-")}
+      <pre>${JSON.stringify(x.data || x, null, 2)}</pre>
+      <button class="miniBtn" onclick="showSection('${x.action_tab}')">Open ${x.action_tab}</button>
+    </div>
+  `).join("");
+}
+
+async function loadExecutiveLoopV2(){
+  const data = await getJson("/remote/executive-loop-v2/status");
+  renderObject(data);
+  document.getElementById("loopV2Status").textContent = JSON.stringify(data, null, 2);
+}
+
+async function runExecutiveLoopV2(){
+  const ok = confirm("Να τρέξει Executive Loop v2; Θα κάνει μόνο safe execution και θα αφήσει approvals για εσένα.");
+  if(!ok) return;
+  const data = await postJson("/remote/executive-loop-v2/run", {trigger:"dashboard"});
+  renderObject(data);
+  document.getElementById("loopV2Status").textContent = JSON.stringify(data, null, 2);
+  feed("Executive Loop v2 completed");
+  await loadPendingReview();
+}
 
 
 async function loadAutoScheduler(){

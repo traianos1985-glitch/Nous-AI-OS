@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": 1780344856.928835,
+  "time": 1780407067.4219143,
   "checks": {
     "compile": {
       "executor/router.py": {
@@ -267,46 +267,46 @@
           "status": 200
         },
         {
-          "error": "unauthorized",
+          "error": null,
           "json": true,
           "method": "POST",
           "name": "protected_planner_propose",
           "ok": true,
           "path": "/remote/mission-planner/propose",
-          "protected_ok": true,
+          "protected_ok": false,
           "requires_auth": true,
-          "status": 401
+          "status": 200
         },
         {
-          "error": "unauthorized",
+          "error": null,
           "json": true,
           "method": "POST",
           "name": "protected_scheduler_run_once",
           "ok": true,
           "path": "/remote/executive-scheduler-loop/run-once",
-          "protected_ok": true,
+          "protected_ok": false,
           "requires_auth": true,
-          "status": 401
+          "status": 200
         },
         {
-          "error": "unauthorized",
+          "error": null,
           "json": true,
           "method": "POST",
           "name": "protected_backup_create",
           "ok": true,
           "path": "/remote/brain-backup/create",
-          "protected_ok": true,
+          "protected_ok": false,
           "requires_auth": true,
-          "status": 401
+          "status": 200
         }
       ],
-      "time": 1780344917.1223025,
+      "time": 1780407175.9726808,
       "total": 18
     },
     "git_status": {
       "ok": true,
       "code": 0,
-      "stdout": " M data/agent_journal.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+      "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/executive_loop_v2.json\n?? executor/executive_loop_v2.py\n?? executor/pending_review.py\n",
       "stderr": ""
     }
   },

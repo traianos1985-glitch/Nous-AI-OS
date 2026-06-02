@@ -59,6 +59,8 @@ from executor.autonomous_repair import repair_status, list_repair_proposals, pro
 from executor.auto_mission_executor import auto_mission_executor_status, run_auto_mission_executor, set_auto_mission_executor_enabled
 from executor.code_analyst import code_analyst_status, list_code_analysis_reports, analyze_problem, analyze_latest_diagnosis, generate_patch_suggestion
 from executor.auto_mission_scheduler import auto_mission_scheduler_status, start_auto_mission_scheduler, stop_auto_mission_scheduler, run_auto_mission_scheduler_once, reconcile_auto_mission_scheduler
+from executor.executive_loop_v2 import executive_loop_v2_status, run_executive_loop_v2
+from executor.pending_review import pending_review_status
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -317,6 +319,24 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/executive-loop-v2/status")
+def remote_executive_loop_v2_status():
+    return jsonify(executive_loop_v2_status())
+
+
+@app.route("/remote/executive-loop-v2/run", methods=["POST"])
+def remote_executive_loop_v2_run():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_executive_loop_v2(data.get("trigger", "dashboard")))
+
+
+@app.route("/remote/pending-review/status")
+def remote_pending_review_status():
+    return jsonify(pending_review_status())
 
 @app.route("/remote/code-analyst/status")
 def remote_code_analyst_status():
