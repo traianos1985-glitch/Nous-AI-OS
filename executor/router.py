@@ -2,8 +2,8 @@ import os
 import sys
 import platform
 import time
-from flask import Flask, request, jsonify
-from executor.document_chat_bridge import format_document_answer, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
+from executor.document_chat_bridge import document_chat_answer, format_document_answer
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -108,6 +108,36 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
+
+    # NOUS_DOCUMENT_CHAT_EARLY_RETURN
+    try:
+        data = request.get_json(silent=True) or {}
+        msg = (
+            data.get("message")
+            or data.get("prompt")
+            or data.get("text")
+            or data.get("command")
+            or ""
+        )
+        doc_result = document_chat_answer(str(msg))
+        doc_answer = format_document_answer(str(msg))
+        if doc_result.get("used_documents") and doc_result.get("sources"):
+            return jsonify({
+                "ok": True,
+                "executed": False,
+                "source": "document_chat_bridge",
+                "mode": "document_recall",
+                "human_answer": doc_answer,
+                "answer": doc_answer,
+                "response": doc_answer,
+                "text": doc_answer,
+                "summary": "Απάντηση από μαθημένο έγγραφο.",
+                "sources": doc_result.get("sources", []),
+                "raw": doc_result
+            })
+    except Exception:
+        pass
+
     try:
         data = request.get_json(silent=True) or {}
         msg = (
@@ -2051,6 +2081,33 @@ def apps_list():
 @app.route("/apps/<name>/")
 def open_generated_app(name):
     return send_from_directory(f"generated_apps/{name}", "index.html")
+
+
+
+@app.route("/remote/document-chat/ask", methods=["POST"])
+def remote_document_chat_ask_route():
+    data = request.get_json(silent=True) or {}
+    msg = (
+        data.get("message")
+        or data.get("prompt")
+        or data.get("text")
+        or data.get("command")
+        or ""
+    )
+    result = document_chat_answer(str(msg))
+    formatted = format_document_answer(str(msg))
+    return jsonify({
+        "ok": True,
+        "source": "document_chat_bridge",
+        "mode": "document_recall",
+        "used_documents": result.get("used_documents", False),
+        "answer": formatted or result.get("answer"),
+        "response": formatted or result.get("answer"),
+        "text": formatted or result.get("answer"),
+        "sources": result.get("sources", []),
+        "raw": result,
+    })
+
 
 if __name__ == "__main__":
     print("🧠 NUS AI OS LEVEL 22 RUNNING")

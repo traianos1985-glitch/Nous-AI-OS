@@ -142,6 +142,31 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 }
 </style>
 
+
+<style id="nous-hide-tech-details-css">
+.nousTechDetails{
+  margin-top:10px;
+  opacity:.75;
+  font-size:12px;
+}
+.nousTechDetails summary{
+  cursor:pointer;
+  opacity:.8;
+}
+.nousTechDetails pre{
+  display:none;
+}
+.nousTechDetails[open] pre{
+  display:block;
+  max-height:260px;
+  overflow:auto;
+  white-space:pre-wrap;
+  padding:10px;
+  border-radius:10px;
+  background:rgba(0,0,0,.25);
+}
+</style>
+
 </head>
 <body>
 <button class="menuBtn" onclick="openMenu()">☰</button>
@@ -153,7 +178,15 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
     <div class="sub">Personal agent workspace</div>
 
     <div class="nav" id="nav">
-      <div class="sidebarHint">NOUS modules grouped</div>
+      
+<div class="navGroup" open id="nous-chat-main-nav">
+  <summary>💬 Chat</summary>
+  <div class="navGroupBody">
+    <button onclick="showSection('chat')">💬 Άνοιγμα Chat</button>
+  </div>
+</div>
+
+<div class="sidebarHint">NOUS modules grouped</div>
 <details class="navGroup" open><summary>🏠 Κέντρο</summary><div class="navGroupBody"><button onclick="showSection('home')" class="active">🏠 Home</button>
 <button onclick="showSection('command')">🧭 Command</button></div></details>
 <details class="navGroup"><summary>🎯 Goals & Missions</summary><div class="navGroupBody"><button onclick="showSection('goals')">🏁 Goals</button>
@@ -805,7 +838,7 @@ function feed(text){document.getElementById("activity").innerHTML=new Date().toL
 function kv(k,v){return `<div class="kv"><span>${k}</span><b>${v}</b></div>`}
 async function getJson(path){const r=await fetch(path);return await r.json()}
 async function postJson(path,body={}){const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json","X-NOUS-TOKEN":token()},body:JSON.stringify(body)});return await r.json()}
-function addMsg(text,cls=""){const c=document.getElementById("chatlog");const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;c.appendChild(d);c.scrollTop=c.scrollHeight}
+function addMsg(text,cls=""){const c=document.getElementById("chatlog");const d=document.createElement("div");d.className="msg "+cls;if(window.NOUS_RENDER_CLEAN_MESSAGE){window.NOUS_RENDER_CLEAN_MESSAGE(d,text)}else{d.textContent=text}c.appendChild(d);c.scrollTop=c.scrollHeight}
 
 function showSection(id){
   closeMenu(); currentSection=id;
@@ -1901,6 +1934,240 @@ function previewLocalFiles(event){
     }
   });
 }
+</script>
+
+
+
+
+
+
+
+
+<script id="nous-global-document-guard-v2">
+(function(){
+  window.NOUS_GLOBAL_DOCUMENT_GUARD_V2 = true;
+
+  const originalFetch = window.fetch.bind(window);
+
+  function parseBody(options){
+    try{
+      if(!options || !options.body) return {};
+      if(typeof options.body === "string") return JSON.parse(options.body);
+    }catch(e){}
+    return {};
+  }
+
+  function hasDocumentIntent(text){
+    text = String(text || "").toLowerCase();
+    const triggers = [
+      "τι λέει", "εγχειρίδιο", "εγχειριδιο", "manual",
+      "pdf", "docx", "έγγραφο", "εγγραφο", "αρχείο", "αρχειο",
+      "μαθημένα", "μαθημενα", "κρύπτες", "κρυπτες",
+      "πέτρες", "πετρες", "απόκρυψη", "αποκρυψη",
+      "αποκρύψεις", "αποκρυψεις", "αποκρυψεων", "αποκρύψεων"
+    ];
+    return triggers.some(t => text.includes(t));
+  }
+
+  function jsonResponse(data){
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {"Content-Type":"application/json"}
+    });
+  }
+
+  window.fetch = async function(input, options){
+    const url = String((typeof input === "string") ? input : input.url || "");
+
+    if(url.includes("/remote/document-chat/ask")){
+      return originalFetch(input, options);
+    }
+
+    const method = String((options && options.method) || "GET").toUpperCase();
+
+    if(method === "POST"){
+      const body = parseBody(options);
+      const msg = body.message || body.prompt || body.text || body.command || "";
+
+      if(msg && hasDocumentIntent(msg)){
+        try{
+          const r = await originalFetch("/remote/document-chat/ask", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({message: msg})
+          });
+
+          const data = await r.json();
+
+          if(data && data.used_documents && data.sources && data.sources.length){
+            data.executed = false;
+            data.human_answer = data.answer || data.response || data.text;
+            return jsonResponse(data);
+          }
+        }catch(e){
+          console.warn("NOUS document guard fallback:", e);
+        }
+      }
+    }
+
+    return originalFetch(input, options);
+  };
+})();
+</script>
+
+
+
+
+
+<script id="nous-clean-human-answer-layer">
+(function(){
+  window.NOUS_CLEAN_HUMAN_ANSWER_LAYER = true;
+
+  function looksJson(text){
+    text = String(text || "").trim();
+    return text.startsWith("{") || text.startsWith("[");
+  }
+
+  function parseMaybeJson(text){
+    try { return JSON.parse(text); } catch(e){ return null; }
+  }
+
+  function bestHuman(obj){
+    if(!obj || typeof obj !== "object") return null;
+    return obj.human_answer || obj.answer || obj.response || obj.text || obj.summary || null;
+  }
+
+  function renderCleanMessage(el, text){
+    if(!looksJson(text)){
+      el.textContent = text;
+      return;
+    }
+
+    const obj = parseMaybeJson(text);
+    if(!obj){
+      el.textContent = text;
+      return;
+    }
+
+    const human = bestHuman(obj);
+    if(!human){
+      el.textContent = text;
+      return;
+    }
+
+    el.innerHTML = "";
+
+    const main = document.createElement("div");
+    main.className = "nousHumanAnswer";
+    main.textContent = human;
+    el.appendChild(main);
+
+    const sources = obj.sources || (obj.raw && obj.raw.sources) || [];
+    if(Array.isArray(sources) && sources.length){
+      const srcBox = document.createElement("div");
+      srcBox.className = "nousSourcesBox";
+      srcBox.innerHTML = "<b>Πηγές:</b>";
+      sources.slice(0,5).forEach(function(s, i){
+        const line = document.createElement("div");
+        line.textContent = "[" + (i+1) + "] " + (s.document || "document");
+        srcBox.appendChild(line);
+      });
+      el.appendChild(srcBox);
+    }
+
+    // Για document recall ΔΕΝ δείχνουμε JSON στο chat.
+    if(obj.mode === "document_recall" || obj.source === "document_chat_bridge"){
+      return;
+    }
+
+    const details = document.createElement("details");
+    details.className = "nousTechDetails";
+    const summary = document.createElement("summary");
+    summary.textContent = "Τεχνικές λεπτομέρειες";
+    const pre = document.createElement("pre");
+    pre.textContent = JSON.stringify(obj, null, 2);
+    details.appendChild(summary);
+    details.appendChild(pre);
+    el.appendChild(details);
+  }
+
+  window.NOUS_RENDER_CLEAN_MESSAGE = renderCleanMessage;
+  window.NOUS_HUMANIZE_TEXT = function(text){
+    if(!looksJson(text)) return text;
+    const obj = parseMaybeJson(text);
+    const human = bestHuman(obj);
+    return human || text;
+  };
+})();
+</script>
+
+
+<script id="nous-clean-live-output-layer">
+(function(){
+  if(window.NOUS_CLEAN_LIVE_OUTPUT_LAYER) return;
+  window.NOUS_CLEAN_LIVE_OUTPUT_LAYER = true;
+
+  function parseMaybeJson(text){
+    try { return JSON.parse(String(text || "").trim()); } catch(e){ return null; }
+  }
+
+  function cleanOutputFromObject(obj){
+    if(!obj || typeof obj !== "object") return null;
+
+    if(obj.mode === "document_recall" || obj.source === "document_chat_bridge"){
+      return obj.human_answer || obj.answer || obj.response || obj.text || "Απάντηση από μαθημένο έγγραφο.";
+    }
+
+    if(obj.human_answer) return obj.human_answer;
+    if(obj.summary && typeof obj.summary === "string") return obj.summary;
+    if(obj.answer && typeof obj.answer === "string") return obj.answer;
+    if(obj.response && typeof obj.response === "string") return obj.response;
+    if(obj.text && typeof obj.text === "string") return obj.text;
+
+    if(obj.executed && obj.mission){
+      const title = obj.mission.title || "Αποστολή";
+      const status = obj.mission.status || "άγνωστη";
+      const tasks = Array.isArray(obj.mission.tasks) ? obj.mission.tasks.length : 0;
+      return "Ο ΝΟΥΣ δημιούργησε αποστολή: " + title + ".\nΚατάσταση: " + status + ".\nΒήματα: " + tasks + ".";
+    }
+
+    if(obj.ok === true) return "Η ενέργεια ολοκληρώθηκε επιτυχώς.";
+    if(obj.ok === false || obj.error) return "Προέκυψε σφάλμα: " + (obj.error || "άγνωστο σφάλμα") + ".";
+
+    return null;
+  }
+
+  function cleanLiveOutputElement(el){
+    if(!el || el.dataset.nousCleaned === "1") return;
+
+    const text = el.textContent || "";
+    const obj = parseMaybeJson(text);
+    if(!obj) return;
+
+    const clean = cleanOutputFromObject(obj);
+    if(!clean) return;
+
+    el.dataset.nousRawJson = text;
+    el.dataset.nousCleaned = "1";
+    el.textContent = clean;
+  }
+
+  function scan(){
+    const candidates = [
+      "#raw", "#output", "#liveOutput", "#live-output",
+      ".raw", ".output", ".liveOutput", ".live-output",
+      "pre"
+    ];
+    document.querySelectorAll(candidates.join(",")).forEach(cleanLiveOutputElement);
+  }
+
+  scan();
+  new MutationObserver(scan).observe(document.body, {
+    childList:true,
+    subtree:true,
+    characterData:true
+  });
+})();
 </script>
 
 </body>

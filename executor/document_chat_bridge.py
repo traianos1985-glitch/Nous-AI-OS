@@ -14,7 +14,10 @@ def now_iso():
 DOC_TRIGGERS = [
     "έγγραφο", "εγχειρίδιο", "manual", "pdf", "docx",
     "αρχείο", "αρχεία", "μαθημένα", "τι λέει",
-    "σύμφωνα με", "θυμάσαι από το αρχείο"
+    "σύμφωνα με", "θυμάσαι από το αρχείο",
+    "κρύπτες", "κρυπτες", "πέτρες", "πετρες",
+    "απόκρυψη", "αποκρυψη", "αποκρύψεις", "αποκρυψεις",
+    "αποκρυψεων", "αποκρύψεων"
 ]
 
 
@@ -56,18 +59,52 @@ def format_document_answer(message: str) -> str:
     if not sources:
         return "Δεν βρήκα σχετική πληροφορία στα μαθημένα έγγραφα."
 
-    parts = ["Βρήκα σχετική πληροφορία στα μαθημένα έγγραφα:\n"]
-
-    for i, src in enumerate(sources, 1):
-        parts.append(
-            f"\n[{i}] {src.get('document')} / chunk {src.get('chunk')}\n"
-            f"{src.get('excerpt')}"
-        )
-
-    return "\n".join(parts)
+    return build_human_document_answer(message, sources)
 
 
 if __name__ == "__main__":
     import sys
     q = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "status"
     print(json.dumps(document_chat_answer(q), indent=2, ensure_ascii=False))
+
+
+def build_human_document_answer(question: str, sources: list) -> str:
+    if not sources:
+        return "Δεν βρήκα σχετική πληροφορία στα μαθημένα έγγραφα."
+
+    excerpts = []
+
+    for src in sources[:3]:
+        text = str(src.get("excerpt", "")).strip()
+        if text:
+            excerpts.append(text)
+
+    merged = "\n".join(excerpts)
+
+    lines = []
+
+    for line in merged.splitlines():
+        line = line.strip()
+
+        if not line:
+            continue
+
+        if line.lower().startswith("εγχειρίδιο"):
+            continue
+
+        if line not in lines:
+            lines.append(line)
+
+    if not lines:
+        return "Βρήκα σχετικές πληροφορίες αλλά δεν μπόρεσα να δημιουργήσω περίληψη."
+
+    bullets = []
+
+    for line in lines[:8]:
+        bullets.append("• " + line)
+
+    return (
+        "Σύμφωνα με τα μαθημένα έγγραφα:\n\n"
+        + "\n".join(bullets)
+    )
+
