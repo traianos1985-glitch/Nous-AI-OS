@@ -1,0 +1,5406 @@
+{
+  "time": 1780414637.0718768,
+  "nodes": [
+    {
+      "type": "goal",
+      "id": "goal:1780327547928758774",
+      "label": "Make NOUS cloud-native and restorable",
+      "data": {
+        "id": 1780327547928758774,
+        "title": "Make NOUS cloud-native and restorable",
+        "description": "NOUS should survive device loss and run from cloud.",
+        "priority": 1,
+        "status": "active",
+        "progress": 70,
+        "missions": [],
+        "notes": [
+          {
+            "time": 1780338712.9606113,
+            "note": "Goal progress intelligence updated progress from 0% to 50%.",
+            "evidence_count": 9
+          },
+          {
+            "time": 1780343988.6741848,
+            "note": "Goal progress intelligence recalibrated progress from 50% to 65%.",
+            "evidence_count": 12
+          },
+          {
+            "time": 1780344221.1211655,
+            "note": "Goal progress intelligence recalibrated progress from 65% to 70%.",
+            "evidence_count": 15
+          }
+        ],
+        "next_actions": [],
+        "created": 1780327547.9287705,
+        "updated": 1780344221.121163
+      }
+    },
+    {
+      "type": "goal",
+      "id": "goal:1780327547945471638",
+      "label": "Improve NOUS user interface",
+      "data": {
+        "id": 1780327547945471638,
+        "title": "Improve NOUS user interface",
+        "description": "Make dashboard friendly, mobile-first, and agent-like.",
+        "priority": 2,
+        "status": "active",
+        "progress": 70,
+        "missions": [],
+        "notes": [
+          {
+            "time": 1780338712.9606273,
+            "note": "Goal progress intelligence updated progress from 0% to 45%.",
+            "evidence_count": 5
+          },
+          {
+            "time": 1780343988.674194,
+            "note": "Goal progress intelligence recalibrated progress from 45% to 70%.",
+            "evidence_count": 9
+          }
+        ],
+        "next_actions": [],
+        "created": 1780327547.9454741,
+        "updated": 1780343988.6741931
+      }
+    },
+    {
+      "type": "goal",
+      "id": "goal:1780327547958112159",
+      "label": "Expand Android Companion control",
+      "data": {
+        "id": 1780327547958112159,
+        "title": "Expand Android Companion control",
+        "description": "Give NOUS reliable Android eyes and hands.",
+        "priority": 1,
+        "status": "active",
+        "progress": 75,
+        "missions": [],
+        "notes": [
+          {
+            "time": 1780338712.9606354,
+            "note": "Goal progress intelligence updated progress from 0% to 70%.",
+            "evidence_count": 8
+          },
+          {
+            "time": 1780344221.1211774,
+            "note": "Goal progress intelligence recalibrated progress from 70% to 75%.",
+            "evidence_count": 9
+          }
+        ],
+        "next_actions": [],
+        "created": 1780327547.9581134,
+        "updated": 1780344221.1211762
+      }
+    },
+    {
+      "type": "goal",
+      "id": "goal:1780327547970773305",
+      "label": "Strengthen safe autonomy",
+      "data": {
+        "id": 1780327547970773305,
+        "title": "Strengthen safe autonomy",
+        "description": "Missions, approvals, execution and reports.",
+        "priority": 1,
+        "status": "done",
+        "progress": 80,
+        "missions": [],
+        "notes": [
+          {
+            "time": 1780338712.9606414,
+            "note": "Goal progress intelligence updated progress from 0% to 100%.",
+            "evidence_count": 20
+          },
+          {
+            "time": 1780339050.89185,
+            "note": "Goal progress intelligence recalibrated progress from 100% to 80%.",
+            "evidence_count": 20
+          }
+        ],
+        "next_actions": [],
+        "created": 1780327547.970775,
+        "updated": 1780339050.891848
+      }
+    },
+    {
+      "type": "project",
+      "id": "project:1780411574192391049",
+      "label": "Cloud Brain Backup",
+      "data": {
+        "id": 1780411574192391049,
+        "goal_id": 1780327547928758774,
+        "goal_title": "Make NOUS cloud-native and restorable",
+        "category": "cloud",
+        "title": "Cloud Brain Backup",
+        "status": "active",
+        "progress": 0,
+        "created": 1780411574.1923933,
+        "updated": 1780411574.192394,
+        "milestones": [
+          {
+            "id": 1780411574192396518,
+            "title": "backup status",
+            "status": "pending",
+            "created": 1780411574.1923974,
+            "updated": null
+          },
+          {
+            "id": 1780411574192399696,
+            "title": "backup retention",
+            "status": "pending",
+            "created": 1780411574.1924005,
+            "updated": null
+          },
+          {
+            "id": 1780411574192401207,
+            "title": "restore preview",
+            "status": "pending",
+            "created": 1780411574.1924014,
+            "updated": null
+          },
+          {
+            "id": 1780411574192401989,
+            "title": "cloud sync plan",
+            "status": "pending",
+            "created": 1780411574.1924021,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "project",
+      "id": "project:1780411574192406674",
+      "label": "Deploy Readiness",
+      "data": {
+        "id": 1780411574192406674,
+        "goal_id": 1780327547928758774,
+        "goal_title": "Make NOUS cloud-native and restorable",
+        "category": "cloud",
+        "title": "Deploy Readiness",
+        "status": "active",
+        "progress": 0,
+        "created": 1780411574.1924076,
+        "updated": 1780411574.1924078,
+        "milestones": [
+          {
+            "id": 1780411574192408705,
+            "title": "vercel status",
+            "status": "pending",
+            "created": 1780411574.192409,
+            "updated": null
+          },
+          {
+            "id": 1780411574192409644,
+            "title": "safe deploy approval",
+            "status": "pending",
+            "created": 1780411574.1924098,
+            "updated": null
+          },
+          {
+            "id": 1780411574192410478,
+            "title": "deployment history",
+            "status": "pending",
+            "created": 1780411574.1924107,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "project",
+      "id": "project:1780411574192428340",
+      "label": "Mobile Dashboard UX",
+      "data": {
+        "id": 1780411574192428340,
+        "goal_id": 1780327547945471638,
+        "goal_title": "Improve NOUS user interface",
+        "category": "ui",
+        "title": "Mobile Dashboard UX",
+        "status": "active",
+        "progress": 0,
+        "created": 1780411574.1924288,
+        "updated": 1780411574.192429,
+        "milestones": [
+          {
+            "id": 1780411574192429590,
+            "title": "command center",
+            "status": "pending",
+            "created": 1780411574.1924298,
+            "updated": null
+          },
+          {
+            "id": 1780411574192430373,
+            "title": "pending inbox",
+            "status": "pending",
+            "created": 1780411574.1924305,
+            "updated": null
+          },
+          {
+            "id": 1780411574192431103,
+            "title": "home badge",
+            "status": "pending",
+            "created": 1780411574.1924314,
+            "updated": null
+          },
+          {
+            "id": 1780411574192431833,
+            "title": "button audit",
+            "status": "pending",
+            "created": 1780411574.1924322,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "project",
+      "id": "project:1780411574192434278",
+      "label": "Control Center Flow",
+      "data": {
+        "id": 1780411574192434278,
+        "goal_id": 1780327547945471638,
+        "goal_title": "Improve NOUS user interface",
+        "category": "ui",
+        "title": "Control Center Flow",
+        "status": "active",
+        "progress": 0,
+        "created": 1780411574.1924348,
+        "updated": 1780411574.192435,
+        "milestones": [
+          {
+            "id": 1780411574192435528,
+            "title": "approve/reject everywhere",
+            "status": "pending",
+            "created": 1780411574.1924357,
+            "updated": null
+          },
+          {
+            "id": 1780411574192436519,
+            "title": "live output clarity",
+            "status": "pending",
+            "created": 1780411574.1924367,
+            "updated": null
+          },
+          {
+            "id": 1780411574192437405,
+            "title": "navigation cleanup",
+            "status": "pending",
+            "created": 1780411574.1924374,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "project",
+      "id": "project:1780411574192454747",
+      "label": "Android Companion Safe Control",
+      "data": {
+        "id": 1780411574192454747,
+        "goal_id": 1780327547958112159,
+        "goal_title": "Expand Android Companion control",
+        "category": "android",
+        "title": "Android Companion Safe Control",
+        "status": "active",
+        "progress": 0,
+        "created": 1780411574.192455,
+        "updated": 1780411574.1924555,
+        "milestones": [
+          {
+            "id": 1780411574192456101,
+            "title": "companion status",
+            "status": "pending",
+            "created": 1780411574.1924565,
+            "updated": null
+          },
+          {
+            "id": 1780411574192457196,
+            "title": "ui tree",
+            "status": "pending",
+            "created": 1780411574.1924574,
+            "updated": null
+          },
+          {
+            "id": 1780411574192457926,
+            "title": "safe intents",
+            "status": "pending",
+            "created": 1780411574.1924582,
+            "updated": null
+          },
+          {
+            "id": 1780411574192458812,
+            "title": "tap approval gate",
+            "status": "pending",
+            "created": 1780411574.192459,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "project",
+      "id": "project:1780411574192475997",
+      "label": "Executive Loop",
+      "data": {
+        "id": 1780411574192475997,
+        "goal_id": 1780327547970773305,
+        "goal_title": "Strengthen safe autonomy",
+        "category": "autonomy",
+        "title": "Executive Loop",
+        "status": "active",
+        "progress": 0,
+        "created": 1780411574.1924765,
+        "updated": 1780411574.1924765,
+        "milestones": [
+          {
+            "id": 1780411574192477299,
+            "title": "scheduler",
+            "status": "pending",
+            "created": 1780411574.1924777,
+            "updated": null
+          },
+          {
+            "id": 1780411574192478237,
+            "title": "safe executor",
+            "status": "pending",
+            "created": 1780411574.1924784,
+            "updated": null
+          },
+          {
+            "id": 1780411574192478967,
+            "title": "self diagnosis",
+            "status": "pending",
+            "created": 1780411574.1924791,
+            "updated": null
+          },
+          {
+            "id": 1780411574192479750,
+            "title": "self healing proposals",
+            "status": "pending",
+            "created": 1780411574.19248,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "project",
+      "id": "project:1780411574192481830",
+      "label": "Code Evolution",
+      "data": {
+        "id": 1780411574192481830,
+        "goal_id": 1780327547970773305,
+        "goal_title": "Strengthen safe autonomy",
+        "category": "autonomy",
+        "title": "Code Evolution",
+        "status": "active",
+        "progress": 0,
+        "created": 1780411574.1924822,
+        "updated": 1780411574.1924822,
+        "milestones": [
+          {
+            "id": 1780411574192483184,
+            "title": "deep analyst",
+            "status": "pending",
+            "created": 1780411574.1924834,
+            "updated": null
+          },
+          {
+            "id": 1780411574192483966,
+            "title": "patch generator",
+            "status": "pending",
+            "created": 1780411574.1924844,
+            "updated": null
+          },
+          {
+            "id": 1780411574192484697,
+            "title": "compile audit",
+            "status": "pending",
+            "created": 1780411574.1924849,
+            "updated": null
+          },
+          {
+            "id": 1780411574192485427,
+            "title": "approval apply",
+            "status": "pending",
+            "created": 1780411574.1924856,
+            "updated": null
+          }
+        ]
+      }
+    },
+    {
+      "type": "mission",
+      "id": "mission:1780323331619630930",
+      "label": "System health and reality check",
+      "data": {
+        "id": 1780323331619630930,
+        "title": "System health and reality check",
+        "description": "Run safe checks across code, git, reality gate, companion and deploy state.",
+        "status": "done",
+        "created": 1780323331.6196322,
+        "updated": 1780344221.0914528,
+        "tasks": [
+          {
+            "id": 1780323331619634628,
+            "title": "Check code health",
+            "action": "code_health",
+            "payload": {},
+            "status": "done",
+            "created": 1780323331.6196368,
+            "started": 1780323331.6301494,
+            "finished": 1780323332.9852033,
+            "result": {
+              "ok": true,
+              "action": "code_health",
+              "result": {
+                "time": 1780323332.9303248,
+                "compile": {
+                  "executor/router.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/intent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/tools.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/scheduler_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomous_loop.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomy_service.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/task_queue.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/goal_executor.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/project_progress.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/runtime_metrics.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/curiosity_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/learning_engine.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                },
+                "git": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/agent_journal.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+                  "stderr": ""
+                }
+              },
+              "time": 1780323332.9723804
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780323331619640671,
+            "title": "Check git status",
+            "action": "git_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780323331.6196423,
+            "started": 1780323332.997445,
+            "finished": 1780323334.2991285,
+            "result": {
+              "ok": true,
+              "action": "git_status",
+              "result": {
+                "time": 1780323332.9979475,
+                "git": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/agent_journal.json\n M data/memory.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+                  "stderr": ""
+                },
+                "health": {
+                  "time": 1780323334.2764466,
+                  "compile": {
+                    "executor/router.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/intent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/tools.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/scheduler_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomous_loop.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomy_service.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/task_queue.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/goal_executor.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/project_progress.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/runtime_metrics.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/curiosity_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/learning_engine.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    }
+                  },
+                  "git": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/agent_journal.json\n M data/memory.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+                    "stderr": ""
+                  }
+                }
+              },
+              "time": 1780323334.2896388
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780323331619643849,
+            "title": "Check reality gate",
+            "action": "reality_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780323331.6196446,
+            "started": 1780343984.9602726,
+            "finished": 1780343988.6579332,
+            "result": {
+              "ok": true,
+              "action": "reality_status",
+              "result": {
+                "time": 1780343984.9613976,
+                "internet": {
+                  "real": true,
+                  "details": {
+                    "query": "Python Flask",
+                    "results": [
+                      {
+                        "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                        "url": "https://flask.palletsprojects.com/"
+                      },
+                      {
+                        "title": "Flask Tutorial - GeeksforGeeks",
+                        "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                      },
+                      {
+                        "title": "Flask · PyPI",
+                        "url": "https://pypi.org/project/Flask/"
+                      },
+                      {
+                        "title": "Flask (web framework) - Wikipedia",
+                        "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                      },
+                      {
+                        "title": "How To Build a Web Application Using Flask in Python 3",
+                        "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                      }
+                    ]
+                  }
+                },
+                "browser_read": {
+                  "real": true,
+                  "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+                },
+                "android": {
+                  "real_intents": true,
+                  "real_gesture_binary": true,
+                  "real_gestures": false,
+                  "details": {
+                    "input": "/system/bin/input",
+                    "input_exists": true,
+                    "am": "/system/bin/am",
+                    "am_exists": true,
+                    "real_gestures_binary": true,
+                    "real_gestures_permission": false
+                  }
+                },
+                "git": {
+                  "real": true,
+                  "details": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/router.py\n?? executor/auto_mission_executor.py\n",
+                    "stderr": ""
+                  }
+                },
+                "code": {
+                  "real": true,
+                  "broken": []
+                },
+                "app_factory": {
+                  "real": true,
+                  "apps": [
+                    {
+                      "name": "testapp",
+                      "title": "test app",
+                      "path": "generated_apps/testapp",
+                      "url": "/apps/testapp/",
+                      "created": 1780158566
+                    }
+                  ]
+                },
+                "summary": {
+                  "real_now": [
+                    "internet_search",
+                    "browser_read",
+                    "android_intents",
+                    "git_status",
+                    "code_compile",
+                    "app_factory"
+                  ],
+                  "blocked_or_partial": [
+                    "android_tap_swipe_without_INJECT_EVENTS",
+                    "real_login_without_browser_driver",
+                    "real_hosting_deploy_without_provider_credentials"
+                  ]
+                }
+              },
+              "time": 1780343988.6494215
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780323331619645673,
+            "title": "Check companion",
+            "action": "companion_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780323331.6196465,
+            "started": 1780344211.5425172,
+            "finished": 1780344211.5720885,
+            "result": {
+              "ok": true,
+              "action": "companion_status",
+              "result": {
+                "package": "com.nous.companion",
+                "receiver": "com.nous.companion/.CommandReceiver",
+                "available": true,
+                "commands": [
+                  "home",
+                  "back",
+                  "ui_tree",
+                  "tap"
+                ],
+                "time": 1780344211.5527694
+              },
+              "time": 1780344211.5527773
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780323331619650049,
+            "title": "Full validation",
+            "action": "full_validation",
+            "payload": {},
+            "status": "done",
+            "created": 1780323331.6196506,
+            "started": 1780344211.5901456,
+            "finished": 1780344221.0914252,
+            "result": {
+              "ok": true,
+              "action": "full_validation",
+              "result": {
+                "time": 1780344211.591801,
+                "code_health": {
+                  "time": 1780344212.8638384,
+                  "compile": {
+                    "executor/router.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/intent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/tools.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/scheduler_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomous_loop.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomy_service.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/task_queue.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/goal_executor.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/project_progress.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/runtime_metrics.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/curiosity_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/learning_engine.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    }
+                  },
+                  "git": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                    "stderr": ""
+                  }
+                },
+                "reality": {
+                  "time": 1780344212.86627,
+                  "internet": {
+                    "real": true,
+                    "details": {
+                      "query": "Python Flask",
+                      "results": [
+                        {
+                          "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                          "url": "https://flask.palletsprojects.com/"
+                        },
+                        {
+                          "title": "Flask Tutorial - GeeksforGeeks",
+                          "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                        },
+                        {
+                          "title": "Installation — Flask Documentation (3.1.x)",
+                          "url": "https://flask.palletsprojects.com/en/stable/installation/"
+                        },
+                        {
+                          "title": "Flask · PyPI",
+                          "url": "https://pypi.org/project/Flask/"
+                        },
+                        {
+                          "title": "Flask (web framework) - Wikipedia",
+                          "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                        }
+                      ]
+                    }
+                  },
+                  "browser_read": {
+                    "real": true,
+                    "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+                  },
+                  "android": {
+                    "real_intents": true,
+                    "real_gesture_binary": true,
+                    "real_gestures": false,
+                    "details": {
+                      "input": "/system/bin/input",
+                      "input_exists": true,
+                      "am": "/system/bin/am",
+                      "am_exists": true,
+                      "real_gestures_binary": true,
+                      "real_gestures_permission": false
+                    }
+                  },
+                  "git": {
+                    "real": true,
+                    "details": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                      "stderr": ""
+                    }
+                  },
+                  "code": {
+                    "real": true,
+                    "broken": []
+                  },
+                  "app_factory": {
+                    "real": true,
+                    "apps": [
+                      {
+                        "name": "testapp",
+                        "title": "test app",
+                        "path": "generated_apps/testapp",
+                        "url": "/apps/testapp/",
+                        "created": 1780158566
+                      }
+                    ]
+                  },
+                  "summary": {
+                    "real_now": [
+                      "internet_search",
+                      "browser_read",
+                      "android_intents",
+                      "git_status",
+                      "code_compile",
+                      "app_factory"
+                    ],
+                    "blocked_or_partial": [
+                      "android_tap_swipe_without_INJECT_EVENTS",
+                      "real_login_without_browser_driver",
+                      "real_hosting_deploy_without_provider_credentials"
+                    ]
+                  }
+                },
+                "git": {
+                  "time": 1780344216.0784233,
+                  "git": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                    "stderr": ""
+                  },
+                  "health": {
+                    "time": 1780344217.2944279,
+                    "compile": {
+                      "executor/router.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/intent.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/tools.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/scheduler_agent.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/autonomous_loop.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/autonomy_service.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/task_queue.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/goal_executor.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/project_progress.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/runtime_metrics.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/curiosity_agent.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/learning_engine.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      }
+                    },
+                    "git": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                      "stderr": ""
+                    }
+                  }
+                },
+                "vercel": {
+                  "installed": true,
+                  "logged_in": true,
+                  "version": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "54.6.1\n",
+                    "stderr": "Vercel CLI 54.6.1\n"
+                  },
+                  "whoami": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "traianos1985-6056\n",
+                    "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\n"
+                  },
+                  "deployments": [
+                    {
+                      "id": 1780240417138660985,
+                      "path": "vercel_test_app",
+                      "prod": true,
+                      "ok": true,
+                      "urls": [
+                        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH",
+                        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "https://verceltestapp-eosin.vercel.app"
+                      ],
+                      "created": 1780240417.1386642,
+                      "result": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\nRetrieving project…\nDeploying traianos1985-6056s-projects/vercel_test_app\n  Inspect     https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH\n▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nBuilding…\nBuilding…\nRunning build in Washington, D.C., USA (East) – iad1\nBuild machine configuration: 2 cores, 8 GB\nRetrieving list of deployment files...\nPrevious build caches not available.\nDownloading 2 deployment files...\nRunning \"vercel build\"\nVercel CLI 54.4.1\nBuild Completed in /vercel/output [23ms]\nDeploying outputs...\n\u001b[2K\u001b[1A\u001b[2K\u001b[G▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nCompleting…\n▲ Aliased     https://verceltestapp-eosin.vercel.app\n\n✓ Ready in 5s\n"
+                      }
+                    }
+                  ],
+                  "time": 1780344220.9969163
+                },
+                "companion": {
+                  "package": "com.nous.companion",
+                  "receiver": "com.nous.companion/.CommandReceiver",
+                  "available": true,
+                  "commands": [
+                    "home",
+                    "back",
+                    "ui_tree",
+                    "tap"
+                  ],
+                  "time": 1780344220.9969423
+                }
+              },
+              "time": 1780344221.0686827
+            },
+            "requires_approval": false,
+            "approved": false
+          }
+        ],
+        "approvals": [],
+        "result": "all_tasks_done"
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323331619634628",
+      "label": "Check code health",
+      "data": {
+        "id": 1780323331619634628,
+        "title": "Check code health",
+        "action": "code_health",
+        "payload": {},
+        "status": "done",
+        "created": 1780323331.6196368,
+        "started": 1780323331.6301494,
+        "finished": 1780323332.9852033,
+        "result": {
+          "ok": true,
+          "action": "code_health",
+          "result": {
+            "time": 1780323332.9303248,
+            "compile": {
+              "executor/router.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/intent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/tools.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/scheduler_agent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/autonomous_loop.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/autonomy_service.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/task_queue.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/goal_executor.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/project_progress.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/runtime_metrics.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/curiosity_agent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/learning_engine.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              }
+            },
+            "git": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/agent_journal.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+              "stderr": ""
+            }
+          },
+          "time": 1780323332.9723804
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323331619640671",
+      "label": "Check git status",
+      "data": {
+        "id": 1780323331619640671,
+        "title": "Check git status",
+        "action": "git_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780323331.6196423,
+        "started": 1780323332.997445,
+        "finished": 1780323334.2991285,
+        "result": {
+          "ok": true,
+          "action": "git_status",
+          "result": {
+            "time": 1780323332.9979475,
+            "git": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/agent_journal.json\n M data/memory.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+              "stderr": ""
+            },
+            "health": {
+              "time": 1780323334.2764466,
+              "compile": {
+                "executor/router.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/intent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/tools.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/scheduler_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomous_loop.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomy_service.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/task_queue.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/goal_executor.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/project_progress.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/runtime_metrics.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/curiosity_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/learning_engine.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                }
+              },
+              "git": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/agent_journal.json\n M data/memory.json\n M executor/router.py\n?? data/missions.json\n?? executor/mission_system.py\n",
+                "stderr": ""
+              }
+            }
+          },
+          "time": 1780323334.2896388
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323331619643849",
+      "label": "Check reality gate",
+      "data": {
+        "id": 1780323331619643849,
+        "title": "Check reality gate",
+        "action": "reality_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780323331.6196446,
+        "started": 1780343984.9602726,
+        "finished": 1780343988.6579332,
+        "result": {
+          "ok": true,
+          "action": "reality_status",
+          "result": {
+            "time": 1780343984.9613976,
+            "internet": {
+              "real": true,
+              "details": {
+                "query": "Python Flask",
+                "results": [
+                  {
+                    "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                    "url": "https://flask.palletsprojects.com/"
+                  },
+                  {
+                    "title": "Flask Tutorial - GeeksforGeeks",
+                    "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                  },
+                  {
+                    "title": "Flask · PyPI",
+                    "url": "https://pypi.org/project/Flask/"
+                  },
+                  {
+                    "title": "Flask (web framework) - Wikipedia",
+                    "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                  },
+                  {
+                    "title": "How To Build a Web Application Using Flask in Python 3",
+                    "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                  }
+                ]
+              }
+            },
+            "browser_read": {
+              "real": true,
+              "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+            },
+            "android": {
+              "real_intents": true,
+              "real_gesture_binary": true,
+              "real_gestures": false,
+              "details": {
+                "input": "/system/bin/input",
+                "input_exists": true,
+                "am": "/system/bin/am",
+                "am_exists": true,
+                "real_gestures_binary": true,
+                "real_gestures_permission": false
+              }
+            },
+            "git": {
+              "real": true,
+              "details": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/router.py\n?? executor/auto_mission_executor.py\n",
+                "stderr": ""
+              }
+            },
+            "code": {
+              "real": true,
+              "broken": []
+            },
+            "app_factory": {
+              "real": true,
+              "apps": [
+                {
+                  "name": "testapp",
+                  "title": "test app",
+                  "path": "generated_apps/testapp",
+                  "url": "/apps/testapp/",
+                  "created": 1780158566
+                }
+              ]
+            },
+            "summary": {
+              "real_now": [
+                "internet_search",
+                "browser_read",
+                "android_intents",
+                "git_status",
+                "code_compile",
+                "app_factory"
+              ],
+              "blocked_or_partial": [
+                "android_tap_swipe_without_INJECT_EVENTS",
+                "real_login_without_browser_driver",
+                "real_hosting_deploy_without_provider_credentials"
+              ]
+            }
+          },
+          "time": 1780343988.6494215
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323331619645673",
+      "label": "Check companion",
+      "data": {
+        "id": 1780323331619645673,
+        "title": "Check companion",
+        "action": "companion_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780323331.6196465,
+        "started": 1780344211.5425172,
+        "finished": 1780344211.5720885,
+        "result": {
+          "ok": true,
+          "action": "companion_status",
+          "result": {
+            "package": "com.nous.companion",
+            "receiver": "com.nous.companion/.CommandReceiver",
+            "available": true,
+            "commands": [
+              "home",
+              "back",
+              "ui_tree",
+              "tap"
+            ],
+            "time": 1780344211.5527694
+          },
+          "time": 1780344211.5527773
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323331619650049",
+      "label": "Full validation",
+      "data": {
+        "id": 1780323331619650049,
+        "title": "Full validation",
+        "action": "full_validation",
+        "payload": {},
+        "status": "done",
+        "created": 1780323331.6196506,
+        "started": 1780344211.5901456,
+        "finished": 1780344221.0914252,
+        "result": {
+          "ok": true,
+          "action": "full_validation",
+          "result": {
+            "time": 1780344211.591801,
+            "code_health": {
+              "time": 1780344212.8638384,
+              "compile": {
+                "executor/router.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/intent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/tools.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/scheduler_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomous_loop.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomy_service.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/task_queue.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/goal_executor.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/project_progress.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/runtime_metrics.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/curiosity_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/learning_engine.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                }
+              },
+              "git": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                "stderr": ""
+              }
+            },
+            "reality": {
+              "time": 1780344212.86627,
+              "internet": {
+                "real": true,
+                "details": {
+                  "query": "Python Flask",
+                  "results": [
+                    {
+                      "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                      "url": "https://flask.palletsprojects.com/"
+                    },
+                    {
+                      "title": "Flask Tutorial - GeeksforGeeks",
+                      "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                    },
+                    {
+                      "title": "Installation — Flask Documentation (3.1.x)",
+                      "url": "https://flask.palletsprojects.com/en/stable/installation/"
+                    },
+                    {
+                      "title": "Flask · PyPI",
+                      "url": "https://pypi.org/project/Flask/"
+                    },
+                    {
+                      "title": "Flask (web framework) - Wikipedia",
+                      "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                    }
+                  ]
+                }
+              },
+              "browser_read": {
+                "real": true,
+                "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+              },
+              "android": {
+                "real_intents": true,
+                "real_gesture_binary": true,
+                "real_gestures": false,
+                "details": {
+                  "input": "/system/bin/input",
+                  "input_exists": true,
+                  "am": "/system/bin/am",
+                  "am_exists": true,
+                  "real_gestures_binary": true,
+                  "real_gestures_permission": false
+                }
+              },
+              "git": {
+                "real": true,
+                "details": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                  "stderr": ""
+                }
+              },
+              "code": {
+                "real": true,
+                "broken": []
+              },
+              "app_factory": {
+                "real": true,
+                "apps": [
+                  {
+                    "name": "testapp",
+                    "title": "test app",
+                    "path": "generated_apps/testapp",
+                    "url": "/apps/testapp/",
+                    "created": 1780158566
+                  }
+                ]
+              },
+              "summary": {
+                "real_now": [
+                  "internet_search",
+                  "browser_read",
+                  "android_intents",
+                  "git_status",
+                  "code_compile",
+                  "app_factory"
+                ],
+                "blocked_or_partial": [
+                  "android_tap_swipe_without_INJECT_EVENTS",
+                  "real_login_without_browser_driver",
+                  "real_hosting_deploy_without_provider_credentials"
+                ]
+              }
+            },
+            "git": {
+              "time": 1780344216.0784233,
+              "git": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                "stderr": ""
+              },
+              "health": {
+                "time": 1780344217.2944279,
+                "compile": {
+                  "executor/router.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/intent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/tools.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/scheduler_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomous_loop.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomy_service.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/task_queue.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/goal_executor.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/project_progress.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/runtime_metrics.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/curiosity_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/learning_engine.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                },
+                "git": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                  "stderr": ""
+                }
+              }
+            },
+            "vercel": {
+              "installed": true,
+              "logged_in": true,
+              "version": {
+                "ok": true,
+                "code": 0,
+                "stdout": "54.6.1\n",
+                "stderr": "Vercel CLI 54.6.1\n"
+              },
+              "whoami": {
+                "ok": true,
+                "code": 0,
+                "stdout": "traianos1985-6056\n",
+                "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\n"
+              },
+              "deployments": [
+                {
+                  "id": 1780240417138660985,
+                  "path": "vercel_test_app",
+                  "prod": true,
+                  "ok": true,
+                  "urls": [
+                    "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH",
+                    "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "https://verceltestapp-eosin.vercel.app"
+                  ],
+                  "created": 1780240417.1386642,
+                  "result": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\nRetrieving project…\nDeploying traianos1985-6056s-projects/vercel_test_app\n  Inspect     https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH\n▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nBuilding…\nBuilding…\nRunning build in Washington, D.C., USA (East) – iad1\nBuild machine configuration: 2 cores, 8 GB\nRetrieving list of deployment files...\nPrevious build caches not available.\nDownloading 2 deployment files...\nRunning \"vercel build\"\nVercel CLI 54.4.1\nBuild Completed in /vercel/output [23ms]\nDeploying outputs...\n\u001b[2K\u001b[1A\u001b[2K\u001b[G▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nCompleting…\n▲ Aliased     https://verceltestapp-eosin.vercel.app\n\n✓ Ready in 5s\n"
+                  }
+                }
+              ],
+              "time": 1780344220.9969163
+            },
+            "companion": {
+              "package": "com.nous.companion",
+              "receiver": "com.nous.companion/.CommandReceiver",
+              "available": true,
+              "commands": [
+                "home",
+                "back",
+                "ui_tree",
+                "tap"
+              ],
+              "time": 1780344220.9969423
+            }
+          },
+          "time": 1780344221.0686827
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "mission",
+      "id": "mission:1780323843630738235",
+      "label": "Android companion mission",
+      "data": {
+        "id": 1780323843630738235,
+        "title": "Android companion mission",
+        "description": "έλεγξε το android companion",
+        "status": "done",
+        "created": 1780323843.630739,
+        "updated": 1780344235.250695,
+        "tasks": [
+          {
+            "id": 1780323843630740787,
+            "title": "Check companion status",
+            "action": "companion_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780323843.6307425,
+            "started": 1780344229.9786284,
+            "finished": 1780344230.0126135,
+            "result": {
+              "ok": true,
+              "action": "companion_status",
+              "result": {
+                "package": "com.nous.companion",
+                "receiver": "com.nous.companion/.CommandReceiver",
+                "available": true,
+                "commands": [
+                  "home",
+                  "back",
+                  "ui_tree",
+                  "tap"
+                ],
+                "time": 1780344229.988774
+              },
+              "time": 1780344229.9887831
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780323843630745059,
+            "title": "Request UI tree",
+            "action": "companion_ui_tree",
+            "payload": {},
+            "status": "done",
+            "created": 1780323843.6307466,
+            "started": 1780344230.0400884,
+            "finished": 1780344232.1963668,
+            "result": {
+              "ok": true,
+              "action": "companion_ui_tree",
+              "result": {
+                "ok": true,
+                "command": "ui_tree",
+                "result": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "Broadcasting: Intent { act=com.nous.companion.COMMAND cmp=com.nous.companion/.CommandReceiver (has extras) }\nBroadcast completed: result=0\n",
+                  "stderr": ""
+                },
+                "time": 1780344232.1757457
+              },
+              "time": 1780344232.1757483
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780323843630748081,
+            "title": "Run reality check",
+            "action": "reality_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780323843.630749,
+            "started": 1780344232.2211475,
+            "finished": 1780344235.2506785,
+            "result": {
+              "ok": true,
+              "action": "reality_status",
+              "result": {
+                "time": 1780344232.223034,
+                "internet": {
+                  "real": true,
+                  "details": {
+                    "query": "Python Flask",
+                    "results": [
+                      {
+                        "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                        "url": "https://flask.palletsprojects.com/"
+                      },
+                      {
+                        "title": "Flask Tutorial - GeeksforGeeks",
+                        "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                      },
+                      {
+                        "title": "Flask · PyPI",
+                        "url": "https://pypi.org/project/Flask/"
+                      },
+                      {
+                        "title": "How To Build a Web Application Using Flask in Python 3",
+                        "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                      },
+                      {
+                        "title": "Flask (web framework) - Wikipedia",
+                        "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                      }
+                    ]
+                  }
+                },
+                "browser_read": {
+                  "real": true,
+                  "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+                },
+                "android": {
+                  "real_intents": true,
+                  "real_gesture_binary": true,
+                  "real_gestures": false,
+                  "details": {
+                    "input": "/system/bin/input",
+                    "input_exists": true,
+                    "am": "/system/bin/am",
+                    "am_exists": true,
+                    "real_gestures_binary": true,
+                    "real_gestures_permission": false
+                  }
+                },
+                "git": {
+                  "real": true,
+                  "details": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                    "stderr": ""
+                  }
+                },
+                "code": {
+                  "real": true,
+                  "broken": []
+                },
+                "app_factory": {
+                  "real": true,
+                  "apps": [
+                    {
+                      "name": "testapp",
+                      "title": "test app",
+                      "path": "generated_apps/testapp",
+                      "url": "/apps/testapp/",
+                      "created": 1780158566
+                    }
+                  ]
+                },
+                "summary": {
+                  "real_now": [
+                    "internet_search",
+                    "browser_read",
+                    "android_intents",
+                    "git_status",
+                    "code_compile",
+                    "app_factory"
+                  ],
+                  "blocked_or_partial": [
+                    "android_tap_swipe_without_INJECT_EVENTS",
+                    "real_login_without_browser_driver",
+                    "real_hosting_deploy_without_provider_credentials"
+                  ]
+                }
+              },
+              "time": 1780344235.2036421
+            },
+            "requires_approval": false,
+            "approved": false
+          }
+        ],
+        "approvals": [],
+        "result": "all_tasks_done"
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323843630740787",
+      "label": "Check companion status",
+      "data": {
+        "id": 1780323843630740787,
+        "title": "Check companion status",
+        "action": "companion_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780323843.6307425,
+        "started": 1780344229.9786284,
+        "finished": 1780344230.0126135,
+        "result": {
+          "ok": true,
+          "action": "companion_status",
+          "result": {
+            "package": "com.nous.companion",
+            "receiver": "com.nous.companion/.CommandReceiver",
+            "available": true,
+            "commands": [
+              "home",
+              "back",
+              "ui_tree",
+              "tap"
+            ],
+            "time": 1780344229.988774
+          },
+          "time": 1780344229.9887831
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323843630745059",
+      "label": "Request UI tree",
+      "data": {
+        "id": 1780323843630745059,
+        "title": "Request UI tree",
+        "action": "companion_ui_tree",
+        "payload": {},
+        "status": "done",
+        "created": 1780323843.6307466,
+        "started": 1780344230.0400884,
+        "finished": 1780344232.1963668,
+        "result": {
+          "ok": true,
+          "action": "companion_ui_tree",
+          "result": {
+            "ok": true,
+            "command": "ui_tree",
+            "result": {
+              "ok": true,
+              "code": 0,
+              "stdout": "Broadcasting: Intent { act=com.nous.companion.COMMAND cmp=com.nous.companion/.CommandReceiver (has extras) }\nBroadcast completed: result=0\n",
+              "stderr": ""
+            },
+            "time": 1780344232.1757457
+          },
+          "time": 1780344232.1757483
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780323843630748081",
+      "label": "Run reality check",
+      "data": {
+        "id": 1780323843630748081,
+        "title": "Run reality check",
+        "action": "reality_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780323843.630749,
+        "started": 1780344232.2211475,
+        "finished": 1780344235.2506785,
+        "result": {
+          "ok": true,
+          "action": "reality_status",
+          "result": {
+            "time": 1780344232.223034,
+            "internet": {
+              "real": true,
+              "details": {
+                "query": "Python Flask",
+                "results": [
+                  {
+                    "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                    "url": "https://flask.palletsprojects.com/"
+                  },
+                  {
+                    "title": "Flask Tutorial - GeeksforGeeks",
+                    "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                  },
+                  {
+                    "title": "Flask · PyPI",
+                    "url": "https://pypi.org/project/Flask/"
+                  },
+                  {
+                    "title": "How To Build a Web Application Using Flask in Python 3",
+                    "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                  },
+                  {
+                    "title": "Flask (web framework) - Wikipedia",
+                    "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                  }
+                ]
+              }
+            },
+            "browser_read": {
+              "real": true,
+              "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+            },
+            "android": {
+              "real_intents": true,
+              "real_gesture_binary": true,
+              "real_gestures": false,
+              "details": {
+                "input": "/system/bin/input",
+                "input_exists": true,
+                "am": "/system/bin/am",
+                "am_exists": true,
+                "real_gestures_binary": true,
+                "real_gestures_permission": false
+              }
+            },
+            "git": {
+              "real": true,
+              "details": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/agent_journal.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_executor.json\n?? executor/auto_mission_executor.py\n",
+                "stderr": ""
+              }
+            },
+            "code": {
+              "real": true,
+              "broken": []
+            },
+            "app_factory": {
+              "real": true,
+              "apps": [
+                {
+                  "name": "testapp",
+                  "title": "test app",
+                  "path": "generated_apps/testapp",
+                  "url": "/apps/testapp/",
+                  "created": 1780158566
+                }
+              ]
+            },
+            "summary": {
+              "real_now": [
+                "internet_search",
+                "browser_read",
+                "android_intents",
+                "git_status",
+                "code_compile",
+                "app_factory"
+              ],
+              "blocked_or_partial": [
+                "android_tap_swipe_without_INJECT_EVENTS",
+                "real_login_without_browser_driver",
+                "real_hosting_deploy_without_provider_credentials"
+              ]
+            }
+          },
+          "time": 1780344235.2036421
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "mission",
+      "id": "mission:1780326125156417827",
+      "label": "Android companion mission",
+      "data": {
+        "id": 1780326125156417827,
+        "title": "Android companion mission",
+        "description": "έλεγξε το android companion",
+        "status": "done",
+        "created": 1780326125.1564193,
+        "updated": 1780345069.4653392,
+        "tasks": [
+          {
+            "id": 1780326125156421525,
+            "title": "Check companion status",
+            "action": "companion_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780326125.1564233,
+            "started": 1780326125.1738174,
+            "finished": 1780326125.1813445,
+            "result": {
+              "ok": true,
+              "action": "companion_status",
+              "result": {
+                "package": "com.nous.companion",
+                "receiver": "com.nous.companion/.CommandReceiver",
+                "available": true,
+                "commands": [
+                  "home",
+                  "back",
+                  "ui_tree",
+                  "tap"
+                ],
+                "time": 1780326125.1745012
+              },
+              "time": 1780326125.1745021
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780326125156427672,
+            "title": "Request UI tree",
+            "action": "companion_ui_tree",
+            "payload": {},
+            "status": "done",
+            "created": 1780326125.1564298,
+            "started": 1780344855.4951766,
+            "finished": 1780344856.9028687,
+            "result": {
+              "ok": true,
+              "action": "companion_ui_tree",
+              "result": {
+                "ok": true,
+                "command": "ui_tree",
+                "result": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "Broadcasting: Intent { act=com.nous.companion.COMMAND cmp=com.nous.companion/.CommandReceiver (has extras) }\nBroadcast completed: result=0\n",
+                  "stderr": ""
+                },
+                "time": 1780344856.8772812
+              },
+              "time": 1780344856.8772874
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780326125156431266,
+            "title": "Run reality check",
+            "action": "reality_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780326125.156432,
+            "started": 1780345065.928948,
+            "finished": 1780345069.465321,
+            "result": {
+              "ok": true,
+              "action": "reality_status",
+              "result": {
+                "time": 1780345065.9409459,
+                "internet": {
+                  "real": true,
+                  "details": {
+                    "query": "Python Flask",
+                    "results": [
+                      {
+                        "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                        "url": "https://flask.palletsprojects.com/"
+                      },
+                      {
+                        "title": "Flask Tutorial - GeeksforGeeks",
+                        "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                      },
+                      {
+                        "title": "Flask · PyPI",
+                        "url": "https://pypi.org/project/Flask/"
+                      },
+                      {
+                        "title": "How To Build a Web Application Using Flask in Python 3",
+                        "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                      },
+                      {
+                        "title": "Flask (web framework) - Wikipedia",
+                        "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                      }
+                    ]
+                  }
+                },
+                "browser_read": {
+                  "real": true,
+                  "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+                },
+                "android": {
+                  "real_intents": true,
+                  "real_gesture_binary": true,
+                  "real_gestures": false,
+                  "details": {
+                    "input": "/system/bin/input",
+                    "input_exists": true,
+                    "am": "/system/bin/am",
+                    "am_exists": true,
+                    "real_gestures_binary": true,
+                    "real_gestures_permission": false
+                  }
+                },
+                "git": {
+                  "real": true,
+                  "details": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+                    "stderr": ""
+                  }
+                },
+                "code": {
+                  "real": true,
+                  "broken": []
+                },
+                "app_factory": {
+                  "real": true,
+                  "apps": [
+                    {
+                      "name": "testapp",
+                      "title": "test app",
+                      "path": "generated_apps/testapp",
+                      "url": "/apps/testapp/",
+                      "created": 1780158566
+                    }
+                  ]
+                },
+                "summary": {
+                  "real_now": [
+                    "internet_search",
+                    "browser_read",
+                    "android_intents",
+                    "git_status",
+                    "code_compile",
+                    "app_factory"
+                  ],
+                  "blocked_or_partial": [
+                    "android_tap_swipe_without_INJECT_EVENTS",
+                    "real_login_without_browser_driver",
+                    "real_hosting_deploy_without_provider_credentials"
+                  ]
+                }
+              },
+              "time": 1780345069.4530082
+            },
+            "requires_approval": false,
+            "approved": false
+          }
+        ],
+        "approvals": [],
+        "result": "all_tasks_done"
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780326125156421525",
+      "label": "Check companion status",
+      "data": {
+        "id": 1780326125156421525,
+        "title": "Check companion status",
+        "action": "companion_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780326125.1564233,
+        "started": 1780326125.1738174,
+        "finished": 1780326125.1813445,
+        "result": {
+          "ok": true,
+          "action": "companion_status",
+          "result": {
+            "package": "com.nous.companion",
+            "receiver": "com.nous.companion/.CommandReceiver",
+            "available": true,
+            "commands": [
+              "home",
+              "back",
+              "ui_tree",
+              "tap"
+            ],
+            "time": 1780326125.1745012
+          },
+          "time": 1780326125.1745021
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780326125156427672",
+      "label": "Request UI tree",
+      "data": {
+        "id": 1780326125156427672,
+        "title": "Request UI tree",
+        "action": "companion_ui_tree",
+        "payload": {},
+        "status": "done",
+        "created": 1780326125.1564298,
+        "started": 1780344855.4951766,
+        "finished": 1780344856.9028687,
+        "result": {
+          "ok": true,
+          "action": "companion_ui_tree",
+          "result": {
+            "ok": true,
+            "command": "ui_tree",
+            "result": {
+              "ok": true,
+              "code": 0,
+              "stdout": "Broadcasting: Intent { act=com.nous.companion.COMMAND cmp=com.nous.companion/.CommandReceiver (has extras) }\nBroadcast completed: result=0\n",
+              "stderr": ""
+            },
+            "time": 1780344856.8772812
+          },
+          "time": 1780344856.8772874
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780326125156431266",
+      "label": "Run reality check",
+      "data": {
+        "id": 1780326125156431266,
+        "title": "Run reality check",
+        "action": "reality_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780326125.156432,
+        "started": 1780345065.928948,
+        "finished": 1780345069.465321,
+        "result": {
+          "ok": true,
+          "action": "reality_status",
+          "result": {
+            "time": 1780345065.9409459,
+            "internet": {
+              "real": true,
+              "details": {
+                "query": "Python Flask",
+                "results": [
+                  {
+                    "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                    "url": "https://flask.palletsprojects.com/"
+                  },
+                  {
+                    "title": "Flask Tutorial - GeeksforGeeks",
+                    "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                  },
+                  {
+                    "title": "Flask · PyPI",
+                    "url": "https://pypi.org/project/Flask/"
+                  },
+                  {
+                    "title": "How To Build a Web Application Using Flask in Python 3",
+                    "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                  },
+                  {
+                    "title": "Flask (web framework) - Wikipedia",
+                    "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                  }
+                ]
+              }
+            },
+            "browser_read": {
+              "real": true,
+              "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+            },
+            "android": {
+              "real_intents": true,
+              "real_gesture_binary": true,
+              "real_gestures": false,
+              "details": {
+                "input": "/system/bin/input",
+                "input_exists": true,
+                "am": "/system/bin/am",
+                "am_exists": true,
+                "real_gestures_binary": true,
+                "real_gestures_permission": false
+              }
+            },
+            "git": {
+              "real": true,
+              "details": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+                "stderr": ""
+              }
+            },
+            "code": {
+              "real": true,
+              "broken": []
+            },
+            "app_factory": {
+              "real": true,
+              "apps": [
+                {
+                  "name": "testapp",
+                  "title": "test app",
+                  "path": "generated_apps/testapp",
+                  "url": "/apps/testapp/",
+                  "created": 1780158566
+                }
+              ]
+            },
+            "summary": {
+              "real_now": [
+                "internet_search",
+                "browser_read",
+                "android_intents",
+                "git_status",
+                "code_compile",
+                "app_factory"
+              ],
+              "blocked_or_partial": [
+                "android_tap_swipe_without_INJECT_EVENTS",
+                "real_login_without_browser_driver",
+                "real_hosting_deploy_without_provider_credentials"
+              ]
+            }
+          },
+          "time": 1780345069.4530082
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "mission",
+      "id": "mission:1780326802824661037",
+      "label": "Deploy verification",
+      "data": {
+        "id": 1780326802824661037,
+        "title": "Deploy verification",
+        "description": "Check deploy backend and optionally deploy test app.",
+        "status": "blocked",
+        "created": 1780326802.8246634,
+        "updated": 1780326810.5474324,
+        "tasks": [
+          {
+            "id": 1780326802824667339,
+            "title": "Vercel status",
+            "action": "vercel_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780326802.8246696,
+            "started": 1780326802.8404543,
+            "finished": 1780326810.5295315,
+            "result": {
+              "ok": true,
+              "action": "vercel_status",
+              "result": {
+                "installed": true,
+                "logged_in": true,
+                "version": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "54.6.1\n",
+                  "stderr": "Vercel CLI 54.6.1\n"
+                },
+                "whoami": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "traianos1985-6056\n",
+                  "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\n"
+                },
+                "deployments": [
+                  {
+                    "id": 1780240417138660985,
+                    "path": "vercel_test_app",
+                    "prod": true,
+                    "ok": true,
+                    "urls": [
+                      "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                      "https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH",
+                      "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                      "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                      "https://verceltestapp-eosin.vercel.app"
+                    ],
+                    "created": 1780240417.1386642,
+                    "result": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                      "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\nRetrieving project…\nDeploying traianos1985-6056s-projects/vercel_test_app\n  Inspect     https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH\n▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nBuilding…\nBuilding…\nRunning build in Washington, D.C., USA (East) – iad1\nBuild machine configuration: 2 cores, 8 GB\nRetrieving list of deployment files...\nPrevious build caches not available.\nDownloading 2 deployment files...\nRunning \"vercel build\"\nVercel CLI 54.4.1\nBuild Completed in /vercel/output [23ms]\nDeploying outputs...\n\u001b[2K\u001b[1A\u001b[2K\u001b[G▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nCompleting…\n▲ Aliased     https://verceltestapp-eosin.vercel.app\n\n✓ Ready in 5s\n"
+                    }
+                  }
+                ],
+                "time": 1780326810.495153
+              },
+              "time": 1780326810.495164
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780326802824673069,
+            "title": "Deploy test app",
+            "action": "deploy_vercel_test_app",
+            "payload": {},
+            "status": "waiting_approval",
+            "created": 1780326802.8246746,
+            "started": null,
+            "finished": null,
+            "result": null,
+            "requires_approval": true,
+            "approved": false
+          }
+        ],
+        "approvals": [],
+        "result": null
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780326802824667339",
+      "label": "Vercel status",
+      "data": {
+        "id": 1780326802824667339,
+        "title": "Vercel status",
+        "action": "vercel_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780326802.8246696,
+        "started": 1780326802.8404543,
+        "finished": 1780326810.5295315,
+        "result": {
+          "ok": true,
+          "action": "vercel_status",
+          "result": {
+            "installed": true,
+            "logged_in": true,
+            "version": {
+              "ok": true,
+              "code": 0,
+              "stdout": "54.6.1\n",
+              "stderr": "Vercel CLI 54.6.1\n"
+            },
+            "whoami": {
+              "ok": true,
+              "code": 0,
+              "stdout": "traianos1985-6056\n",
+              "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\n"
+            },
+            "deployments": [
+              {
+                "id": 1780240417138660985,
+                "path": "vercel_test_app",
+                "prod": true,
+                "ok": true,
+                "urls": [
+                  "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                  "https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH",
+                  "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                  "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                  "https://verceltestapp-eosin.vercel.app"
+                ],
+                "created": 1780240417.1386642,
+                "result": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                  "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\nRetrieving project…\nDeploying traianos1985-6056s-projects/vercel_test_app\n  Inspect     https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH\n▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nBuilding…\nBuilding…\nRunning build in Washington, D.C., USA (East) – iad1\nBuild machine configuration: 2 cores, 8 GB\nRetrieving list of deployment files...\nPrevious build caches not available.\nDownloading 2 deployment files...\nRunning \"vercel build\"\nVercel CLI 54.4.1\nBuild Completed in /vercel/output [23ms]\nDeploying outputs...\n\u001b[2K\u001b[1A\u001b[2K\u001b[G▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nCompleting…\n▲ Aliased     https://verceltestapp-eosin.vercel.app\n\n✓ Ready in 5s\n"
+                }
+              }
+            ],
+            "time": 1780326810.495153
+          },
+          "time": 1780326810.495164
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780326802824673069",
+      "label": "Deploy test app",
+      "data": {
+        "id": 1780326802824673069,
+        "title": "Deploy test app",
+        "action": "deploy_vercel_test_app",
+        "payload": {},
+        "status": "waiting_approval",
+        "created": 1780326802.8246746,
+        "started": null,
+        "finished": null,
+        "result": null,
+        "requires_approval": true,
+        "approved": false
+      }
+    },
+    {
+      "type": "mission",
+      "id": "mission:1780341318766849492",
+      "label": "Advance goal: Improve NOUS user interface",
+      "data": {
+        "id": 1780341318766849492,
+        "title": "Advance goal: Improve NOUS user interface",
+        "description": "Auto-proposed mission to advance goal progress for: Improve NOUS user interface",
+        "status": "done",
+        "created": 1780341318.7668524,
+        "updated": 1780410781.52738,
+        "tasks": [
+          {
+            "id": 1780341318766856836,
+            "title": "Check code health",
+            "action": "code_health",
+            "payload": {},
+            "status": "done",
+            "created": 1780341318.7668595,
+            "started": 1780345069.8633375,
+            "finished": 1780345071.1695876,
+            "result": {
+              "ok": true,
+              "action": "code_health",
+              "result": {
+                "time": 1780345071.096653,
+                "compile": {
+                  "executor/router.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/intent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/tools.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/scheduler_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomous_loop.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomy_service.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/task_queue.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/goal_executor.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/project_progress.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/runtime_metrics.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/curiosity_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/learning_engine.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                },
+                "git": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+                  "stderr": ""
+                }
+              },
+              "time": 1780345071.1514425
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780341318766866003,
+            "title": "Check git status",
+            "action": "git_status",
+            "payload": {},
+            "status": "done",
+            "created": 1780341318.766868,
+            "started": 1780345073.81995,
+            "finished": 1780345075.1278489,
+            "result": {
+              "ok": true,
+              "action": "git_status",
+              "result": {
+                "time": 1780345073.8398857,
+                "git": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+                  "stderr": ""
+                },
+                "health": {
+                  "time": 1780345075.0359113,
+                  "compile": {
+                    "executor/router.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/intent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/tools.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/scheduler_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomous_loop.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomy_service.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/task_queue.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/goal_executor.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/project_progress.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/runtime_metrics.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/curiosity_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/learning_engine.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    }
+                  },
+                  "git": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+                    "stderr": ""
+                  }
+                }
+              },
+              "time": 1780345075.0456195
+            },
+            "requires_approval": false,
+            "approved": false
+          },
+          {
+            "id": 1780341318766870588,
+            "title": "Run full validation after UI planning",
+            "action": "full_validation",
+            "payload": {},
+            "status": "done",
+            "created": 1780341318.7668717,
+            "started": 1780410772.4589674,
+            "finished": 1780410781.5273604,
+            "result": {
+              "ok": true,
+              "action": "full_validation",
+              "result": {
+                "time": 1780410772.581236,
+                "code_health": {
+                  "time": 1780410773.9881718,
+                  "compile": {
+                    "executor/router.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/intent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/tools.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/scheduler_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomous_loop.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/autonomy_service.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/task_queue.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/goal_executor.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/project_progress.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/runtime_metrics.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/curiosity_agent.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    },
+                    "executor/learning_engine.py": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": "",
+                      "stderr": ""
+                    }
+                  },
+                  "git": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                    "stderr": ""
+                  }
+                },
+                "reality": {
+                  "time": 1780410774.035178,
+                  "internet": {
+                    "real": true,
+                    "details": {
+                      "query": "Python Flask",
+                      "results": [
+                        {
+                          "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                          "url": "https://flask.palletsprojects.com/"
+                        },
+                        {
+                          "title": "Flask Tutorial - GeeksforGeeks",
+                          "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                        },
+                        {
+                          "title": "Flask · PyPI",
+                          "url": "https://pypi.org/project/Flask/"
+                        },
+                        {
+                          "title": "Flask (web framework) - Wikipedia",
+                          "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                        },
+                        {
+                          "title": "How To Build a Web Application Using Flask in Python 3",
+                          "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                        }
+                      ]
+                    }
+                  },
+                  "browser_read": {
+                    "real": true,
+                    "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+                  },
+                  "android": {
+                    "real_intents": true,
+                    "real_gesture_binary": true,
+                    "real_gestures": false,
+                    "details": {
+                      "input": "/system/bin/input",
+                      "input_exists": true,
+                      "am": "/system/bin/am",
+                      "am_exists": true,
+                      "real_gestures_binary": true,
+                      "real_gestures_permission": false
+                    }
+                  },
+                  "git": {
+                    "real": true,
+                    "details": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                      "stderr": ""
+                    }
+                  },
+                  "code": {
+                    "real": true,
+                    "broken": []
+                  },
+                  "app_factory": {
+                    "real": true,
+                    "apps": [
+                      {
+                        "name": "testapp",
+                        "title": "test app",
+                        "path": "generated_apps/testapp",
+                        "url": "/apps/testapp/",
+                        "created": 1780158566
+                      }
+                    ]
+                  },
+                  "summary": {
+                    "real_now": [
+                      "internet_search",
+                      "browser_read",
+                      "android_intents",
+                      "git_status",
+                      "code_compile",
+                      "app_factory"
+                    ],
+                    "blocked_or_partial": [
+                      "android_tap_swipe_without_INJECT_EVENTS",
+                      "real_login_without_browser_driver",
+                      "real_hosting_deploy_without_provider_credentials"
+                    ]
+                  }
+                },
+                "git": {
+                  "time": 1780410776.8186972,
+                  "git": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                    "stderr": ""
+                  },
+                  "health": {
+                    "time": 1780410777.7771935,
+                    "compile": {
+                      "executor/router.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/intent.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/tools.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/scheduler_agent.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/autonomous_loop.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/autonomy_service.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/task_queue.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/goal_executor.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/project_progress.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/runtime_metrics.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/curiosity_agent.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      },
+                      "executor/learning_engine.py": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "",
+                        "stderr": ""
+                      }
+                    },
+                    "git": {
+                      "ok": true,
+                      "code": 0,
+                      "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                      "stderr": ""
+                    }
+                  }
+                },
+                "vercel": {
+                  "installed": true,
+                  "logged_in": true,
+                  "version": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "54.6.1\n",
+                    "stderr": "Vercel CLI 54.6.1\n"
+                  },
+                  "whoami": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "traianos1985-6056\n",
+                    "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\n"
+                  },
+                  "deployments": [
+                    {
+                      "id": 1780240417138660985,
+                      "path": "vercel_test_app",
+                      "prod": true,
+                      "ok": true,
+                      "urls": [
+                        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH",
+                        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "https://verceltestapp-eosin.vercel.app"
+                      ],
+                      "created": 1780240417.1386642,
+                      "result": {
+                        "ok": true,
+                        "code": 0,
+                        "stdout": "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                        "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\nRetrieving project…\nDeploying traianos1985-6056s-projects/vercel_test_app\n  Inspect     https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH\n▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nBuilding…\nBuilding…\nRunning build in Washington, D.C., USA (East) – iad1\nBuild machine configuration: 2 cores, 8 GB\nRetrieving list of deployment files...\nPrevious build caches not available.\nDownloading 2 deployment files...\nRunning \"vercel build\"\nVercel CLI 54.4.1\nBuild Completed in /vercel/output [23ms]\nDeploying outputs...\n\u001b[2K\u001b[1A\u001b[2K\u001b[G▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nCompleting…\n▲ Aliased     https://verceltestapp-eosin.vercel.app\n\n✓ Ready in 5s\n"
+                      }
+                    }
+                  ],
+                  "time": 1780410781.4800832
+                },
+                "companion": {
+                  "package": "com.nous.companion",
+                  "receiver": "com.nous.companion/.CommandReceiver",
+                  "available": true,
+                  "commands": [
+                    "home",
+                    "back",
+                    "ui_tree",
+                    "tap"
+                  ],
+                  "time": 1780410781.4801018
+                }
+              },
+              "time": 1780410781.5133922
+            },
+            "requires_approval": false,
+            "approved": false
+          }
+        ],
+        "approvals": [],
+        "result": "all_tasks_done"
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780341318766856836",
+      "label": "Check code health",
+      "data": {
+        "id": 1780341318766856836,
+        "title": "Check code health",
+        "action": "code_health",
+        "payload": {},
+        "status": "done",
+        "created": 1780341318.7668595,
+        "started": 1780345069.8633375,
+        "finished": 1780345071.1695876,
+        "result": {
+          "ok": true,
+          "action": "code_health",
+          "result": {
+            "time": 1780345071.096653,
+            "compile": {
+              "executor/router.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/intent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/tools.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/scheduler_agent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/autonomous_loop.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/autonomy_service.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/task_queue.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/goal_executor.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/project_progress.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/runtime_metrics.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/curiosity_agent.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/learning_engine.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              }
+            },
+            "git": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+              "stderr": ""
+            }
+          },
+          "time": 1780345071.1514425
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780341318766866003",
+      "label": "Check git status",
+      "data": {
+        "id": 1780341318766866003,
+        "title": "Check git status",
+        "action": "git_status",
+        "payload": {},
+        "status": "done",
+        "created": 1780341318.766868,
+        "started": 1780345073.81995,
+        "finished": 1780345075.1278489,
+        "result": {
+          "ok": true,
+          "action": "git_status",
+          "result": {
+            "time": 1780345073.8398857,
+            "git": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+              "stderr": ""
+            },
+            "health": {
+              "time": 1780345075.0359113,
+              "compile": {
+                "executor/router.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/intent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/tools.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/scheduler_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomous_loop.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomy_service.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/task_queue.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/goal_executor.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/project_progress.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/runtime_metrics.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/curiosity_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/learning_engine.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                }
+              },
+              "git": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n D data/brain_backups/nous_brain_backup_1780330292.zip\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/auto_mission_scheduler.json\n?? data/code_analysis_reports.json\n?? executor/auto_mission_scheduler.py\n?? executor/code_analyst.py\n",
+                "stderr": ""
+              }
+            }
+          },
+          "time": 1780345075.0456195
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "task",
+      "id": "task:1780341318766870588",
+      "label": "Run full validation after UI planning",
+      "data": {
+        "id": 1780341318766870588,
+        "title": "Run full validation after UI planning",
+        "action": "full_validation",
+        "payload": {},
+        "status": "done",
+        "created": 1780341318.7668717,
+        "started": 1780410772.4589674,
+        "finished": 1780410781.5273604,
+        "result": {
+          "ok": true,
+          "action": "full_validation",
+          "result": {
+            "time": 1780410772.581236,
+            "code_health": {
+              "time": 1780410773.9881718,
+              "compile": {
+                "executor/router.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/intent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/tools.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/scheduler_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomous_loop.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/autonomy_service.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/task_queue.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/goal_executor.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/project_progress.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/runtime_metrics.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/curiosity_agent.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                },
+                "executor/learning_engine.py": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": "",
+                  "stderr": ""
+                }
+              },
+              "git": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                "stderr": ""
+              }
+            },
+            "reality": {
+              "time": 1780410774.035178,
+              "internet": {
+                "real": true,
+                "details": {
+                  "query": "Python Flask",
+                  "results": [
+                    {
+                      "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+                      "url": "https://flask.palletsprojects.com/"
+                    },
+                    {
+                      "title": "Flask Tutorial - GeeksforGeeks",
+                      "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+                    },
+                    {
+                      "title": "Flask · PyPI",
+                      "url": "https://pypi.org/project/Flask/"
+                    },
+                    {
+                      "title": "Flask (web framework) - Wikipedia",
+                      "url": "https://en.wikipedia.org/wiki/Flask_(web_framework)"
+                    },
+                    {
+                      "title": "How To Build a Web Application Using Flask in Python 3",
+                      "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+                    }
+                  ]
+                }
+              },
+              "browser_read": {
+                "real": true,
+                "details": "{'url': 'https://example.com', 'content': 'Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more'}"
+              },
+              "android": {
+                "real_intents": true,
+                "real_gesture_binary": true,
+                "real_gestures": false,
+                "details": {
+                  "input": "/system/bin/input",
+                  "input_exists": true,
+                  "am": "/system/bin/am",
+                  "am_exists": true,
+                  "real_gestures_binary": true,
+                  "real_gestures_permission": false
+                }
+              },
+              "git": {
+                "real": true,
+                "details": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                  "stderr": ""
+                }
+              },
+              "code": {
+                "real": true,
+                "broken": []
+              },
+              "app_factory": {
+                "real": true,
+                "apps": [
+                  {
+                    "name": "testapp",
+                    "title": "test app",
+                    "path": "generated_apps/testapp",
+                    "url": "/apps/testapp/",
+                    "created": 1780158566
+                  }
+                ]
+              },
+              "summary": {
+                "real_now": [
+                  "internet_search",
+                  "browser_read",
+                  "android_intents",
+                  "git_status",
+                  "code_compile",
+                  "app_factory"
+                ],
+                "blocked_or_partial": [
+                  "android_tap_swipe_without_INJECT_EVENTS",
+                  "real_login_without_browser_driver",
+                  "real_hosting_deploy_without_provider_credentials"
+                ]
+              }
+            },
+            "git": {
+              "time": 1780410776.8186972,
+              "git": {
+                "ok": true,
+                "code": 0,
+                "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                "stderr": ""
+              },
+              "health": {
+                "time": 1780410777.7771935,
+                "compile": {
+                  "executor/router.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/intent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/tools.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/scheduler_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomous_loop.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/autonomy_service.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/task_queue.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/goal_executor.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/project_progress.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/runtime_metrics.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/curiosity_agent.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  },
+                  "executor/learning_engine.py": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "",
+                    "stderr": ""
+                  }
+                },
+                "git": {
+                  "ok": true,
+                  "code": 0,
+                  "stdout": " M data/auto_mission_scheduler.json\n M data/executive_scheduler_loop.json\n M data/memory.json\n M data/missions.json\n M executor/nous_ui.py\n M executor/pending_review.py\n M executor/router.py\n?? data/deep_code_analysis.json\n?? data/patch_proposals.json\n?? executor/deep_code_analyst.py\n?? executor/patch_generator.py\n?? executor/self_healing_loop.py\n",
+                  "stderr": ""
+                }
+              }
+            },
+            "vercel": {
+              "installed": true,
+              "logged_in": true,
+              "version": {
+                "ok": true,
+                "code": 0,
+                "stdout": "54.6.1\n",
+                "stderr": "Vercel CLI 54.6.1\n"
+              },
+              "whoami": {
+                "ok": true,
+                "code": 0,
+                "stdout": "traianos1985-6056\n",
+                "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\n"
+              },
+              "deployments": [
+                {
+                  "id": 1780240417138660985,
+                  "path": "vercel_test_app",
+                  "prod": true,
+                  "ok": true,
+                  "urls": [
+                    "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH",
+                    "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "https://verceltestapp-eosin.vercel.app"
+                  ],
+                  "created": 1780240417.1386642,
+                  "result": {
+                    "ok": true,
+                    "code": 0,
+                    "stdout": "https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app",
+                    "stderr": "Vercel CLI 54.6.1 (Node.js 26.2.0)\nRetrieving project…\nDeploying traianos1985-6056s-projects/vercel_test_app\n  Inspect     https://vercel.com/traianos1985-6056s-projects/vercel_test_app/Cc2inLzPCnAazmSRHPD4DENozAaH\n▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nBuilding…\nBuilding…\nRunning build in Washington, D.C., USA (East) – iad1\nBuild machine configuration: 2 cores, 8 GB\nRetrieving list of deployment files...\nPrevious build caches not available.\nDownloading 2 deployment files...\nRunning \"vercel build\"\nVercel CLI 54.4.1\nBuild Completed in /vercel/output [23ms]\nDeploying outputs...\n\u001b[2K\u001b[1A\u001b[2K\u001b[G▲ Production  https://verceltest-kz4ojf4i3-traianos1985-6056s-projects.vercel.app\nCompleting…\n▲ Aliased     https://verceltestapp-eosin.vercel.app\n\n✓ Ready in 5s\n"
+                  }
+                }
+              ],
+              "time": 1780410781.4800832
+            },
+            "companion": {
+              "package": "com.nous.companion",
+              "receiver": "com.nous.companion/.CommandReceiver",
+              "available": true,
+              "commands": [
+                "home",
+                "back",
+                "ui_tree",
+                "tap"
+              ],
+              "time": 1780410781.4801018
+            }
+          },
+          "time": 1780410781.5133922
+        },
+        "requires_approval": false,
+        "approved": false
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780334468794657534",
+      "label": "Backup ZIP creation works",
+      "data": {
+        "id": 1780334468794657534,
+        "lesson": "Backup ZIP creation works",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "backup",
+          "brain"
+        ],
+        "created": 1780334468.7946615
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780334649625617361",
+      "label": "Mission task completed: Companion status",
+      "data": {
+        "id": 1780334649625617361,
+        "lesson": "Mission task completed: Companion status",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780334649602761892,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "companion_status"
+        ],
+        "created": 1780334649.6256194
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780334652105198662",
+      "label": "Mission task completed: Request UI tree",
+      "data": {
+        "id": 1780334652105198662,
+        "lesson": "Mission task completed: Request UI tree",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780334649602761892,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "companion_ui_tree"
+        ],
+        "created": 1780334652.1052036
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780337177490069770",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780337177490069770,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780337177.4900713
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780337578296094461",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780337578296094461,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780337578.296096
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780338050900972822",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780338050900972822,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780338050.9009767
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780338052133608551",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780338052133608551,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780338052.1336138
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780338060163652610",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780338060163652610,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780338060.1636543
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780338072169357085",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780338072169357085,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780338072.1693587
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780340162915227068",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780340162915227068,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780340162.9152286
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780340456090962582",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780340456090962582,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780340456.0909643
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780340985739589671",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780340985739589671,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780340985.739592
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780341318785366836",
+      "label": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface",
+      "data": {
+        "id": 1780341318785366836,
+        "lesson": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface",
+        "outcome": "success",
+        "goal_id": 1780327547945471638,
+        "mission_id": 1780341318766849492,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission_planner",
+          "approved",
+          "ui"
+        ],
+        "created": 1780341318.7853682
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780343988659419266",
+      "label": "Mission task completed: Check reality gate",
+      "data": {
+        "id": 1780343988659419266,
+        "lesson": "Mission task completed: Check reality gate",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780323331619630930,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "reality_status"
+        ],
+        "created": 1780343988.6594222
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344009874268476",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780344009874268476,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780344009.874279
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344052283272262",
+      "label": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780344052283272262,
+        "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "test"
+        ],
+        "created": 1780344052.2832735
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344200791192935",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780344200791192935,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780344200.7911968
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344211573908451",
+      "label": "Mission task completed: Check companion",
+      "data": {
+        "id": 1780344211573908451,
+        "lesson": "Mission task completed: Check companion",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780323331619630930,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "companion_status"
+        ],
+        "created": 1780344211.5739121
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344221094736000",
+      "label": "Mission task completed: Full validation",
+      "data": {
+        "id": 1780344221094736000,
+        "lesson": "Mission task completed: Full validation",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780323331619630930,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "full_validation"
+        ],
+        "created": 1780344221.0947392
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344230015027299",
+      "label": "Mission task completed: Check companion status",
+      "data": {
+        "id": 1780344230015027299,
+        "lesson": "Mission task completed: Check companion status",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780323843630738235,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "companion_status"
+        ],
+        "created": 1780344230.0150294
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344232198731100",
+      "label": "Mission task completed: Request UI tree",
+      "data": {
+        "id": 1780344232198731100,
+        "lesson": "Mission task completed: Request UI tree",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780323843630738235,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "companion_ui_tree"
+        ],
+        "created": 1780344232.1987336
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344235254855682",
+      "label": "Mission task completed: Run reality check",
+      "data": {
+        "id": 1780344235254855682,
+        "lesson": "Mission task completed: Run reality check",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780323843630738235,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "reality_status"
+        ],
+        "created": 1780344235.2548583
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344275200642542",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780344275200642542,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780344275.2006454
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344294568681753",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780344294568681753,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780344294.5686839
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344342101475954",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780344342101475954,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780344342.1014786
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344350408887617",
+      "label": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780344350408887617,
+        "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "dashboard"
+        ],
+        "created": 1780344350.4088905
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344856906540497",
+      "label": "Mission task completed: Request UI tree",
+      "data": {
+        "id": 1780344856906540497,
+        "lesson": "Mission task completed: Request UI tree",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780326125156417827,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "companion_ui_tree"
+        ],
+        "created": 1780344856.9065444
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344877900209968",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780344877900209968,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780344877.9002151
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780344917164850891",
+      "label": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780344917164850891,
+        "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "manual_auto_mission_scheduler_once"
+        ],
+        "created": 1780344917.1648521
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345060403403596",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780345060403403596,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780345060.4034061
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345069468264478",
+      "label": "Mission task completed: Run reality check",
+      "data": {
+        "id": 1780345069468264478,
+        "lesson": "Mission task completed: Run reality check",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780326125156417827,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "reality_status"
+        ],
+        "created": 1780345069.468267
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345071227914894",
+      "label": "Mission task completed: Check code health",
+      "data": {
+        "id": 1780345071227914894,
+        "lesson": "Mission task completed: Check code health",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780341318766849492,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "code_health"
+        ],
+        "created": 1780345071.2279267
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345075131286039",
+      "label": "Mission task completed: Check git status",
+      "data": {
+        "id": 1780345075131286039,
+        "lesson": "Mission task completed: Check git status",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780341318766849492,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "git_status"
+        ],
+        "created": 1780345075.1312883
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345122565996229",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780345122565996229,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780345122.5660005
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345123596289666",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780345123596289666,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780345123.5962925
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345127084618623",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780345127084618623,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780345127.0846221
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345420475413303",
+      "label": "Mission task completed: Run full validation after UI planning",
+      "data": {
+        "id": 1780345420475413303,
+        "lesson": "Mission task completed: Run full validation after UI planning",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780341318766849492,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "full_validation"
+        ],
+        "created": 1780345420.4754198
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345431903707205",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780345431903707205,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780345431.903715
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345477591695000",
+      "label": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780345477591695000,
+        "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "auto_mission_scheduler"
+        ],
+        "created": 1780345477.5916986
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780345524738888628",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780345524738888628,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "manual_auto_mission_scheduler_once"
+        ],
+        "created": 1780345524.7388897
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780406882906918914",
+      "label": "Mission task completed: Run full validation after UI planning",
+      "data": {
+        "id": 1780406882906918914,
+        "lesson": "Mission task completed: Run full validation after UI planning",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780341318766849492,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "full_validation"
+        ],
+        "created": 1780406882.9069245
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780406897003028284",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780406897003028284,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780406897.0030327
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780406937363213216",
+      "label": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780406937363213216,
+        "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "auto_mission_scheduler"
+        ],
+        "created": 1780406937.3632152
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780406990204924758",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780406990204924758,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "executive_loop_v2"
+        ],
+        "created": 1780406990.204926
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780407090727530658",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780407090727530658,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780407090.727534
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780407115388131117",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780407115388131117,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780407115.3881347
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780407169006451096",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780407169006451096,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780407169.006454
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780407176026994583",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780407176026994583,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "auto_mission_scheduler"
+        ],
+        "created": 1780407176.026998
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780407863766443904",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780407863766443904,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780407863.7664485
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780407896722174152",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780407896722174152,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "auto_mission_scheduler"
+        ],
+        "created": 1780407896.722177
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780407965197170741",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780407965197170741,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "executive_loop_v2"
+        ],
+        "created": 1780407965.197172
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408040570542795",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408040570542795,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408040.570549
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408070665582419",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408070665582419,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408070.6655855
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408117916543443",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408117916543443,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408117.9165475
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408137652129789",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408137652129789,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408137.6521327
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408147096191609",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780408147096191609,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "auto_mission_scheduler"
+        ],
+        "created": 1780408147.0961957
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408188064712166",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408188064712166,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408188.0647168
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408255059986047",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408255059986047,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408255.0599897
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408275800437914",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408275800437914,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408275.8004415
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408319084464929",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408319084464929,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408319.084468
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408332375285392",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408332375285392,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408332.3752885
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408341815232472",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780408341815232472,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "executive_loop_v2"
+        ],
+        "created": 1780408341.8152359
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780408352226986114",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780408352226986114,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780408352.2269912
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780410781532482237",
+      "label": "Mission task completed: Run full validation after UI planning",
+      "data": {
+        "id": 1780410781532482237,
+        "lesson": "Mission task completed: Run full validation after UI planning",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": 1780341318766849492,
+        "decision_id": null,
+        "confidence": 0.8,
+        "tags": [
+          "mission",
+          "full_validation"
+        ],
+        "created": 1780410781.5324855
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780410901529698649",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780410901529698649,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780410901.5297053
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780410926583766348",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780410926583766348,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780410926.5837703
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780410976409460496",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780410976409460496,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780410976.4094625
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780410983029106587",
+      "label": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+      "data": {
+        "id": 1780410983029106587,
+        "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.75,
+        "tags": [
+          "auto_executor",
+          "safe_mode",
+          "auto_mission_scheduler"
+        ],
+        "created": 1780410983.0291088
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780411696630024440",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780411696630024440,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780411696.6300313
+      }
+    },
+    {
+      "type": "lesson",
+      "id": "lesson:1780411725567284533",
+      "label": "Executive review identified next best action: Resolve pending approval",
+      "data": {
+        "id": 1780411725567284533,
+        "lesson": "Executive review identified next best action: Resolve pending approval",
+        "outcome": "success",
+        "goal_id": null,
+        "mission_id": null,
+        "decision_id": null,
+        "confidence": 0.7,
+        "tags": [
+          "executive_review",
+          "scheduler",
+          "approval"
+        ],
+        "created": 1780411725.5672898
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "goal:1780327547928758774",
+      "to": "project:1780411574192391049",
+      "rel": "has_project"
+    },
+    {
+      "from": "goal:1780327547928758774",
+      "to": "project:1780411574192406674",
+      "rel": "has_project"
+    },
+    {
+      "from": "goal:1780327547945471638",
+      "to": "project:1780411574192428340",
+      "rel": "has_project"
+    },
+    {
+      "from": "goal:1780327547945471638",
+      "to": "project:1780411574192434278",
+      "rel": "has_project"
+    },
+    {
+      "from": "goal:1780327547958112159",
+      "to": "project:1780411574192454747",
+      "rel": "has_project"
+    },
+    {
+      "from": "goal:1780327547970773305",
+      "to": "project:1780411574192475997",
+      "rel": "has_project"
+    },
+    {
+      "from": "goal:1780327547970773305",
+      "to": "project:1780411574192481830",
+      "rel": "has_project"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "task:1780323331619634628",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "task:1780323331619640671",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "task:1780323331619643849",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "task:1780323331619645673",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "task:1780323331619650049",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780323843630738235",
+      "to": "task:1780323843630740787",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780323843630738235",
+      "to": "task:1780323843630745059",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780323843630738235",
+      "to": "task:1780323843630748081",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780326125156417827",
+      "to": "task:1780326125156421525",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780326125156417827",
+      "to": "task:1780326125156427672",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780326125156417827",
+      "to": "task:1780326125156431266",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780326802824661037",
+      "to": "task:1780326802824667339",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780326802824661037",
+      "to": "task:1780326802824673069",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "task:1780341318766856836",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "task:1780341318766866003",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "task:1780341318766870588",
+      "rel": "has_task"
+    },
+    {
+      "from": "mission:1780334649602761892",
+      "to": "lesson:1780334649625617361",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780334649602761892",
+      "to": "lesson:1780334652105198662",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "lesson:1780341318785366836",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "lesson:1780343988659419266",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "lesson:1780344211573908451",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780323331619630930",
+      "to": "lesson:1780344221094736000",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780323843630738235",
+      "to": "lesson:1780344230015027299",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780323843630738235",
+      "to": "lesson:1780344232198731100",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780323843630738235",
+      "to": "lesson:1780344235254855682",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780326125156417827",
+      "to": "lesson:1780344856906540497",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780326125156417827",
+      "to": "lesson:1780345069468264478",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "lesson:1780345071227914894",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "lesson:1780345075131286039",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "lesson:1780345420475413303",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "lesson:1780406882906918914",
+      "rel": "produced_lesson"
+    },
+    {
+      "from": "mission:1780341318766849492",
+      "to": "lesson:1780410781532482237",
+      "rel": "produced_lesson"
+    }
+  ]
+}

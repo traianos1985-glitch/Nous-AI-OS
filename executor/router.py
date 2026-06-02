@@ -69,6 +69,11 @@ from executor.cleanup_engine import cleanup_status, list_cleanup_reports, run_cl
 from executor.goal_manager_v2 import goal_manager_status, generate_projects_from_goals, update_project_progress, list_goal_projects
 from executor.executive_memory_v3 import executive_memory_status, search_executive_memory, learn_from_recent_state
 from executor.upgrade_planner import upgrade_planner_status, list_upgrade_plans, propose_upgrade_plan, approve_upgrade_plan, reject_upgrade_plan
+from executor.patch_apply_engine import patch_apply_status, list_patch_apply_history, apply_patch_proposal
+from executor.rollback_engine import rollback_status, list_rollbacks, rollback_backup
+from executor.repository_graph import repository_graph_status, build_repository_graph
+from executor.knowledge_graph import knowledge_graph_status, build_knowledge_graph
+from executor.executive_loop_v3 import executive_loop_v3_status, run_executive_loop_v3
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -331,6 +336,68 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/patch-apply/status")
+def remote_patch_apply_status():
+    return jsonify(patch_apply_status())
+
+@app.route("/remote/patch-apply/history")
+def remote_patch_apply_history():
+    return jsonify(list_patch_apply_history())
+
+@app.route("/remote/patch-apply/apply", methods=["POST"])
+def remote_patch_apply_apply():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(apply_patch_proposal(data.get("proposal_id")))
+
+@app.route("/remote/rollback/status")
+def remote_rollback_status():
+    return jsonify(rollback_status())
+
+@app.route("/remote/rollback/history")
+def remote_rollback_history():
+    return jsonify(list_rollbacks())
+
+@app.route("/remote/rollback/apply", methods=["POST"])
+def remote_rollback_apply():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(rollback_backup(data.get("backup_id")))
+
+@app.route("/remote/repository-graph/status")
+def remote_repository_graph_status():
+    return jsonify(repository_graph_status())
+
+@app.route("/remote/repository-graph/build", methods=["POST"])
+def remote_repository_graph_build():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(build_repository_graph())
+
+@app.route("/remote/knowledge-graph/status")
+def remote_knowledge_graph_status():
+    return jsonify(knowledge_graph_status())
+
+@app.route("/remote/knowledge-graph/build", methods=["POST"])
+def remote_knowledge_graph_build():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    return jsonify(build_knowledge_graph())
+
+@app.route("/remote/executive-loop-v3/status")
+def remote_executive_loop_v3_status():
+    return jsonify(executive_loop_v3_status())
+
+@app.route("/remote/executive-loop-v3/run", methods=["POST"])
+def remote_executive_loop_v3_run():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_executive_loop_v3(data.get("trigger", "dashboard")))
 
 @app.route("/remote/cleanup/status")
 def remote_cleanup_status():

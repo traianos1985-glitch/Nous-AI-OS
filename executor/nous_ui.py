@@ -138,6 +138,9 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('selfheal')">🧬 SelfHeal</button>
       <button onclick="showSection('mega')">🧱 Mega</button>
       <button onclick="showSection('upgrades')">📦 Upgrades</button>
+      <button onclick="showSection('patchapply')">🩹 PatchApply</button>
+      <button onclick="showSection('graphs')">🕸 Graphs</button>
+      <button onclick="showSection('loopv3')">👑 LoopV3</button>
     </div>
 
     <div class="card">
@@ -699,6 +702,40 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         </div>
       </section>
 
+
+      <section id="patchapply" class="section">
+        <div class="hero"><h1>🩹 Patch Apply & Rollback</h1><p>Εφαρμογή approved patch με backup, validation και rollback.</p></div>
+        <div class="card">
+          <button class="miniBtn" onclick="loadPatchApply()">Refresh</button>
+        </div>
+        <div class="grid">
+          <div class="card"><h3>Patch Apply</h3><pre id="patchApplyBox">Loading...</pre></div>
+          <div class="card"><h3>Rollback</h3><pre id="rollbackBox">Loading...</pre></div>
+        </div>
+      </section>
+
+      <section id="graphs" class="section">
+        <div class="hero"><h1>🕸 Repository & Knowledge Graph</h1><p>Χάρτης αρχείων, routes, functions, goals, missions και lessons.</p></div>
+        <div class="card">
+          <button class="miniBtn" onclick="buildRepoGraph()">Build Repository Graph</button>
+          <button class="miniBtn" onclick="buildKnowledgeGraph()">Build Knowledge Graph</button>
+          <button class="miniBtn" onclick="loadGraphs()">Refresh</button>
+        </div>
+        <div class="grid">
+          <div class="card"><h3>Repository Graph</h3><pre id="repoGraphBox">Loading...</pre></div>
+          <div class="card"><h3>Knowledge Graph</h3><pre id="knowledgeGraphBox">Loading...</pre></div>
+        </div>
+      </section>
+
+      <section id="loopv3" class="section">
+        <div class="hero"><h1>👑 Executive Loop V3</h1><p>Observe → Diagnose → Analyze → Plan → Execute → Learn.</p></div>
+        <div class="card">
+          <button class="miniBtn" onclick="runLoopV3()">Run Executive Loop V3</button>
+          <button class="miniBtn" onclick="loadLoopV3()">Refresh</button>
+        </div>
+        <div class="card"><pre id="loopV3Box">Loading...</pre></div>
+      </section>
+
 </main>
 
   <aside class="right">
@@ -1124,6 +1161,50 @@ async function sendPrompt(){
 
 
 
+
+
+
+async function loadPatchApply(){
+  const a = await getJson("/remote/patch-apply/status");
+  const r = await getJson("/remote/rollback/status");
+  renderObject({patch_apply:a, rollback:r});
+  document.getElementById("patchApplyBox").textContent = JSON.stringify(a, null, 2);
+  document.getElementById("rollbackBox").textContent = JSON.stringify(r, null, 2);
+}
+
+async function loadGraphs(){
+  const repo = await getJson("/remote/repository-graph/status");
+  const kg = await getJson("/remote/knowledge-graph/status");
+  renderObject({repository:repo, knowledge:kg});
+  document.getElementById("repoGraphBox").textContent = JSON.stringify(repo, null, 2);
+  document.getElementById("knowledgeGraphBox").textContent = JSON.stringify(kg, null, 2);
+}
+
+async function buildRepoGraph(){
+  const data = await postJson("/remote/repository-graph/build", {});
+  renderObject(data);
+  await loadGraphs();
+}
+
+async function buildKnowledgeGraph(){
+  const data = await postJson("/remote/knowledge-graph/build", {});
+  renderObject(data);
+  await loadGraphs();
+}
+
+async function loadLoopV3(){
+  const data = await getJson("/remote/executive-loop-v3/status");
+  renderObject(data);
+  document.getElementById("loopV3Box").textContent = JSON.stringify(data, null, 2);
+}
+
+async function runLoopV3(){
+  const ok = confirm("Να τρέξει Executive Loop V3; Θα κάνει μόνο safe execution και θα αφήσει approvals για εσένα.");
+  if(!ok) return;
+  const data = await postJson("/remote/executive-loop-v3/run", {trigger:"dashboard"});
+  renderObject(data);
+  document.getElementById("loopV3Box").textContent = JSON.stringify(data, null, 2);
+}
 
 
 async function loadMegaSystems(){
