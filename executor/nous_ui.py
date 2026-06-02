@@ -197,7 +197,8 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <button onclick="postAction('/remote/companion/back')">↩ Android Back</button>
       </div>
     </div>
-  </aside>
+  <button onclick="showSection('documents')">📚 Documents</button>
+</aside>
 
   <main class="main">
     <div class="topbar">
@@ -1753,5 +1754,154 @@ async function boot(){
 }
 boot();
 </script>
+
+<script id="nous-auto-linkify">
+(function(){
+  function escapeHtml(s){
+    return String(s)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;");
+  }
+
+  function linkifyText(s){
+    let html = escapeHtml(s);
+
+    html = html.replace(
+      /\b((https?:\/\/|www\.)[^\s<>"']+)/gi,
+      function(url){
+        let href = url.startsWith("http") ? url : "https://" + url;
+        return '<a href="' + href + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+      }
+    );
+
+    html = html.replace(
+      /\b([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})\b/gi,
+      function(email){
+        return '<a href="mailto:' + email + '">' + email + '</a>';
+      }
+    );
+
+    return html;
+  }
+
+  function linkifyElement(el){
+    if(!el || el.dataset.linkified === "1") return;
+    if(el.children.length > 0) return;
+    const text = el.textContent || "";
+    if(!/(https?:\/\/|www\.|[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i.test(text)) return;
+    el.innerHTML = linkifyText(text);
+    el.dataset.linkified = "1";
+  }
+
+  function scan(){
+    const selectors = [
+      "#chat", "#messages", "#feed", "#raw",
+      ".chat", ".message", ".bubble", ".answer",
+      ".assistant", ".result", ".output", "pre"
+    ];
+    document.querySelectorAll(selectors.join(",")).forEach(function(el){
+      if(el.children.length === 0){
+        linkifyElement(el);
+      }else{
+        el.querySelectorAll("p,div,span,pre").forEach(linkifyElement);
+      }
+    });
+  }
+
+  const css = document.createElement("style");
+  css.id = "nous-auto-linkify-css";
+  css.textContent = `
+    a[href^="http"], a[href^="mailto"]{
+      text-decoration: underline;
+      font-weight: 700;
+      word-break: break-word;
+    }
+  `;
+  if(!document.getElementById("nous-auto-linkify-css")){
+    document.head.appendChild(css);
+  }
+
+  scan();
+  new MutationObserver(scan).observe(document.body, {childList:true, subtree:true});
+})();
+</script>
+
+
+<section id="documents" class="section">
+  <div class="hero">
+    <h1>📚 Document Intake</h1>
+    <p>Ανέβασε ή κόλλησε κείμενο ώστε ο ΝΟΥΣ να το περάσει σε γνώση/μνήμη.</p>
+  </div>
+  <div class="card">
+    <h3>Paste document text</h3>
+    <input id="docTitle" placeholder="Τίτλος εγγράφου π.χ. manual αποκρύψεων" style="width:100%;padding:10px;margin-bottom:8px;">
+    <textarea id="docText" placeholder="Κόλλησε εδώ κείμενο από εγχειρίδιο, σημειώσεις, οδηγίες..." style="width:100%;min-height:180px;padding:10px;"></textarea>
+    <button class="miniBtn" onclick="saveLocalDocument()">Save local document memory</button>
+    <button class="miniBtn" onclick="listLocalDocuments()">List local documents</button>
+  </div>
+  <div class="card">
+    <h3>Local file preview</h3>
+    <input type="file" id="docFile" multiple onchange="previewLocalFiles(event)">
+    <p>Σημείωση: Το UI preview διαβάζει κείμενα τοπικά. Για μόνιμη εισαγωγή από Termux χρησιμοποίησε: <b>python run_document_intake.py path/to/file.pdf</b></p>
+    <pre id="docPreview"></pre>
+  </div>
+</section>
+
+
+<script id="nous-document-intake-ui">
+function _docStore(){
+  try { return JSON.parse(localStorage.getItem("NOUS_DOCUMENT_MEMORY") || "[]"); }
+  catch(e){ return []; }
+}
+function _saveDocStore(items){
+  localStorage.setItem("NOUS_DOCUMENT_MEMORY", JSON.stringify(items));
+}
+function saveLocalDocument(){
+  const title = document.getElementById("docTitle")?.value || "Untitled document";
+  const text = document.getElementById("docText")?.value || "";
+  if(!text.trim()){ alert("Δεν υπάρχει κείμενο για αποθήκευση."); return; }
+  const items = _docStore();
+  items.push({
+    id: Date.now(),
+    created_at: new Date().toISOString(),
+    title,
+    text,
+    summary: text.slice(0, 1200),
+    words: text.trim().split(/\s+/).length
+  });
+  _saveDocStore(items);
+  alert("Αποθηκεύτηκε τοπικά στο UI document memory.");
+}
+function listLocalDocuments(){
+  const items = _docStore();
+  renderObject({
+    local_document_memory: items.map(x => ({
+      id:x.id,
+      title:x.title,
+      created_at:x.created_at,
+      words:x.words,
+      summary:x.summary
+    }))
+  });
+}
+function previewLocalFiles(event){
+  const out = document.getElementById("docPreview");
+  const files = Array.from(event.target.files || []);
+  out.textContent = "";
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(){
+      out.textContent += "\n\n===== " + file.name + " =====\n" + String(reader.result).slice(0, 5000);
+    };
+    if(file.type.startsWith("text/") || /\.(txt|md|json|csv|py|html|css|js)$/i.test(file.name)){
+      reader.readAsText(file);
+    }else{
+      out.textContent += "\n\n===== " + file.name + " =====\nStored preview only. Use Termux intake command for permanent library.";
+    }
+  });
+}
+</script>
+
 </body>
 </html>'''
