@@ -879,5 +879,1157 @@
       "executor/auto_mission_executor.py"
     ],
     "suggested_next_step": "Generate repair proposal, inspect candidate files, then require user approval before patching."
+  },
+  {
+    "id": 1780407910593950084,
+    "created": 1780407910.5939515,
+    "problem": {
+      "ok": true,
+      "time": 1780407857.4365396,
+      "checks": {
+        "compile": {
+          "executor/router.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/nous_ui.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/mission_system.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/mission_planner.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/dashboard_action_audit.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/executive_intelligence.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/executive_scheduler_loop.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/goal_progress_intelligence.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        },
+        "endpoints": [
+          {
+            "path": "/dashboard",
+            "status": 200,
+            "ok": true,
+            "json": false
+          },
+          {
+            "path": "/remote/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/dashboard-action-audit",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/mission-planner/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/executive-intelligence/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/executive-scheduler-loop/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/goal-progress-intelligence/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          }
+        ],
+        "dashboard_action_audit": {
+          "failed": 0,
+          "ok": true,
+          "passed": 18,
+          "results": [
+            {
+              "error": null,
+              "json": false,
+              "method": "GET",
+              "name": "dashboard",
+              "ok": true,
+              "path": "/dashboard",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "remote_status",
+              "ok": true,
+              "path": "/remote/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "brain_status",
+              "ok": true,
+              "path": "/remote/brain/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "backup_list",
+              "ok": true,
+              "path": "/remote/brain-backup/list",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "restore_status",
+              "ok": true,
+              "path": "/remote/brain-restore/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "goals_status",
+              "ok": true,
+              "path": "/remote/goals-v2/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "missions_status",
+              "ok": true,
+              "path": "/remote/missions/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "approvals",
+              "ok": true,
+              "path": "/remote/missions/approvals",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "lessons_status",
+              "ok": true,
+              "path": "/remote/lessons/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "decision_memory",
+              "ok": true,
+              "path": "/remote/decision-memory/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "executive_intelligence",
+              "ok": true,
+              "path": "/remote/executive-intelligence/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "scheduler_loop",
+              "ok": true,
+              "path": "/remote/executive-scheduler-loop/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "mission_planner",
+              "ok": true,
+              "path": "/remote/mission-planner/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "mission_proposals",
+              "ok": true,
+              "path": "/remote/mission-planner/proposals",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "goal_progress_intelligence",
+              "ok": true,
+              "path": "/remote/goal-progress-intelligence/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": "unauthorized",
+              "json": true,
+              "method": "POST",
+              "name": "protected_planner_propose",
+              "ok": true,
+              "path": "/remote/mission-planner/propose",
+              "protected_ok": true,
+              "requires_auth": true,
+              "status": 401
+            },
+            {
+              "error": "unauthorized",
+              "json": true,
+              "method": "POST",
+              "name": "protected_scheduler_run_once",
+              "ok": true,
+              "path": "/remote/executive-scheduler-loop/run-once",
+              "protected_ok": true,
+              "requires_auth": true,
+              "status": 401
+            },
+            {
+              "error": "unauthorized",
+              "json": true,
+              "method": "POST",
+              "name": "protected_backup_create",
+              "ok": true,
+              "path": "/remote/brain-backup/create",
+              "protected_ok": true,
+              "requires_auth": true,
+              "status": 401
+            }
+          ],
+          "time": 1780407910.555843,
+          "total": 18
+        },
+        "git_status": {
+          "ok": true,
+          "code": 0,
+          "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? executor/executive_command_center.py\n",
+          "stderr": ""
+        }
+      },
+      "problems": [],
+      "recommended_fixes": [
+        {
+          "id": "review_runtime_files",
+          "title": "Review runtime file changes",
+          "risk": "manual",
+          "description": "Runtime files changed. User should decide restore or commit."
+        }
+      ]
+    },
+    "root_cause": "auth/security failure",
+    "confidence": 0.75,
+    "matches": [
+      {
+        "rule": "401",
+        "root_cause": "auth/security failure",
+        "candidate_files": [
+          "executor/security.py",
+          "executor/router.py",
+          "executor/nous_ui.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "unauthorized",
+        "root_cause": "auth/security failure",
+        "candidate_files": [
+          "executor/security.py",
+          "executor/router.py",
+          "executor/nous_ui.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "dashboard",
+        "root_cause": "frontend/dashboard issue",
+        "candidate_files": [
+          "executor/nous_ui.py",
+          "executor/router.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "mission",
+        "root_cause": "mission system issue",
+        "candidate_files": [
+          "executor/mission_system.py",
+          "executor/mission_planner.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "goal",
+        "root_cause": "goal/progress issue",
+        "candidate_files": [
+          "executor/goal_system.py",
+          "executor/goal_progress_intelligence.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "scheduler",
+        "root_cause": "scheduler issue",
+        "candidate_files": [
+          "executor/executive_scheduler_loop.py",
+          "executor/auto_mission_executor.py"
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "candidate_files": [
+      "executor/security.py",
+      "executor/router.py",
+      "executor/nous_ui.py",
+      "executor/mission_system.py",
+      "executor/mission_planner.py",
+      "executor/goal_system.py",
+      "executor/goal_progress_intelligence.py",
+      "executor/executive_scheduler_loop.py",
+      "executor/auto_mission_executor.py"
+    ],
+    "suggested_next_step": "Generate repair proposal, inspect candidate files, then require user approval before patching."
+  },
+  {
+    "id": 1780408197239093256,
+    "created": 1780408197.239096,
+    "problem": {
+      "ok": true,
+      "time": 1780408059.0608876,
+      "checks": {
+        "compile": {
+          "executor/router.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/nous_ui.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/mission_system.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/mission_planner.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/dashboard_action_audit.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/executive_intelligence.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/executive_scheduler_loop.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/goal_progress_intelligence.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        },
+        "endpoints": [
+          {
+            "path": "/dashboard",
+            "status": 200,
+            "ok": true,
+            "json": false
+          },
+          {
+            "path": "/remote/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/dashboard-action-audit",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/mission-planner/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/executive-intelligence/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/executive-scheduler-loop/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/goal-progress-intelligence/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          }
+        ],
+        "dashboard_action_audit": {
+          "failed": 0,
+          "ok": true,
+          "passed": 18,
+          "results": [
+            {
+              "error": null,
+              "json": false,
+              "method": "GET",
+              "name": "dashboard",
+              "ok": true,
+              "path": "/dashboard",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "remote_status",
+              "ok": true,
+              "path": "/remote/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "brain_status",
+              "ok": true,
+              "path": "/remote/brain/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "backup_list",
+              "ok": true,
+              "path": "/remote/brain-backup/list",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "restore_status",
+              "ok": true,
+              "path": "/remote/brain-restore/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "goals_status",
+              "ok": true,
+              "path": "/remote/goals-v2/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "missions_status",
+              "ok": true,
+              "path": "/remote/missions/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "approvals",
+              "ok": true,
+              "path": "/remote/missions/approvals",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "lessons_status",
+              "ok": true,
+              "path": "/remote/lessons/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "decision_memory",
+              "ok": true,
+              "path": "/remote/decision-memory/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "executive_intelligence",
+              "ok": true,
+              "path": "/remote/executive-intelligence/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "scheduler_loop",
+              "ok": true,
+              "path": "/remote/executive-scheduler-loop/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "mission_planner",
+              "ok": true,
+              "path": "/remote/mission-planner/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "mission_proposals",
+              "ok": true,
+              "path": "/remote/mission-planner/proposals",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "goal_progress_intelligence",
+              "ok": true,
+              "path": "/remote/goal-progress-intelligence/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "POST",
+              "name": "protected_planner_propose",
+              "ok": true,
+              "path": "/remote/mission-planner/propose",
+              "protected_ok": false,
+              "requires_auth": true,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "POST",
+              "name": "protected_scheduler_run_once",
+              "ok": true,
+              "path": "/remote/executive-scheduler-loop/run-once",
+              "protected_ok": false,
+              "requires_auth": true,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "POST",
+              "name": "protected_backup_create",
+              "ok": true,
+              "path": "/remote/brain-backup/create",
+              "protected_ok": false,
+              "requires_auth": true,
+              "status": 200
+            }
+          ],
+          "time": 1780408197.2081025,
+          "total": 18
+        },
+        "git_status": {
+          "ok": true,
+          "code": 0,
+          "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_loop_v2.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/brain_backups/nous_brain_backup_1780408077.zip\n?? data/brain_backups/nous_brain_backup_1780408126.zip\n?? data/brain_backups/nous_brain_backup_1780408147.zip\n?? data/brain_backups/nous_brain_backup_1780408197.zip\n?? executor/executive_command_center.py\n",
+          "stderr": ""
+        }
+      },
+      "problems": [],
+      "recommended_fixes": [
+        {
+          "id": "review_runtime_files",
+          "title": "Review runtime file changes",
+          "risk": "manual",
+          "description": "Runtime files changed. User should decide restore or commit."
+        }
+      ]
+    },
+    "root_cause": "frontend/dashboard issue",
+    "confidence": 0.75,
+    "matches": [
+      {
+        "rule": "dashboard",
+        "root_cause": "frontend/dashboard issue",
+        "candidate_files": [
+          "executor/nous_ui.py",
+          "executor/router.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "mission",
+        "root_cause": "mission system issue",
+        "candidate_files": [
+          "executor/mission_system.py",
+          "executor/mission_planner.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "goal",
+        "root_cause": "goal/progress issue",
+        "candidate_files": [
+          "executor/goal_system.py",
+          "executor/goal_progress_intelligence.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "scheduler",
+        "root_cause": "scheduler issue",
+        "candidate_files": [
+          "executor/executive_scheduler_loop.py",
+          "executor/auto_mission_executor.py"
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "candidate_files": [
+      "executor/nous_ui.py",
+      "executor/router.py",
+      "executor/mission_system.py",
+      "executor/mission_planner.py",
+      "executor/goal_system.py",
+      "executor/goal_progress_intelligence.py",
+      "executor/executive_scheduler_loop.py",
+      "executor/auto_mission_executor.py"
+    ],
+    "suggested_next_step": "Generate repair proposal, inspect candidate files, then require user approval before patching."
+  },
+  {
+    "id": 1780408362237556527,
+    "created": 1780408362.2375607,
+    "problem": {
+      "ok": true,
+      "time": 1780408217.3781097,
+      "checks": {
+        "compile": {
+          "executor/router.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/nous_ui.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/mission_system.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/mission_planner.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/dashboard_action_audit.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/executive_intelligence.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/executive_scheduler_loop.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "executor/goal_progress_intelligence.py": {
+            "ok": true,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        },
+        "endpoints": [
+          {
+            "path": "/dashboard",
+            "status": 200,
+            "ok": true,
+            "json": false
+          },
+          {
+            "path": "/remote/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/dashboard-action-audit",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/mission-planner/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/executive-intelligence/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/executive-scheduler-loop/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          },
+          {
+            "path": "/remote/goal-progress-intelligence/status",
+            "status": 200,
+            "ok": true,
+            "json": true
+          }
+        ],
+        "dashboard_action_audit": {
+          "failed": 0,
+          "ok": true,
+          "passed": 18,
+          "results": [
+            {
+              "error": null,
+              "json": false,
+              "method": "GET",
+              "name": "dashboard",
+              "ok": true,
+              "path": "/dashboard",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "remote_status",
+              "ok": true,
+              "path": "/remote/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "brain_status",
+              "ok": true,
+              "path": "/remote/brain/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "backup_list",
+              "ok": true,
+              "path": "/remote/brain-backup/list",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "restore_status",
+              "ok": true,
+              "path": "/remote/brain-restore/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "goals_status",
+              "ok": true,
+              "path": "/remote/goals-v2/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "missions_status",
+              "ok": true,
+              "path": "/remote/missions/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "approvals",
+              "ok": true,
+              "path": "/remote/missions/approvals",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "lessons_status",
+              "ok": true,
+              "path": "/remote/lessons/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "decision_memory",
+              "ok": true,
+              "path": "/remote/decision-memory/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "executive_intelligence",
+              "ok": true,
+              "path": "/remote/executive-intelligence/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "scheduler_loop",
+              "ok": true,
+              "path": "/remote/executive-scheduler-loop/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "mission_planner",
+              "ok": true,
+              "path": "/remote/mission-planner/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "mission_proposals",
+              "ok": true,
+              "path": "/remote/mission-planner/proposals",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "GET",
+              "name": "goal_progress_intelligence",
+              "ok": true,
+              "path": "/remote/goal-progress-intelligence/status",
+              "protected_ok": false,
+              "requires_auth": false,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "POST",
+              "name": "protected_planner_propose",
+              "ok": true,
+              "path": "/remote/mission-planner/propose",
+              "protected_ok": false,
+              "requires_auth": true,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "POST",
+              "name": "protected_scheduler_run_once",
+              "ok": true,
+              "path": "/remote/executive-scheduler-loop/run-once",
+              "protected_ok": false,
+              "requires_auth": true,
+              "status": 200
+            },
+            {
+              "error": null,
+              "json": true,
+              "method": "POST",
+              "name": "protected_backup_create",
+              "ok": true,
+              "path": "/remote/brain-backup/create",
+              "protected_ok": false,
+              "requires_auth": true,
+              "status": 200
+            }
+          ],
+          "time": 1780408362.198761,
+          "total": 18
+        },
+        "git_status": {
+          "ok": true,
+          "code": 0,
+          "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_loop_v2.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/brain_backups/nous_brain_backup_1780408077.zip\n?? data/brain_backups/nous_brain_backup_1780408126.zip\n?? data/brain_backups/nous_brain_backup_1780408147.zip\n?? data/brain_backups/nous_brain_backup_1780408197.zip\n?? data/brain_backups/nous_brain_backup_1780408263.zip\n?? data/brain_backups/nous_brain_backup_1780408284.zip\n?? data/brain_backups/nous_brain_backup_1780408329.zip\n?? data/brain_backups/nous_brain_backup_1780408341.zip\n?? data/brain_backups/nous_brain_backup_1780408362.zip\n?? executor/executive_command_center.py\n",
+          "stderr": ""
+        }
+      },
+      "problems": [],
+      "recommended_fixes": [
+        {
+          "id": "review_runtime_files",
+          "title": "Review runtime file changes",
+          "risk": "manual",
+          "description": "Runtime files changed. User should decide restore or commit."
+        }
+      ]
+    },
+    "root_cause": "frontend/dashboard issue",
+    "confidence": 0.75,
+    "matches": [
+      {
+        "rule": "dashboard",
+        "root_cause": "frontend/dashboard issue",
+        "candidate_files": [
+          "executor/nous_ui.py",
+          "executor/router.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "mission",
+        "root_cause": "mission system issue",
+        "candidate_files": [
+          "executor/mission_system.py",
+          "executor/mission_planner.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "goal",
+        "root_cause": "goal/progress issue",
+        "candidate_files": [
+          "executor/goal_system.py",
+          "executor/goal_progress_intelligence.py"
+        ],
+        "confidence": 0.75
+      },
+      {
+        "rule": "scheduler",
+        "root_cause": "scheduler issue",
+        "candidate_files": [
+          "executor/executive_scheduler_loop.py",
+          "executor/auto_mission_executor.py"
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "candidate_files": [
+      "executor/nous_ui.py",
+      "executor/router.py",
+      "executor/mission_system.py",
+      "executor/mission_planner.py",
+      "executor/goal_system.py",
+      "executor/goal_progress_intelligence.py",
+      "executor/executive_scheduler_loop.py",
+      "executor/auto_mission_executor.py"
+    ],
+    "suggested_next_step": "Generate repair proposal, inspect candidate files, then require user approval before patching."
   }
 ]

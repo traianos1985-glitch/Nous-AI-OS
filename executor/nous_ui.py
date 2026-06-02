@@ -134,6 +134,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button onclick="showSection('analyst')">🧠 Analyst</button>
       <button onclick="showSection('pending')">📥 Pending</button>
       <button onclick="showSection('loopv2')">♻ Loop v2</button>
+      <button onclick="showSection('command')">🧭 Command</button>
     </div>
 
     <div class="card">
@@ -584,6 +585,46 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         </div>
       </section>
 
+
+      <section id="command" class="section">
+        <div class="hero">
+          <h1>🧭 Executive Command Center</h1>
+          <p>Κεντρική οθόνη ελέγχου: pending, goals, missions, diagnosis, repair, auto executor και backups.</p>
+        </div>
+
+        <div class="card">
+          <button class="miniBtn" onclick="loadCommandCenter()">Refresh Command Center</button>
+          <button class="miniBtn" onclick="runCommandCycle()">🚀 Run Executive Cycle</button>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Command Summary</h3>
+            <div id="commandSummary">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Next Best Action</h3>
+            <div id="commandNextAction">Loading...</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Pending Inbox</h3>
+            <div id="commandPending">Loading...</div>
+          </div>
+          <div class="card">
+            <h3>Automation State</h3>
+            <div id="commandAutomation">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Full Command Data</h3>
+          <pre id="commandFull">Loading...</pre>
+        </div>
+      </section>
+
 </main>
 
   <aside class="right">
@@ -1006,6 +1047,57 @@ async function sendPrompt(){
 
 
 
+
+
+
+async function loadCommandCenter(){
+  const data = await getJson("/remote/command-center/status");
+  renderObject(data);
+
+  const s = data.summary || {};
+  document.getElementById("commandSummary").innerHTML =
+    kv("pending", s.pending_total ?? 0) +
+    kv("active goals", s.goals_active ?? 0) +
+    kv("active missions", s.missions_active ?? 0) +
+    kv("blocked missions", s.missions_blocked ?? 0) +
+    kv("repair pending", s.repair_pending ?? 0) +
+    kv("diagnosis ok", s.diagnosis_ok) +
+    kv("backups", s.backup_count ?? 0);
+
+  const next = data.intelligence?.next_best_action || {};
+  document.getElementById("commandNextAction").innerHTML =
+    `<h3>${next.title || "No action"}</h3>` +
+    kv("type", next.type || "-") +
+    kv("action", next.action || "-") +
+    `<div class="small">${next.reason || ""}</div>`;
+
+  const pending = data.pending || {};
+  document.getElementById("commandPending").innerHTML =
+    kv("total", pending.total ?? 0) +
+    kv("repair", pending.counts?.repair_proposals ?? 0) +
+    kv("missions", pending.counts?.mission_proposals ?? 0) +
+    kv("approvals", pending.counts?.mission_task_approvals ?? 0) +
+    kv("executive", pending.counts?.executive_recommendations ?? 0) +
+    `<button class="miniBtn" onclick="showSection('pending')">Open Pending Inbox</button>`;
+
+  document.getElementById("commandAutomation").innerHTML =
+    kv("auto executor", s.auto_executor_enabled) +
+    kv("auto scheduler", s.auto_scheduler_enabled) +
+    `<button class="miniBtn" onclick="showSection('autoexec')">Open AutoExec</button>
+     <button class="miniBtn" onclick="showSection('autoscheduler')">Open AutoSched</button>`;
+
+  document.getElementById("commandFull").textContent = JSON.stringify(data, null, 2);
+}
+
+async function runCommandCycle(){
+  const ok = confirm("Να τρέξει ο πλήρης Executive Cycle; Θα κάνει safe execution και θα αφήσει εγκρίσεις στο Pending Inbox.");
+  if(!ok) return;
+  const data = await postJson("/remote/command-center/run-cycle", {trigger:"command_center"});
+  renderObject(data);
+  document.getElementById("commandFull").textContent = JSON.stringify(data, null, 2);
+  feed("Executive command cycle completed");
+  await loadCommandCenter();
+}
 
 
 async function loadPendingReview(){

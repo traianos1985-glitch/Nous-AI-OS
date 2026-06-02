@@ -61,6 +61,7 @@ from executor.code_analyst import code_analyst_status, list_code_analysis_report
 from executor.auto_mission_scheduler import auto_mission_scheduler_status, start_auto_mission_scheduler, stop_auto_mission_scheduler, run_auto_mission_scheduler_once, reconcile_auto_mission_scheduler
 from executor.executive_loop_v2 import executive_loop_v2_status, run_executive_loop_v2
 from executor.pending_review import pending_review_status
+from executor.executive_command_center import executive_command_center_status, run_executive_command_cycle
 from executor.browser_driver_operator import browser_driver_status, run_browser_actions
 from executor.operator_capability_manager import operator_capabilities as operator_capability_status, reality_flags
 from executor.real_action_gate import real_actions_status, run_real_action, available_real_actions
@@ -320,6 +321,19 @@ def remote_companion_ui_tree_logs_route():
 
 
 
+
+
+@app.route("/remote/command-center/status")
+def remote_command_center_status():
+    return jsonify(executive_command_center_status())
+
+
+@app.route("/remote/command-center/run-cycle", methods=["POST"])
+def remote_command_center_run_cycle():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    return jsonify(run_executive_command_cycle(data.get("trigger", "dashboard")))
 
 @app.route("/remote/executive-loop-v2/status")
 def remote_executive_loop_v2_status():

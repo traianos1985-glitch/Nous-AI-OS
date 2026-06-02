@@ -63,7 +63,7 @@
   },
   {
     "id": 1780407096762017426,
-    "status": "pending",
+    "status": "rejected",
     "created": 1780407096.762019,
     "goal_id": 1780327547928758774,
     "goal_title": "Make NOUS cloud-native and restorable",
@@ -91,11 +91,12 @@
     ],
     "risk": "low",
     "expected_impact": "+5% to +15% goal progress",
-    "reason": "Goal is active and can benefit from a safe mission plan."
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
   },
   {
     "id": 1780407148680970531,
-    "status": "pending",
+    "status": "rejected",
     "created": 1780407148.6809716,
     "goal_id": 1780327547928758774,
     "goal_title": "Make NOUS cloud-native and restorable",
@@ -123,6 +124,337 @@
     ],
     "risk": "low",
     "expected_impact": "+5% to +15% goal progress",
-    "reason": "Goal is active and can benefit from a safe mission plan."
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408048016793209,
+    "status": "rejected",
+    "created": 1780408048.016795,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408090905288349,
+    "status": "rejected",
+    "created": 1780408090.9052908,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408111619659279,
+    "status": "rejected",
+    "created": 1780408111.6196606,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408161002980145,
+    "status": "rejected",
+    "created": 1780408161.0029814,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408229170463817,
+    "status": "rejected",
+    "created": 1780408229.1704652,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408249451654174,
+    "status": "rejected",
+    "created": 1780408249.4516554,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408288351674003,
+    "status": "rejected",
+    "created": 1780408288.351675,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408300375508894,
+    "status": "rejected",
+    "created": 1780408300.3755121,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408323235078312,
+    "status": "rejected",
+    "created": 1780408323.2350802,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
+  },
+  {
+    "id": 1780408366996121108,
+    "status": "rejected",
+    "created": 1780408366.9961228,
+    "goal_id": 1780327547928758774,
+    "goal_title": "Make NOUS cloud-native and restorable",
+    "goal_progress": 70,
+    "kind": "cloud",
+    "title": "Advance goal: Make NOUS cloud-native and restorable",
+    "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+    "tasks": [
+      {
+        "title": "Check brain backup status",
+        "action": "full_validation"
+      },
+      {
+        "title": "Check Vercel deploy status",
+        "action": "vercel_status"
+      },
+      {
+        "title": "Check brain readiness",
+        "action": "reality_status"
+      },
+      {
+        "title": "Run full validation",
+        "action": "full_validation"
+      }
+    ],
+    "risk": "low",
+    "expected_impact": "+5% to +15% goal progress",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "reject_reason": "Auto-cleaned duplicate pending proposal"
   }
 ]

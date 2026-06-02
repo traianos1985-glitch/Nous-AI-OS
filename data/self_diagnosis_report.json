@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": 1780407067.4219143,
+  "time": 1780408217.3781097,
   "checks": {
     "compile": {
       "executor/router.py": {
@@ -300,13 +300,13 @@
           "status": 200
         }
       ],
-      "time": 1780407175.9726808,
+      "time": 1780408362.198761,
       "total": 18
     },
     "git_status": {
       "ok": true,
       "code": 0,
-      "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/executive_loop_v2.json\n?? executor/executive_loop_v2.py\n?? executor/pending_review.py\n",
+      "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_loop_v2.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/brain_backups/nous_brain_backup_1780408077.zip\n?? data/brain_backups/nous_brain_backup_1780408126.zip\n?? data/brain_backups/nous_brain_backup_1780408147.zip\n?? data/brain_backups/nous_brain_backup_1780408197.zip\n?? data/brain_backups/nous_brain_backup_1780408263.zip\n?? data/brain_backups/nous_brain_backup_1780408284.zip\n?? data/brain_backups/nous_brain_backup_1780408329.zip\n?? data/brain_backups/nous_brain_backup_1780408341.zip\n?? data/brain_backups/nous_brain_backup_1780408362.zip\n?? executor/executive_command_center.py\n",
       "stderr": ""
     }
   },

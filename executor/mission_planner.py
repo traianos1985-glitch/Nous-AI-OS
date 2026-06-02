@@ -106,6 +106,15 @@ def propose_mission_for_goal(goal_id=None):
     }
 
     items = _load()
+
+    for existing in items:
+        if (
+            existing.get("status") == "pending"
+            and str(existing.get("goal_id")) == str(goal.get("id"))
+            and existing.get("kind") == kind
+        ):
+            return {"ok": True, "deduped": True, "proposal": existing}
+
     items.append(proposal)
     _save(items)
 
