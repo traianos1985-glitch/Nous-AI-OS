@@ -1,0 +1,179 @@
+[
+  {
+    "id": 1780410773871400885,
+    "created": 1780410773.8714025,
+    "problem": {
+      "error": "401 unauthorized on mission planner approve"
+    },
+    "root_cause": "Authentication/token handling issue",
+    "probable_area": "auth",
+    "candidate_files": [
+      "executor/nous_ui.py",
+      "executor/router.py",
+      "executor/security.py"
+    ],
+    "keywords": [
+      "TOKEN",
+      "X-NOUS-Token",
+      "authorization",
+      "check_admin_token",
+      "unauthorized"
+    ],
+    "matched_routes": [
+      {
+        "path": "/remote/patch-generator/approve",
+        "methods": "\"POST\"",
+        "file": "executor/router.py"
+      },
+      {
+        "path": "/remote/autonomous-repair/approve",
+        "methods": "\"POST\"",
+        "file": "executor/router.py"
+      },
+      {
+        "path": "/remote/mission-planner/approve",
+        "methods": "\"POST\"",
+        "file": "executor/router.py"
+      },
+      {
+        "path": "/remote/executive/plan",
+        "methods": "\"POST\"",
+        "file": "executor/router.py"
+      },
+      {
+        "path": "/remote/workspace/plan",
+        "methods": "\"POST\"",
+        "file": "executor/router.py"
+      },
+      {
+        "path": "/remote/operator/approve",
+        "methods": "\"POST\"",
+        "file": "executor/router.py"
+      }
+    ],
+    "snippets": [
+      {
+        "file": "executor/nous_ui.py",
+        "line": 380,
+        "keyword_line": "        <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>",
+        "snippet": "376:       </section>\n377: \n378: \n379:       <section id=\"settings\" class=\"section\">\n380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 382,
+        "keyword_line": "          <h3>Token</h3>",
+        "snippet": "378: \n379:       <section id=\"settings\" class=\"section\">\n380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>\n388:   \n389:       <section id=\"scheduler\" class=\"section\">"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 383,
+        "keyword_line": "          <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>",
+        "snippet": "379:       <section id=\"settings\" class=\"section\">\n380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>\n388:   \n389:       <section id=\"scheduler\" class=\"section\">\n390:         <div class=\"hero\">"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 384,
+        "keyword_line": "          <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>",
+        "snippet": "380:         <div class=\"hero\"><h1>⚙ Settings</h1><p>Owner token και local UI ρυθμίσεις.</p></div>\n381:         <div class=\"card\">\n382:           <h3>Token</h3>\n383:           <button class=\"miniBtn\" onclick=\"setToken()\">Set / Change Token</button>\n384:           <button class=\"miniBtn\" onclick=\"localStorage.removeItem('NOUS_TOKEN');alert('Token cleared')\">Clear Token</button>\n385:         </div>\n386:       </section>\n387:     </div>\n388:   \n389:       <section id=\"scheduler\" class=\"section\">\n390:         <div class=\"hero\">\n391:           <h1>⏱ Executive Scheduler</h1>"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 667,
+        "keyword_line": "const tokenKey=\"NOUS_TOKEN\";",
+        "snippet": "663:   </aside>\n664: </div>\n665: \n666: <script>\n667: const tokenKey=\"NOUS_TOKEN\";\n668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 670,
+        "keyword_line": "function token(){",
+        "snippet": "666: <script>\n667: const tokenKey=\"NOUS_TOKEN\";\n668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 671,
+        "keyword_line": "  let t=localStorage.getItem(tokenKey);",
+        "snippet": "667: const tokenKey=\"NOUS_TOKEN\";\n668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}\n678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 672,
+        "keyword_line": "  if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }",
+        "snippet": "668: let currentSection=\"home\";\n669: \n670: function token(){\n671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}\n678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}\n679: function feed(text){document.getElementById(\"activity\").innerHTML=new Date().toLocaleTimeString()+\" — \"+text+\"<br>\"+document.getElementById(\"activity\").innerHTML}"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 675,
+        "keyword_line": "function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }",
+        "snippet": "671:   let t=localStorage.getItem(tokenKey);\n672:   if(!t){ t=prompt(\"Βάλε NOUS token για protected actions:\"); if(t)localStorage.setItem(tokenKey,t); }\n673:   return t||\"\";\n674: }\n675: function setToken(){ const t=prompt(\"NOUS token:\", localStorage.getItem(tokenKey)||\"\"); if(t)localStorage.setItem(tokenKey,t); }\n676: function openMenu(){document.getElementById(\"sidebar\").classList.add(\"open\");document.getElementById(\"overlay\").classList.add(\"show\")}\n677: function closeMenu(){document.getElementById(\"sidebar\").classList.remove(\"open\");document.getElementById(\"overlay\").classList.remove(\"show\")}\n678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}\n679: function feed(text){document.getElementById(\"activity\").innerHTML=new Date().toLocaleTimeString()+\" — \"+text+\"<br>\"+document.getElementById(\"activity\").innerHTML}\n680: function kv(k,v){return `<div class=\"kv\"><span>${k}</span><b>${v}</b></div>`}\n681: async function getJson(path){const r=await fetch(path);return await r.json()}\n682: async function postJson(path,body={}){const r=await fetch(path,{method:\"POST\",headers:{\"Content-Type\":\"application/json\",\"X-NOUS-TOKEN\":token()},body:JSON.stringify(body)});return await r.json()}"
+      },
+      {
+        "file": "executor/nous_ui.py",
+        "line": 682,
+        "keyword_line": "async function postJson(path,body={}){const r=await fetch(path,{method:\"POST\",headers:{\"Content-Type\":\"application/json\",\"X-NOUS-TOKEN\":token()},body:JSON.stringify(body)});return await r.json()}",
+        "snippet": "678: function renderObject(obj){document.getElementById(\"raw\").textContent=JSON.stringify(obj,null,2)}\n679: function feed(text){document.getElementById(\"activity\").innerHTML=new Date().toLocaleTimeString()+\" — \"+text+\"<br>\"+document.getElementById(\"activity\").innerHTML}\n680: function kv(k,v){return `<div class=\"kv\"><span>${k}</span><b>${v}</b></div>`}\n681: async function getJson(path){const r=await fetch(path);return await r.json()}\n682: async function postJson(path,body={}){const r=await fetch(path,{method:\"POST\",headers:{\"Content-Type\":\"application/json\",\"X-NOUS-TOKEN\":token()},body:JSON.stringify(body)});return await r.json()}\n683: function addMsg(text,cls=\"\"){const c=document.getElementById(\"chatlog\");const d=document.createElement(\"div\");d.className=\"msg \"+cls;d.textContent=text;c.appendChild(d);c.scrollTop=c.scrollHeight}\n684: \n685: function showSection(id){\n686:   closeMenu(); currentSection=id;\n687:   document.querySelectorAll(\".section\").forEach(x=>x.classList.remove(\"active\"));\n688:   document.getElementById(id).classList.add(\"active\");\n689:   document.querySelectorAll(\".nav button\").forEach(x=>x.classList.remove(\"active\"));"
+      },
+      {
+        "file": "executor/router.py",
+        "line": 9,
+        "keyword_line": "from executor.security import check_token, check_admin_token",
+        "snippet": "5: from flask import Flask, request, jsonify, send_from_directory\n6: from executor.nous_ui import nous_dashboard_html\n7: from executor.kernel import handle\n8: from executor.control_center import CONTROL_CENTER_HTML\n9: from executor.security import check_token, check_admin_token\n10: from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats\n11: from executor import autonomy as autonomy_state\n12: from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle, watchdog_check\n13: from executor.goal_executor import goal_executor_cycle\n14: from executor.project_progress import list_progress, project_summary, sync_projects, mark_step\n15: from executor.self_healing_runtime import self_heal_check\n16: from executor.task_queue import list_queue, clear_queue, retry_failed, recover_dead_tasks"
+      },
+      {
+        "file": "executor/router.py",
+        "line": 10,
+        "keyword_line": "from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats",
+        "snippet": "6: from executor.nous_ui import nous_dashboard_html\n7: from executor.kernel import handle\n8: from executor.control_center import CONTROL_CENTER_HTML\n9: from executor.security import check_token, check_admin_token\n10: from executor.api_tokens import create_token, list_tokens, revoke_token, token_stats\n11: from executor import autonomy as autonomy_state\n12: from executor.autonomy_service import enable as service_enable, disable as service_disable, status as service_status, run_cycle as service_run_cycle, watchdog_check\n13: from executor.goal_executor import goal_executor_cycle\n14: from executor.project_progress import list_progress, project_summary, sync_projects, mark_step\n15: from executor.self_healing_runtime import self_heal_check\n16: from executor.task_queue import list_queue, clear_queue, retry_failed, recover_dead_tasks\n17: from executor.runtime_metrics import collect_metrics"
+      },
+      {
+        "file": "executor/router.py",
+        "line": 101,
+        "keyword_line": "    if not check_token(request):",
+        "snippet": "97:     return CONTROL_CENTER_HTML\n98: \n99: @app.route(\"/chat\", methods=[\"POST\"])\n100: def chat():\n101:     if not check_token(request):\n102:         return jsonify({\"error\": \"unauthorized\"}), 401\n103:     data = request.get_json()\n104:     cmd = data.get(\"command\", \"\")\n105:     return jsonify(handle(cmd, {}))\n106: \n107: from executor.health import backup as create_backup\n108: from executor.health import status as health_status"
+      },
+      {
+        "file": "executor/router.py",
+        "line": 102,
+        "keyword_line": "        return jsonify({\"error\": \"unauthorized\"}), 401",
+        "snippet": "98: \n99: @app.route(\"/chat\", methods=[\"POST\"])\n100: def chat():\n101:     if not check_token(request):\n102:         return jsonify({\"error\": \"unauthorized\"}), 401\n103:     data = request.get_json()\n104:     cmd = data.get(\"command\", \"\")\n105:     return jsonify(handle(cmd, {}))\n106: \n107: from executor.health import backup as create_backup\n108: from executor.health import status as health_status\n109: "
+      },
+      {
+        "file": "executor/router.py",
+        "line": 116,
+        "keyword_line": "@app.route(\"/token/create\", methods=[\"POST\"])",
+        "snippet": "112:     return jsonify(health_status())\n113: \n114: \n115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))"
+      },
+      {
+        "file": "executor/router.py",
+        "line": 117,
+        "keyword_line": "def token_create_route():",
+        "snippet": "113: \n114: \n115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: "
+      },
+      {
+        "file": "executor/router.py",
+        "line": 118,
+        "keyword_line": "    if not check_admin_token(request):",
+        "snippet": "114: \n115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: "
+      },
+      {
+        "file": "executor/router.py",
+        "line": 119,
+        "keyword_line": "        return jsonify({\"error\": \"unauthorized\"}), 401",
+        "snippet": "115: \n116: @app.route(\"/token/create\", methods=[\"POST\"])\n117: def token_create_route():\n118:     if not check_admin_token(request):\n119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: \n126: @app.route(\"/token/list\")"
+      },
+      {
+        "file": "executor/router.py",
+        "line": 123,
+        "keyword_line": "    return jsonify(create_token(name))",
+        "snippet": "119:         return jsonify({\"error\": \"unauthorized\"}), 401\n120: \n121:     data = request.get_json(silent=True) or {}\n122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: \n126: @app.route(\"/token/list\")\n127: def token_list_route():\n128:     if not check_admin_token(request):\n129:         return jsonify({\"error\": \"unauthorized\"}), 401\n130: "
+      },
+      {
+        "file": "executor/router.py",
+        "line": 126,
+        "keyword_line": "@app.route(\"/token/list\")",
+        "snippet": "122:     name = data.get(\"name\", \"remote\")\n123:     return jsonify(create_token(name))\n124: \n125: \n126: @app.route(\"/token/list\")\n127: def token_list_route():\n128:     if not check_admin_token(request):\n129:         return jsonify({\"error\": \"unauthorized\"}), 401\n130: \n131:     return jsonify(list_tokens())\n132: \n133: "
+      }
+    ],
+    "confidence": 0.82,
+    "next_step": "Generate patch proposal. Do not apply without approval."
+  }
+]

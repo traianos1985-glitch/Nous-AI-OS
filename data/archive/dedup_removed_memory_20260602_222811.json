@@ -1,12 +1,8 @@
 [
   {
-    "event": "code_health",
-    "ok": true
-  },
-  {
     "event": "android_sense",
     "data": {
-      "time": 1780414852.4371138,
+      "time": 1780414852.7129428,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -49,86 +45,16 @@
     "changed": []
   },
   {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414854.7769644,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3691,
-        "current": 1385741,
-        "percentage": 53,
-        "level": 53,
-        "scale": 100,
-        "charge_counter": 1256472
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
+    "event": "code_health",
+    "ok": true
   },
   {
-    "event": "android_sense",
-    "data": {
-      "time": 1780414854.968167,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 38.7,
-        "voltage": 3691,
-        "current": 1258300,
-        "percentage": 53,
-        "level": 53,
-        "scale": 100,
-        "charge_counter": 1256122
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
-    }
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
   },
   {
     "event": "research_query",
@@ -141,9 +67,49 @@
     "learn": false
   },
   {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414871.3739676,
+      "time": 1780414871.5646694,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -184,7 +150,48 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780414871.9454525,
+      "time": 1780414871.707925,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 38.7,
+        "voltage": 3697,
+        "current": 1174315,
+        "percentage": 52,
+        "level": 52,
+        "scale": 100,
+        "charge_counter": 1251050
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780414872.7012978,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -225,7 +232,48 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780414873.0148835,
+      "time": 1780414872.8721144,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 38.7,
+        "voltage": 3697,
+        "current": 1290526,
+        "percentage": 52,
+        "level": 52,
+        "scale": 100,
+        "charge_counter": 1250692
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780414873.1455538,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -264,9 +312,111 @@
     }
   },
   {
+    "event": "code_health",
+    "ok": true
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414874.5967,
+      "time": 1780414873.5523028,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 38.7,
+        "voltage": 3697,
+        "current": 934569,
+        "percentage": 52,
+        "level": 52,
+        "scale": 100,
+        "charge_counter": 1250432
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780414873.715978,
+      "clipboard": "",
+      "battery": {
+        "present": true,
+        "technology": "Li-poly",
+        "health": "GOOD",
+        "plugged": "UNPLUGGED",
+        "status": "DISCHARGING",
+        "temperature": 38.7,
+        "voltage": 3697,
+        "current": 934569,
+        "percentage": 52,
+        "level": 52,
+        "scale": 100,
+        "charge_counter": 1250432
+      },
+      "device": {
+        "data_enabled": "false",
+        "data_activity": "none",
+        "data_state": "disconnected",
+        "device_id": null,
+        "device_software_version": "00",
+        "phone_count": 2,
+        "phone_type": "gsm",
+        "network_operator": "",
+        "network_operator_name": "",
+        "network_country_iso": "gr",
+        "network_type": "edge",
+        "network_roaming": false,
+        "sim_country_iso": "",
+        "sim_operator": "",
+        "sim_operator_name": "",
+        "sim_serial_number": null,
+        "sim_subscriber_id": null,
+        "sim_state": "absent"
+      }
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1780414874.787283,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -305,9 +455,21 @@
     }
   },
   {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414875.3016636,
+      "time": 1780414875.4476736,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -346,9 +508,31 @@
     }
   },
   {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414876.4628415,
+      "time": 1780414876.6031668,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -387,9 +571,137 @@
     }
   },
   {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414918.5984073,
+      "time": 1780414918.7592797,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -430,7 +742,7 @@
   {
     "event": "android_sense",
     "data": {
-      "time": 1780414918.9676573,
+      "time": 1780414919.1004055,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -469,9 +781,17 @@
     }
   },
   {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414920.533055,
+      "time": 1780414920.6610968,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -510,9 +830,21 @@
     }
   },
   {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780414921.806992,
+      "time": 1780414921.905552,
       "clipboard": "",
       "battery": {
         "present": true,
@@ -549,5 +881,27 @@
         "sim_state": "absent"
       }
     }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
   }
 ]

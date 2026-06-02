@@ -1,0 +1,59 @@
+{
+  "loop": "Executive Loop V4",
+  "timestamp": "2026-06-02T15:52:28.173450+00:00",
+  "phase_order": [
+    "self_maintenance_first",
+    "deduplicate",
+    "archive_completed",
+    "backup_retention",
+    "safe_observe",
+    "safe_recommend"
+  ],
+  "self_maintenance": {
+    "timestamp": "2026-06-02T15:52:28.173553+00:00",
+    "deduplication": [
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 14
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 4
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 2
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 1
+      }
+    ],
+    "mission_lifecycle": {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+      "archived": 0,
+      "remaining_active": 1
+    },
+    "backup_retention": {
+      "backup_dir": "/data/data/com.termux/files/home/Nous-AI-OS/data/backups",
+      "keep_latest": 10,
+      "kept": 0,
+      "removed": 0
+    },
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/self_maintenance_20260602_185228.json"
+  },
+  "recommendations": [
+    "Do not create new proposals before checking duplicates.",
+    "Do not add dashboard features before data cleanup is stable.",
+    "Next upgrade should connect this loop to Flask route and pending review inbox.",
+    "Patch pipeline should remain approval-first."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-06-02T15:52:28.173553+00:00",
+  "deduplication": [
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+      "mode": "list",
+      "removed_duplicates": 0,
+      "remaining": 14
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+      "mode": "list",
+      "removed_duplicates": 0,
+      "remaining": 4
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+      "mode": "list",
+      "removed_duplicates": 0,
+      "remaining": 2
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+      "mode": "list",
+      "removed_duplicates": 0,
+      "remaining": 1
+    }
+  ],
+  "mission_lifecycle": {
+    "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+    "archived": 0,
+    "remaining_active": 1
+  },
+  "backup_retention": {
+    "backup_dir": "/data/data/com.termux/files/home/Nous-AI-OS/data/backups",
+    "keep_latest": 10,
+    "kept": 0,
+    "removed": 0
+  }
+}

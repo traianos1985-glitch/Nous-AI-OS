@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1780185533312059245,
+    "topic": "AI agents",
+    "reason": "core NOUS goal",
+    "priority": 1,
+    "source": "seed",
+    "status": "open",
+    "created": 1780185533.31206,
+    "updated": 1780185533.3120606
+  },
+  {
+    "id": 1780185533312262422,
+    "topic": "Android automation",
+    "reason": "NOUS runs on Android and Termux",
+    "priority": 2,
+    "source": "seed",
+    "status": "open",
+    "created": 1780185533.312263,
+    "updated": 1780185533.3122633
+  },
+  {
+    "id": 1780185533312450235,
+    "topic": "Local LLM",
+    "reason": "future local intelligence",
+    "priority": 3,
+    "source": "seed",
+    "status": "open",
+    "created": 1780185533.312451,
+    "updated": 1780185533.3124511
+  },
+  {
+    "id": 1780185533320954089,
+    "topic": "Autonomous agents",
+    "reason": "detected from goals/projects/memory",
+    "priority": 4,
+    "source": "context_scan",
+    "status": "open",
+    "created": 1780185533.320955,
+    "updated": 1780185533.3209553
+  },
+  {
+    "id": 1780185533321234349,
+    "topic": "Schedulers",
+    "reason": "detected from goals/projects/memory",
+    "priority": 4,
+    "source": "context_scan",
+    "status": "open",
+    "created": 1780185533.3212352,
+    "updated": 1780185533.3212352
+  },
+  {
+    "id": 1780185533321567006,
+    "topic": "Python",
+    "reason": "detected from goals/projects/memory",
+    "priority": 4,
+    "source": "context_scan",
+    "status": "open",
+    "created": 1780185533.3215675,
+    "updated": 1780185533.3215678
+  },
+  {
+    "id": 1780185533321825131,
+    "topic": "Long-term memory",
+    "reason": "detected from goals/projects/memory",
+    "priority": 4,
+    "source": "context_scan",
+    "status": "open",
+    "created": 1780185533.3218257,
+    "updated": 1780185533.321826
+  },
+  {
+    "id": 1780411575623532350,
+    "topic": "RF signal analysis",
+    "reason": "detected from goals/projects/memory",
+    "priority": 4,
+    "source": "context_scan",
+    "status": "open",
+    "created": 1780411575.6235352,
+    "updated": 1780411575.623536
+  }
+]

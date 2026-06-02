@@ -1,0 +1,3374 @@
+[
+  {
+    "id": 1780337578295553888,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 4,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 4,
+        "lessons_total": 4,
+        "lessons_success": 4,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780337578.2955568
+  },
+  {
+    "id": 1780338050898444697,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 4,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 5,
+        "lessons_total": 5,
+        "lessons_success": 5,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780338050.898449
+  },
+  {
+    "id": 1780338052130104592,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 4,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 5,
+        "lessons_total": 5,
+        "lessons_success": 5,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780338052.1301103
+  },
+  {
+    "id": 1780338060162387766,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 4,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 5,
+        "lessons_total": 5,
+        "lessons_success": 5,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780338060.1623902
+  },
+  {
+    "id": 1780338072167721408,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 4,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 5,
+        "lessons_total": 5,
+        "lessons_success": 5,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780338072.1677234
+  },
+  {
+    "id": 1780340162913997485,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 10,
+        "lessons_total": 9,
+        "lessons_success": 9,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340162.9140003
+  },
+  {
+    "id": 1780340456089549769,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 11,
+        "lessons_total": 10,
+        "lessons_success": 10,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340456.0895529
+  },
+  {
+    "id": 1780340985737999254,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 4,
+        "missions_active": 3,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 12,
+        "lessons_total": 11,
+        "lessons_success": 11,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780340985.7380033
+  },
+  {
+    "id": 1780344009862069258,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 4,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 14,
+        "lessons_total": 13,
+        "lessons_success": 13,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344009.8620777
+  },
+  {
+    "id": 1780344200787463091,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 4,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 16,
+        "lessons_total": 16,
+        "lessons_success": 16,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344200.7874699
+  },
+  {
+    "id": 1780344266766375982,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780344266765749264,
+      "status": "pending",
+      "created": 1780344266.7657506,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780344266.7663786
+  },
+  {
+    "id": 1780344275197252073,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 2,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 18,
+        "lessons_total": 22,
+        "lessons_success": 22,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344275.1972558
+  },
+  {
+    "id": 1780344294565167222,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 2,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 19,
+        "lessons_total": 22,
+        "lessons_success": 22,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344294.5651698
+  },
+  {
+    "id": 1780344318081517161,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780344318080876067,
+      "status": "pending",
+      "created": 1780344318.0808773,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780344318.0815191
+  },
+  {
+    "id": 1780344334809071165,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780344334808295696,
+      "status": "pending",
+      "created": 1780344334.808297,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780344334.8090737
+  },
+  {
+    "id": 1780344342097191475,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 2,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 22,
+        "lessons_total": 24,
+        "lessons_success": 24,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344342.0971944
+  },
+  {
+    "id": 1780344350396148138,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "dashboard",
+      "executed_count": 1,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "dashboard"
+    ],
+    "created": 1780344350.3961537
+  },
+  {
+    "id": 1780344877895699812,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 2,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 25,
+        "lessons_total": 26,
+        "lessons_success": 26,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780344877.895704
+  },
+  {
+    "id": 1780344917161654901,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "manual_auto_mission_scheduler_once",
+      "executed_count": 1,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "manual_auto_mission_scheduler_once"
+    ],
+    "created": 1780344917.161658
+  },
+  {
+    "id": 1780345060399598961,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 2,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 27,
+        "lessons_total": 29,
+        "lessons_success": 29,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780345060.399603
+  },
+  {
+    "id": 1780345099333978061,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780345099333455977,
+      "status": "pending",
+      "created": 1780345099.3334584,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780345099.333981
+  },
+  {
+    "id": 1780345100650294727,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780345100649742071,
+      "status": "pending",
+      "created": 1780345100.649743,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780345100.6502962
+  },
+  {
+    "id": 1780345104278482330,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780345104277708736,
+      "status": "pending",
+      "created": 1780345104.27771,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780345104.2784848
+  },
+  {
+    "id": 1780345122560647010,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 1,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 29,
+        "lessons_total": 33,
+        "lessons_success": 33,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780345122.5606506
+  },
+  {
+    "id": 1780345123590812374,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 1,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 30,
+        "lessons_total": 33,
+        "lessons_success": 33,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780345123.5908153
+  },
+  {
+    "id": 1780345127079042477,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 1,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 31,
+        "lessons_total": 33,
+        "lessons_success": 33,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780345127.0790455
+  },
+  {
+    "id": 1780345161873470901,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780345161871096266,
+      "status": "pending",
+      "created": 1780345161.8710973,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780345161.8734736
+  },
+  {
+    "id": 1780345162684130849,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780345162683267828,
+      "status": "pending",
+      "created": 1780345162.6832688,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780345162.684133
+  },
+  {
+    "id": 1780345166097478608,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780345166096376733,
+      "status": "pending",
+      "created": 1780345166.096378,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780345166.097481
+  },
+  {
+    "id": 1780345431879976215,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 1,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 37,
+        "lessons_total": 36,
+        "lessons_success": 36,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780345431.8799846
+  },
+  {
+    "id": 1780345477574240885,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 1,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1780345477.5742462
+  },
+  {
+    "id": 1780345524734009669,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "manual_auto_mission_scheduler_once",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "manual_auto_mission_scheduler_once"
+    ],
+    "created": 1780345524.7340124
+  },
+  {
+    "id": 1780406896996386096,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 1,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 40,
+        "lessons_total": 40,
+        "lessons_success": 40,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780406896.9963896
+  },
+  {
+    "id": 1780406937358347799,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 1,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1780406937.3583505
+  },
+  {
+    "id": 1780406937507713164,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780406937505555716,
+      "status": "pending",
+      "created": 1780406937.5055578,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780406937.5077174
+  },
+  {
+    "id": 1780406990200026060,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "executive_loop_v2",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "executive_loop_v2"
+    ],
+    "created": 1780406990.2000284
+  },
+  {
+    "id": 1780407090718152168,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 44,
+        "lessons_total": 44,
+        "lessons_success": 44,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780407090.7181566
+  },
+  {
+    "id": 1780407096762395812,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780407096762017426,
+      "status": "pending",
+      "created": 1780407096.762019,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780407096.7623975
+  },
+  {
+    "id": 1780407115380316429,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 46,
+        "lessons_total": 45,
+        "lessons_success": 45,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780407115.3803198
+  },
+  {
+    "id": 1780407148681518396,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780407148680970531,
+      "status": "pending",
+      "created": 1780407148.6809716,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780407148.68152
+  },
+  {
+    "id": 1780407168998831201,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 48,
+        "lessons_total": 46,
+        "lessons_success": 46,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780407168.9988341
+  },
+  {
+    "id": 1780407176008853438,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1780407176.0088594
+  },
+  {
+    "id": 1780407863756397654,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 50,
+        "lessons_total": 48,
+        "lessons_success": 48,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780407863.7564013
+  },
+  {
+    "id": 1780407896715775454,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1780407896.715779
+  },
+  {
+    "id": 1780407965191821991,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "executive_loop_v2",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "executive_loop_v2"
+    ],
+    "created": 1780407965.1918242
+  },
+  {
+    "id": 1780408040562838420,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 53,
+        "lessons_total": 51,
+        "lessons_success": 51,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408040.562843
+  },
+  {
+    "id": 1780408048019797688,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408048016793209,
+      "status": "pending",
+      "created": 1780408048.016795,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408048.0198004
+  },
+  {
+    "id": 1780408070655179138,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 55,
+        "lessons_total": 52,
+        "lessons_success": 52,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408070.6551816
+  },
+  {
+    "id": 1780408090906453089,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408090905288349,
+      "status": "pending",
+      "created": 1780408090.9052908,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408090.9064562
+  },
+  {
+    "id": 1780408111620786518,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408111619659279,
+      "status": "pending",
+      "created": 1780408111.6196606,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408111.6207895
+  },
+  {
+    "id": 1780408117906812922,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 57,
+        "lessons_total": 53,
+        "lessons_success": 53,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408117.9068158
+  },
+  {
+    "id": 1780408137640919112,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 58,
+        "lessons_total": 53,
+        "lessons_success": 53,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408137.640922
+  },
+  {
+    "id": 1780408147071299890,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1780408147.071307
+  },
+  {
+    "id": 1780408161006503947,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408161002980145,
+      "status": "pending",
+      "created": 1780408161.0029814,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408161.0065067
+  },
+  {
+    "id": 1780408188053970083,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 62,
+        "lessons_total": 56,
+        "lessons_success": 56,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408188.0539732
+  },
+  {
+    "id": 1780408229173912202,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408229170463817,
+      "status": "pending",
+      "created": 1780408229.1704652,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408229.173915
+  },
+  {
+    "id": 1780408249453030580,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408249451654174,
+      "status": "pending",
+      "created": 1780408249.4516554,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408249.4530332
+  },
+  {
+    "id": 1780408255047661672,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 64,
+        "lessons_total": 57,
+        "lessons_success": 57,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408255.0476644
+  },
+  {
+    "id": 1780408275788232549,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 65,
+        "lessons_total": 57,
+        "lessons_success": 57,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408275.7882361
+  },
+  {
+    "id": 1780408288353220930,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408288351674003,
+      "status": "pending",
+      "created": 1780408288.351675,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408288.3532236
+  },
+  {
+    "id": 1780408300381233946,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408300375508894,
+      "status": "pending",
+      "created": 1780408300.3755121,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408300.3812413
+  },
+  {
+    "id": 1780408319065863210,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 68,
+        "lessons_total": 59,
+        "lessons_success": 59,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408319.0658672
+  },
+  {
+    "id": 1780408323237234250,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408323235078312,
+      "status": "pending",
+      "created": 1780408323.2350802,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408323.2372375
+  },
+  {
+    "id": 1780408332340857944,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 69,
+        "lessons_total": 59,
+        "lessons_success": 59,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408332.3408644
+  },
+  {
+    "id": 1780408341798870649,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "executive_loop_v2",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "executive_loop_v2"
+    ],
+    "created": 1780408341.798874
+  },
+  {
+    "id": 1780408352212529083,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 71,
+        "lessons_total": 60,
+        "lessons_success": 60,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780408352.2125332
+  },
+  {
+    "id": 1780408367002763869,
+    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable",
+    "reason": "Goal is active and can benefit from a safe mission plan.",
+    "goal_id": 1780327547928758774,
+    "mission_id": null,
+    "action": "propose_mission",
+    "result": {
+      "id": 1780408366996121108,
+      "status": "pending",
+      "created": 1780408366.9961228,
+      "goal_id": 1780327547928758774,
+      "goal_title": "Make NOUS cloud-native and restorable",
+      "goal_progress": 70,
+      "kind": "cloud",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "description": "Auto-proposed mission to advance goal progress for: Make NOUS cloud-native and restorable",
+      "tasks": [
+        {
+          "title": "Check brain backup status",
+          "action": "full_validation"
+        },
+        {
+          "title": "Check Vercel deploy status",
+          "action": "vercel_status"
+        },
+        {
+          "title": "Check brain readiness",
+          "action": "reality_status"
+        },
+        {
+          "title": "Run full validation",
+          "action": "full_validation"
+        }
+      ],
+      "risk": "low",
+      "expected_impact": "+5% to +15% goal progress",
+      "reason": "Goal is active and can benefit from a safe mission plan."
+    },
+    "confidence": 0.75,
+    "tags": [
+      "mission_planner",
+      "proposal",
+      "cloud"
+    ],
+    "created": 1780408367.00277
+  },
+  {
+    "id": 1780410901516255264,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 75,
+        "lessons_total": 64,
+        "lessons_success": 64,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780410901.5162606
+  },
+  {
+    "id": 1780410926574722858,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 76,
+        "lessons_total": 65,
+        "lessons_success": 65,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780410926.5747287
+  },
+  {
+    "id": 1780410976401045808,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 77,
+        "lessons_total": 66,
+        "lessons_success": 66,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780410976.4010477
+  },
+  {
+    "id": 1780410983020460233,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1780410983.0204628
+  },
+  {
+    "id": 1780411696615949492,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 79,
+        "lessons_total": 68,
+        "lessons_success": 68,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780411696.6159558
+  },
+  {
+    "id": 1780411725554192762,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 80,
+        "lessons_total": 69,
+        "lessons_success": 69,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780411725.5541973
+  },
+  {
+    "id": 1780414658480085758,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 81,
+        "lessons_total": 70,
+        "lessons_success": 70,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780414658.4800885
+  },
+  {
+    "id": 1780414694449175796,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1780414694.4491818
+  },
+  {
+    "id": 1780414754594054836,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "executive_loop_v3",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "executive_loop_v3"
+    ],
+    "created": 1780414754.594059
+  },
+  {
+    "id": 1780414869110009167,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 84,
+        "lessons_total": 73,
+        "lessons_success": 73,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780414869.1100137
+  },
+  {
+    "id": 1780414901977072592,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "manual_scheduler_once",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 5,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 85,
+        "lessons_total": 74,
+        "lessons_success": 74,
+        "lessons_failure": 0,
+        "cloud_ready": true,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1780414901.9770772
+  }
+]
