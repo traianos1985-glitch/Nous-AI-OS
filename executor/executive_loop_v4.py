@@ -6,6 +6,8 @@ from pathlib import Path
 
 from executor.smart_garbage_collector import run_smart_garbage_collector
 from executor.self_maintenance_engine import run_self_maintenance
+from executor.patch_proposal_enricher import run_patch_proposal_enricher
+from executor.patch_pipeline_manager import run_patch_pipeline_manager
 
 ROOT = Path.cwd()
 DATA = ROOT / "data"
@@ -26,14 +28,18 @@ def save_report(name: str, payload: dict) -> str:
 def run_executive_loop_v4() -> dict:
     smart_cleanup = run_smart_garbage_collector()
     basic_maintenance = run_self_maintenance()
+    patch_enrichment = run_patch_proposal_enricher()
+    patch_pipeline = run_patch_pipeline_manager()
 
     result = {
         "loop": "Executive Loop V4",
         "timestamp": now_iso(),
-        "rule": "maintenance_before_creation",
+        "rule": "maintenance_and_patch_pipeline_before_creation",
         "phase_order": [
             "smart_garbage_collection",
             "basic_self_maintenance",
+            "patch_proposal_enrichment",
+            "patch_pipeline_manager",
             "deduplicate",
             "archive_completed",
             "brain_backup_retention",
@@ -42,12 +48,24 @@ def run_executive_loop_v4() -> dict:
         ],
         "smart_garbage_collection": smart_cleanup,
         "basic_self_maintenance": basic_maintenance,
+        "patch_proposal_enrichment": patch_enrichment,
+        "patch_pipeline_manager": patch_pipeline,
+        "summary": {
+            "patch_proposals_total": patch_pipeline.get("total_patch_proposals"),
+            "patch_pipeline_policy": patch_pipeline.get("policy"),
+            "repository_validation_ok": (
+                patch_pipeline.get("repository_validation", {}).get("ok")
+            ),
+            "maintenance_before_creation": True,
+            "approval_first": True,
+            "no_diff_no_apply": True,
+        },
         "recommendations": [
-            "Before creating a mission proposal, check for equivalent existing proposals.",
-            "Before creating a repair proposal, check for same fix_id, title, description and patch_type.",
-            "Before creating patch proposals, check existing pending patches for same root cause.",
-            "Before expanding dashboards, stabilize lifecycle, cleanup and patch pipeline.",
-            "Patch pipeline must remain approval-first and rollback-protected."
+            "Do not create duplicate proposals before cleanup has run.",
+            "Enrich patch proposals before sending them to approval/apply flow.",
+            "Never apply a patch that has no concrete diff, patches list, or file changes.",
+            "Run repository validation before and after any patch application.",
+            "Rollback must remain automatic on failed validation.",
         ],
     }
 
