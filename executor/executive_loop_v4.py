@@ -4,6 +4,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+from executor.smart_garbage_collector import run_smart_garbage_collector
 from executor.self_maintenance_engine import run_self_maintenance
 
 ROOT = Path.cwd()
@@ -23,23 +24,30 @@ def save_report(name: str, payload: dict) -> str:
 
 
 def run_executive_loop_v4() -> dict:
+    smart_cleanup = run_smart_garbage_collector()
+    basic_maintenance = run_self_maintenance()
+
     result = {
         "loop": "Executive Loop V4",
         "timestamp": now_iso(),
+        "rule": "maintenance_before_creation",
         "phase_order": [
-            "self_maintenance_first",
+            "smart_garbage_collection",
+            "basic_self_maintenance",
             "deduplicate",
             "archive_completed",
-            "backup_retention",
+            "brain_backup_retention",
             "safe_observe",
             "safe_recommend"
         ],
-        "self_maintenance": run_self_maintenance(),
+        "smart_garbage_collection": smart_cleanup,
+        "basic_self_maintenance": basic_maintenance,
         "recommendations": [
-            "Do not create new proposals before checking duplicates.",
-            "Do not add dashboard features before data cleanup is stable.",
-            "Next upgrade should connect this loop to Flask route and pending review inbox.",
-            "Patch pipeline should remain approval-first."
+            "Before creating a mission proposal, check for equivalent existing proposals.",
+            "Before creating a repair proposal, check for same fix_id, title, description and patch_type.",
+            "Before creating patch proposals, check existing pending patches for same root cause.",
+            "Before expanding dashboards, stabilize lifecycle, cleanup and patch pipeline.",
+            "Patch pipeline must remain approval-first and rollback-protected."
         ],
     }
 

@@ -1,0 +1,46 @@
+[
+  {
+    "kind": "patch_proposal",
+    "status": "pending",
+    "created_at": "2026-06-02T19:36:18.462463+00:00",
+    "proposal_id": 1780410773878147500,
+    "title": "Patch proposal from deep code analysis",
+    "summary": {
+      "id": 1780410773878147500,
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "risk": "low",
+      "has_diff": false,
+      "root_cause": "Authentication/token handling issue",
+      "probable_area": "auth",
+      "candidate_files": [
+        "executor/nous_ui.py",
+        "executor/router.py",
+        "executor/security.py"
+      ]
+    },
+    "recommended_action": "Review patch proposal before apply."
+  },
+  {
+    "kind": "patch_proposal",
+    "status": "pending",
+    "created_at": "2026-06-02T19:36:18.468053+00:00",
+    "proposal_id": 1780410918912363070,
+    "title": "Patch proposal from deep code analysis",
+    "summary": {
+      "id": 1780410918912363070,
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "risk": "low",
+      "has_diff": false,
+      "root_cause": "Mission planner flow issue",
+      "probable_area": "mission_planner",
+      "candidate_files": [
+        "executor/mission_planner.py",
+        "executor/nous_ui.py",
+        "executor/router.py"
+      ]
+    },
+    "recommended_action": "Review patch proposal before apply."
+  }
+]

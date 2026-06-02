@@ -1,0 +1,151 @@
+{
+  "loop": "Executive Loop V4",
+  "timestamp": "2026-06-02T19:33:04.299476+00:00",
+  "rule": "maintenance_before_creation",
+  "phase_order": [
+    "smart_garbage_collection",
+    "basic_self_maintenance",
+    "deduplicate",
+    "archive_completed",
+    "brain_backup_retention",
+    "safe_observe",
+    "safe_recommend"
+  ],
+  "smart_garbage_collection": {
+    "tool": "Smart Garbage Collector",
+    "timestamp": "2026-06-02T19:33:04.281089+00:00",
+    "files": [
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+        "mode": "list",
+        "before": 3,
+        "after": 3,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+        "mode": "list",
+        "before": 1,
+        "after": 1,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+        "mode": "list",
+        "before": 2,
+        "after": 2,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/executive_reviews.json",
+        "mode": "list",
+        "before": 11,
+        "after": 11,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+        "mode": "list",
+        "before": 1,
+        "after": 1,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/memory.json",
+        "mode": "list",
+        "before": 17,
+        "after": 17,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/lessons_learned.json",
+        "mode": "list",
+        "before": 21,
+        "after": 21,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/decision_memory.json",
+        "mode": "list",
+        "before": 8,
+        "after": 8,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/knowledge_queue.json",
+        "mode": "list",
+        "before": 2,
+        "after": 2,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/deep_code_analysis.json",
+        "mode": "list",
+        "before": 3,
+        "after": 3,
+        "removed": 0
+      }
+    ],
+    "mission_lifecycle": {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+      "archived": 0,
+      "remaining_active": 1
+    },
+    "brain_backup_retention": {
+      "backup_dir": "/data/data/com.termux/files/home/Nous-AI-OS/data/brain_backups",
+      "keep_latest": 20,
+      "found": 5,
+      "kept": 5,
+      "removed": 0
+    },
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/smart_garbage_collector_20260602_223304.json"
+  },
+  "basic_self_maintenance": {
+    "timestamp": "2026-06-02T19:33:04.292313+00:00",
+    "deduplication": [
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 3
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 1
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 2
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 1
+      }
+    ],
+    "mission_lifecycle": {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+      "archived": 0,
+      "remaining_active": 1
+    },
+    "backup_retention": {
+      "backup_dir": "/data/data/com.termux/files/home/Nous-AI-OS/data/backups",
+      "keep_latest": 10,
+      "kept": 0,
+      "removed": 0
+    },
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/self_maintenance_20260602_223304.json"
+  },
+  "recommendations": [
+    "Before creating a mission proposal, check for equivalent existing proposals.",
+    "Before creating a repair proposal, check for same fix_id, title, description and patch_type.",
+    "Before creating patch proposals, check existing pending patches for same root cause.",
+    "Before expanding dashboards, stabilize lifecycle, cleanup and patch pipeline.",
+    "Patch pipeline must remain approval-first and rollback-protected."
+  ]
+}

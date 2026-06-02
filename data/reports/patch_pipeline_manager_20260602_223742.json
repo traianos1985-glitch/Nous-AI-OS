@@ -1,0 +1,73 @@
+{
+  "tool": "Patch Pipeline Manager",
+  "timestamp": "2026-06-02T19:37:42.712918+00:00",
+  "policy": "approval_first_no_diff_no_apply",
+  "total_patch_proposals": 2,
+  "results": [
+    {
+      "proposal": {
+        "id": 1780410773878147500,
+        "title": "Patch proposal from deep code analysis",
+        "status": "pending",
+        "risk": "low",
+        "has_diff": false,
+        "root_cause": "Authentication/token handling issue",
+        "probable_area": "auth",
+        "candidate_files": [
+          "executor/nous_ui.py",
+          "executor/router.py",
+          "executor/security.py"
+        ]
+      },
+      "pipeline_state": "proposal_created",
+      "actions": [
+        "waiting_for_user_approval"
+      ],
+      "blocked": false,
+      "reason": null
+    },
+    {
+      "proposal": {
+        "id": 1780410918912363070,
+        "title": "Patch proposal from deep code analysis",
+        "status": "pending",
+        "risk": "low",
+        "has_diff": false,
+        "root_cause": "Mission planner flow issue",
+        "probable_area": "mission_planner",
+        "candidate_files": [
+          "executor/mission_planner.py",
+          "executor/nous_ui.py",
+          "executor/router.py"
+        ]
+      },
+      "pipeline_state": "proposal_created",
+      "actions": [
+        "waiting_for_user_approval"
+      ],
+      "blocked": false,
+      "reason": null
+    }
+  ],
+  "repository_validation": {
+    "compile_patch_pipeline_manager": {
+      "ok": true,
+      "code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "compile_existing_core": {
+      "ok": true,
+      "code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "git_status": {
+      "ok": true,
+      "code": 0,
+      "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/executive_memory_v3.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/patch_proposals.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/executive_loop_v4.py\n?? data/brain_backups/nous_brain_backup_1780410932.zip\n?? data/brain_backups/nous_brain_backup_1780410982.zip\n?? data/brain_backups/nous_brain_backup_1780411733.zip\n?? data/brain_backups/nous_brain_backup_1780414910.zip\n?? data/pending_reviews.json\n?? data/reports/executive_loop_v4_20260602_223304.json\n?? data/reports/patch_pipeline_manager_20260602_223618.json\n?? data/reports/self_maintenance_20260602_223304.json\n?? data/reports/smart_garbage_collector_20260602_223304.json\n?? executor/patch_pipeline_manager.py\n?? run_patch_pipeline_manager.py\n",
+      "stderr": ""
+    },
+    "ok": true
+  }
+}
