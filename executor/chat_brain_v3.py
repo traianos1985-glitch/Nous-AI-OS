@@ -547,6 +547,45 @@ def user_statement_answer(message: str) -> str | None:
     return None
 
 
+
+
+def identity_answer(message: str) -> str | None:
+    m = norm(message)
+
+    if any(x in m for x in [
+        "με λένε", "με λενε", "το όνομά μου", "το ονομα μου",
+        "εμένα με λένε", "εμενα με λενε"
+    ]):
+        return "Χάρηκα Τραϊανέ. Εμένα μπορείς να με λες ΝΟΥΣ. Είμαι ο προσωπικός σου βοηθός μέσα στο NOUS AI OS."
+
+    if any(x in m for x in [
+        "εσένα", "εσενα", "πως σε λένε", "πώς σε λένε",
+        "πως σε λενε", "πώς σε λενε", "ποιος είσαι", "ποιος εισαι"
+    ]):
+        return "Εμένα με λένε ΝΟΥΣ. Είμαι ο προσωπικός σου AI βοηθός και είμαι εδώ για συζήτηση, κώδικα, έρευνα, έγγραφα, μνήμη και αποστολές όταν μου το ζητάς ρητά."
+
+    return None
+
+
+def should_skip_knowledge_and_web(message: str) -> bool:
+    m = norm(message)
+
+    casual_patterns = [
+        "τι κάνεις", "τι κανεις",
+        "τι μπορείς να κάνεις", "τι μπορεις να κανεις",
+        "τι είναι να κάνεις", "τι ειναι να κανεις",
+        "και τι μπορείς", "και τι μπορεις",
+        "εμένα με λένε", "εμενα με λενε",
+        "με λένε", "με λενε",
+        "εσένα", "εσενα",
+        "ποιος είσαι", "ποιος εισαι",
+        "πως σε λένε", "πως σε λενε",
+        "πώς σε λένε", "πώς σε λενε",
+    ]
+
+    return any(x in m for x in casual_patterns)
+
+
 def fallback_answer(message: str) -> str:
     return (
         "Σε ακούω. Μπορώ να απαντήσω σε απλή συζήτηση, να ψάξω στα μαθημένα έγγραφα, "
@@ -575,6 +614,21 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
             mode = "capabilities"
 
     if answer is None:
+        answer = identity_answer(message)
+        if answer is not None:
+            mode = "identity"
+
+    if answer is None:
+        answer = capability_answer(message)
+        if answer is not None:
+            mode = "capabilities"
+
+    if answer is None:
+        answer = casual_answer(message)
+        if answer is not None:
+            mode = "normal_chat"
+
+    if answer is None and not should_skip_knowledge_and_web(message):
         km = answer_from_knowledge_memory(message)
         if km.get("found"):
             answer = km.get("answer")
@@ -634,13 +688,13 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     if answer is None:
         answer = casual_answer(message)
 
-    if answer is None and has_general_knowledge_question(message):
+    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message):
         web = answer_from_web(message)
         answer = summarize_search_results(web)
         sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
         mode = "internet_search"
 
-    if answer is None and has_general_knowledge_question(message):
+    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message):
         web = answer_from_web(message)
         answer = summarize_search_results(web)
         sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
