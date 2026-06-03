@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from executor.natural_chat_orchestrator import natural_chat_answer, is_natural_chat
+
 from executor.document_chat_bridge import document_chat_answer, format_document_answer
 from executor.internet_search_engine import answer_from_web
 from executor.deep_research_engine import deep_research
@@ -597,6 +599,10 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     if is_explicit_command(message):
         return None
 
+    natural = natural_chat_answer(message)
+    if natural is not None:
+        return natural
+
     mode = "normal_chat"
     answer = None
     sources = []
@@ -688,13 +694,13 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     if answer is None:
         answer = casual_answer(message)
 
-    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message):
+    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message) and not is_natural_chat(message):
         web = answer_from_web(message)
         answer = summarize_search_results(web)
         sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
         mode = "internet_search"
 
-    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message):
+    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message) and not is_natural_chat(message):
         web = answer_from_web(message)
         answer = summarize_search_results(web)
         sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
