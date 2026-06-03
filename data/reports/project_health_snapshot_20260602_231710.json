@@ -1,0 +1,30 @@
+{
+  "tool": "Project Health Snapshot",
+  "timestamp": "2026-06-02T20:17:10.833128+00:00",
+  "counts": {
+    "missions.json": 1,
+    "mission_proposals.json": 2,
+    "repair_proposals.json": 1,
+    "patch_proposals.json": 2,
+    "pending_reviews.json": 2,
+    "memory.json": 9,
+    "lessons_learned.json": 21,
+    "knowledge_queue.json": 2,
+    "decision_memory.json": 8,
+    "deep_code_analysis.json": 3
+  },
+  "compile_ok": true,
+  "compile": {
+    "ok": true,
+    "code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "git_status": {
+    "ok": true,
+    "code": 0,
+    "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/executive_memory_v3.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/memory.json\n M data/mission_proposals.json\n M data/patch_proposals.json\n M data/pending_reviews.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/executive_loop_v4.py\n M executor/nous_ui.py\n?? data/archive/dedup_removed_decision_memory_20260602_225923.json\n?? data/archive/dedup_removed_knowledge_queue_20260602_225923.json\n?? data/archive/dedup_removed_lessons_learned_20260602_225923.json\n?? data/archive/dedup_removed_memory_20260602_225923.json\n?? data/brain_backups/nous_brain_backup_1780410932.zip\n?? data/brain_backups/nous_brain_backup_1780410982.zip\n?? data/brain_backups/nous_brain_backup_1780411733.zip\n?? data/brain_backups/nous_brain_backup_1780414910.zip\n?? data/brain_backups/nous_brain_backup_1780429953.zip\n?? data/brain_backups/nous_brain_backup_1780430013.zip\n?? data/executive_priorities.json\n?? data/executive_state_summary.json\n?? data/reports/executive_loop_v4_20260602_225923.json\n?? data/reports/executive_loop_v4_20260602_230605.json\n?? data/reports/executive_prioritizer_20260602_231710.json\n?? data/reports/executive_state_summary_20260602_225923.json\n?? data/reports/executive_state_summary_20260602_230604.json\n?? data/reports/executive_state_summary_20260602_231710.json\n?? data/reports/mission_lifecycle_manager_20260602_225923.json\n?? data/reports/mission_lifecycle_manager_20260602_230604.json\n?? data/reports/mission_lifecycle_manager_20260602_231710.json\n?? data/reports/patch_pipeline_manager_20260602_225923.json\n?? data/reports/patch_pipeline_manager_20260602_230604.json\n?? data/reports/patch_pipeline_manager_20260602_231710.json\n?? data/reports/patch_proposal_enricher_20260602_225923.json\n?? data/reports/patch_proposal_enricher_20260602_230604.json\n?? data/reports/patch_proposal_enricher_20260602_231710.json\n?? data/reports/project_health_snapshot_20260602_225923.json\n?? data/reports/project_health_snapshot_20260602_230605.json\n?? data/reports/proposal_creation_guard_20260602_230604.json\n?? data/reports/proposal_creation_guard_20260602_231710.json\n?? data/reports/review_inbox_manager_20260602_225923.json\n?? data/reports/review_inbox_manager_20260602_230604.json\n?? data/reports/review_inbox_manager_20260602_231710.json\n?? data/reports/self_maintenance_20260602_225923.json\n?? data/reports/self_maintenance_20260602_230604.json\n?? data/reports/self_maintenance_20260602_231710.json\n?? data/reports/smart_garbage_collector_20260602_225923.json\n?? data/reports/smart_garbage_collector_20260602_230604.json\n?? data/reports/smart_garbage_collector_20260602_231710.json\n?? executor/executive_prioritizer.py\n?? executor/executive_state_summarizer.py\n?? executor/mission_lifecycle_manager.py\n?? executor/project_health_snapshot.py\n?? executor/proposal_creation_guard.py\n?? executor/review_inbox_manager.py\n?? run_executive_prioritizer.py\n?? run_executive_state_summarizer.py\n?? run_mission_lifecycle_manager.py\n?? run_project_health_snapshot.py\n?? run_proposal_creation_guard.py\n?? run_review_inbox_manager.py\n",
+    "stderr": ""
+  },
+  "ok": true
+}

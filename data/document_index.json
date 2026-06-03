@@ -30,5 +30,69 @@
         "επαναλαμβαν"
       ]
     }
+  },
+  {
+    "ok": true,
+    "id": "594537ecfc2a68bb",
+    "name": "20260603_140236_test_upload_manual.txt",
+    "sha256": "594537ecfc2a68bbcfdf9941f57edf7e5f5b54fb104a53c04cc9ccafd18d2104",
+    "stored_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/document_library/594537ecfc2a68bb_20260603_140236_test_upload_manual.txt",
+    "extension": ".txt",
+    "learned_at": "2026-06-03T11:02:36.156741+00:00",
+    "note": "δεύτερο δοκιμαστικό upload",
+    "extract_method": "plain_text",
+    "text_extracted": true,
+    "chunks": 1,
+    "summary": {
+      "chars": 288,
+      "words": 38,
+      "lines": 3,
+      "sample": "Δοκιμαστικό δεύτερο εγχειρίδιο.\nΟι πέτρινες αποκρύψεις μπορεί να φαίνονται από ασυνέχεια στην τοιχοποιία, διαφορετικό χρώμα κονιάματος, αφύσικη ευθυγράμμιση λίθων και μικρά σημάδια οδηγούς.\nΠριν εξαχθεί συμπέρασμα πρέπει να συγκρίνονται πατίνα, γεωμετρία, θέση και σχέση με άλλα σημάδια.",
+      "keywords": [
+        "νονται",
+        "δοκιμαστικ",
+        "εγχειρ",
+        "τρινες",
+        "αποκρ",
+        "μπορε",
+        "τοιχοποι",
+        "διαφορετικ",
+        "ματος",
+        "ευθυγρ",
+        "μμιση",
+        "οδηγο",
+        "εξαχθε",
+        "ρασμα",
+        "συγκρ",
+        "γεωμετρ"
+      ]
+    }
+  },
+  {
+    "ok": true,
+    "id": "b617ea1883c1a41d",
+    "name": "20260603_141344_route_upload_test.txt",
+    "sha256": "b617ea1883c1a41dd9c058cdf2b2a08fc6f479c7f106e079b125efc8ff586e08",
+    "stored_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/document_library/b617ea1883c1a41d_20260603_141344_route_upload_test.txt",
+    "extension": ".txt",
+    "learned_at": "2026-06-03T11:13:44.410869+00:00",
+    "note": "route upload test",
+    "extract_method": "plain_text",
+    "text_extracted": true,
+    "chunks": 1,
+    "summary": {
+      "chars": 104,
+      "words": 14,
+      "lines": 1,
+      "sample": "Τρίτο test upload. Οι πέτρες με τεχνητή απόκρυψη μπορεί να έχουν ασυνέχειες, πατίνα και σημάδια οδηγούς.",
+      "keywords": [
+        "upload",
+        "τεχνητ",
+        "κρυψη",
+        "μπορε",
+        "χειες",
+        "οδηγο"
+      ]
+    }
   }
 ]

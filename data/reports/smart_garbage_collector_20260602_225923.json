@@ -1,0 +1,88 @@
+{
+  "tool": "Smart Garbage Collector",
+  "timestamp": "2026-06-02T19:59:23.424846+00:00",
+  "files": [
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+      "mode": "list",
+      "before": 3,
+      "after": 3,
+      "removed": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+      "mode": "list",
+      "before": 1,
+      "after": 1,
+      "removed": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+      "mode": "list",
+      "before": 2,
+      "after": 2,
+      "removed": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/executive_reviews.json",
+      "mode": "list",
+      "before": 14,
+      "after": 14,
+      "removed": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+      "mode": "list",
+      "before": 1,
+      "after": 1,
+      "removed": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/memory.json",
+      "mode": "list",
+      "before": 63,
+      "after": 9,
+      "removed": 54
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/lessons_learned.json",
+      "mode": "list",
+      "before": 25,
+      "after": 21,
+      "removed": 4
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/decision_memory.json",
+      "mode": "list",
+      "before": 12,
+      "after": 8,
+      "removed": 4
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/knowledge_queue.json",
+      "mode": "list",
+      "before": 6,
+      "after": 2,
+      "removed": 4
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/deep_code_analysis.json",
+      "mode": "list",
+      "before": 3,
+      "after": 3,
+      "removed": 0
+    }
+  ],
+  "mission_lifecycle": {
+    "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+    "archived": 0,
+    "remaining_active": 1
+  },
+  "brain_backup_retention": {
+    "backup_dir": "/data/data/com.termux/files/home/Nous-AI-OS/data/brain_backups",
+    "keep_latest": 20,
+    "found": 7,
+    "kept": 7,
+    "removed": 0
+  }
+}

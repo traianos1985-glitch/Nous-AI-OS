@@ -1,0 +1,368 @@
+{
+  "loop": "Executive Loop V4",
+  "timestamp": "2026-06-02T19:59:23.988884+00:00",
+  "rule": "maintenance_lifecycle_patch_pipeline_before_creation",
+  "phase_order": [
+    "smart_garbage_collection",
+    "review_inbox_manager",
+    "mission_lifecycle_manager",
+    "basic_self_maintenance",
+    "patch_proposal_enrichment",
+    "patch_pipeline_manager",
+    "executive_state_summary",
+    "project_health_snapshot",
+    "safe_observe",
+    "safe_recommend"
+  ],
+  "smart_garbage_collection": {
+    "tool": "Smart Garbage Collector",
+    "timestamp": "2026-06-02T19:59:23.424846+00:00",
+    "files": [
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+        "mode": "list",
+        "before": 3,
+        "after": 3,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+        "mode": "list",
+        "before": 1,
+        "after": 1,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+        "mode": "list",
+        "before": 2,
+        "after": 2,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/executive_reviews.json",
+        "mode": "list",
+        "before": 14,
+        "after": 14,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+        "mode": "list",
+        "before": 1,
+        "after": 1,
+        "removed": 0
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/memory.json",
+        "mode": "list",
+        "before": 63,
+        "after": 9,
+        "removed": 54
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/lessons_learned.json",
+        "mode": "list",
+        "before": 25,
+        "after": 21,
+        "removed": 4
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/decision_memory.json",
+        "mode": "list",
+        "before": 12,
+        "after": 8,
+        "removed": 4
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/knowledge_queue.json",
+        "mode": "list",
+        "before": 6,
+        "after": 2,
+        "removed": 4
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/deep_code_analysis.json",
+        "mode": "list",
+        "before": 3,
+        "after": 3,
+        "removed": 0
+      }
+    ],
+    "mission_lifecycle": {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+      "archived": 0,
+      "remaining_active": 1
+    },
+    "brain_backup_retention": {
+      "backup_dir": "/data/data/com.termux/files/home/Nous-AI-OS/data/brain_backups",
+      "keep_latest": 20,
+      "found": 7,
+      "kept": 7,
+      "removed": 0
+    },
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/smart_garbage_collector_20260602_225923.json"
+  },
+  "review_inbox_manager": {
+    "tool": "Review Inbox Manager",
+    "timestamp": "2026-06-02T19:59:23.455282+00:00",
+    "before": 2,
+    "after": 2,
+    "removed_duplicates": 0,
+    "by_kind": {
+      "patch_proposal": 2
+    },
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/review_inbox_manager_20260602_225923.json"
+  },
+  "mission_lifecycle_manager": {
+    "tool": "Mission Lifecycle Manager",
+    "timestamp": "2026-06-02T19:59:23.455696+00:00",
+    "before": 1,
+    "active_after": 1,
+    "archived": 0,
+    "changed": false,
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/mission_lifecycle_manager_20260602_225923.json"
+  },
+  "basic_self_maintenance": {
+    "timestamp": "2026-06-02T19:59:23.455956+00:00",
+    "deduplication": [
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/pending_reviews.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 2
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 3
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 1
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 2
+      },
+      {
+        "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+        "mode": "list",
+        "removed_duplicates": 0,
+        "remaining": 1
+      }
+    ],
+    "mission_lifecycle": {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/missions.json",
+      "archived": 0,
+      "remaining_active": 1
+    },
+    "backup_retention": {
+      "backup_dir": "/data/data/com.termux/files/home/Nous-AI-OS/data/backups",
+      "keep_latest": 10,
+      "kept": 1,
+      "removed": 0
+    },
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/self_maintenance_20260602_225923.json"
+  },
+  "patch_proposal_enrichment": {
+    "tool": "Patch Proposal Enricher",
+    "timestamp": "2026-06-02T19:59:23.464425+00:00",
+    "total": 2,
+    "results": [
+      {
+        "proposal_id": 1780410773878147500,
+        "title": "Patch proposal from deep code analysis",
+        "status": "pending",
+        "before_has_patch": true,
+        "after_has_patch": true,
+        "actions": [
+          "already_has_patch"
+        ],
+        "generator": null
+      },
+      {
+        "proposal_id": 1780410918912363070,
+        "title": "Patch proposal from deep code analysis",
+        "status": "pending",
+        "before_has_patch": true,
+        "after_has_patch": true,
+        "actions": [
+          "already_has_patch"
+        ],
+        "generator": null
+      }
+    ],
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/patch_proposal_enricher_20260602_225923.json"
+  },
+  "patch_pipeline_manager": {
+    "tool": "Patch Pipeline Manager",
+    "timestamp": "2026-06-02T19:59:23.468212+00:00",
+    "policy": "approval_first_no_diff_no_apply",
+    "total_patch_proposals": 2,
+    "results": [
+      {
+        "proposal": {
+          "id": 1780410773878147500,
+          "title": "Patch proposal from deep code analysis",
+          "status": "pending",
+          "risk": "low",
+          "has_diff": true,
+          "root_cause": "Authentication/token handling issue",
+          "probable_area": "auth",
+          "candidate_files": [
+            "executor/nous_ui.py",
+            "executor/router.py",
+            "executor/security.py"
+          ]
+        },
+        "pipeline_state": "proposal_created",
+        "actions": [
+          "waiting_for_user_approval"
+        ],
+        "blocked": false,
+        "reason": null
+      },
+      {
+        "proposal": {
+          "id": 1780410918912363070,
+          "title": "Patch proposal from deep code analysis",
+          "status": "pending",
+          "risk": "low",
+          "has_diff": true,
+          "root_cause": "Mission planner flow issue",
+          "probable_area": "mission_planner",
+          "candidate_files": [
+            "executor/mission_planner.py",
+            "executor/nous_ui.py",
+            "executor/router.py"
+          ]
+        },
+        "pipeline_state": "proposal_created",
+        "actions": [
+          "waiting_for_user_approval"
+        ],
+        "blocked": false,
+        "reason": null
+      }
+    ],
+    "repository_validation": {
+      "compile_patch_pipeline_manager": {
+        "ok": true,
+        "code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "compile_existing_core": {
+        "ok": true,
+        "code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "git_status": {
+        "ok": true,
+        "code": 0,
+        "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/executive_memory_v3.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/memory.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/executive_loop_v4.py\n?? data/archive/dedup_removed_decision_memory_20260602_225923.json\n?? data/archive/dedup_removed_knowledge_queue_20260602_225923.json\n?? data/archive/dedup_removed_lessons_learned_20260602_225923.json\n?? data/archive/dedup_removed_memory_20260602_225923.json\n?? data/brain_backups/nous_brain_backup_1780410932.zip\n?? data/brain_backups/nous_brain_backup_1780410982.zip\n?? data/brain_backups/nous_brain_backup_1780411733.zip\n?? data/brain_backups/nous_brain_backup_1780414910.zip\n?? data/brain_backups/nous_brain_backup_1780429953.zip\n?? data/brain_backups/nous_brain_backup_1780430013.zip\n?? data/reports/mission_lifecycle_manager_20260602_225923.json\n?? data/reports/patch_proposal_enricher_20260602_225923.json\n?? data/reports/review_inbox_manager_20260602_225923.json\n?? data/reports/self_maintenance_20260602_225923.json\n?? data/reports/smart_garbage_collector_20260602_225923.json\n?? executor/executive_state_summarizer.py\n?? executor/mission_lifecycle_manager.py\n?? executor/project_health_snapshot.py\n?? executor/review_inbox_manager.py\n?? run_executive_state_summarizer.py\n?? run_mission_lifecycle_manager.py\n?? run_project_health_snapshot.py\n?? run_review_inbox_manager.py\n",
+        "stderr": ""
+      },
+      "ok": true
+    },
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/patch_pipeline_manager_20260602_225923.json"
+  },
+  "executive_state_summary": {
+    "tool": "Executive State Summarizer",
+    "timestamp": "2026-06-02T19:59:23.826015+00:00",
+    "missions": {
+      "total": 1,
+      "by_status": {
+        "blocked": 1
+      }
+    },
+    "mission_proposals": {
+      "total": 3,
+      "by_status": {
+        "approved": 1,
+        "pending": 1,
+        "rejected": 1
+      }
+    },
+    "repair_proposals": {
+      "total": 1,
+      "by_status": {
+        "approved": 1
+      }
+    },
+    "patch_proposals": {
+      "total": 2,
+      "by_status": {
+        "pending": 2
+      },
+      "ready_with_patch": 2
+    },
+    "pending_reviews": {
+      "total": 2,
+      "by_status": {
+        "pending": 2
+      }
+    },
+    "next_focus": [
+      "Use lifecycle manager to close completed missions.",
+      "Use patch pipeline only after approval.",
+      "Keep cleanup before creation."
+    ],
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/executive_state_summary_20260602_225923.json"
+  },
+  "project_health_snapshot": {
+    "tool": "Project Health Snapshot",
+    "timestamp": "2026-06-02T19:59:23.986889+00:00",
+    "counts": {
+      "missions.json": 1,
+      "mission_proposals.json": 3,
+      "repair_proposals.json": 1,
+      "patch_proposals.json": 2,
+      "pending_reviews.json": 2,
+      "memory.json": 9,
+      "lessons_learned.json": 21,
+      "knowledge_queue.json": 2,
+      "decision_memory.json": 8,
+      "deep_code_analysis.json": 3
+    },
+    "compile_ok": true,
+    "compile": {
+      "ok": true,
+      "code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "git_status": {
+      "ok": true,
+      "code": 0,
+      "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/executive_memory_v3.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/memory.json\n M data/patch_proposals.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/executive_loop_v4.py\n?? data/archive/dedup_removed_decision_memory_20260602_225923.json\n?? data/archive/dedup_removed_knowledge_queue_20260602_225923.json\n?? data/archive/dedup_removed_lessons_learned_20260602_225923.json\n?? data/archive/dedup_removed_memory_20260602_225923.json\n?? data/brain_backups/nous_brain_backup_1780410932.zip\n?? data/brain_backups/nous_brain_backup_1780410982.zip\n?? data/brain_backups/nous_brain_backup_1780411733.zip\n?? data/brain_backups/nous_brain_backup_1780414910.zip\n?? data/brain_backups/nous_brain_backup_1780429953.zip\n?? data/brain_backups/nous_brain_backup_1780430013.zip\n?? data/executive_state_summary.json\n?? data/reports/executive_state_summary_20260602_225923.json\n?? data/reports/mission_lifecycle_manager_20260602_225923.json\n?? data/reports/patch_pipeline_manager_20260602_225923.json\n?? data/reports/patch_proposal_enricher_20260602_225923.json\n?? data/reports/review_inbox_manager_20260602_225923.json\n?? data/reports/self_maintenance_20260602_225923.json\n?? data/reports/smart_garbage_collector_20260602_225923.json\n?? executor/executive_state_summarizer.py\n?? executor/mission_lifecycle_manager.py\n?? executor/project_health_snapshot.py\n?? executor/review_inbox_manager.py\n?? run_executive_state_summarizer.py\n?? run_mission_lifecycle_manager.py\n?? run_project_health_snapshot.py\n?? run_review_inbox_manager.py\n",
+      "stderr": ""
+    },
+    "ok": true,
+    "report_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/reports/project_health_snapshot_20260602_225923.json"
+  },
+  "summary": {
+    "repository_validation_ok": true,
+    "health_ok": true,
+    "patch_proposals_total": 2,
+    "pending_reviews_total": 2,
+    "active_missions_total": 1,
+    "maintenance_before_creation": true,
+    "approval_first": true,
+    "rollback_required_on_failed_patch_validation": true
+  },
+  "recommendations": [
+    "Keep V4 as the main safety gate before new autonomous creation.",
+    "Use pending_reviews as the human approval boundary.",
+    "Do not apply patches without concrete file changes.",
+    "Close mission loops through lifecycle manager and lessons learned.",
+    "Continue improving existing modules instead of duplicating architecture."
+  ]
+}

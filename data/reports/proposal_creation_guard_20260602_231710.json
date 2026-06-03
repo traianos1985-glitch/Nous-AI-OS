@@ -1,0 +1,31 @@
+{
+  "tool": "Proposal Creation Guard",
+  "timestamp": "2026-06-02T20:17:10.378003+00:00",
+  "policy": "block_duplicate_proposals_and_reviews",
+  "results": [
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/mission_proposals.json",
+      "before": 2,
+      "after": 2,
+      "duplicates_blocked": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/repair_proposals.json",
+      "before": 1,
+      "after": 1,
+      "duplicates_blocked": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/patch_proposals.json",
+      "before": 2,
+      "after": 2,
+      "duplicates_blocked": 0
+    },
+    {
+      "file": "/data/data/com.termux/files/home/Nous-AI-OS/data/pending_reviews.json",
+      "before": 2,
+      "after": 1,
+      "duplicates_blocked": 1
+    }
+  ]
+}

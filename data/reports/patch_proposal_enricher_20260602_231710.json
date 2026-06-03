@@ -1,0 +1,29 @@
+{
+  "tool": "Patch Proposal Enricher",
+  "timestamp": "2026-06-02T20:17:10.390444+00:00",
+  "total": 2,
+  "results": [
+    {
+      "proposal_id": 1780410773878147500,
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "before_has_patch": true,
+      "after_has_patch": true,
+      "actions": [
+        "already_has_patch"
+      ],
+      "generator": null
+    },
+    {
+      "proposal_id": 1780410918912363070,
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "before_has_patch": true,
+      "after_has_patch": true,
+      "actions": [
+        "already_has_patch"
+      ],
+      "generator": null
+    }
+  ]
+}

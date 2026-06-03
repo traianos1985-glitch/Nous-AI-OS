@@ -1,3 +1,4 @@
+from pathlib import Path
 import os
 import sys
 import platform
@@ -5,6 +6,7 @@ import time
 from flask import Flask, request, jsonify, send_from_directory
 from executor.document_chat_bridge import document_chat_answer, format_document_answer
 from executor.chat_response_engine import chatgpt_style_response
+from executor.upload_processing_engine import process_uploaded_file, upload_status
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -110,26 +112,6 @@ def home():
 @app.route("/chat", methods=["POST"])
 def chat():
 
-    # NOUS_CHAT_PAYLOAD_NORMALIZER
-    try:
-        data = request.get_json(silent=True) or {}
-        msg = (
-            data.get("message")
-            or data.get("prompt")
-            or data.get("text")
-            or data.get("command")
-            or ""
-        )
-        if msg:
-            data["message"] = msg
-            data["prompt"] = msg
-            data["text"] = msg
-            data["command"] = msg
-            request._cached_json = (data, data)
-    except Exception:
-        pass
-
-
     # NOUS_CHATGPT_STYLE_EARLY_RETURN
     try:
         data = request.get_json(silent=True) or {}
@@ -145,6 +127,8 @@ def chat():
             return jsonify(clean_chat)
     except Exception:
         pass
+
+
 
 
     # NOUS_DOCUMENT_CHAT_EARLY_RETURN
@@ -2145,6 +2129,62 @@ def remote_document_chat_ask_route():
         "sources": result.get("sources", []),
         "raw": result,
     })
+
+
+
+
+@app.route("/remote/document/upload", methods=["POST"])
+def remote_document_upload_route():
+    try:
+        if "file" not in request.files:
+            return jsonify({"ok": False, "error": "missing_file"}), 400
+
+        f = request.files["file"]
+        note = request.form.get("note", "uploaded_from_ui")
+        filename = f.filename or "upload.bin"
+
+        upload_dir = Path("data/document_uploads")
+        upload_dir.mkdir(parents=True, exist_ok=True)
+
+        safe = "".join(ch if ch.isalnum() or ch in ".-_ " else "_" for ch in filename).strip() or "upload.bin"
+        target = upload_dir / safe
+
+        i = 1
+        while target.exists():
+            target = upload_dir / f"{i}_{safe}"
+            i += 1
+
+        f.save(str(target))
+
+        result = process_uploaded_file(target, original_name=filename, note=note)
+
+        answer = result.get("answer", "Το αρχείο ανέβηκε.")
+        return jsonify({
+            "ok": bool(result.get("ok")),
+            "source": "upload_processing_engine",
+            "mode": "document_upload",
+            "answer": answer,
+            "response": answer,
+            "text": answer,
+            "human_answer": answer,
+            "result": result,
+        })
+    except Exception as e:
+        return jsonify({
+            "ok": False,
+            "source": "upload_processing_engine",
+            "mode": "document_upload_error",
+            "error": repr(e),
+            "answer": "Το upload απέτυχε.",
+            "response": "Το upload απέτυχε.",
+            "text": "Το upload απέτυχε.",
+            "human_answer": "Το upload απέτυχε.",
+        }), 500
+
+
+@app.route("/remote/document/upload-status", methods=["GET"])
+def remote_document_upload_status_route():
+    return jsonify(upload_status())
 
 
 if __name__ == "__main__":

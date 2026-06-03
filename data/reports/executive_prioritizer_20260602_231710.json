@@ -1,0 +1,103 @@
+{
+  "tool": "Executive Prioritizer",
+  "timestamp": "2026-06-02T20:17:10.848548+00:00",
+  "total_items_scored": 7,
+  "top_10": [
+    {
+      "priority": 100,
+      "kind": "patch_review",
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "id": 1780410773878147500,
+      "impact": 90,
+      "urgency": 75,
+      "dependency": 25,
+      "risk_penalty": 0,
+      "recommended_action": "Review patch proposal before applying."
+    },
+    {
+      "priority": 100,
+      "kind": "patch_review",
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "id": 1780410918912363070,
+      "impact": 90,
+      "urgency": 75,
+      "dependency": 25,
+      "risk_penalty": 0,
+      "recommended_action": "Review patch proposal before applying."
+    },
+    {
+      "priority": 100,
+      "kind": "pending_review",
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "id": 1780410773878147500,
+      "impact": 85,
+      "urgency": 70,
+      "dependency": 10,
+      "risk_penalty": 0,
+      "recommended_action": "Review patch proposal before apply."
+    },
+    {
+      "priority": 100,
+      "kind": "pending_review",
+      "title": "Patch proposal from deep code analysis",
+      "status": "pending",
+      "id": 1780410918912363070,
+      "impact": 65,
+      "urgency": 50,
+      "dependency": 10,
+      "risk_penalty": 0,
+      "recommended_action": "Review patch proposal before apply."
+    },
+    {
+      "priority": 100,
+      "kind": "mission",
+      "title": "Deploy verification",
+      "status": "blocked",
+      "id": 1780326802824661037,
+      "impact": 60,
+      "urgency": 50,
+      "dependency": 10,
+      "risk_penalty": 0,
+      "recommended_action": "Inspect blocked/running mission and unblock next safe task."
+    },
+    {
+      "priority": 80,
+      "kind": "mission_proposal",
+      "title": "Advance goal: Make NOUS cloud-native and restorable",
+      "status": "pending",
+      "id": 1780406937505555716,
+      "impact": 40,
+      "urgency": 30,
+      "dependency": 10,
+      "risk_penalty": 0,
+      "recommended_action": "Review mission proposal."
+    },
+    {
+      "priority": 70,
+      "kind": "mission_proposal",
+      "title": "Advance goal: Improve NOUS user interface",
+      "status": "approved",
+      "id": 1780339650799177003,
+      "impact": 40,
+      "urgency": 20,
+      "dependency": 10,
+      "risk_penalty": 0,
+      "recommended_action": "Review mission proposal."
+    }
+  ],
+  "top_action": {
+    "priority": 100,
+    "kind": "patch_review",
+    "title": "Patch proposal from deep code analysis",
+    "status": "pending",
+    "id": 1780410773878147500,
+    "impact": 90,
+    "urgency": 75,
+    "dependency": 25,
+    "risk_penalty": 0,
+    "recommended_action": "Review patch proposal before applying."
+  }
+}

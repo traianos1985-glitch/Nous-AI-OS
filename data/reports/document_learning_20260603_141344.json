@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "id": "b617ea1883c1a41d",
+  "name": "20260603_141344_route_upload_test.txt",
+  "sha256": "b617ea1883c1a41dd9c058cdf2b2a08fc6f479c7f106e079b125efc8ff586e08",
+  "stored_path": "/data/data/com.termux/files/home/Nous-AI-OS/data/document_library/b617ea1883c1a41d_20260603_141344_route_upload_test.txt",
+  "extension": ".txt",
+  "learned_at": "2026-06-03T11:13:44.410869+00:00",
+  "note": "route upload test",
+  "extract_method": "plain_text",
+  "text_extracted": true,
+  "chunks": 1,
+  "summary": {
+    "chars": 104,
+    "words": 14,
+    "lines": 1,
+    "sample": "Τρίτο test upload. Οι πέτρες με τεχνητή απόκρυψη μπορεί να έχουν ασυνέχειες, πατίνα και σημάδια οδηγούς.",
+    "keywords": [
+      "upload",
+      "τεχνητ",
+      "κρυψη",
+      "μπορε",
+      "χειες",
+      "οδηγο"
+    ]
+  }
+}

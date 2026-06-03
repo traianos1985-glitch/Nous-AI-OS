@@ -104,7 +104,12 @@ def split_sentences(text: str) -> list[str]:
         x = clean_sentence(x)
         if not x:
             continue
-        if x.lower().startswith("εγχειρίδιο"):
+        low = x.lower()
+        if low.startswith("εγχειρίδιο"):
+            continue
+        if "δοκιμαστικό" in low and "εγχειρίδιο" in low:
+            continue
+        if low.endswith("εγχειρίδιο.") or low.endswith("manual."):
             continue
         if x not in out:
             out.append(x)

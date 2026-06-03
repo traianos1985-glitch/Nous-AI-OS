@@ -255,7 +255,16 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 
       <section id="chat" class="section">
         <div class="chat" style="height:calc(100vh - 96px)">
-          <div class="chatlog" id="chatlog">
+          
+<div class="card" id="chatUploadCard">
+  <h3>📎 Upload & Learn</h3>
+  <p>Ανέβασε PDF, DOCX, TXT ή εικόνα. Ο ΝΟΥΣ θα προσπαθήσει να το μάθει και μετά θα μπορείς να τον ρωτάς.</p>
+  <input type="file" id="chatUploadFile" multiple>
+  <input id="chatUploadNote" placeholder="Σημείωση π.χ. εγχειρίδιο αποκρύψεων" style="width:100%;padding:10px;margin-top:8px;">
+  <button class="miniBtn" onclick="uploadChatFiles()">Upload & Learn</button>
+</div>
+
+<div class="chatlog" id="chatlog">
             <div class="msg">Γράψε εντολή. Παραδείγματα: /status, /home, /back, /plan βελτίωσε το UI, /run έλεγξε το companion. Αν γράψεις απλό στόχο, ο Executive Layer θα φτιάξει mission και θα τρέξει ασφαλή βήματα.</div>
           </div>
           <div class="composer">
@@ -1943,77 +1952,7 @@ function previewLocalFiles(event){
 
 
 
-<script id="nous-global-document-guard-v2">
-(function(){
-  window.NOUS_GLOBAL_DOCUMENT_GUARD_V2 = true;
 
-  const originalFetch = window.fetch.bind(window);
-
-  function parseBody(options){
-    try{
-      if(!options || !options.body) return {};
-      if(typeof options.body === "string") return JSON.parse(options.body);
-    }catch(e){}
-    return {};
-  }
-
-  function hasDocumentIntent(text){
-    text = String(text || "").toLowerCase();
-    const triggers = [
-      "τι λέει", "εγχειρίδιο", "εγχειριδιο", "manual",
-      "pdf", "docx", "έγγραφο", "εγγραφο", "αρχείο", "αρχειο",
-      "μαθημένα", "μαθημενα", "κρύπτες", "κρυπτες",
-      "πέτρες", "πετρες", "απόκρυψη", "αποκρυψη",
-      "αποκρύψεις", "αποκρυψεις", "αποκρυψεων", "αποκρύψεων"
-    ];
-    return triggers.some(t => text.includes(t));
-  }
-
-  function jsonResponse(data){
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {"Content-Type":"application/json"}
-    });
-  }
-
-  window.fetch = async function(input, options){
-    const url = String((typeof input === "string") ? input : input.url || "");
-
-    if(url.includes("/remote/document-chat/ask")){
-      return originalFetch(input, options);
-    }
-
-    const method = String((options && options.method) || "GET").toUpperCase();
-
-    if(method === "POST"){
-      const body = parseBody(options);
-      const msg = body.message || body.prompt || body.text || body.command || "";
-
-      if(msg && hasDocumentIntent(msg)){
-        try{
-          const r = await originalFetch("/remote/document-chat/ask", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({message: msg})
-          });
-
-          const data = await r.json();
-
-          if(data && data.used_documents && data.sources && data.sources.length){
-            data.executed = false;
-            data.human_answer = data.answer || data.response || data.text;
-            return jsonResponse(data);
-          }
-        }catch(e){
-          console.warn("NOUS document guard fallback:", e);
-        }
-      }
-    }
-
-    return originalFetch(input, options);
-  };
-})();
-</script>
 
 
 
@@ -2091,6 +2030,9 @@ function previewLocalFiles(event){
 </script>
 
 
+
+
+
 <script id="nous-clean-human-answer-layer">
 (function(){
   window.NOUS_CLEAN_HUMAN_ANSWER_LAYER = true;
@@ -2149,7 +2091,7 @@ function previewLocalFiles(event){
     main.textContent = String(human);
     el.appendChild(main);
 
-    const sources = obj.sources || (obj.raw && obj.raw.sources) || [];
+    const sources = obj.sources || [];
     if(Array.isArray(sources) && sources.length){
       const srcBox = document.createElement("div");
       srcBox.className = "nousSourcesBox";
@@ -2161,20 +2103,6 @@ function previewLocalFiles(event){
       });
       el.appendChild(srcBox);
     }
-
-    if(obj.mode === "document_recall" || obj.source === "document_chat_bridge" || obj.source === "chat_response_engine"){
-      return;
-    }
-
-    const details = document.createElement("details");
-    details.className = "nousTechDetails";
-    const summary = document.createElement("summary");
-    summary.textContent = "Τεχνικές λεπτομέρειες";
-    const pre = document.createElement("pre");
-    pre.textContent = JSON.stringify(obj, null, 2);
-    details.appendChild(summary);
-    details.appendChild(pre);
-    el.appendChild(details);
   }
 
   window.NOUS_RENDER_CLEAN_MESSAGE = renderCleanMessage;
@@ -2189,172 +2117,41 @@ function previewLocalFiles(event){
 </script>
 
 
-<script id="nous-global-chat-guard-v3">
-(function(){
-  window.NOUS_GLOBAL_CHAT_GUARD_V3 = true;
+<script id="nous-chat-upload-ui">
+async function uploadChatFiles(){
+  const input = document.getElementById("chatUploadFile");
+  const note = document.getElementById("chatUploadNote")?.value || "uploaded_from_chat";
+  const files = Array.from(input?.files || []);
 
-  const originalFetch = window.fetch.bind(window);
+  if(!files.length){
+    alert("Διάλεξε πρώτα αρχείο.");
+    return;
+  }
 
-  function parseBody(options){
+  for(const file of files){
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("note", note);
+
+    addMsg("Ανεβάζω και μαθαίνω το αρχείο: " + file.name, "user");
+
     try{
-      if(!options || !options.body) return {};
-      if(typeof options.body === "string") return JSON.parse(options.body);
-    }catch(e){}
-    return {};
-  }
-
-  function getMsg(body){
-    return body.message || body.prompt || body.text || body.command || "";
-  }
-
-  function isCommand(msg){
-    const m = String(msg || "").trim().toLowerCase();
-    return (
-      m.startsWith("/") ||
-      m.startsWith("plan ") ||
-      m.startsWith("run ") ||
-      m.startsWith("task ") ||
-      m.startsWith("mission ") ||
-      m.startsWith("deploy ") ||
-      m.startsWith("φτιάξε αποστολή") ||
-      m.startsWith("δημιούργησε αποστολή") ||
-      m.startsWith("τρέξε ")
-    );
-  }
-
-  function looksLikeNormalChat(msg){
-    const m = String(msg || "").trim().toLowerCase();
-    if(!m) return false;
-    if(isCommand(m)) return false;
-    if(m.includes("?")) return true;
-    if(m.split(/\s+/).length <= 8) return true;
-
-    const starts = ["τι ", "πως ", "πώς ", "γιατί ", "γιατι ", "που ", "πού ", "ποιο ", "ποια ", "ποιος "];
-    if(starts.some(x => m.startsWith(x))) return true;
-
-    const casual = ["γεια", "καλημέρα", "καλησπέρα", "τι κάνεις", "τι κανεις", "πως είσαι", "πώς είσαι", "έλα φίλε", "ελα φιλε"];
-    return casual.some(x => m.includes(x));
-  }
-
-  function jsonResponse(data){
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {"Content-Type":"application/json"}
-    });
-  }
-
-  window.fetch = async function(input, options){
-    const url = String((typeof input === "string") ? input : (input && input.url) || "");
-    const method = String((options && options.method) || "GET").toUpperCase();
-
-    if(method === "POST"){
-      const body = parseBody(options);
-      const msg = getMsg(body);
-
-      const isInternalChat =
-        url.includes("/chat") ||
-        url.includes("/remote/document-chat/ask");
-
-      if(msg && !isInternalChat && looksLikeNormalChat(msg)){
-        try{
-          const r = await originalFetch("/chat", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({message: msg, prompt: msg, text: msg, command: msg})
-          });
-
-          const data = await r.json();
-          return jsonResponse(data);
-        }catch(e){
-          console.warn("NOUS global chat guard fallback:", e);
-        }
-      }
-    }
-
-    return originalFetch(input, options);
-  };
-})();
-</script>
-
-
-<script id="nous-final-chat-renderer-v3">
-(function(){
-  window.NOUS_FINAL_CHAT_RENDERER_V3 = true;
-
-  function toHuman(input){
-    if(input === null || input === undefined) return "";
-    if(typeof input === "string"){
-      const s = input.trim();
-      if((s.startsWith("{") || s.startsWith("["))){
-        try { return toHuman(JSON.parse(s)); } catch(e){ return input; }
-      }
-      return input;
-    }
-
-    if(typeof input === "object"){
-      return (
-        input.human_answer ||
-        input.answer ||
-        input.response ||
-        input.text ||
-        input.summary ||
-        input.output?.answer ||
-        input.output?.response ||
-        input.output?.text ||
-        JSON.stringify(input, null, 2)
-      );
-    }
-
-    return String(input);
-  }
-
-  function sourcesFrom(input){
-    if(!input || typeof input !== "object") return [];
-    return input.sources || input.raw?.sources || input.raw?.raw?.sources || [];
-  }
-
-  window.addMsg = function(text, cls=""){
-    const c = document.getElementById("chatlog");
-    if(!c) return;
-
-    let obj = null;
-    if(typeof text === "object") obj = text;
-    if(typeof text === "string"){
-      const s = text.trim();
-      if(s.startsWith("{") || s.startsWith("[")){
-        try { obj = JSON.parse(s); } catch(e){}
-      }
-    }
-
-    const d = document.createElement("div");
-    d.className = "msg " + cls;
-
-    const human = toHuman(text);
-    d.textContent = human;
-
-    const sources = sourcesFrom(obj);
-    if(Array.isArray(sources) && sources.length){
-      const box = document.createElement("div");
-      box.className = "nousSourcesBox";
-      box.innerHTML = "<b>Πηγές:</b>";
-      sources.slice(0,5).forEach(function(s, i){
-        const line = document.createElement("div");
-        line.textContent = "[" + (i+1) + "] " + (s.document || "document");
-        box.appendChild(line);
+      const r = await fetch("/remote/document/upload", {
+        method: "POST",
+        body: fd
       });
-      d.appendChild(box);
+
+      const data = await r.json();
+      addMsg(data, "bot");
+
+      if(typeof renderObject === "function"){
+        renderObject(data);
+      }
+    }catch(e){
+      addMsg("Σφάλμα upload: " + e, "bot");
     }
-
-    c.appendChild(d);
-    c.scrollTop = c.scrollHeight;
-  };
-
-  window.renderObject = function(obj){
-    const el = document.getElementById("raw");
-    if(!el) return;
-    el.textContent = toHuman(obj);
-  };
-})();
+  }
+}
 </script>
 
 </body>

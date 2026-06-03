@@ -1,0 +1,41 @@
+{
+  "tool": "Executive State Summarizer",
+  "timestamp": "2026-06-02T20:06:04.898422+00:00",
+  "missions": {
+    "total": 1,
+    "by_status": {
+      "blocked": 1
+    }
+  },
+  "mission_proposals": {
+    "total": 2,
+    "by_status": {
+      "approved": 1,
+      "pending": 1
+    }
+  },
+  "repair_proposals": {
+    "total": 1,
+    "by_status": {
+      "approved": 1
+    }
+  },
+  "patch_proposals": {
+    "total": 2,
+    "by_status": {
+      "pending": 2
+    },
+    "ready_with_patch": 2
+  },
+  "pending_reviews": {
+    "total": 2,
+    "by_status": {
+      "pending": 2
+    }
+  },
+  "next_focus": [
+    "Use lifecycle manager to close completed missions.",
+    "Use patch pipeline only after approval.",
+    "Keep cleanup before creation."
+  ]
+}

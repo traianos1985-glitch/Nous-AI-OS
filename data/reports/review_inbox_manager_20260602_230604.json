@@ -1,0 +1,10 @@
+{
+  "tool": "Review Inbox Manager",
+  "timestamp": "2026-06-02T20:06:04.526247+00:00",
+  "before": 1,
+  "after": 1,
+  "removed_duplicates": 0,
+  "by_kind": {
+    "patch_proposal": 1
+  }
+}
