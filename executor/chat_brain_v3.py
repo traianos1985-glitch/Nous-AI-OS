@@ -18,6 +18,7 @@ from executor.conversation_summary_engine import update_conversation_summary, su
 from executor.conversation_search_engine import answer_from_conversations, cross_conversation_context
 from executor.conversation_title_engine import generate_conversation_title
 from executor.knowledge_memory_engine import answer_from_knowledge_memory, learn_from_chat_result, coding_context
+from executor.error_learning_engine import engineering_memory_context
 
 DATA = Path("data")
 REPORTS = DATA / "reports"
@@ -362,6 +363,7 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
     global_memory = cross_conversation_context(message, limit=3) if has_cross_memory_intent(message) else ""
     context = selected_context or selected_summary or global_memory or recent
     code_context = coding_context(message)
+    engineering_context = engineering_memory_context(message)
 
     prompt = f"""
 Απάντησε στα ελληνικά, καθαρά και σύντομα, σαν βοηθός τύπου ChatGPT.
@@ -373,6 +375,8 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
 {context}
 
 {code_context}
+
+{engineering_context}
 
 Ερώτηση χρήστη:
 {message}

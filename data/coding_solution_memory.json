@@ -1,0 +1,63 @@
+[
+  {
+    "id": "c707ef277387bbe5",
+    "problem": "quality gate passed: final_route_test",
+    "solution": "py_compile/imports/routes/chat smoke passed",
+    "files": [
+      "executor/router.py",
+      "executor/chat_brain_v3.py",
+      "executor/knowledge_memory_engine.py",
+      "executor/error_learning_engine.py",
+      "executor/patch_quality_gate.py"
+    ],
+    "status": "successful",
+    "tags": [
+      "quality_gate",
+      "validation"
+    ],
+    "created_at": "2026-06-03T22:29:29.673148+00:00",
+    "updated_at": "2026-06-03T22:29:29.673159+00:00",
+    "uses": 0
+  },
+  {
+    "id": "f6a9a3d12eede535",
+    "problem": "quality gate passed: route_test",
+    "solution": "py_compile/imports/routes/chat smoke passed",
+    "files": [
+      "executor/router.py",
+      "executor/chat_brain_v3.py",
+      "executor/knowledge_memory_engine.py",
+      "executor/error_learning_engine.py",
+      "executor/patch_quality_gate.py"
+    ],
+    "status": "successful",
+    "tags": [
+      "quality_gate",
+      "validation",
+      "route_test"
+    ],
+    "created_at": "2026-06-03T22:23:54.304234+00:00",
+    "updated_at": "2026-06-03T22:23:54.304249+00:00",
+    "uses": 0
+  },
+  {
+    "id": "c053bf5628eabd67",
+    "problem": "quality gate passed: manual_cli",
+    "solution": "py_compile/imports/routes/chat smoke passed",
+    "files": [
+      "executor/router.py",
+      "executor/chat_brain_v3.py",
+      "executor/knowledge_memory_engine.py",
+      "executor/error_learning_engine.py",
+      "executor/patch_quality_gate.py"
+    ],
+    "status": "successful",
+    "tags": [
+      "quality_gate",
+      "validation"
+    ],
+    "created_at": "2026-06-03T22:23:51.489269+00:00",
+    "updated_at": "2026-06-03T22:29:31.859989+00:00",
+    "uses": 0
+  }
+]

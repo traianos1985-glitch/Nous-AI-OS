@@ -11,6 +11,8 @@ from executor.conversation_manager import list_conversations, get_conversation, 
 from executor.conversation_search_engine import search_conversations
 from executor.conversation_title_engine import generate_conversation_title, auto_title_recent_conversations
 from executor.knowledge_memory_engine import status as knowledge_memory_status, search_knowledge, remember_knowledge, search_code_lessons
+from executor.patch_quality_gate import quality_gate
+from executor.error_learning_engine import status as error_learning_status, search_errors, search_solutions
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -2263,6 +2265,31 @@ def remote_knowledge_remember_route():
 def remote_code_lessons_search_route():
     data = request.get_json(silent=True) or {}
     return jsonify(search_code_lessons(data.get("query", ""), int(data.get("limit", 8))))
+
+
+
+
+@app.route("/remote/quality-gate/run", methods=["POST"])
+def remote_quality_gate_run_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(quality_gate(data.get("files") or None, data.get("label", "remote")))
+
+
+@app.route("/remote/error-learning/status", methods=["GET"])
+def remote_error_learning_status_route():
+    return jsonify(error_learning_status())
+
+
+@app.route("/remote/error-learning/search-errors", methods=["POST"])
+def remote_error_learning_search_errors_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_errors(data.get("query", ""), int(data.get("limit", 8))))
+
+
+@app.route("/remote/error-learning/search-solutions", methods=["POST"])
+def remote_error_learning_search_solutions_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_solutions(data.get("query", ""), int(data.get("limit", 8))))
 
 
 if __name__ == "__main__":
