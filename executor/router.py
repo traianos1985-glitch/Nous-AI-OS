@@ -8,6 +8,8 @@ from executor.document_chat_bridge import document_chat_answer, format_document_
 from executor.chat_response_engine import chatgpt_style_response
 from executor.upload_processing_engine import process_uploaded_file, upload_status
 from executor.conversation_manager import list_conversations, get_conversation, rename_conversation, delete_conversation
+from executor.conversation_search_engine import search_conversations
+from executor.conversation_title_engine import generate_conversation_title, auto_title_recent_conversations
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -2209,6 +2211,25 @@ def remote_conversation_rename_route(conversation_id):
 @app.route("/remote/conversations/<conversation_id>", methods=["DELETE"])
 def remote_conversation_delete_route(conversation_id):
     return jsonify(delete_conversation(conversation_id))
+
+
+
+
+@app.route("/remote/conversations/search", methods=["POST"])
+def remote_conversations_search_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_conversations(data.get("query", ""), int(data.get("limit", 8))))
+
+
+@app.route("/remote/conversations/<conversation_id>/auto-title", methods=["POST"])
+def remote_conversation_auto_title_route(conversation_id):
+    return jsonify(generate_conversation_title(conversation_id))
+
+
+@app.route("/remote/conversations/auto-title", methods=["POST"])
+def remote_conversations_auto_title_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(auto_title_recent_conversations(int(data.get("limit", 20))))
 
 
 if __name__ == "__main__":

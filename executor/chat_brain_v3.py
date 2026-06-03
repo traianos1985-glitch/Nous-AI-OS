@@ -15,6 +15,8 @@ from executor.url_reader_engine import summarize_url
 from executor.chat_capabilities import capability_text
 from executor.conversation_manager import append_turn, conversation_context
 from executor.conversation_summary_engine import update_conversation_summary, summary_context
+from executor.conversation_search_engine import answer_from_conversations, cross_conversation_context
+from executor.conversation_title_engine import generate_conversation_title
 
 DATA = Path("data")
 REPORTS = DATA / "reports"
@@ -86,6 +88,43 @@ def has_document_intent(message: str) -> bool:
     ])
 
 
+
+
+
+
+def has_conversation_search_intent(message: str) -> bool:
+    m = norm(message)
+    return any(x in m for x in [
+        "βρες τη συνομιλία",
+        "βρες την συνομιλία",
+        "ψάξε στις συνομιλίες",
+        "ψαξε στις συνομιλιες",
+        "παλιά συνομιλία",
+        "παλια συνομιλια",
+        "παλιές συνομιλίες",
+        "παλιες συνομιλιες",
+        "σε ποια συνομιλία",
+        "σε ποια συνομιλια",
+        "conversation search"
+    ])
+
+
+def has_cross_memory_intent(message: str) -> bool:
+    m = norm(message)
+    return any(x in m for x in [
+        "θυμάσαι τι αποφασίσαμε",
+        "θυμασαι τι αποφασισαμε",
+        "τι είχαμε πει",
+        "τι ειχαμε πει",
+        "παλιότερα",
+        "παλιοτερα",
+        "πριν καιρό",
+        "πριν καιρο",
+        "σε άλλη συνομιλία",
+        "σε αλλη συνομιλια",
+        "από παλιά συνομιλία",
+        "απο παλια συνομιλια"
+    ])
 
 
 def has_deep_research_intent(message: str) -> bool:
@@ -297,7 +336,8 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
     recent = recent_chat_context(6)
     selected_context = conversation_context(conversation_id, 10)
     selected_summary = summary_context(conversation_id)
-    context = selected_context or selected_summary or recent
+    global_memory = cross_conversation_context(message, limit=3) if has_cross_memory_intent(message) else ""
+    context = selected_context or selected_summary or global_memory or recent
 
     prompt = f"""
 Απάντησε στα ελληνικά, καθαρά και σύντομα, σαν βοηθός τύπου ChatGPT.
@@ -499,6 +539,18 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
             sources = [{"document": s.get("document")} for s in doc.get("sources", [])]
             mode = "document_recall"
 
+    if answer is None and has_conversation_search_intent(message):
+        conv_search = answer_from_conversations(message)
+        answer = conv_search.get("answer") or "Δεν βρήκα σχετικές συνομιλίες."
+        sources = [{"document": h.get("conversation_id")} for h in conv_search.get("hits", [])]
+        mode = "conversation_search"
+
+    if answer is None and has_cross_memory_intent(message):
+        memory = cross_conversation_context(message, limit=5)
+        if memory:
+            answer = memory
+            mode = "cross_conversation_memory"
+
     if answer is None and has_deep_research_intent(message):
         research = deep_research(message, max_results=5)
         answer = research.get("answer") or "Δεν μπόρεσα να ολοκληρώσω τη βαθιά έρευνα."
@@ -569,6 +621,7 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     try:
         if conv.get("conversation_id") and int(conv.get("messages", 0)) >= 10:
             update_conversation_summary(conv.get("conversation_id"))
+            generate_conversation_title(conv.get("conversation_id"))
     except Exception:
         pass
 
