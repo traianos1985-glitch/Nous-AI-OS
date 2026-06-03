@@ -1,0 +1,48 @@
+[
+  {
+    "id": "9786ab52138363c8",
+    "kind": "web",
+    "question": "Τι είναι το Agentic AI;",
+    "answer": "Βρήκα τα εξής βασικά σημεία: • Τι είναι το Agentic AI; Από τα Chatbots στην Αυτόνομη Δράση Μάθετε τι είναι το Agentic AI και πώς οι αυτόνομοι πράκτορες αλλάζουν την τεχνητή νοημοσύνη. Ανακαλύψτε το μέλλον του αυτοματισμού στο The AI Chronicle. Πηγή: https://theaicronicle.com/eidiseis/research/ti-einai-to-agentic-ai-i-nea-epochi-tis-aftonomias • Πώς λειτουργεί η AI που παίρνει πρωτοβουλίες: Τι είναι τα agentic systems Μάθε πώς τα agentic AI συστήματα ενεργούν αυτόνομα, ποιες είναι οι πρακτικές τους εφαρμογές και ποιοι είναι οι κίνδυνοι και οι τεχνολογικές αλλαγές που φέρνουν. Πηγή: https://e-howto.gr/pos-leitourgei-i-ai-pou-pairnei-protovoulies-ti-einai-ta-agentic-systems • Agentic AI 2026: Η Τεχνητή Νοημοσύνη που Ενεργεί Μόνη της Τι Είναι το Agentic AI — Και Γιατί Δεν Είναι Απλώς Ένα Chatbot Ένα παραδοσιακό AI εργαλείο όπως το ChatGPT λειτουργεί σαν εξυπνο «ερωτηματολόγιο»: του δίνεις εντολή, σου δίνει απάντηση, τελείωσε. Πηγή: https://technoid.gr/agentic-ai-2026-ti-einai-pos-leitourgei/",
+    "sources": [
+      {
+        "title": "Τι είναι το Agentic AI; Από τα Chatbots στην Αυτόνομη Δράση",
+        "url": "https://theaicronicle.com/eidiseis/research/ti-einai-to-agentic-ai-i-nea-epochi-tis-aftonomias"
+      },
+      {
+        "title": "Πώς λειτουργεί η AI που παίρνει πρωτοβουλίες: Τι είναι τα agentic systems",
+        "url": "https://e-howto.gr/pos-leitourgei-i-ai-pou-pairnei-protovoulies-ti-einai-ta-agentic-systems"
+      },
+      {
+        "title": "Agentic AI 2026: Η Τεχνητή Νοημοσύνη που Ενεργεί Μόνη της",
+        "url": "https://technoid.gr/agentic-ai-2026-ti-einai-pos-leitourgei/"
+      }
+    ],
+    "confidence": "medium",
+    "tags": [
+      "ναι",
+      "agentic"
+    ],
+    "created_at": "2026-06-03T21:59:13.188226+00:00",
+    "updated_at": "2026-06-03T21:59:13.188253+00:00",
+    "uses": 1,
+    "last_used_at": "2026-06-03T22:08:45.664499+00:00"
+  },
+  {
+    "id": "90ce9a2a30565d8f",
+    "kind": "general",
+    "question": "Ποιος έφτιαξε το Gemini;",
+    "answer": "Το Gemini αναπτύχθηκε από την Google DeepMind.",
+    "sources": [],
+    "confidence": "medium",
+    "tags": [
+      "ποιος",
+      "φτιαξε",
+      "gemini"
+    ],
+    "created_at": "2026-06-03T21:59:10.602699+00:00",
+    "updated_at": "2026-06-03T22:05:36.579784+00:00",
+    "uses": 6,
+    "last_used_at": "2026-06-03T22:12:52.419489+00:00"
+  }
+]

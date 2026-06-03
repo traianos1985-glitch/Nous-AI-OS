@@ -1,0 +1,97 @@
+[
+  {
+    "id": "fd1ff7691e08f225",
+    "trigger": "chat missions",
+    "lesson": "Το chat δεν πρέπει να δημιουργεί mission μόνο του. Mission μόνο με ρητή εντολή /plan, /run ή explicit command.",
+    "severity": "critical",
+    "tags": [
+      "chat",
+      "mission"
+    ],
+    "created_at": "2026-06-03T22:03:31.150086+00:00",
+    "updated_at": "2026-06-03T22:03:31.150091+00:00",
+    "uses": 0
+  },
+  {
+    "id": "1b65d84d8e785f0f",
+    "trigger": "NOUS architecture",
+    "lesson": "Μην ξανασχεδιάζεις τον ΝΟΥΣ από την αρχή. Κάνε σταθερές αναβαθμίσεις πάνω στην υπάρχουσα αρχιτεκτονική.",
+    "severity": "critical",
+    "tags": [
+      "nous",
+      "architecture"
+    ],
+    "created_at": "2026-06-03T22:03:31.150056+00:00",
+    "updated_at": "2026-06-03T22:03:31.150061+00:00",
+    "uses": 0
+  },
+  {
+    "id": "b80eb5cfd678e1e4",
+    "trigger": "git workflow",
+    "lesson": "Πριν από push να γίνεται git status και commit μόνο ουσιαστικών αρχείων, όχι runtime reports/cache εκτός αν ζητηθεί.",
+    "severity": "high",
+    "tags": [
+      "git",
+      "commit"
+    ],
+    "created_at": "2026-06-03T22:03:31.150019+00:00",
+    "updated_at": "2026-06-03T22:03:31.150026+00:00",
+    "uses": 0
+  },
+  {
+    "id": "2f3ad153f7875b2d",
+    "trigger": "mobile termux patches",
+    "lesson": "Ο χρήστης δουλεύει κυρίως από Android/Termux. Δίνε μεγάλες copy-paste εντολές και όχι μικρο-αλλαγές γραμμών.",
+    "severity": "high",
+    "tags": [
+      "termux",
+      "android",
+      "copy-paste"
+    ],
+    "created_at": "2026-06-03T22:03:31.149928+00:00",
+    "updated_at": "2026-06-03T22:03:31.149959+00:00",
+    "uses": 0
+  },
+  {
+    "id": "d5ab2baabc20d710",
+    "created_at": "2026-06-03T21:59:10.540447+00:00",
+    "updated_at": "2026-06-03T21:59:10.540451+00:00",
+    "uses": 0,
+    "trigger": "git workflow",
+    "lesson": "Πριν από push πρέπει να γίνεται git status, commit μόνο ουσιαστικών αρχείων και όχι runtime reports/cache εκτός αν ζητηθεί.",
+    "severity": "high",
+    "tags": [
+      "git",
+      "commit",
+      "runtime"
+    ]
+  },
+  {
+    "id": "3af2b8bbb403451d",
+    "created_at": "2026-06-03T21:59:10.540410+00:00",
+    "updated_at": "2026-06-03T21:59:10.540415+00:00",
+    "uses": 0,
+    "trigger": "python code changes",
+    "lesson": "Μετά από κάθε αλλαγή Python πρέπει να τρέχει py_compile στα επηρεαζόμενα αρχεία πριν από commit.",
+    "severity": "high",
+    "tags": [
+      "python",
+      "py_compile",
+      "validation"
+    ]
+  },
+  {
+    "id": "99c66505ff9572d4",
+    "created_at": "2026-06-03T21:59:10.540354+00:00",
+    "updated_at": "2026-06-03T21:59:10.540374+00:00",
+    "uses": 0,
+    "trigger": "mobile termux patches",
+    "lesson": "Ο χρήστης δουλεύει κυρίως από Android/Termux. Δίνε μεγάλες εντολές copy-paste και όχι οδηγίες τύπου άλλαξε μία γραμμή.",
+    "severity": "high",
+    "tags": [
+      "termux",
+      "android",
+      "copy-paste"
+    ]
+  }
+]

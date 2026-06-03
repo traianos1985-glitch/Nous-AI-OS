@@ -10,6 +10,7 @@ from executor.upload_processing_engine import process_uploaded_file, upload_stat
 from executor.conversation_manager import list_conversations, get_conversation, rename_conversation, delete_conversation
 from executor.conversation_search_engine import search_conversations
 from executor.conversation_title_engine import generate_conversation_title, auto_title_recent_conversations
+from executor.knowledge_memory_engine import status as knowledge_memory_status, search_knowledge, remember_knowledge, search_code_lessons
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -2230,6 +2231,38 @@ def remote_conversation_auto_title_route(conversation_id):
 def remote_conversations_auto_title_route():
     data = request.get_json(silent=True) or {}
     return jsonify(auto_title_recent_conversations(int(data.get("limit", 20))))
+
+
+
+
+@app.route("/remote/knowledge/status", methods=["GET"])
+def remote_knowledge_status_route():
+    return jsonify(knowledge_memory_status())
+
+
+@app.route("/remote/knowledge/search", methods=["POST"])
+def remote_knowledge_search_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_knowledge(data.get("query", ""), int(data.get("limit", 5))))
+
+
+@app.route("/remote/knowledge/remember", methods=["POST"])
+def remote_knowledge_remember_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(remember_knowledge(
+        question=data.get("question", ""),
+        answer=data.get("answer", ""),
+        sources=data.get("sources", []),
+        kind=data.get("kind", "manual"),
+        confidence=data.get("confidence", "medium"),
+        tags=data.get("tags", []),
+    ))
+
+
+@app.route("/remote/code-lessons/search", methods=["POST"])
+def remote_code_lessons_search_route():
+    data = request.get_json(silent=True) or {}
+    return jsonify(search_code_lessons(data.get("query", ""), int(data.get("limit", 8))))
 
 
 if __name__ == "__main__":

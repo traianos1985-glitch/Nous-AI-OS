@@ -17,6 +17,7 @@ from executor.conversation_manager import append_turn, conversation_context
 from executor.conversation_summary_engine import update_conversation_summary, summary_context
 from executor.conversation_search_engine import answer_from_conversations, cross_conversation_context
 from executor.conversation_title_engine import generate_conversation_title
+from executor.knowledge_memory_engine import answer_from_knowledge_memory, learn_from_chat_result, coding_context
 
 DATA = Path("data")
 REPORTS = DATA / "reports"
@@ -74,6 +75,28 @@ def is_explicit_command(message: str) -> bool:
         or m.startswith("κανε αποστολη")
         or m.startswith("κάνε αποστολή")
     )
+
+
+
+
+def has_general_knowledge_question(message: str) -> bool:
+    m = norm(message)
+    if not m:
+        return False
+
+    starters = [
+        "τι είναι", "τι ειναι",
+        "ποιος", "ποια", "ποιο",
+        "πότε", "ποτε",
+        "πού", "που",
+        "γιατί", "γιατι",
+        "πώς", "πως",
+        "εξήγησε", "εξηγησε",
+        "πες μου για",
+        "ξέρεις", "ξερεις",
+    ]
+
+    return "?" in m or any(m.startswith(x) for x in starters)
 
 
 def has_document_intent(message: str) -> bool:
@@ -338,6 +361,7 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
     selected_summary = summary_context(conversation_id)
     global_memory = cross_conversation_context(message, limit=3) if has_cross_memory_intent(message) else ""
     context = selected_context or selected_summary or global_memory or recent
+    code_context = coding_context(message)
 
     prompt = f"""
 Απάντησε στα ελληνικά, καθαρά και σύντομα, σαν βοηθός τύπου ChatGPT.
@@ -347,6 +371,8 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
 
 Ιστορικό ενεργής συνομιλίας:
 {context}
+
+{code_context}
 
 Ερώτηση χρήστη:
 {message}
@@ -539,6 +565,13 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
             sources = [{"document": s.get("document")} for s in doc.get("sources", [])]
             mode = "document_recall"
 
+    if answer is None:
+        km = answer_from_knowledge_memory(message)
+        if km.get("found"):
+            answer = km.get("answer")
+            sources = [{"document": h.get("id")} for h in km.get("hits", [])]
+            mode = "knowledge_memory"
+
     if answer is None and has_conversation_search_intent(message):
         conv_search = answer_from_conversations(message)
         answer = conv_search.get("answer") or "Δεν βρήκα σχετικές συνομιλίες."
@@ -597,6 +630,18 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     if answer is None:
         answer = casual_answer(message)
 
+    if answer is None and has_general_knowledge_question(message):
+        web = answer_from_web(message)
+        answer = summarize_search_results(web)
+        sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
+        mode = "internet_search"
+
+    if answer is None and has_general_knowledge_question(message):
+        web = answer_from_web(message)
+        answer = summarize_search_results(web)
+        sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
+        mode = "internet_search"
+
     if answer is None:
         answer = try_llm_answer(message, conversation_id=conversation_id)
         if answer:
@@ -608,6 +653,11 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     if looks_corrupted_answer(answer):
         answer = safe_llm_fallback()
         mode = "llm_guard"
+
+    try:
+        learn_from_chat_result(message, answer, mode, sources)
+    except Exception:
+        pass
 
     remember_turn(message, answer, mode)
     conv = append_turn(
