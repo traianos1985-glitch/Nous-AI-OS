@@ -570,6 +570,11 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
             mode = "document_recall"
 
     if answer is None:
+        answer = capability_answer(message)
+        if answer is not None:
+            mode = "capabilities"
+
+    if answer is None:
         km = answer_from_knowledge_memory(message)
         if km.get("found"):
             answer = km.get("answer")
@@ -620,11 +625,6 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
         answer = memory_question_answer(message, conversation_id=conversation_id)
         if answer is not None:
             mode = "memory_recall"
-
-    if answer is None:
-        answer = capability_answer(message)
-        if answer is not None:
-            mode = "capabilities"
 
     if answer is None:
         answer = user_statement_answer(message)
