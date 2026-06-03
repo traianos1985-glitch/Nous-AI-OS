@@ -10,9 +10,11 @@ from typing import Any
 
 from executor.document_chat_bridge import document_chat_answer, format_document_answer
 from executor.internet_search_engine import answer_from_web
+from executor.deep_research_engine import deep_research
 from executor.url_reader_engine import summarize_url
 from executor.chat_capabilities import capability_text
 from executor.conversation_manager import append_turn, conversation_context
+from executor.conversation_summary_engine import update_conversation_summary, summary_context
 
 DATA = Path("data")
 REPORTS = DATA / "reports"
@@ -81,6 +83,23 @@ def has_document_intent(message: str) -> bool:
         "μαθημένα", "μαθημενα", "σύμφωνα με τα έγγραφα",
         "τι λένε τα έγγραφα", "τι λεει το εγχειριδιο",
         "τι λέει το εγχειρίδιο"
+    ])
+
+
+
+
+def has_deep_research_intent(message: str) -> bool:
+    m = norm(message)
+    return any(x in m for x in [
+        "κάνε βαθιά έρευνα",
+        "κανε βαθια ερευνα",
+        "deep research",
+        "ψάξε βαθιά",
+        "ψαξε βαθια",
+        "ερεύνησε αναλυτικά",
+        "ερευνησε αναλυτικα",
+        "άνοιξε πηγές",
+        "ανοιξε πηγες"
     ])
 
 
@@ -211,6 +230,64 @@ def casual_answer(message: str) -> str | None:
     return None
 
 
+
+
+def looks_corrupted_answer(text: str) -> bool:
+    t = str(text or "").strip()
+
+    if not t:
+        return True
+
+    if len(t) < 2:
+        return True
+
+    greek = sum(1 for ch in t if "\u0370" <= ch <= "\u03ff")
+    latin = sum(1 for ch in t if ("a" <= ch.lower() <= "z"))
+    letters = sum(1 for ch in t if ch.isalpha())
+    weird = sum(1 for ch in t if ord(ch) > 127 and not ("\u0370" <= ch <= "\u03ff") and ch not in "€–—“”‘’•…")
+
+    if letters >= 30 and greek < 6 and latin < 20:
+        return True
+
+    if weird > max(8, len(t) * 0.08):
+        return True
+
+    bad_fragments = [
+        "επιδελιώστα",
+        "κραταγωγή",
+        "έπληθιστε",
+        "ακριηζον",
+        "ηπαγωγή",
+        "ναιμησίας",
+        "πлавή",
+    ]
+
+    low = t.lower()
+    if any(x in low for x in bad_fragments):
+        return True
+
+    words = [w.strip(".,;:!?()[]{}\"'") for w in low.split()]
+    if len(words) >= 8:
+        short_or_odd = 0
+        for w in words:
+            if not w:
+                continue
+            has_letter = any(ch.isalpha() for ch in w)
+            if has_letter and len(w) <= 2:
+                short_or_odd += 1
+        if short_or_odd > len(words) * 0.45:
+            return True
+
+    return False
+
+
+def safe_llm_fallback() -> str:
+    return (
+        "Δεν είμαι βέβαιος για την απάντηση που πήγα να δώσω, "
+        "οπότε δεν την κρατάω ως αξιόπιστη. Μπορείς να το διατυπώσεις λίγο πιο συγκεκριμένα;"
+    )
+
+
 def try_llm_answer(message: str, conversation_id: str | None = None) -> str | None:
     try:
         from executor.llm_core import ask
@@ -219,7 +296,8 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
 
     recent = recent_chat_context(6)
     selected_context = conversation_context(conversation_id, 10)
-    context = selected_context or recent
+    selected_summary = summary_context(conversation_id)
+    context = selected_context or selected_summary or recent
 
     prompt = f"""
 Απάντησε στα ελληνικά, καθαρά και σύντομα, σαν βοηθός τύπου ChatGPT.
@@ -242,11 +320,17 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
     if isinstance(result, dict):
         for key in ["answer", "response", "text", "content"]:
             if isinstance(result.get(key), str) and result.get(key).strip():
-                return result[key].strip()
+                candidate = result[key].strip()
+                if looks_corrupted_answer(candidate):
+                    return safe_llm_fallback()
+                return candidate
         return None
 
     if isinstance(result, str) and result.strip():
-        return result.strip()
+        candidate = result.strip()
+        if looks_corrupted_answer(candidate):
+            return safe_llm_fallback()
+        return candidate
 
     return None
 
@@ -378,7 +462,10 @@ def user_statement_answer(message: str) -> str | None:
         "θέλω να θυμάσαι", "θελω να θυμασαι",
         "κρατάμε ότι", "κραταμε οτι",
         "σημείωσε", "σημειωσε",
-        "να θυμάσαι", "να θυμασαι"
+        "να θυμάσαι", "να θυμασαι",
+        "θέλω να", "θελω να",
+        "επίσης θέλω", "επισης θελω",
+        "θέλω επίσης", "θελω επισης"
     ]
 
     if any(m.startswith(x) for x in statement_starts):
@@ -411,6 +498,12 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
             answer = format_document_answer(message)
             sources = [{"document": s.get("document")} for s in doc.get("sources", [])]
             mode = "document_recall"
+
+    if answer is None and has_deep_research_intent(message):
+        research = deep_research(message, max_results=5)
+        answer = research.get("answer") or "Δεν μπόρεσα να ολοκληρώσω τη βαθιά έρευνα."
+        sources = [{"document": s.get("url")} for s in research.get("sources", [])]
+        mode = "deep_research"
 
     if answer is None and has_internet_intent(message):
         web = answer_from_web(message)
@@ -460,6 +553,10 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     if answer is None:
         answer = fallback_answer(message)
 
+    if looks_corrupted_answer(answer):
+        answer = safe_llm_fallback()
+        mode = "llm_guard"
+
     remember_turn(message, answer, mode)
     conv = append_turn(
         user_message=message,
@@ -468,6 +565,12 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
         conversation_id=conversation_id,
         title=message,
     )
+
+    try:
+        if conv.get("conversation_id") and int(conv.get("messages", 0)) >= 10:
+            update_conversation_summary(conv.get("conversation_id"))
+    except Exception:
+        pass
 
     return {
         "ok": True,
