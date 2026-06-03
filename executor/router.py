@@ -4,6 +4,7 @@ import platform
 import time
 from flask import Flask, request, jsonify, send_from_directory
 from executor.document_chat_bridge import document_chat_answer, format_document_answer
+from executor.chat_response_engine import chatgpt_style_response
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -108,6 +109,43 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
+
+    # NOUS_CHAT_PAYLOAD_NORMALIZER
+    try:
+        data = request.get_json(silent=True) or {}
+        msg = (
+            data.get("message")
+            or data.get("prompt")
+            or data.get("text")
+            or data.get("command")
+            or ""
+        )
+        if msg:
+            data["message"] = msg
+            data["prompt"] = msg
+            data["text"] = msg
+            data["command"] = msg
+            request._cached_json = (data, data)
+    except Exception:
+        pass
+
+
+    # NOUS_CHATGPT_STYLE_EARLY_RETURN
+    try:
+        data = request.get_json(silent=True) or {}
+        msg = (
+            data.get("message")
+            or data.get("prompt")
+            or data.get("text")
+            or data.get("command")
+            or ""
+        )
+        clean_chat = chatgpt_style_response(str(msg))
+        if clean_chat is not None:
+            return jsonify(clean_chat)
+    except Exception:
+        pass
+
 
     # NOUS_DOCUMENT_CHAT_EARLY_RETURN
     try:

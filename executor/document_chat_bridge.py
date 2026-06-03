@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from executor.document_intelligence_engine import answer_from_documents, status
+from executor.document_answer_engine import answer_question
 
 
 def now_iso():
@@ -58,6 +59,14 @@ def format_document_answer(message: str) -> str:
     sources = result.get("sources", [])
     if not sources:
         return "Δεν βρήκα σχετική πληροφορία στα μαθημένα έγγραφα."
+
+    try:
+        v2 = answer_question(message)
+        answer = v2.get("answer")
+        if isinstance(answer, str) and answer.strip():
+            return answer
+    except Exception:
+        pass
 
     return build_human_document_answer(message, sources)
 

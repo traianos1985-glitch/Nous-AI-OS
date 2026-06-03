@@ -838,7 +838,7 @@ function feed(text){document.getElementById("activity").innerHTML=new Date().toL
 function kv(k,v){return `<div class="kv"><span>${k}</span><b>${v}</b></div>`}
 async function getJson(path){const r=await fetch(path);return await r.json()}
 async function postJson(path,body={}){const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json","X-NOUS-TOKEN":token()},body:JSON.stringify(body)});return await r.json()}
-function addMsg(text,cls=""){const c=document.getElementById("chatlog");const d=document.createElement("div");d.className="msg "+cls;if(window.NOUS_RENDER_CLEAN_MESSAGE){window.NOUS_RENDER_CLEAN_MESSAGE(d,text)}else{d.textContent=text}c.appendChild(d);c.scrollTop=c.scrollHeight}
+function addMsg(text,cls=""){const c=document.getElementById("chatlog");const d=document.createElement("div");d.className="msg "+cls;if(window.NOUS_RENDER_CLEAN_MESSAGE){window.NOUS_RENDER_CLEAN_MESSAGE(d,text)}else{d.textContent=(typeof text==="object"?JSON.stringify(text):String(text))}c.appendChild(d);c.scrollTop=c.scrollHeight}
 
 function showSection(id){
   closeMenu(); currentSection=id;
@@ -2019,87 +2019,7 @@ function previewLocalFiles(event){
 
 
 
-<script id="nous-clean-human-answer-layer">
-(function(){
-  window.NOUS_CLEAN_HUMAN_ANSWER_LAYER = true;
 
-  function looksJson(text){
-    text = String(text || "").trim();
-    return text.startsWith("{") || text.startsWith("[");
-  }
-
-  function parseMaybeJson(text){
-    try { return JSON.parse(text); } catch(e){ return null; }
-  }
-
-  function bestHuman(obj){
-    if(!obj || typeof obj !== "object") return null;
-    return obj.human_answer || obj.answer || obj.response || obj.text || obj.summary || null;
-  }
-
-  function renderCleanMessage(el, text){
-    if(!looksJson(text)){
-      el.textContent = text;
-      return;
-    }
-
-    const obj = parseMaybeJson(text);
-    if(!obj){
-      el.textContent = text;
-      return;
-    }
-
-    const human = bestHuman(obj);
-    if(!human){
-      el.textContent = text;
-      return;
-    }
-
-    el.innerHTML = "";
-
-    const main = document.createElement("div");
-    main.className = "nousHumanAnswer";
-    main.textContent = human;
-    el.appendChild(main);
-
-    const sources = obj.sources || (obj.raw && obj.raw.sources) || [];
-    if(Array.isArray(sources) && sources.length){
-      const srcBox = document.createElement("div");
-      srcBox.className = "nousSourcesBox";
-      srcBox.innerHTML = "<b>Πηγές:</b>";
-      sources.slice(0,5).forEach(function(s, i){
-        const line = document.createElement("div");
-        line.textContent = "[" + (i+1) + "] " + (s.document || "document");
-        srcBox.appendChild(line);
-      });
-      el.appendChild(srcBox);
-    }
-
-    // Για document recall ΔΕΝ δείχνουμε JSON στο chat.
-    if(obj.mode === "document_recall" || obj.source === "document_chat_bridge"){
-      return;
-    }
-
-    const details = document.createElement("details");
-    details.className = "nousTechDetails";
-    const summary = document.createElement("summary");
-    summary.textContent = "Τεχνικές λεπτομέρειες";
-    const pre = document.createElement("pre");
-    pre.textContent = JSON.stringify(obj, null, 2);
-    details.appendChild(summary);
-    details.appendChild(pre);
-    el.appendChild(details);
-  }
-
-  window.NOUS_RENDER_CLEAN_MESSAGE = renderCleanMessage;
-  window.NOUS_HUMANIZE_TEXT = function(text){
-    if(!looksJson(text)) return text;
-    const obj = parseMaybeJson(text);
-    const human = bestHuman(obj);
-    return human || text;
-  };
-})();
-</script>
 
 
 <script id="nous-clean-live-output-layer">
@@ -2167,6 +2087,273 @@ function previewLocalFiles(event){
     subtree:true,
     characterData:true
   });
+})();
+</script>
+
+
+<script id="nous-clean-human-answer-layer">
+(function(){
+  window.NOUS_CLEAN_HUMAN_ANSWER_LAYER = true;
+
+  function normalizeText(input){
+    if(input === null || input === undefined) return "";
+    if(typeof input === "string") return input;
+    if(typeof input === "object"){
+      if(input.human_answer) return String(input.human_answer);
+      if(input.answer) return String(input.answer);
+      if(input.response) return String(input.response);
+      if(input.text) return String(input.text);
+      try { return JSON.stringify(input); } catch(e){ return String(input); }
+    }
+    return String(input);
+  }
+
+  function looksJson(text){
+    text = String(text || "").trim();
+    return text.startsWith("{") || text.startsWith("[");
+  }
+
+  function parseMaybeJson(text){
+    try { return JSON.parse(String(text || "").trim()); } catch(e){ return null; }
+  }
+
+  function bestHuman(obj){
+    if(!obj || typeof obj !== "object") return null;
+    return obj.human_answer || obj.answer || obj.response || obj.text || obj.summary || null;
+  }
+
+  function renderCleanMessage(el, input){
+    let text = normalizeText(input);
+
+    if(!looksJson(text)){
+      el.textContent = text;
+      return;
+    }
+
+    const obj = parseMaybeJson(text);
+    if(!obj){
+      el.textContent = text;
+      return;
+    }
+
+    const human = bestHuman(obj);
+    if(!human){
+      el.textContent = text;
+      return;
+    }
+
+    el.innerHTML = "";
+
+    const main = document.createElement("div");
+    main.className = "nousHumanAnswer";
+    main.textContent = String(human);
+    el.appendChild(main);
+
+    const sources = obj.sources || (obj.raw && obj.raw.sources) || [];
+    if(Array.isArray(sources) && sources.length){
+      const srcBox = document.createElement("div");
+      srcBox.className = "nousSourcesBox";
+      srcBox.innerHTML = "<b>Πηγές:</b>";
+      sources.slice(0,5).forEach(function(s, i){
+        const line = document.createElement("div");
+        line.textContent = "[" + (i+1) + "] " + (s.document || "document");
+        srcBox.appendChild(line);
+      });
+      el.appendChild(srcBox);
+    }
+
+    if(obj.mode === "document_recall" || obj.source === "document_chat_bridge" || obj.source === "chat_response_engine"){
+      return;
+    }
+
+    const details = document.createElement("details");
+    details.className = "nousTechDetails";
+    const summary = document.createElement("summary");
+    summary.textContent = "Τεχνικές λεπτομέρειες";
+    const pre = document.createElement("pre");
+    pre.textContent = JSON.stringify(obj, null, 2);
+    details.appendChild(summary);
+    details.appendChild(pre);
+    el.appendChild(details);
+  }
+
+  window.NOUS_RENDER_CLEAN_MESSAGE = renderCleanMessage;
+  window.NOUS_HUMANIZE_TEXT = function(input){
+    const text = normalizeText(input);
+    if(!looksJson(text)) return text;
+    const obj = parseMaybeJson(text);
+    const human = bestHuman(obj);
+    return human || text;
+  };
+})();
+</script>
+
+
+<script id="nous-global-chat-guard-v3">
+(function(){
+  window.NOUS_GLOBAL_CHAT_GUARD_V3 = true;
+
+  const originalFetch = window.fetch.bind(window);
+
+  function parseBody(options){
+    try{
+      if(!options || !options.body) return {};
+      if(typeof options.body === "string") return JSON.parse(options.body);
+    }catch(e){}
+    return {};
+  }
+
+  function getMsg(body){
+    return body.message || body.prompt || body.text || body.command || "";
+  }
+
+  function isCommand(msg){
+    const m = String(msg || "").trim().toLowerCase();
+    return (
+      m.startsWith("/") ||
+      m.startsWith("plan ") ||
+      m.startsWith("run ") ||
+      m.startsWith("task ") ||
+      m.startsWith("mission ") ||
+      m.startsWith("deploy ") ||
+      m.startsWith("φτιάξε αποστολή") ||
+      m.startsWith("δημιούργησε αποστολή") ||
+      m.startsWith("τρέξε ")
+    );
+  }
+
+  function looksLikeNormalChat(msg){
+    const m = String(msg || "").trim().toLowerCase();
+    if(!m) return false;
+    if(isCommand(m)) return false;
+    if(m.includes("?")) return true;
+    if(m.split(/\s+/).length <= 8) return true;
+
+    const starts = ["τι ", "πως ", "πώς ", "γιατί ", "γιατι ", "που ", "πού ", "ποιο ", "ποια ", "ποιος "];
+    if(starts.some(x => m.startsWith(x))) return true;
+
+    const casual = ["γεια", "καλημέρα", "καλησπέρα", "τι κάνεις", "τι κανεις", "πως είσαι", "πώς είσαι", "έλα φίλε", "ελα φιλε"];
+    return casual.some(x => m.includes(x));
+  }
+
+  function jsonResponse(data){
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {"Content-Type":"application/json"}
+    });
+  }
+
+  window.fetch = async function(input, options){
+    const url = String((typeof input === "string") ? input : (input && input.url) || "");
+    const method = String((options && options.method) || "GET").toUpperCase();
+
+    if(method === "POST"){
+      const body = parseBody(options);
+      const msg = getMsg(body);
+
+      const isInternalChat =
+        url.includes("/chat") ||
+        url.includes("/remote/document-chat/ask");
+
+      if(msg && !isInternalChat && looksLikeNormalChat(msg)){
+        try{
+          const r = await originalFetch("/chat", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({message: msg, prompt: msg, text: msg, command: msg})
+          });
+
+          const data = await r.json();
+          return jsonResponse(data);
+        }catch(e){
+          console.warn("NOUS global chat guard fallback:", e);
+        }
+      }
+    }
+
+    return originalFetch(input, options);
+  };
+})();
+</script>
+
+
+<script id="nous-final-chat-renderer-v3">
+(function(){
+  window.NOUS_FINAL_CHAT_RENDERER_V3 = true;
+
+  function toHuman(input){
+    if(input === null || input === undefined) return "";
+    if(typeof input === "string"){
+      const s = input.trim();
+      if((s.startsWith("{") || s.startsWith("["))){
+        try { return toHuman(JSON.parse(s)); } catch(e){ return input; }
+      }
+      return input;
+    }
+
+    if(typeof input === "object"){
+      return (
+        input.human_answer ||
+        input.answer ||
+        input.response ||
+        input.text ||
+        input.summary ||
+        input.output?.answer ||
+        input.output?.response ||
+        input.output?.text ||
+        JSON.stringify(input, null, 2)
+      );
+    }
+
+    return String(input);
+  }
+
+  function sourcesFrom(input){
+    if(!input || typeof input !== "object") return [];
+    return input.sources || input.raw?.sources || input.raw?.raw?.sources || [];
+  }
+
+  window.addMsg = function(text, cls=""){
+    const c = document.getElementById("chatlog");
+    if(!c) return;
+
+    let obj = null;
+    if(typeof text === "object") obj = text;
+    if(typeof text === "string"){
+      const s = text.trim();
+      if(s.startsWith("{") || s.startsWith("[")){
+        try { obj = JSON.parse(s); } catch(e){}
+      }
+    }
+
+    const d = document.createElement("div");
+    d.className = "msg " + cls;
+
+    const human = toHuman(text);
+    d.textContent = human;
+
+    const sources = sourcesFrom(obj);
+    if(Array.isArray(sources) && sources.length){
+      const box = document.createElement("div");
+      box.className = "nousSourcesBox";
+      box.innerHTML = "<b>Πηγές:</b>";
+      sources.slice(0,5).forEach(function(s, i){
+        const line = document.createElement("div");
+        line.textContent = "[" + (i+1) + "] " + (s.document || "document");
+        box.appendChild(line);
+      });
+      d.appendChild(box);
+    }
+
+    c.appendChild(d);
+    c.scrollTop = c.scrollHeight;
+  };
+
+  window.renderObject = function(obj){
+    const el = document.getElementById("raw");
+    if(!el) return;
+    el.textContent = toHuman(obj);
+  };
 })();
 </script>
 
