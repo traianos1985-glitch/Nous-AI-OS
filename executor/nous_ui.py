@@ -167,6 +167,141 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 }
 </style>
 
+
+<style id="nous-clean-chat-css">
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  #chatUploadCard,
+  #conversationPanel {
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  #chatUploadCard h3,
+  #conversationPanel h3 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+  }
+
+  #chatUploadCard p {
+    display: none;
+  }
+
+  #chatUploadCard input,
+  #conversationPanel select {
+    font-size: 14px;
+  }
+
+  #chatUploadFile,
+  #chatUploadNote {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .nousTopTools {
+    margin: 8px 0;
+  }
+
+  .nousToolToggle {
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #444;
+    background: transparent;
+    color: inherit;
+    font-weight: 700;
+  }
+
+  .nousToolBody {
+    display: none;
+    margin-top: 8px;
+  }
+
+  .nousToolBody.open {
+    display: block;
+  }
+
+  .chatlog,
+  #chatlog {
+    min-height: 52vh;
+    max-height: 68vh;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(120,120,120,.35);
+    background: rgba(0,0,0,.08);
+    scroll-behavior: smooth;
+  }
+
+  .msg,
+  .message,
+  .chatMsg {
+    max-width: 92%;
+    margin: 8px 0;
+    padding: 10px 12px;
+    border-radius: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.35;
+  }
+
+  .user,
+  .msg.user,
+  .chatMsg.user {
+    margin-left: auto;
+    background: rgba(80,130,255,.20);
+  }
+
+  .bot,
+  .assistant,
+  .msg.bot,
+  .chatMsg.bot {
+    margin-right: auto;
+    background: rgba(120,120,120,.18);
+  }
+
+  .technicalDetails,
+  .rawJson,
+  pre {
+    max-height: 260px;
+    overflow: auto;
+    font-size: 12px;
+    white-space: pre-wrap;
+  }
+
+  #liveOutput,
+  .liveOutput,
+  #output {
+    max-height: 240px;
+    overflow: auto;
+    font-size: 12px;
+    opacity: .85;
+  }
+
+  textarea,
+  input[type="text"],
+  #messageInput,
+  #prompt,
+  #chatInput {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+    font-size: 16px;
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  button,
+  .miniBtn {
+    min-height: 40px;
+    border-radius: 12px;
+  }
+</style>
+
 </head>
 <body>
 <button class="menuBtn" onclick="openMenu()">☰</button>
@@ -2251,6 +2386,156 @@ function nousCaptureConversation(data){
     }
   }catch(e){}
 }
+</script>
+
+
+<script id="nous-clean-chat-js">
+function nousTextFromResponse(data){
+  try{
+    if(data === null || data === undefined) return "";
+    if(typeof data === "string") return data;
+
+    if(typeof data === "object"){
+      if(data.human_answer) return String(data.human_answer);
+      if(data.answer) return String(data.answer);
+      if(data.response) return String(data.response);
+      if(data.text) return String(data.text);
+
+      if(data.mode === "document_upload" && data.result && data.result.answer){
+        return String(data.result.answer);
+      }
+
+      if(data.ok === true && data.mission){
+        return "Δημιουργήθηκε αποστολή: " + (data.mission.title || "Mission") +
+               "\\nΚατάσταση: " + (data.mission.status || "active") +
+               "\\nΒήματα: " + ((data.mission.tasks || []).length);
+      }
+
+      return JSON.stringify(data, null, 2);
+    }
+
+    return String(data);
+  }catch(e){
+    return String(data);
+  }
+}
+
+function nousFindChatLog(){
+  return document.getElementById("chatlog")
+      || document.querySelector(".chatlog")
+      || document.getElementById("messages")
+      || document.querySelector(".messages");
+}
+
+function nousAddMsgClean(content, who){
+  const log = nousFindChatLog();
+  const text = nousTextFromResponse(content);
+  if(!log) return false;
+
+  const div = document.createElement("div");
+  div.className = "msg chatMsg " + (who || "bot");
+  div.textContent = text;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return true;
+}
+
+// Override old addMsg that printed [object Object].
+window.addMsg = function(content, who){
+  return nousAddMsgClean(content, who);
+};
+
+// Override renderObject so it does not dump huge JSON into chat.
+window.renderObject = function(data){
+  try{
+    if(window.nousCaptureConversation) window.nousCaptureConversation(data);
+
+    const out = document.getElementById("liveOutput")
+             || document.querySelector(".liveOutput")
+             || document.getElementById("output");
+
+    if(out){
+      out.textContent = JSON.stringify(data, null, 2);
+    }
+  }catch(e){}
+};
+
+function nousToggleTools(){
+  const body = document.getElementById("nousToolBody");
+  if(body) body.classList.toggle("open");
+}
+
+function nousWrapTools(){
+  if(document.getElementById("nousToolWrapper")) return;
+
+  const upload = document.getElementById("chatUploadCard");
+  const conv = document.getElementById("conversationPanel");
+  if(!upload && !conv) return;
+
+  const wrapper = document.createElement("div");
+  wrapper.id = "nousToolWrapper";
+  wrapper.className = "nousTopTools";
+  wrapper.innerHTML = '<button class="nousToolToggle" onclick="nousToggleTools()">⚙️ Εργαλεία / Upload / Συνομιλίες</button><div id="nousToolBody" class="nousToolBody"></div>';
+
+  const first = upload || conv;
+  first.parentNode.insertBefore(wrapper, first);
+
+  const body = wrapper.querySelector("#nousToolBody");
+  if(upload) body.appendChild(upload);
+  if(conv) body.appendChild(conv);
+}
+
+async function nousSendCleanMessage(){
+  const input = document.getElementById("messageInput")
+             || document.getElementById("chatInput")
+             || document.getElementById("prompt")
+             || document.querySelector("textarea")
+             || document.querySelector('input[type="text"]');
+
+  if(!input) return false;
+
+  const msg = (input.value || "").trim();
+  if(!msg) return false;
+
+  input.value = "";
+  addMsg(msg, "user");
+
+  try{
+    const r = await fetch("/chat", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        message: msg,
+        conversation_id: window.NOUS_ACTIVE_CONVERSATION_ID || ""
+      })
+    });
+
+    const data = await r.json();
+    addMsg(data, "bot");
+    renderObject(data);
+  }catch(e){
+    addMsg("Σφάλμα επικοινωνίας: " + e, "bot");
+  }
+
+  return true;
+}
+
+window.addEventListener("load", () => {
+  setTimeout(nousWrapTools, 300);
+
+  const sendBtn = Array.from(document.querySelectorAll("button")).find(b => 
+    (b.textContent || "").trim().toLowerCase() === "send"
+  );
+
+  if(sendBtn && !sendBtn.dataset.nousCleanBound){
+    sendBtn.dataset.nousCleanBound = "1";
+    sendBtn.onclick = function(ev){
+      ev.preventDefault();
+      nousSendCleanMessage();
+      return false;
+    };
+  }
+});
 </script>
 
 </body>
