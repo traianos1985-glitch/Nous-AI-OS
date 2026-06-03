@@ -11,6 +11,8 @@ from typing import Any
 from executor.document_chat_bridge import document_chat_answer, format_document_answer
 from executor.internet_search_engine import answer_from_web
 from executor.url_reader_engine import summarize_url
+from executor.chat_capabilities import capability_text
+from executor.conversation_manager import append_turn, conversation_context
 
 DATA = Path("data")
 REPORTS = DATA / "reports"
@@ -209,18 +211,23 @@ def casual_answer(message: str) -> str | None:
     return None
 
 
-def try_llm_answer(message: str) -> str | None:
+def try_llm_answer(message: str, conversation_id: str | None = None) -> str | None:
     try:
         from executor.llm_core import ask
     except Exception:
         return None
 
-    context = recent_chat_context(6)
+    recent = recent_chat_context(6)
+    selected_context = conversation_context(conversation_id, 10)
+    context = selected_context or recent
+
     prompt = f"""
 Απάντησε στα ελληνικά, καθαρά και σύντομα, σαν βοηθός τύπου ChatGPT.
 Μην δημιουργείς αποστολή. Μην δίνεις JSON.
+Μην εφευρίσκεις δυνατότητες, τεχνικές λεπτομέρειες ή χαρακτηριστικά που δεν υπάρχουν στο ιστορικό.
+Αν κάτι δεν είναι γνωστό, πες καθαρά ότι δεν είναι επιβεβαιωμένο.
 
-Πρόσφατο ιστορικό:
+Ιστορικό ενεργής συνομιλίας:
 {context}
 
 Ερώτηση χρήστη:
@@ -289,19 +296,29 @@ def recent_chat_context(limit: int = 3) -> str:
     return "\n\n".join(lines)
 
 
-def memory_question_answer(message: str) -> str | None:
+
+def memory_question_answer(message: str, conversation_id: str | None = None) -> str | None:
     m = norm(message)
 
     if not any(x in m for x in [
         "τι είπα",
         "τι ειπα",
+        "τι συζητάμε",
+        "τι συζηταμε",
         "θυμάσαι",
         "θυμασαι",
         "πριν",
         "προηγουμένως",
-        "προηγουμενως"
+        "προηγουμενως",
+        "εδώ",
+        "εδω"
     ]):
         return None
+
+    active_ctx = conversation_context(conversation_id, 8) if conversation_id else ""
+
+    if active_ctx:
+        return "Στην ενεργή συνομιλία θυμάμαι:\n\n" + active_ctx
 
     ctx = recent_chat_context(3)
 
@@ -333,6 +350,46 @@ def summarize_search_results(web: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+
+
+def capability_answer(message: str) -> str | None:
+    m = norm(message)
+    keys = [
+        "τι μπορείς", "τι μπορεις", "δυνατότητες", "δυνατοτητες",
+        "διαβάζεις εικόνες", "διαβαζεις εικονες",
+        "διαβάζεις αρχεία", "διαβαζεις αρχεια",
+        "αρχεία και εικόνες", "αρχεια και εικονες",
+        "υποστηρίζεις", "υποστηριζεις",
+        "capabilities"
+    ]
+    if any(k in m for k in keys):
+        return capability_text()
+    return None
+
+
+
+
+def user_statement_answer(message: str) -> str | None:
+    m = norm(message)
+
+    statement_starts = [
+        "μιλάμε για", "μιλαμε για",
+        "συζητάμε για", "συζηταμε για",
+        "θέλω να θυμάσαι", "θελω να θυμασαι",
+        "κρατάμε ότι", "κραταμε οτι",
+        "σημείωσε", "σημειωσε",
+        "να θυμάσαι", "να θυμασαι"
+    ]
+
+    if any(m.startswith(x) for x in statement_starts):
+        return (
+            "Το κρατάω στην ενεργή συνομιλία. "
+            "Όταν συνεχίσουμε από αυτή τη συνομιλία, θα μπορώ να το χρησιμοποιήσω ως πλαίσιο."
+        )
+
+    return None
+
+
 def fallback_answer(message: str) -> str:
     return (
         "Σε ακούω. Μπορώ να απαντήσω σε απλή συζήτηση, να ψάξω στα μαθημένα έγγραφα, "
@@ -340,7 +397,7 @@ def fallback_answer(message: str) -> str:
     )
 
 
-def answer_chat(message: str) -> dict[str, Any] | None:
+def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, Any] | None:
     if is_explicit_command(message):
         return None
 
@@ -378,15 +435,25 @@ def answer_chat(message: str) -> dict[str, Any] | None:
             mode = "url_reader"
 
     if answer is None:
-        answer = memory_question_answer(message)
+        answer = memory_question_answer(message, conversation_id=conversation_id)
         if answer is not None:
             mode = "memory_recall"
+
+    if answer is None:
+        answer = capability_answer(message)
+        if answer is not None:
+            mode = "capabilities"
+
+    if answer is None:
+        answer = user_statement_answer(message)
+        if answer is not None:
+            mode = "conversation_note"
 
     if answer is None:
         answer = casual_answer(message)
 
     if answer is None:
-        answer = try_llm_answer(message)
+        answer = try_llm_answer(message, conversation_id=conversation_id)
         if answer:
             mode = "llm_chat"
 
@@ -394,6 +461,13 @@ def answer_chat(message: str) -> dict[str, Any] | None:
         answer = fallback_answer(message)
 
     remember_turn(message, answer, mode)
+    conv = append_turn(
+        user_message=message,
+        assistant_answer=answer,
+        mode=mode,
+        conversation_id=conversation_id,
+        title=message,
+    )
 
     return {
         "ok": True,
@@ -405,6 +479,8 @@ def answer_chat(message: str) -> dict[str, Any] | None:
         "text": answer,
         "human_answer": answer,
         "sources": sources,
+        "conversation": conv,
+        "conversation_id": conv.get("conversation_id"),
         "timestamp": now_iso(),
     }
 

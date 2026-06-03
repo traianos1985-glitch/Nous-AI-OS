@@ -264,6 +264,19 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
   <button class="miniBtn" onclick="uploadChatFiles()">Upload & Learn</button>
 </div>
 
+
+<div class="card" id="conversationPanel">
+  <h3>💬 Συνομιλίες</h3>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+    <button class="miniBtn" onclick="newNousConversation()">Νέα συνομιλία</button>
+    <button class="miniBtn" onclick="loadNousConversations()">Ανανέωση</button>
+  </div>
+  <select id="nousConversationSelect" onchange="selectNousConversation()" style="width:100%;padding:10px;">
+    <option value="">Νέα συνομιλία</option>
+  </select>
+  <div id="activeConversationLabel" style="font-size:12px;opacity:.75;margin-top:6px;">Ενεργή: νέα συνομιλία</div>
+</div>
+
 <div class="chatlog" id="chatlog">
             <div class="msg">Γράψε εντολή. Παραδείγματα: /status, /home, /back, /plan βελτίωσε το UI, /run έλεγξε το companion. Αν γράψεις απλό στόχο, ο Executive Layer θα φτιάξει mission και θα τρέξει ασφαλή βήματα.</div>
           </div>
@@ -934,7 +947,7 @@ async function approveRecommendation(index){
   if(!ok) return;
 
   const data = await postJson("/remote/executive-intelligence/execute-recommendation", {index});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Approved recommendation " + index);
   await loadIntelligence();
   if(typeof loadApprovals === "function") await loadApprovals();
@@ -944,7 +957,7 @@ async function approveRecommendation(index){
 async function rejectRecommendation(index){
   const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected recommendation";
   const data = await postJson("/remote/executive-intelligence/reject-recommendation", {index, reason});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Rejected recommendation " + index);
   await loadIntelligence();
 }
@@ -1022,7 +1035,7 @@ async function loadLearning(){
 async function searchLessons(){
   const q = document.getElementById("lessonSearch").value || "";
   const data = await postJson("/remote/lessons/search", {query:q});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("lessonSearchResults").textContent = JSON.stringify(data, null, 2);
   feed("Searched lessons");
 }
@@ -1058,21 +1071,21 @@ async function loadBackupPanel(){
 
 async function createBrainBackup(){
   const data = await postJson("/remote/brain-backup/create", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Created brain backup");
   await loadBackupPanel();
 }
 
 async function inspectBackup(path){
   const data = await postJson("/remote/brain-restore/inspect", {path});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("backupInspect").textContent = JSON.stringify(data, null, 2);
   feed("Inspected backup");
 }
 
 async function previewRestore(path){
   const data = await postJson("/remote/brain-restore/apply", {path, apply:false});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("backupInspect").textContent = JSON.stringify(data, null, 2);
   feed("Restore preview completed");
 }
@@ -1106,7 +1119,7 @@ async function loadBrain(){
 
 async function loadGoals(){
   const data=await getJson("/remote/goals-v2/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
 
   document.getElementById("goalStatus").innerHTML=
     kv("total",data.total ?? "-")+
@@ -1135,14 +1148,14 @@ async function loadGoals(){
 
 async function seedGoals(){
   const data=await postJson("/remote/goals-v2/seed",{});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Seeded core goals");
   await loadGoals();
 }
 
 async function refreshGoal(id){
   const data=await postJson("/remote/goals-v2/refresh",{id});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Refreshed goal "+id);
   await loadGoals();
 }
@@ -1166,7 +1179,7 @@ async function createMissionForGoal(goalId, goalTitle){
     ]
   });
 
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Created mission for goal");
   await loadGoals();
   await loadMissions();
@@ -1183,7 +1196,7 @@ async function loadDeploy(){const d=await getJson("/remote/vercel/status");docum
 async function loadSystem(){const r=await getJson("/remote/reality/status");const o=await getJson("/remote/ops/status");document.getElementById("realityStatus").innerHTML=kv("internet",r.internet?.real?"✅":"❌")+kv("browser read",r.browser_read?.real?"✅":"❌")+kv("gestures",r.android?.real_gestures?"✅":"❌");document.getElementById("opsStatus").innerHTML=kv("safe actions",(o.safe_actions||[]).length)+kv("blocked",(o.blocked||[]).length);renderObject({reality:r,ops:o})}
 async function loadApprovals(){
   const data=await getJson("/remote/missions/approvals");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
 
   if(!data.approvals || data.approvals.length===0){
     document.getElementById("approvalsBox").innerHTML="No pending approvals.";
@@ -1205,7 +1218,7 @@ async function loadApprovals(){
 
 async function approveTask(missionId, taskId){
   const data=await postJson("/remote/missions/approve-task",{mission_id:missionId,task_id:taskId});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Approved task "+taskId);
   await loadApprovals();
   await loadMissions();
@@ -1213,16 +1226,16 @@ async function approveTask(missionId, taskId){
 
 async function runMission(id){
   const data=await postJson("/remote/missions/run-cycle",{id:id,max_steps:3});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Ran mission "+id);
   await loadApprovals();
   await loadMissions();
 }
 
-async function postAction(path){closeMenu();const data=await postJson(path,{});renderObject(data);feed("Action "+path);addMsg("Action: "+path+"\n"+JSON.stringify(data,null,2))}
-async function ops(action){closeMenu();const payload={};if(action==="checkpoint")payload.message=prompt("Commit message:","NOUS safe checkpoint")||"NOUS safe checkpoint";const data=await postJson("/remote/ops/run",{action,payload});renderObject(data);feed("Ops "+action);addMsg("Ops: "+action+"\n"+JSON.stringify(data,null,2))}
-async function createMission(kind){const data=await postJson("/remote/missions/create-standard",{kind});renderObject(data);feed("Mission created "+kind);await loadMissions()}
-async function createWorkspaceMission(){const prompt=document.getElementById("missionPrompt").value||"";const data=await postJson("/remote/workspace/create-mission",{prompt});renderObject(data);feed("Workspace mission created");await loadMissions()}
+async function postAction(path){closeMenu();const data=await postJson(path,{});renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}feed("Action "+path);addMsg("Action: "+path+"\n"+JSON.stringify(data,null,2))}
+async function ops(action){closeMenu();const payload={};if(action==="checkpoint")payload.message=prompt("Commit message:","NOUS safe checkpoint")||"NOUS safe checkpoint";const data=await postJson("/remote/ops/run",{action,payload});renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}feed("Ops "+action);addMsg("Ops: "+action+"\n"+JSON.stringify(data,null,2))}
+async function createMission(kind){const data=await postJson("/remote/missions/create-standard",{kind});renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}feed("Mission created "+kind);await loadMissions()}
+async function createWorkspaceMission(){const prompt=document.getElementById("missionPrompt").value||"";const data=await postJson("/remote/workspace/create-mission",{prompt});renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}feed("Workspace mission created");await loadMissions()}
 
 async function sendPrompt(){
   const p=document.getElementById("prompt"); const text=p.value.trim(); if(!text)return; p.value=""; addMsg(text,"user");
@@ -1268,19 +1281,19 @@ async function loadGraphs(){
 
 async function buildRepoGraph(){
   const data = await postJson("/remote/repository-graph/build", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadGraphs();
 }
 
 async function buildKnowledgeGraph(){
   const data = await postJson("/remote/knowledge-graph/build", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadGraphs();
 }
 
 async function loadLoopV3(){
   const data = await getJson("/remote/executive-loop-v3/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("loopV3Box").textContent = JSON.stringify(data, null, 2);
 }
 
@@ -1288,7 +1301,7 @@ async function runLoopV3(){
   const ok = confirm("Να τρέξει Executive Loop V3; Θα κάνει μόνο safe execution και θα αφήσει approvals για εσένα.");
   if(!ok) return;
   const data = await postJson("/remote/executive-loop-v3/run", {trigger:"dashboard"});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("loopV3Box").textContent = JSON.stringify(data, null, 2);
 }
 
@@ -1306,7 +1319,7 @@ async function loadMegaSystems(){
 
 async function cleanupPreview(){
   const data = await postJson("/remote/cleanup/preview", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("cleanupBox").textContent = JSON.stringify(data, null, 2);
 }
 
@@ -1314,26 +1327,26 @@ async function cleanupApply(){
   const ok = confirm("Να εφαρμοστεί cleanup; Θα απορρίψει duplicate pending proposals και θα κρατήσει λίγα backups.");
   if(!ok) return;
   const data = await postJson("/remote/cleanup/apply", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("cleanupBox").textContent = JSON.stringify(data, null, 2);
   if(typeof loadPendingReview === "function") await loadPendingReview();
 }
 
 async function generateGoalProjects(){
   const data = await postJson("/remote/goal-manager-v2/generate", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("goalManagerBox").textContent = JSON.stringify(data, null, 2);
 }
 
 async function learnExecutiveMemory(){
   const data = await postJson("/remote/executive-memory-v3/learn", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("execMemoryBox").textContent = JSON.stringify(data, null, 2);
 }
 
 async function loadUpgradePlans(){
   const data = await getJson("/remote/upgrade-planner/plans");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(!data || data.length===0){
     document.getElementById("upgradePlansBox").innerHTML = "No upgrade plans.";
     return;
@@ -1355,21 +1368,21 @@ async function loadUpgradePlans(){
 
 async function proposeUpgradePlan(){
   const data = await postJson("/remote/upgrade-planner/propose", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadUpgradePlans();
   if(typeof loadPendingReview === "function") await loadPendingReview();
 }
 
 async function approveUpgradePlan(id){
   const data = await postJson("/remote/upgrade-planner/approve", {plan_id:String(id)});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadUpgradePlans();
 }
 
 async function rejectUpgradePlan(id){
   const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected upgrade plan";
   const data = await postJson("/remote/upgrade-planner/reject", {plan_id:String(id), reason});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadUpgradePlans();
 }
 
@@ -1413,7 +1426,7 @@ async function loadSelfHealing(){
 
 async function runSelfHealing(){
   const data = await postJson("/remote/self-healing/run-analysis", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Self-healing analysis completed");
   await loadSelfHealing();
   if(typeof loadPendingReview === "function") await loadPendingReview();
@@ -1423,7 +1436,7 @@ async function approvePatch(id){
   const ok = confirm("Να εφαρμοστεί αυτό το patch; Θα γίνει compile check μετά.");
   if(!ok) return;
   const data = await postJson("/remote/patch-generator/approve", {proposal_id:String(id)});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(data.ok){ feed("Patch approved/applied"); }
   else { feed("Patch approval failed: " + (data.error || "unknown")); }
   await loadSelfHealing();
@@ -1432,7 +1445,7 @@ async function approvePatch(id){
 async function rejectPatch(id){
   const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected patch proposal";
   const data = await postJson("/remote/patch-generator/reject", {proposal_id:String(id), reason});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Patch proposal rejected");
   await loadSelfHealing();
 }
@@ -1440,7 +1453,7 @@ async function rejectPatch(id){
 
 async function loadCommandCenter(){
   const data = await getJson("/remote/command-center/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
 
   const s = data.summary || {};
   document.getElementById("commandSummary").innerHTML =
@@ -1481,7 +1494,7 @@ async function runCommandCycle(){
   const ok = confirm("Να τρέξει ο πλήρης Executive Cycle; Θα κάνει safe execution και θα αφήσει εγκρίσεις στο Pending Inbox.");
   if(!ok) return;
   const data = await postJson("/remote/command-center/run-cycle", {trigger:"command_center"});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("commandFull").textContent = JSON.stringify(data, null, 2);
   feed("Executive command cycle completed");
   await loadCommandCenter();
@@ -1490,7 +1503,7 @@ async function runCommandCycle(){
 
 async function loadPendingReview(){
   const data = await getJson("/remote/pending-review/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
 
   document.getElementById("pendingSummary").innerHTML =
     kv("total", data.total ?? 0) +
@@ -1519,7 +1532,7 @@ async function loadPendingReview(){
 
 async function loadExecutiveLoopV2(){
   const data = await getJson("/remote/executive-loop-v2/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("loopV2Status").textContent = JSON.stringify(data, null, 2);
 }
 
@@ -1527,7 +1540,7 @@ async function runExecutiveLoopV2(){
   const ok = confirm("Να τρέξει Executive Loop v2; Θα κάνει μόνο safe execution και θα αφήσει approvals για εσένα.");
   if(!ok) return;
   const data = await postJson("/remote/executive-loop-v2/run", {trigger:"dashboard"});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("loopV2Status").textContent = JSON.stringify(data, null, 2);
   feed("Executive Loop v2 completed");
   await loadPendingReview();
@@ -1536,45 +1549,45 @@ async function runExecutiveLoopV2(){
 
 async function loadAutoScheduler(){
   const data = await getJson("/remote/auto-mission-scheduler/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("autoSchedulerStatus").textContent = JSON.stringify(data, null, 2);
 }
 
 async function runAutoSchedulerOnce(){
   const data = await postJson("/remote/auto-mission-scheduler/run-once", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadAutoScheduler();
 }
 
 async function startAutoScheduler(){
   const secs = prompt("Interval seconds", "900");
   const data = await postJson("/remote/auto-mission-scheduler/start", {interval_seconds: parseInt(secs || "900")});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadAutoScheduler();
 }
 
 async function stopAutoScheduler(){
   const data = await postJson("/remote/auto-mission-scheduler/stop", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadAutoScheduler();
 }
 
 async function loadCodeAnalyst(){
   const data = await getJson("/remote/code-analyst/reports");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("codeAnalystReports").textContent = JSON.stringify(data, null, 2);
 }
 
 async function analyzeLatestDiagnosis(){
   const data = await postJson("/remote/code-analyst/analyze-latest-diagnosis", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadCodeAnalyst();
 }
 
 
 async function loadAutoExec(){
   const data = await getJson("/remote/auto-mission-executor/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
 
   document.getElementById("autoExecStatus").innerHTML =
     kv("enabled", data.enabled) +
@@ -1593,7 +1606,7 @@ async function runAutoExec(){
     max_steps_per_mission: 3,
     trigger: "dashboard"
   });
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(data.ok){ feed("Auto mission executor completed"); }
   else { feed("Auto mission executor failed: " + (data.error || "unknown")); }
   await loadAutoExec();
@@ -1603,13 +1616,13 @@ async function runAutoExec(){
 
 async function enableAutoExec(){
   const data = await postJson("/remote/auto-mission-executor/enable", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadAutoExec();
 }
 
 async function disableAutoExec(){
   const data = await postJson("/remote/auto-mission-executor/disable", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadAutoExec();
 }
 
@@ -1652,7 +1665,7 @@ async function loadRepair(){
 
 async function proposeRepair(){
   const data = await postJson("/remote/autonomous-repair/propose", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Repair proposal generated");
   await loadRepair();
 }
@@ -1661,7 +1674,7 @@ async function approveRepair(id){
   const ok = confirm("Να εφαρμόσω αυτή την ασφαλή διόρθωση;");
   if(!ok) return;
   const data = await postJson("/remote/autonomous-repair/approve", {proposal_id:String(id)});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(data.ok){ feed("Repair approved/applied"); }
   else { feed("Repair failed: " + (data.error || "unknown")); }
   await loadRepair();
@@ -1670,7 +1683,7 @@ async function approveRepair(id){
 async function rejectRepair(id){
   const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected repair proposal";
   const data = await postJson("/remote/autonomous-repair/reject", {proposal_id:String(id), reason});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Repair proposal rejected");
   await loadRepair();
 }
@@ -1678,13 +1691,13 @@ async function rejectRepair(id){
 
 async function loadSelfDiagnosis(){
   const data = await getJson("/remote/self-diagnosis/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("diagnosisReport").textContent = JSON.stringify(data, null, 2);
 }
 
 async function runSelfDiagnosis(){
   const data = await postJson("/remote/self-diagnosis/run", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("diagnosisReport").textContent = JSON.stringify(data, null, 2);
   feed("Self diagnosis completed");
 }
@@ -1692,7 +1705,7 @@ async function runSelfDiagnosis(){
 
 async function runDashboardAudit(){
   const data = await getJson("/remote/dashboard-action-audit");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("auditResults").textContent = JSON.stringify(data, null, 2);
   feed("Dashboard action audit completed");
 }
@@ -1738,7 +1751,7 @@ async function loadPlanner(){
 
 async function proposeMission(){
   const data = await postJson("/remote/mission-planner/propose", {});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   feed("Mission proposal created");
   await loadPlanner();
 }
@@ -1748,7 +1761,7 @@ async function approveProposal(id){
   if(!ok) return;
   const data = await postJson("/remote/mission-planner/approve", {proposal_id:String(id)});
   document.getElementById("liveOutput").textContent = JSON.stringify(data, null, 2);
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(data.ok){ feed("Mission proposal approved"); }
   else { feed("Mission proposal approval failed: " + (data.error || "unknown")); }
   await loadPlanner();
@@ -1758,7 +1771,7 @@ async function rejectProposal(id){
   const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected mission proposal";
   const data = await postJson("/remote/mission-planner/reject", {proposal_id:String(id), reason});
   document.getElementById("liveOutput").textContent = JSON.stringify(data, null, 2);
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(data.ok){ feed("Mission proposal rejected"); }
   else { feed("Mission proposal rejection failed: " + (data.error || "unknown")); }
   await loadPlanner();
@@ -1767,26 +1780,26 @@ async function rejectProposal(id){
 
 async function loadScheduler(){
   const data = await getJson("/remote/executive-scheduler-loop/status");
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   document.getElementById("schedulerStatus").textContent = JSON.stringify(data,null,2);
 }
 
 async function schedulerRunOnce(){
   const data = await postJson("/remote/executive-scheduler-loop/run-once",{});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadScheduler();
 }
 
 async function schedulerStart(){
   const secs = prompt("Interval seconds","1800");
   const data = await postJson("/remote/executive-scheduler-loop/start",{interval_seconds:parseInt(secs||"1800")});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadScheduler();
 }
 
 async function schedulerStop(){
   const data = await postJson("/remote/executive-scheduler-loop/stop",{});
-  renderObject(data);
+  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadScheduler();
 }
 
@@ -2145,12 +2158,98 @@ async function uploadChatFiles(){
       addMsg(data, "bot");
 
       if(typeof renderObject === "function"){
-        renderObject(data);
+        renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
       }
     }catch(e){
       addMsg("Σφάλμα upload: " + e, "bot");
     }
   }
+}
+</script>
+
+
+<script id="nous-conversation-selector-js">
+let NOUS_ACTIVE_CONVERSATION_ID = "";
+
+function newNousConversation(){
+  NOUS_ACTIVE_CONVERSATION_ID = "";
+  const sel = document.getElementById("nousConversationSelect");
+  if(sel) sel.value = "";
+  const label = document.getElementById("activeConversationLabel");
+  if(label) label.textContent = "Ενεργή: νέα συνομιλία";
+  addMsg("Ξεκινάμε νέα συνομιλία.", "bot");
+}
+
+async function loadNousConversations(){
+  try{
+    const r = await fetch("/remote/conversations");
+    const data = await r.json();
+    const sel = document.getElementById("nousConversationSelect");
+    if(!sel) return;
+
+    const old = sel.value || NOUS_ACTIVE_CONVERSATION_ID || "";
+    sel.innerHTML = '<option value="">Νέα συνομιλία</option>';
+
+    (data.conversations || []).forEach(c => {
+      const o = document.createElement("option");
+      o.value = c.id;
+      o.textContent = (c.title || "Συνομιλία") + " (" + (c.messages || 0) + ")";
+      sel.appendChild(o);
+    });
+
+    if(old) sel.value = old;
+  }catch(e){
+    console.log("conversation list failed", e);
+  }
+}
+
+async function selectNousConversation(){
+  const sel = document.getElementById("nousConversationSelect");
+  const id = sel ? sel.value : "";
+  NOUS_ACTIVE_CONVERSATION_ID = id || "";
+
+  const label = document.getElementById("activeConversationLabel");
+
+  if(!id){
+    if(label) label.textContent = "Ενεργή: νέα συνομιλία";
+    addMsg("Άνοιξες νέα συνομιλία.", "bot");
+    return;
+  }
+
+  try{
+    const r = await fetch("/remote/conversations/" + encodeURIComponent(id));
+    const data = await r.json();
+
+    if(label) label.textContent = "Ενεργή: " + (data.title || id);
+
+    const msgs = data.messages || [];
+    const last = msgs.slice(-8).map(m => {
+      const role = m.role === "user" ? "Εσύ" : "ΝΟΥΣ";
+      return role + ": " + (m.content || "");
+    }).join("\\n\\n");
+
+    addMsg("Συνέχεια παλιάς συνομιλίας:\\n\\n" + last, "bot");
+  }catch(e){
+    addMsg("Δεν μπόρεσα να ανοίξω τη συνομιλία: " + e, "bot");
+  }
+}
+
+window.addEventListener("load", () => {
+  setTimeout(loadNousConversations, 800);
+});
+</script>
+
+
+<script id="NOUS_CAPTURE_CONVERSATION_ID">
+function nousCaptureConversation(data){
+  try{
+    if(data && data.conversation_id){
+      NOUS_ACTIVE_CONVERSATION_ID = data.conversation_id;
+      const label = document.getElementById("activeConversationLabel");
+      if(label) label.textContent = "Ενεργή: " + (data.conversation?.title || data.conversation_id);
+      loadNousConversations();
+    }
+  }catch(e){}
 }
 </script>
 

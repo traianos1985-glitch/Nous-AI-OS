@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from executor.document_chat_bridge import document_chat_answer, format_document_answer
 from executor.chat_response_engine import chatgpt_style_response
 from executor.upload_processing_engine import process_uploaded_file, upload_status
+from executor.conversation_manager import list_conversations, get_conversation, rename_conversation, delete_conversation
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -2185,6 +2186,29 @@ def remote_document_upload_route():
 @app.route("/remote/document/upload-status", methods=["GET"])
 def remote_document_upload_status_route():
     return jsonify(upload_status())
+
+
+
+
+@app.route("/remote/conversations", methods=["GET"])
+def remote_conversations_list_route():
+    return jsonify(list_conversations())
+
+
+@app.route("/remote/conversations/<conversation_id>", methods=["GET"])
+def remote_conversation_get_route(conversation_id):
+    return jsonify(get_conversation(conversation_id))
+
+
+@app.route("/remote/conversations/<conversation_id>/rename", methods=["POST"])
+def remote_conversation_rename_route(conversation_id):
+    data = request.get_json(silent=True) or {}
+    return jsonify(rename_conversation(conversation_id, data.get("title", "")))
+
+
+@app.route("/remote/conversations/<conversation_id>", methods=["DELETE"])
+def remote_conversation_delete_route(conversation_id):
+    return jsonify(delete_conversation(conversation_id))
 
 
 if __name__ == "__main__":
