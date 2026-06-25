@@ -1,10 +1,10 @@
 {
   "enabled": true,
   "interval_seconds": 1800,
-  "last_run": 1782381199.519177,
+  "last_run": 1782382563.8013737,
   "last_result": {
     "ok": true,
-    "review_id": 1782381199512683066,
+    "review_id": 1782382563793544469,
     "next_best_action": {
       "priority": 1,
       "type": "approval",
@@ -23,7 +23,7 @@
       }
     }
   },
-  "started": 1782381195.2518575,
+  "started": 1782382559.5734603,
   "stopped": null,
-  "runs": 14
+  "runs": 15
 }

@@ -367,6 +367,16 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       </div>
     </div>
   <button onclick="showSection('documents')">📚 Documents</button>
+
+  <div class="card" style="margin:10px 8px 4px;padding:10px 12px;">
+    <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">📊 Πόροι Υπολογιστή</div>
+    <div id="sysBarWidget" style="font-size:12px;line-height:1.9;">
+      <div>⏳ Φόρτωση...</div>
+    </div>
+    <div style="margin-top:8px;">
+      <button onclick="showSection('remote-access')" style="width:100%;font-size:11px;padding:5px 0;background:#1a3a2a;border:1px solid #2a5a3a;color:#6cf;border-radius:6px;cursor:pointer;">📱 Απομακρυσμένη Πρόσβαση</button>
+    </div>
+  </div>
 </aside>
 
   <main class="main">
@@ -1000,6 +1010,119 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         </div>
       </section>
 
+      <section id="remote-access" class="section">
+        <div class="hero">
+          <h1>📱 Απομακρυσμένη Πρόσβαση</h1>
+          <p>Διαχειρίσου τον ΝΟΥΣ από το κινητό σου — ακόμα κι όταν είσαι εκτός σπιτιού.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>📊 Πόροι Υπολογιστή Τώρα</h3>
+            <div id="sysInfoFull" style="font-size:13px;line-height:2;">Φόρτωση...</div>
+            <button class="miniBtn" onclick="loadSysInfo()" style="margin-top:10px;">🔄 Ανανέωση</button>
+          </div>
+          <div class="card">
+            <h3>⚙️ Ελάχιστες Απαιτήσεις</h3>
+            <div style="font-size:13px;line-height:2.1;">
+              <div>🖥️ <strong>CPU:</strong> Οποιοσδήποτε (dual-core 1GHz+)</div>
+              <div>🧠 <strong>RAM:</strong> 512MB ελάχιστο — 2GB+ ιδανικό</div>
+              <div>💾 <strong>Δίσκος:</strong> 500MB ελεύθερα</div>
+              <div>🌐 <strong>Δίκτυο:</strong> Οποιαδήποτε σύνδεση internet</div>
+              <div>🐍 <strong>Python:</strong> 3.10 ή νεότερο</div>
+              <div style="margin-top:8px;padding:8px;background:#1a3a1a;border-radius:6px;font-size:12px;">
+                💡 Ο ΝΟΥΣ χρησιμοποιεί <strong>~80-150MB RAM</strong> σε αδράνεια.
+                Η CPU φορτώνεται <strong>μόνο</strong> όταν επεξεργάζεται αίτημα.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>🚇 Μέθοδος 1: ngrok (Πιο Εύκολη)</h3>
+            <p style="font-size:13px;opacity:.8;margin-bottom:12px;">Δίνει δημόσιο URL — πρόσβαση από <strong>οπουδήποτε</strong></p>
+            <div style="font-size:13px;line-height:2;">
+              <div>1️⃣ Φτιάξε δωρεάν λογαριασμό: <a href="https://ngrok.com" target="_blank" style="color:#6cf;">ngrok.com</a></div>
+              <div>2️⃣ Κατέβασε και εγκατάστησε το ngrok</div>
+              <div>3️⃣ Τρέξε:</div>
+              <pre style="background:#111;padding:8px;border-radius:6px;font-size:12px;margin:4px 0;">ngrok config add-authtoken YOUR_TOKEN</pre>
+              <div>4️⃣ Ξεκίνα το tunnel:</div>
+              <pre style="background:#111;padding:8px;border-radius:6px;font-size:12px;margin:4px 0;"># Windows:
+deploy\\remote_access\\setup_ngrok_windows.bat
+
+# Mac/Linux:
+bash deploy/remote_access/setup_ngrok_mac_linux.sh</pre>
+              <div>5️⃣ Αντέγραψε το <code>https://xxx.ngrok-free.app</code> → κινητό</div>
+            </div>
+            <div style="margin-top:10px;padding:8px;background:#2a1a1a;border-radius:6px;font-size:12px;">
+              ⚠️ Δωρεάν: URL αλλάζει σε κάθε εκκίνηση. Για σταθερό URL → Tailscale ή ngrok $10/μήνα.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>🔒 Μέθοδος 2: Tailscale (Πιο Ασφαλής)</h3>
+            <p style="font-size:13px;opacity:.8;margin-bottom:12px;">Ιδιωτικό VPN — σταθερό URL, κανείς άλλος δεν βλέπει τον ΝΟΥΣ</p>
+            <div style="font-size:13px;line-height:2;">
+              <div>1️⃣ Φτιάξε δωρεάν λογαριασμό: <a href="https://tailscale.com" target="_blank" style="color:#6cf;">tailscale.com</a></div>
+              <div>2️⃣ Εγκατάστησε στον υπολογιστή:</div>
+              <pre style="background:#111;padding:8px;border-radius:6px;font-size:12px;margin:4px 0;"># Linux:
+bash deploy/remote_access/setup_tailscale.sh
+# Windows/Mac: κατέβασε από tailscale.com/download</pre>
+              <div>3️⃣ Εγκατάστησε <strong>Tailscale app</strong> στο κινητό (iOS/Android)</div>
+              <div>4️⃣ Συνδέσου με τον <strong>ίδιο λογαριασμό</strong></div>
+              <div>5️⃣ Βρες την Tailscale IP του PC (π.χ. <code>100.x.x.x</code>)</div>
+              <div>6️⃣ Άνοιξε: <code>http://100.x.x.x:5000</code></div>
+            </div>
+            <div style="margin-top:10px;padding:8px;background:#1a2a1a;border-radius:6px;font-size:12px;">
+              ✅ Δωρεάν έως 100 συσκευές. Σταθερή IP. Λειτουργεί πάντα.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>📋 Σύγκριση Επιλογών</h3>
+          <table style="width:100%;font-size:13px;border-collapse:collapse;">
+            <tr style="border-bottom:1px solid #333;color:#888;">
+              <th style="text-align:left;padding:8px 4px;"></th>
+              <th style="padding:8px;">ngrok (δωρεάν)</th>
+              <th style="padding:8px;">Tailscale</th>
+              <th style="padding:8px;">VPS</th>
+            </tr>
+            <tr style="border-bottom:1px solid #222;">
+              <td style="padding:8px 4px;">💰 Κόστος</td>
+              <td style="padding:8px;text-align:center;">€0</td>
+              <td style="padding:8px;text-align:center;">€0</td>
+              <td style="padding:8px;text-align:center;">~€4/μήνα</td>
+            </tr>
+            <tr style="border-bottom:1px solid #222;">
+              <td style="padding:8px 4px;">🌍 Από παντού</td>
+              <td style="padding:8px;text-align:center;">✅</td>
+              <td style="padding:8px;text-align:center;">✅</td>
+              <td style="padding:8px;text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid #222;">
+              <td style="padding:8px 4px;">⏰ 24/7 online</td>
+              <td style="padding:8px;text-align:center;">❌ (PC ανοιχτό)</td>
+              <td style="padding:8px;text-align:center;">❌ (PC ανοιχτό)</td>
+              <td style="padding:8px;text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid #222;">
+              <td style="padding:8px 4px;">🔒 Ασφάλεια</td>
+              <td style="padding:8px;text-align:center;">Καλή</td>
+              <td style="padding:8px;text-align:center;">Εξαιρετική</td>
+              <td style="padding:8px;text-align:center;">Καλή</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 4px;">⚡ Ταχύτητα setup</td>
+              <td style="padding:8px;text-align:center;">5 λεπτά</td>
+              <td style="padding:8px;text-align:center;">10 λεπτά</td>
+              <td style="padding:8px;text-align:center;">30 λεπτά</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
 </main>
 
   <aside class="right">
@@ -1106,6 +1229,60 @@ async function loadHome(){
 
 
 
+
+function sysBar(pct, color){
+  const w = Math.round(pct);
+  return `<div style="background:#222;border-radius:4px;height:6px;margin:2px 0 6px;">
+    <div style="width:${w}%;background:${color};height:6px;border-radius:4px;transition:width .5s;"></div>
+  </div>`;
+}
+
+async function loadSysInfo(){
+  try{
+    const d = await getJson("/system-info");
+    if(d.error){
+      const msg = `<div style="color:#f88;">⚠️ ${d.error}</div>`;
+      const el1 = document.getElementById("sysInfoFull");
+      const el2 = document.getElementById("sysBarWidget");
+      if(el1) el1.innerHTML = msg;
+      if(el2) el2.innerHTML = msg;
+      return;
+    }
+    const cpuColor = d.cpu_percent > 80 ? "#f55" : d.cpu_percent > 50 ? "#fa0" : "#4c8";
+    const ramColor = d.ram_percent > 85 ? "#f55" : d.ram_percent > 60 ? "#fa0" : "#4c8";
+    const diskColor = d.disk_percent > 85 ? "#f55" : d.disk_percent > 70 ? "#fa0" : "#4c8";
+
+    const fullHtml = `
+      <div>🖥️ <strong>CPU:</strong> ${d.cpu_percent}%</div>
+      ${sysBar(d.cpu_percent, cpuColor)}
+      <div>🧠 <strong>RAM:</strong> ${d.ram_used_gb}GB / ${d.ram_total_gb}GB (${d.ram_percent}%)</div>
+      ${sysBar(d.ram_percent, ramColor)}
+      <div>💾 <strong>Δίσκος:</strong> ${d.disk_used_gb}GB / ${d.disk_total_gb}GB (${d.disk_percent}%)</div>
+      ${sysBar(d.disk_percent, diskColor)}
+      <div>⏱️ <strong>Uptime:</strong> ${d.uptime}</div>
+      <div>🔷 <strong>NOUS RAM:</strong> ${d.nous_ram_mb}MB</div>
+      <div>💻 <strong>Σύστημα:</strong> ${d.platform}</div>`;
+
+    const miniHtml = `
+      <div>CPU ${sysBar(d.cpu_percent, cpuColor)} ${d.cpu_percent}%</div>
+      <div>RAM ${sysBar(d.ram_percent, ramColor)} ${d.ram_used_gb}/${d.ram_total_gb}GB</div>
+      <div>NOUS ${d.nous_ram_mb}MB &nbsp;|&nbsp; ${d.uptime}</div>`;
+
+    const el1 = document.getElementById("sysInfoFull");
+    const el2 = document.getElementById("sysBarWidget");
+    if(el1) el1.innerHTML = fullHtml;
+    if(el2) el2.innerHTML = miniHtml;
+  }catch(e){
+    const msg = `<div style="color:#888;">—</div>`;
+    const el1 = document.getElementById("sysInfoFull");
+    const el2 = document.getElementById("sysBarWidget");
+    if(el1) el1.innerHTML = msg;
+    if(el2) el2.innerHTML = msg;
+  }
+}
+
+// Auto-refresh system bar κάθε 15 δευτερόλεπτα
+setInterval(loadSysInfo, 15000);
 
 async function approveRecommendation(index){
   const ok = confirm("Να εγκρίνω και να εκτελέσω αυτή την πρόταση;");
@@ -1417,6 +1594,7 @@ document.addEventListener("DOMContentLoaded",function(){
       if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendPrompt();}
     });
   }
+  loadSysInfo();
 });
 
 async function quickUpload(input){

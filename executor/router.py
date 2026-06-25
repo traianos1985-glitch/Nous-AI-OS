@@ -202,6 +202,44 @@ def health():
     return jsonify(health_status())
 
 
+@app.route("/system-info")
+def system_info():
+    try:
+        import psutil, time
+        cpu = psutil.cpu_percent(interval=0.3)
+        mem = psutil.virtual_memory()
+        disk = psutil.disk_usage("/")
+        boot = psutil.boot_time()
+        uptime_sec = int(time.time() - boot)
+        uptime_h = uptime_sec // 3600
+        uptime_m = (uptime_sec % 3600) // 60
+
+        # NOUS process RAM
+        import os
+        try:
+            proc = psutil.Process(os.getpid())
+            nous_ram_mb = round(proc.memory_info().rss / 1024 / 1024, 1)
+        except Exception:
+            nous_ram_mb = None
+
+        return jsonify({
+            "cpu_percent": cpu,
+            "ram_used_gb": round(mem.used / 1024**3, 2),
+            "ram_total_gb": round(mem.total / 1024**3, 2),
+            "ram_percent": mem.percent,
+            "disk_used_gb": round(disk.used / 1024**3, 1),
+            "disk_total_gb": round(disk.total / 1024**3, 1),
+            "disk_percent": disk.percent,
+            "uptime": f"{uptime_h}ω {uptime_m}λ",
+            "nous_ram_mb": nous_ram_mb,
+            "platform": platform.system(),
+        })
+    except ImportError:
+        return jsonify({"error": "psutil not installed", "hint": "pip install psutil"})
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
 
 @app.route("/token/create", methods=["POST"])
 def token_create_route():
