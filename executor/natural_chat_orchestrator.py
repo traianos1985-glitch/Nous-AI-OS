@@ -187,6 +187,46 @@ def natural_chat_answer(message: str) -> dict[str, Any] | None:
                     answer = "Πες μου τον στόχο! Π.χ.: φτιάξε αποστολή βελτίωσε το UI"
                 return pack(answer, "mission_guide")
 
+    # --- Autonomous App Builder ---
+    app_build_triggers = [
+        "φτιάξε εφαρμογή", "φτιαξε εφαρμογη", "φτιάξε app", "φτιαξε app",
+        "δημιούργησε εφαρμογή", "δημιουργησε εφαρμογη", "δημιούργησε app", "δημιουργησε app",
+        "χτίσε εφαρμογή", "χτισε εφαρμογη", "χτίσε app", "χτισε app",
+        "κάνε εφαρμογή", "κανε εφαρμογη",
+        "build app", "build an app", "create app", "make app",
+        "φτιάξε web app", "φτιαξε web app",
+        "φτιάξε flask", "φτιαξε flask",
+        "φτιάξε api", "φτιαξε api",
+        "φτιάξε εργαλείο", "φτιαξε εργαλειο",
+        "φτιάξε bot", "φτιαξε bot",
+        "αυτόνομος builder", "autonomous app",
+    ]
+    if any(x in m for x in app_build_triggers):
+        try:
+            from executor.app_builder import plan_app
+            result = plan_app(message)
+            if result.get("ok"):
+                plan = result["plan"]
+                files_preview = "\n".join(
+                    f"  • `{f.get('path')}` — {f.get('description', '')}"
+                    for f in plan.get("files", [])[:8]
+                )
+                tech = ", ".join(plan.get("tech_stack", []))
+                answer = (
+                    f"## 🏗️ Σχέδιο Εφαρμογής: {plan.get('title')}\n\n"
+                    f"**Τεχνολογία:** {tech}\n\n"
+                    f"**Αρχεία που θα δημιουργηθούν:**\n{files_preview}\n\n"
+                    f"**Εκτέλεση:** `{plan.get('run_command')}`\n\n"
+                    f"---\n"
+                    f"Έτοιμος να γράψω τα αρχεία. **Εγκρίνεις;**\n\n"
+                    f"<app-approval plan_id=\"{plan['plan_id']}\" title=\"{plan.get('title')}\"></app-approval>"
+                )
+            else:
+                answer = f"Δεν μπόρεσα να φτιάξω σχέδιο: {result.get('error', 'άγνωστο σφάλμα')}"
+        except Exception as e:
+            answer = f"Σφάλμα App Builder: {e}"
+        return pack(answer, "app_builder_plan")
+
     # --- Code generation ---
     code_triggers = [
         "γράψε κώδικα", "γραψε κωδικα", "φτιάξε script", "φτιαξε script",

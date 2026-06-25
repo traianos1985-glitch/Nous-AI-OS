@@ -300,7 +300,7 @@ def sense_route():
     return jsonify(android_sense())
 
 
-from executor.app_builder import list_apps
+from executor.app_builder import list_apps, plan_app, approve_and_write, reject_plan, list_builds, get_build, status as app_builder_status
 
 
 
@@ -2114,6 +2114,51 @@ def apps_list():
 @app.route("/apps/<name>/")
 def open_generated_app(name):
     return send_from_directory(f"generated_apps/{name}", "index.html")
+
+# ── App Builder API ─────────────────────────────────────────────────────────
+
+@app.route("/remote/app-builder/status")
+def app_builder_status_route():
+    from executor.app_builder import status as _status
+    return jsonify(_status())
+
+@app.route("/remote/app-builder/list")
+def app_builder_list_route():
+    return jsonify({"ok": True, "builds": list_builds()})
+
+@app.route("/remote/app-builder/plan", methods=["POST"])
+def app_builder_plan_route():
+    data = request.get_json(silent=True) or {}
+    description = data.get("description", "").strip()
+    if not description:
+        return jsonify({"ok": False, "error": "description required"})
+    result = plan_app(description)
+    return jsonify(result)
+
+@app.route("/remote/app-builder/approve", methods=["POST"])
+def app_builder_approve_route():
+    data = request.get_json(silent=True) or {}
+    plan_id = data.get("plan_id", "").strip()
+    if not plan_id:
+        return jsonify({"ok": False, "error": "plan_id required"})
+    result = approve_and_write(plan_id)
+    return jsonify(result)
+
+@app.route("/remote/app-builder/reject", methods=["POST"])
+def app_builder_reject_route():
+    data = request.get_json(silent=True) or {}
+    plan_id = data.get("plan_id", "").strip()
+    if not plan_id:
+        return jsonify({"ok": False, "error": "plan_id required"})
+    result = reject_plan(plan_id)
+    return jsonify(result)
+
+@app.route("/remote/app-builder/get/<plan_id>")
+def app_builder_get_route(plan_id):
+    build = get_build(plan_id)
+    if not build:
+        return jsonify({"ok": False, "error": "not_found"}), 404
+    return jsonify({"ok": True, "build": build})
 
 
 

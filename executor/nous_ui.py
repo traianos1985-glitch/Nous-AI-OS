@@ -351,7 +351,8 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 <button onclick="showSection('selfheal')">🧬 SelfHeal</button>
 <button onclick="showSection('mega')">🧱 Mega</button>
 <button onclick="showSection('upgrades')">📦 Upgrades</button>
-<button onclick="showSection('graphs')">🕸 Graphs</button></div></details>
+<button onclick="showSection('graphs')">🕸 Graphs</button>
+<button onclick="showSection('appbuilder')">🏗️ App Builder</button></div></details>
     </div>
 
     <div class="card">
@@ -973,6 +974,30 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
           <button class="miniBtn" onclick="loadLoopV3()">Refresh</button>
         </div>
         <div class="card"><pre id="loopV3Box">Loading...</pre></div>
+      </section>
+
+      <section id="appbuilder" class="section">
+        <div class="hero">
+          <h1>🏗️ Autonomous App Builder</h1>
+          <p>Περιέγραψε οποιαδήποτε εφαρμογή στα ελληνικά — ο ΝΟΥΣ γράφει τον πλήρη κώδικα. Εσύ εγκρίνεις πριν γραφτεί οτιδήποτε.</p>
+        </div>
+        <div class="card">
+          <h3>Νέα Εφαρμογή</h3>
+          <textarea id="appBuilderPrompt" rows="3" placeholder="π.χ. φτιάξε Flask API που διαβάζει CSV και επιστρέφει JSON" style="width:100%;padding:10px;background:#1a1a1a;color:#e0e0e0;border:1px solid #333;border-radius:8px;font-size:14px;"></textarea>
+          <div style="margin-top:8px;display:flex;gap:8px;">
+            <button class="miniBtn" onclick="startAppBuild()" id="appBuildBtn">🚀 Σχεδίασε &amp; Δημιούργησε</button>
+            <button class="miniBtn" onclick="loadAppBuilderList()">🔄 Refresh</button>
+          </div>
+          <div id="appBuilderStatus" style="margin-top:10px;font-size:13px;opacity:.7;"></div>
+        </div>
+        <div class="card">
+          <h3>📋 Ιστορικό Builds</h3>
+          <div id="appBuilderList">Φόρτωση...</div>
+        </div>
+        <div class="card" id="appBuilderPreview" style="display:none;">
+          <h3>👁️ Preview Σχεδίου</h3>
+          <div id="appBuilderPreviewContent"></div>
+        </div>
       </section>
 
 </main>
@@ -2515,21 +2540,53 @@ function nousFindChatLog(){
 }
 
 function nousMarkdown(text){
-  // Convert basic markdown to HTML safely
-  let s = text
+  // Extract code blocks first to protect them
+  const codeBlocks = [];
+  let s = text.replace(/```(\w*)\n?([\s\S]*?)```/g, function(_, lang, code){
+    const idx = codeBlocks.length;
+    const label = lang || "code";
+    codeBlocks.push(`<div style="position:relative;margin:.5em 0;">
+      <div style="font-size:11px;opacity:.5;padding:2px 8px;background:#0d0d0d;border-radius:6px 6px 0 0;">${label}</div>
+      <pre style="margin:0;padding:10px 12px;background:#0d0d0d;border-radius:0 0 6px 6px;overflow-x:auto;font-size:13px;line-height:1.5;"><code>${code.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</code></pre>
+    </div>`);
+    return `\x00CODE${idx}\x00`;
+  });
+
+  // Extract app-approval tags
+  const approvals = [];
+  s = s.replace(/<app-approval\s+plan_id="([^"]+)"\s+title="([^"]*)"[^>]*><\/app-approval>/g, function(_, pid, title){
+    const idx = approvals.length;
+    approvals.push(`<div style="margin:.8em 0;padding:12px 16px;background:#0d2b1a;border:1px solid #1a6b3a;border-radius:10px;">
+      <div style="font-size:13px;margin-bottom:8px;opacity:.8;">🏗️ ${title||"Εφαρμογή"} — plan_id: <code style="font-size:11px;">${pid}</code></div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="approveAppBuild('${pid}')" style="padding:8px 18px;background:#00c85a;color:#000;border:0;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">✅ Εγκρίνω — Γράψε Αρχεία</button>
+        <button onclick="rejectAppBuild('${pid}')" style="padding:8px 18px;background:#333;color:#e0e0e0;border:0;border-radius:8px;cursor:pointer;font-size:14px;">❌ Απόρριψη</button>
+        <button onclick="viewAppBuild('${pid}')" style="padding:8px 18px;background:#222;color:#e0e0e0;border:0;border-radius:8px;cursor:pointer;font-size:14px;">👁️ Preview Κώδικα</button>
+      </div>
+    </div>`);
+    return `\x00APPR${idx}\x00`;
+  });
+
+  // Standard markdown
+  s = s
     .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
     .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
     .replace(/\*(.+?)\*/g,"<em>$1</em>")
-    .replace(/`(.+?)`/g,"<code>$1</code>")
+    .replace(/`(.+?)`/g,"<code style='background:#111;padding:1px 5px;border-radius:4px;'>$1</code>")
     .replace(/^(#{1,3})\s+(.+)$/gm, function(_,h,t){
-      const n=h.length; return `<h${n} style="margin:.3em 0;font-size:${1.2-n*.1}em">${t}</h${n}>`;
+      const n=h.length; return `<h${n} style="margin:.4em 0;font-size:${1.25-n*.1}em;color:#a0e0c0">${t}</h${n}>`;
     })
+    .replace(/^---+$/gm,"<hr style='border:0;border-top:1px solid #333;margin:.5em 0'>")
     .replace(/^[-•]\s+(.+)$/gm,"<li>$1</li>")
     .replace(/\n/g,"<br>");
-  // wrap consecutive <li> in <ul>
   s = s.replace(/(<li>.*?<\/li>)(<br>(<li>.*?<\/li>))*/g, function(m){
     return "<ul style='margin:.3em 0 .3em 1.2em;padding:0'>"+m.replace(/<br>/g,"")+"</ul>";
   });
+
+  // Restore code blocks and approvals
+  codeBlocks.forEach((block, i) => { s = s.replace(`\x00CODE${i}\x00`, block); });
+  approvals.forEach((block, i) => { s = s.replace(`\x00APPR${i}\x00`, block); });
+
   return s;
 }
 
@@ -2644,6 +2701,149 @@ window.addEventListener("load", () => {
       nousSendCleanMessage();
       return false;
     };
+  }
+});
+</script>
+
+<script id="nous-app-builder">
+// ── App Builder ─────────────────────────────────────────────────────────────
+
+async function startAppBuild(){
+  const prompt = (document.getElementById("appBuilderPrompt")?.value||"").trim();
+  if(!prompt){ alert("Περιέγραψε τι εφαρμογή θέλεις!"); return; }
+  const btn = document.getElementById("appBuildBtn");
+  const status = document.getElementById("appBuilderStatus");
+  if(btn) btn.disabled = true;
+  if(status) status.textContent = "⏳ Ο ΝΟΥΣ σχεδιάζει την εφαρμογή... (μπορεί να πάρει 20-40 δευτερόλεπτα)";
+  try {
+    const r = await fetch("/remote/app-builder/plan", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({description: prompt})
+    });
+    const d = await r.json();
+    if(d.ok && d.plan){
+      const plan = d.plan;
+      if(status) status.textContent = "✅ Σχέδιο έτοιμο! Δες το preview και έγκρινε.";
+      showAppBuildPreview(plan);
+      loadAppBuilderList();
+    } else {
+      if(status) status.textContent = "❌ Σφάλμα: " + (d.error||"άγνωστο");
+    }
+  } catch(e){
+    if(status) status.textContent = "❌ Σφάλμα επικοινωνίας: " + e;
+  } finally {
+    if(btn) btn.disabled = false;
+  }
+}
+
+function showAppBuildPreview(plan){
+  const preview = document.getElementById("appBuilderPreview");
+  const content = document.getElementById("appBuilderPreviewContent");
+  if(!preview||!content) return;
+  preview.style.display = "block";
+  const tech = (plan.tech_stack||[]).join(", ");
+  const filesHtml = (plan.files||[]).map(f=>
+    `<div style="margin:.4em 0;padding:8px;background:#111;border-radius:6px;">
+      <code style="color:#a0e0c0;">${f.path}</code>
+      <span style="opacity:.6;font-size:12px;margin-left:8px;">${f.description||""}</span>
+      <pre style="margin:.3em 0 0;padding:8px;background:#0d0d0d;border-radius:4px;max-height:200px;overflow:auto;font-size:12px;">${(f.content||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").slice(0,1500)}</pre>
+    </div>`
+  ).join("");
+  content.innerHTML = `
+    <div style="margin-bottom:12px;">
+      <strong>${plan.title||plan.app_name}</strong>
+      <span style="opacity:.6;font-size:12px;margin-left:8px;">${tech}</span>
+    </div>
+    <div style="margin-bottom:8px;font-size:13px;opacity:.7;">${plan.description||""}</div>
+    <div style="margin-bottom:12px;">${filesHtml}</div>
+    ${plan.run_command?`<div style="font-size:13px;margin-bottom:4px;">▶ <code>${plan.run_command}</code></div>`:""}
+    ${plan.install_notes?`<div style="font-size:12px;opacity:.6;">📦 ${plan.install_notes}</div>`:""}
+    ${plan.notes?`<div style="font-size:12px;opacity:.6;margin-top:4px;">ℹ️ ${plan.notes}</div>`:""}
+    <div style="margin-top:14px;display:flex;gap:8px;">
+      <button onclick="approveAppBuild('${plan.plan_id}')" style="padding:10px 22px;background:#00c85a;color:#000;border:0;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">✅ Εγκρίνω — Γράψε Αρχεία</button>
+      <button onclick="rejectAppBuild('${plan.plan_id}')" style="padding:10px 18px;background:#333;color:#e0e0e0;border:0;border-radius:8px;cursor:pointer;font-size:14px;">❌ Απόρριψη</button>
+    </div>
+  `;
+}
+
+async function approveAppBuild(plan_id){
+  const confirmed = confirm("Εγκρίνεις τη δημιουργία όλων των αρχείων στον φάκελο apps/?");
+  if(!confirmed) return;
+  const status = document.getElementById("appBuilderStatus");
+  if(status) status.textContent = "⏳ Γράφω αρχεία...";
+  try {
+    const r = await fetch("/remote/app-builder/approve", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({plan_id})
+    });
+    const d = await r.json();
+    if(d.ok){
+      const loc = d.location || ("apps/" + d.app_name);
+      const files = (d.files_written||[]).length;
+      const errs = (d.syntax_errors||[]).length;
+      const msg = errs > 0
+        ? `✅ Γράφτηκαν ${files} αρχεία (⚠️ ${errs} syntax error). Φάκελος: ${loc}`
+        : `✅ Γράφτηκαν ${files} αρχεία χωρίς σφάλματα!\n📁 Φάκελος: ${loc}\n▶ ${d.run_command||""}`;
+      if(status) status.textContent = msg;
+      alert(msg);
+      loadAppBuilderList();
+      // Add to chat for reference
+      addMsg("✅ **App Builder:** " + d.title + " — γράφτηκε στο " + loc, "bot");
+    } else {
+      if(status) status.textContent = "❌ " + (d.error||"Αποτυχία");
+      alert("Σφάλμα: " + (d.error||"unknown"));
+    }
+  } catch(e){
+    if(status) status.textContent = "❌ Σφάλμα: " + e;
+  }
+}
+
+async function rejectAppBuild(plan_id){
+  await fetch("/remote/app-builder/reject", {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({plan_id})
+  });
+  const status = document.getElementById("appBuilderStatus");
+  if(status) status.textContent = "❌ Απορρίφθηκε";
+  loadAppBuilderList();
+}
+
+async function viewAppBuild(plan_id){
+  showSection("appbuilder");
+  const r = await fetch("/remote/app-builder/get/" + plan_id);
+  const d = await r.json();
+  if(d.ok && d.build) showAppBuildPreview(d.build);
+}
+
+async function loadAppBuilderList(){
+  const el = document.getElementById("appBuilderList");
+  if(!el) return;
+  try {
+    const r = await fetch("/remote/app-builder/list");
+    const d = await r.json();
+    const builds = (d.builds||[]).slice().reverse();
+    if(!builds.length){ el.innerHTML="<div style='opacity:.5;font-size:13px;'>Δεν υπάρχουν builds ακόμα.</div>"; return; }
+    const statusIcon = s => s==="approved"?"✅":s==="rejected"?"❌":"⏳";
+    el.innerHTML = builds.map(b=>`
+      <div style="padding:10px;background:#111;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <strong>${b.title||b.app_name}</strong>
+          <span style="margin-left:8px;font-size:12px;opacity:.5;">${statusIcon(b.status)} ${b.status}</span>
+          <div style="font-size:12px;opacity:.5;">${(b.tech_stack||[]).join(", ")} · ${(b.files||[]).length} αρχεία</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          ${b.status==="pending_approval"?`<button onclick="approveAppBuild('${b.plan_id}')" style="padding:6px 12px;background:#00c85a;color:#000;border:0;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">Εγκρίνω</button>`:""}
+          <button onclick="viewAppBuild('${b.plan_id}')" style="padding:6px 12px;background:#222;color:#e0e0e0;border:0;border-radius:6px;cursor:pointer;font-size:12px;">Preview</button>
+        </div>
+      </div>
+    `).join("");
+  } catch(e){ el.textContent = "Σφάλμα: " + e; }
+}
+
+// Load app builder list when section opens
+document.addEventListener("click", function(e){
+  if(e.target && e.target.textContent && e.target.textContent.includes("App Builder")){
+    setTimeout(loadAppBuilderList, 100);
   }
 });
 </script>
