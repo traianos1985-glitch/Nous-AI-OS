@@ -198,7 +198,7 @@ from executor.health import backup as create_backup
 from executor.health import status as health_status
 
 from executor.remote_tunnel import start_tunnel, stop_tunnel, tunnel_status as get_tunnel_status
-from executor.larmor_bridge import ping_larmor_app, calculate_larmor, analyze_session, larmor_chat, MATERIALS
+from executor.larmor_bridge import ping_larmor_app, calculate_larmor, analyze_session, larmor_chat, MATERIALS, get_knowledge_chunks
 
 @app.route("/larmor/ping")
 def larmor_ping():
@@ -233,6 +233,27 @@ def larmor_chat_route():
         return jsonify({"error": "Χωρίς μήνυμα"}), 400
     reply = larmor_chat(conversation)
     return jsonify({"reply": reply})
+
+@app.route("/larmor/inject-knowledge", methods=["POST"])
+def larmor_inject_knowledge():
+    """Inject all Larmor/NMR domain knowledge into the NOUS brain."""
+    from executor.knowledge_memory_engine import remember_knowledge
+    chunks = get_knowledge_chunks()
+    stored, skipped = 0, 0
+    for chunk in chunks:
+        result = remember_knowledge(
+            question=chunk["question"],
+            answer=chunk["answer"],
+            sources=[{"document": "larmor_domain_knowledge"}],
+            kind="research",
+            confidence="high",
+            tags=chunk.get("tags", ["larmor", "NMR"]),
+        )
+        if result.get("stored"):
+            stored += 1
+        else:
+            skipped += 1
+    return jsonify({"ok": True, "stored": stored, "skipped": skipped, "total": len(chunks)})
 
 @app.route("/health")
 def health():

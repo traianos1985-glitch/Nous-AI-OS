@@ -1026,6 +1026,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
             🔗 Άνοιγμα εφαρμογής ↗
           </a>
           <button onclick="larmorPing()" style="font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);cursor:pointer;">↺ Refresh</button>
+          <button onclick="larmorInjectKnowledge()" id="larmorInjectBtn" style="font-size:12px;padding:4px 12px;border-radius:8px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:var(--accent2);cursor:pointer;" title="Φόρτωσε όλη τη γνώση NMR στον εγκέφαλο του ΝΟΥΣ">🧠 Φόρτωση Γνώσης NMR</button>
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -1472,6 +1473,26 @@ async function larmorChatSend(){
   }catch(e){
     document.getElementById("larmorTyping")?.remove();
     log.innerHTML+=`<div style="color:var(--bad);font-size:12px;">⚠️ ${e}</div>`;
+  }
+}
+
+async function larmorInjectKnowledge(){
+  const btn = document.getElementById("larmorInjectBtn");
+  const orig = btn.textContent;
+  btn.textContent = "⏳ Φόρτωση…"; btn.disabled = true;
+  try{
+    const d = await postJson("/larmor/inject-knowledge", {});
+    if(d.ok){
+      btn.textContent = `✅ Αποθηκεύτηκαν ${d.stored}/${d.total}`;
+      btn.style.borderColor = "var(--ok)"; btn.style.color = "var(--ok)";
+    } else {
+      btn.textContent = "⚠️ Σφάλμα";
+    }
+  }catch(e){
+    btn.textContent = "⚠️ " + e;
+  } finally {
+    setTimeout(()=>{ btn.textContent=orig; btn.disabled=false;
+      btn.style.borderColor=""; btn.style.color=""; }, 4000);
   }
 }
 

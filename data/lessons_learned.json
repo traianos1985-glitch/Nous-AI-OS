@@ -917,5 +917,65 @@
       "auto_mission_scheduler"
     ],
     "created": 1782386134.139619
+  },
+  {
+    "id": 1782386544874350235,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1782386544.874352
+  },
+  {
+    "id": 1782386553963841046,
+    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782386553.9638433
+  },
+  {
+    "id": 1782386613151067994,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1782386613.1510692
+  },
+  {
+    "id": 1782386622019643935,
+    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782386622.0196462
   }
 ]
