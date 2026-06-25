@@ -4846,19 +4846,23 @@ async function loadAppBuilderList(){
     const builds = (d.builds||[]).slice().reverse();
     if(!builds.length){ el.innerHTML="<div style='opacity:.5;font-size:13px;'>Δεν υπάρχουν builds ακόμα.</div>"; return; }
     const statusIcon = s => s==="approved"?"✅":s==="rejected"?"❌":"⏳";
-    el.innerHTML = builds.map(b=>`
-      <div style="padding:10px;background:#111;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+    el.innerHTML = builds.map(b=>{
+      const appName = (b.app_name||b.title||"").toLowerCase().replace(/\s+/g,"_").replace(/[^a-z0-9_]/g,"");
+      const openUrl = `/apps/${appName}/`;
+      return `
+      <div style="padding:10px;background:#111;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
         <div>
           <strong>${b.title||b.app_name}</strong>
           <span style="margin-left:8px;font-size:12px;opacity:.5;">${statusIcon(b.status)} ${b.status}</span>
           <div style="font-size:12px;opacity:.5;">${(b.tech_stack||[]).join(", ")} · ${(b.files||[]).length} αρχεία</div>
         </div>
-        <div style="display:flex;gap:6px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
           ${b.status==="pending_approval"?`<button onclick="approveAppBuild('${b.plan_id}')" style="padding:6px 12px;background:#00c85a;color:#000;border:0;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">Εγκρίνω</button>`:""}
+          ${b.status==="approved"?`<a href="${openUrl}" target="_blank" style="padding:6px 14px;border-radius:6px;border:none;background:#22d3ee;color:#000;font-weight:700;font-size:12px;text-decoration:none;">🚀 Άνοιξε</a>`:""}
           <button onclick="viewAppBuild('${b.plan_id}')" style="padding:6px 12px;background:#222;color:#e0e0e0;border:0;border-radius:6px;cursor:pointer;font-size:12px;">Preview</button>
         </div>
-      </div>
-    `).join("");
+      </div>`;
+    }).join("");
   } catch(e){ el.textContent = "Σφάλμα: " + e; }
 }
 
