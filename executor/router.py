@@ -128,6 +128,80 @@ except Exception:
 def home():
     return nous_dashboard_html()
 
+def _chat_intent_route(msg: str):
+    """Detect app-build / upgrade intents in chat and route them automatically.
+    Returns a response dict if intent matched, None otherwise.
+    """
+    import threading as _th
+    import re as _re
+
+    if not msg or len(msg.strip()) < 4:
+        return None
+
+    m = msg.lower().strip()
+
+    # ── Detect: "φτιάξε / δημιούργησε / φτιάξε μου / κάνε / make / build / create" + app/εφαρμογή
+    _APP_VERBS = r"(φτιάξε|φτιάξε μου|δημιούργησε|κάνε|φτιαχτεί|make|build|create|σχεδίασε)"
+    _APP_NOUNS = r"(app|εφαρμογή|application|webapp|web app|πρόγραμμα|tool|εργαλείο)"
+    if _re.search(_APP_VERBS, m) and _re.search(_APP_NOUNS, m):
+        def _build():
+            try:
+                result = plan_app(msg)
+                plan_id = result.get("plan_id")
+                if plan_id and result.get("ok") is not False:
+                    approve_and_write(plan_id)
+            except Exception:
+                pass
+        _th.Thread(target=_build, daemon=True).start()
+        app_hint = msg[:80].strip()
+        return {
+            "ok": True,
+            "source": "chat_intent_app_builder",
+            "answer": (
+                f"🚀 **Ξεκίνησε η κατασκευή!**\n\n"
+                f"Ο ΝΟΥΣ δουλεύει στην εφαρμογή: *{app_hint}*\n\n"
+                f"➡️ Πήγαινε στο **App Builder** → tab «Builds» για να δεις την πρόοδο και να την τρέξεις όταν είναι έτοιμη.\n\n"
+                f"⏱️ Συνήθως χρειάζεται 10–30 δευτερόλεπτα."
+            ),
+            "response": "App build ξεκίνησε — δες App Builder → Builds.",
+            "text": "App build ξεκίνησε — δες App Builder → Builds.",
+            "executed": True,
+            "intent": "build_app",
+            "nav_hint": "app_builder",
+        }
+
+    # ── Detect: "αναβάθμισε / upgrade / βελτίωσε + τον εαυτό / τον ΝΟΥΣ / σου"
+    _UPG_VERBS = r"(αναβάθμισε|αναβάθμιση|upgrade|βελτίωσε|βελτίωση|improve|update)"
+    _UPG_TARGET = r"(εαυτό|νους|nous|σου|σε|yourself|yourself)"
+    if _re.search(_UPG_VERBS, m) and (_re.search(_UPG_TARGET, m) or "αναβάθμιση" in m or "upgrade" in m):
+        def _upgrade():
+            try:
+                result = propose_upgrade_plan()
+                plan_id = str(result.get("plan", {}).get("id", ""))
+                if plan_id and not result.get("deduped"):
+                    approve_upgrade_plan(plan_id)
+            except Exception:
+                pass
+        _th.Thread(target=_upgrade, daemon=True).start()
+        return {
+            "ok": True,
+            "source": "chat_intent_upgrade",
+            "answer": (
+                "🔧 **Ξεκίνησε η αναβάθμιση NOUS!**\n\n"
+                "Ο ΝΟΥΣ αναλύει και γράφει τον νέο κώδικα αυτόματα.\n\n"
+                "➡️ Πήγαινε στο **App Builder** → «Πρωτοβουλίες» για να παρακολουθείς την εκτέλεση.\n\n"
+                "⏱️ Διαρκεί 30–60 δευτερόλεπτα."
+            ),
+            "response": "Upgrade NOUS ξεκίνησε.",
+            "text": "Upgrade NOUS ξεκίνησε.",
+            "executed": True,
+            "intent": "upgrade_nous",
+            "nav_hint": "initiatives",
+        }
+
+    return None  # no intent matched — fall through to normal chat
+
+
 @app.route("/chat", methods=["POST"])
 def chat():
 
@@ -205,6 +279,15 @@ def chat():
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json()
     cmd = data.get("command", "")
+
+    # ── CHAT INTENT ROUTING ───────────────────────────────────────────────────
+    try:
+        _routed = _chat_intent_route(cmd)
+        if _routed is not None:
+            return jsonify(_routed)
+    except Exception:
+        pass
+
     return jsonify(handle(cmd, {}))
 
 from executor.health import backup as create_backup
