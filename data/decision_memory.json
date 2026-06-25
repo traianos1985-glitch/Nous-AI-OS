@@ -1314,5 +1314,74 @@
       "auto_mission_scheduler"
     ],
     "created": 1782382797.746134
+  },
+  {
+    "id": 1782383032708283475,
+    "title": "Executive review: Resolve pending approval",
+    "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "executive_review",
+    "result": {
+      "trigger": "scheduler_loop",
+      "next_best_action": {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      "summary": {
+        "goals_total": 4,
+        "goals_active": 3,
+        "missions_total": 1,
+        "missions_active": 0,
+        "missions_blocked": 1,
+        "approvals_pending": 1,
+        "decisions_total": 35,
+        "lessons_total": 48,
+        "lessons_success": 48,
+        "lessons_failure": 0,
+        "cloud_ready": false,
+        "device_ready": true
+      }
+    },
+    "confidence": 0.75,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1782383032.7082849
+  },
+  {
+    "id": 1782383042045416934,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782383042.0454187
   }
 ]
