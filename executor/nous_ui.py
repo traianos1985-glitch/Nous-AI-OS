@@ -403,9 +403,12 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
             <div style="flex:1;">
               <h3 style="margin:0 0 2px;font-size:15px;">🤖 Τι θέλει να κάνει ο ΝΟΥΣ</h3>
-              <div style="font-size:11px;color:var(--muted);">Προτάσεις που περιμένουν την έγκρισή σου</div>
+              <div style="font-size:11px;color:var(--muted);">Αυτόνομες προτάσεις — έγκρινε ή απόρριψε</div>
             </div>
-            <button onclick="loadNousInitiatives()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.4);background:rgba(139,92,246,.1);color:#a78bfa;font-size:12px;cursor:pointer;">↺ Ανανέωση</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button onclick="nousThinkNow()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.5);background:rgba(139,92,246,.15);color:#a78bfa;font-size:12px;cursor:pointer;font-weight:600;">🧠 Σκέψου</button>
+              <button onclick="loadNousInitiatives()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.3);background:rgba(139,92,246,.07);color:#a78bfa;font-size:12px;cursor:pointer;">↺</button>
+            </div>
           </div>
           <div id="nousInitiativesBox">
             <div style="color:var(--muted);font-size:13px;">Φόρτωση προτάσεων…</div>
@@ -3414,7 +3417,17 @@ const _PRIORITY_STYLE = {
   low:    { bg: "rgba(34,197,94,.08)",   border: "rgba(34,197,94,.3)",   badge: "#86efac", label: "🟢 ΧΑΜΗΛΗ" },
 };
 const _RISK_LABEL = { none:"✅ Μηδενικό", low:"🟢 Χαμηλό", medium:"🟡 Μέτριο", high:"🔴 Υψηλό" };
-const _TYPE_LABEL  = { upgrade:"Αναβάθμιση", mission:"Αποστολή", repair:"Επιδιόρθωση", goal_action:"Στόχος" };
+const _TYPE_LABEL  = {
+  upgrade:"Αναβάθμιση", mission:"Αποστολή", repair:"Επιδιόρθωση", goal_action:"Στόχος",
+  drive_survival:"Επιβίωση", drive_self_improvement:"Αυτο-βελτίωση",
+  drive_capability_gap:"Κενό Ικανότητας", drive_curiosity:"Πρωτοβουλία",
+};
+const _SOURCE_LABEL = {
+  nous_drive: { label:"🧠 ΝΟΥΣ Drive", color:"#a78bfa" },
+  upgrade_planner: { label:"🚀 Upgrade", color:"#60a5fa" },
+  mission_planner: { label:"🎯 Mission", color:"#34d399" },
+  autonomous_repair: { label:"🔧 Repair", color:"#f87171" },
+};
 
 async function loadNousInitiatives(){
   const box = document.getElementById("nousInitiativesBox");
@@ -3453,7 +3466,8 @@ async function loadNousInitiatives(){
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
           <span style="background:rgba(0,0,0,.3);border-radius:6px;padding:2px 8px;font-size:11px;color:${ps.badge};">${ps.label}</span>
           <span style="background:rgba(0,0,0,.2);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--muted);">📂 ${escHtml(typeLabel)}</span>
-          <span style="background:rgba(0,0,0,.2);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--muted);">⚠️ Κίνδυνος: ${escHtml(riskLabel)}</span>
+          <span style="background:rgba(0,0,0,.2);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--muted);">⚠️ ${escHtml(riskLabel)}</span>
+          ${(()=>{ const sl=_SOURCE_LABEL[item.source]; return sl ? `<span style="background:rgba(0,0,0,.25);border-radius:6px;padding:2px 8px;font-size:11px;color:${sl.color};">${sl.label}</span>` : ''; })()}
         </div>
         <!-- Action buttons -->
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -3515,6 +3529,31 @@ async function nousInitiativeAct(idx, action){
   } catch(e){
     if(fb){ fb.style.display="block"; fb.textContent="⚠️ "+e; }
     btns.forEach(b=>b.disabled=false);
+  }
+}
+
+async function nousThinkNow(){
+  const btn = document.querySelector('button[onclick="nousThinkNow()"]');
+  if(btn){ btn.textContent="⏳ Σκέφτομαι…"; btn.disabled=true; }
+  const box = document.getElementById("nousInitiativesBox");
+  try {
+    const d = await fetch("/remote/nous-drive/think", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({force:true})
+    }).then(r=>r.json());
+    if(d.new_proposals > 0){
+      if(box){
+        const notif = document.createElement("div");
+        notif.style.cssText="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4);border-radius:10px;padding:10px 14px;font-size:13px;color:#a78bfa;margin-bottom:10px;";
+        notif.textContent = `🧠 Ο ΝΟΥΣ σκέφτηκε και βρήκε ${d.new_proposals} νέα πράγματα!`;
+        box.insertBefore(notif, box.firstChild);
+        setTimeout(()=>notif.remove(), 5000);
+      }
+    }
+    await loadNousInitiatives();
+  } catch(e){ console.error(e); }
+  finally {
+    if(btn){ btn.textContent="🧠 Σκέψου"; btn.disabled=false; }
   }
 }
 

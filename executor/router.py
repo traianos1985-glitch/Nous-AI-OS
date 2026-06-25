@@ -81,6 +81,11 @@ from executor.cleanup_engine import cleanup_status, list_cleanup_reports, run_cl
 from executor.goal_manager_v2 import goal_manager_status, generate_projects_from_goals, update_project_progress, list_goal_projects
 from executor.executive_memory_v3 import executive_memory_status, search_executive_memory, learn_from_recent_state
 from executor.upgrade_planner import upgrade_planner_status, list_upgrade_plans, propose_upgrade_plan, approve_upgrade_plan, reject_upgrade_plan
+from executor.nous_drive import (
+    think as nous_drive_think, status as nous_drive_status,
+    list_pending as nous_drive_pending, list_proposals as nous_drive_proposals,
+    approve_proposal as nous_drive_approve, reject_proposal as nous_drive_reject,
+)
 from executor.patch_apply_engine import patch_apply_status, list_patch_apply_history, apply_patch_proposal
 from executor.rollback_engine import rollback_status, list_rollbacks, rollback_backup
 from executor.repository_graph import repository_graph_status, build_repository_graph
@@ -823,6 +828,28 @@ def remote_nous_initiatives():
     import time as _time
     items = []
 
+    # ── NOUS Drive proposals (self-generated, survival, improvement, curiosity) ─
+    try:
+        for p in nous_drive_pending():
+            items.append({
+                "id": str(p["id"]),
+                "type": p.get("type", "drive"),
+                "priority": p.get("priority", "medium"),
+                "icon": p.get("icon", "🤖"),
+                "title": p.get("title", ""),
+                "description": p.get("description", ""),
+                "risk": p.get("risk", "low"),
+                "created": p.get("created", 0),
+                "source": "nous_drive",
+                "action": p.get("action", ""),
+                "approve_route": "/remote/nous-drive/approve",
+                "reject_route":  "/remote/nous-drive/reject",
+                "approve_payload": {"proposal_id": p["id"]},
+                "reject_payload":  {"proposal_id": p["id"], "reason": "User rejected"},
+            })
+    except Exception:
+        pass
+
     # ── Upgrade plans ─────────────────────────────────────────────────────────
     try:
         for p in list_upgrade_plans():
@@ -838,6 +865,7 @@ def remote_nous_initiatives():
                     "description": detail or p.get("description", ""),
                     "risk": "medium",
                     "created": p.get("created", 0),
+                    "source": "upgrade_planner",
                     "approve_route": "/remote/upgrade-planner/approve",
                     "reject_route":  "/remote/upgrade-planner/reject",
                     "approve_payload": {"plan_id": p["id"]},
@@ -859,6 +887,7 @@ def remote_nous_initiatives():
                     "description": p.get("description", ""),
                     "risk": "low",
                     "created": p.get("created", 0),
+                    "source": "mission_planner",
                     "approve_route": "/remote/mission-planner/approve",
                     "reject_route":  "/remote/mission-planner/reject",
                     "approve_payload": {"proposal_id": p["id"]},
@@ -880,6 +909,7 @@ def remote_nous_initiatives():
                     "description": p.get("description", ""),
                     "risk": p.get("risk", "medium"),
                     "created": p.get("created", 0),
+                    "source": "autonomous_repair",
                     "approve_route": "/remote/autonomous-repair/approve",
                     "reject_route":  "/remote/autonomous-repair/reject",
                     "approve_payload": {"proposal_id": p["id"]},
@@ -888,32 +918,35 @@ def remote_nous_initiatives():
     except Exception:
         pass
 
-    # ── Auto-generate initiative from goals if nothing pending ────────────────
-    if not items:
-        try:
-            from executor.goal_system_v2 import list_goals_v2
-            goals = list_goals_v2() if callable(list_goals_v2) else []
-            in_progress = [g for g in goals if g.get("status") in ("in_progress","active","pending") and g.get("progress",100) < 100]
-            for g in in_progress[:2]:
-                items.append({
-                    "id": f"goal_{g.get('id','')}",
-                    "type": "goal_action",
-                    "priority": "medium",
-                    "icon": "🏁",
-                    "title": f"Προώθηση: {g.get('title','')}",
-                    "description": f"Πρόοδος {g.get('progress',0)}% — ο ΝΟΥΣ θέλει να δημιουργήσει αποστολή για να προχωρήσει αυτόν τον στόχο.",
-                    "risk": "low",
-                    "created": _time.time(),
-                    "approve_route": "/remote/mission-planner/propose",
-                    "reject_route":  None,
-                    "approve_payload": {"goal_id": g.get("id")},
-                    "reject_payload":  None,
-                })
-        except Exception:
-            pass
-
     items.sort(key=lambda x: {"high":0,"medium":1,"low":2}.get(x.get("priority","low"),2))
-    return jsonify({"ok": True, "initiatives": items, "count": len(items)})
+    return jsonify({"ok": True, "initiatives": items, "count": len(items),
+                    "drive_status": nous_drive_status()})
+
+
+# ── NOUS Drive routes ──────────────────────────────────────────────────────────
+
+@app.route("/remote/nous-drive/status")
+def remote_nous_drive_status():
+    return jsonify(nous_drive_status())
+
+@app.route("/remote/nous-drive/think", methods=["POST"])
+def remote_nous_drive_think():
+    data = request.get_json(silent=True) or {}
+    return jsonify(nous_drive_think(force=data.get("force", True)))
+
+@app.route("/remote/nous-drive/proposals")
+def remote_nous_drive_proposals():
+    return jsonify(nous_drive_proposals())
+
+@app.route("/remote/nous-drive/approve", methods=["POST"])
+def remote_nous_drive_approve():
+    data = request.get_json(silent=True) or {}
+    return jsonify(nous_drive_approve(data.get("proposal_id")))
+
+@app.route("/remote/nous-drive/reject", methods=["POST"])
+def remote_nous_drive_reject():
+    data = request.get_json(silent=True) or {}
+    return jsonify(nous_drive_reject(data.get("proposal_id"), data.get("reason","User rejected")))
 
 
 @app.route("/remote/nous-initiatives/act", methods=["POST"])
@@ -3237,6 +3270,22 @@ def remote_runtime_metrics_route():
     except Exception as e:
         return jsonify({"error": str(e)})
 
+
+# ── NOUS Drive: auto-think background thread ──────────────────────────────────
+def _nous_drive_background():
+    """Run nous_drive.think() every 15 minutes in background."""
+    import time as _t
+    _t.sleep(30)  # wait for app to finish starting
+    while True:
+        try:
+            nous_drive_think(force=False)
+        except Exception:
+            pass
+        _t.sleep(900)  # 15 minutes
+
+import threading as _threading
+_drive_thread = _threading.Thread(target=_nous_drive_background, daemon=True)
+_drive_thread.start()
 
 if __name__ == "__main__":
     print("🧠 NUS AI OS LEVEL 22 RUNNING")
