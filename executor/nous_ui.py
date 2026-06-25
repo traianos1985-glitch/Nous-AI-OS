@@ -337,6 +337,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button class="navItem" data-sec="scheduler" onclick="showSection('scheduler')"><span class="ni">⏱</span> Scheduler</button>
       <button class="navItem" data-sec="deploy" onclick="showSection('deploy')"><span class="ni">🚀</span> Deploy</button>
       <button class="navItem" data-sec="backup" onclick="showSection('backup')"><span class="ni">☁</span> Backup</button>
+      <button class="navItem" data-sec="larmor" onclick="showSection('larmor')"><span class="ni">🧲</span> Larmor Monitor</button>
       <button class="navItem" data-sec="remote-access" onclick="showSection('remote-access')"><span class="ni">📡</span> Remote Access</button>
       <button class="navItem" data-sec="settings" onclick="showSection('settings')"><span class="ni">⚙</span> Settings</button>
 
@@ -1010,6 +1011,111 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         </div>
       </section>
 
+      <section id="larmor" class="section">
+        <div class="hero" style="background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(124,92,255,.12))">
+          <h1>🧲 Larmor Monitor</h1>
+          <p>Read-only σύνδεση με τον Υπολογιστή Συχνότητας Larmor — παρακολούθηση, ανάλυση και προτάσεις έρευνας.</p>
+        </div>
+
+        <!-- Status bar -->
+        <div class="card" style="display:flex;align-items:center;gap:12px;padding:10px 14px;margin-bottom:10px;">
+          <span style="font-size:12px;color:var(--muted)">Κατάσταση εφαρμογής:</span>
+          <span id="larmorStatus" style="font-size:13px;color:var(--muted)">⏳ Έλεγχος…</span>
+          <a href="https://insta-giveaway-bot-1--traianos1985.replit.app" target="_blank"
+             style="margin-left:auto;font-size:12px;color:var(--accent2);text-decoration:none;border:1px solid rgba(34,211,238,.3);padding:4px 10px;border-radius:8px;">
+            🔗 Άνοιγμα εφαρμογής ↗
+          </a>
+          <button onclick="larmorPing()" style="font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);cursor:pointer;">↺ Refresh</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+
+          <!-- LEFT: Embed iframe -->
+          <div class="card" style="padding:0;overflow:hidden;min-height:600px;">
+            <div style="padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--muted);">
+              👁 Live View — Read Only
+            </div>
+            <iframe
+              src="https://insta-giveaway-bot-1--traianos1985.replit.app"
+              style="width:100%;height:580px;border:none;background:#fff;"
+              sandbox="allow-scripts allow-same-origin allow-forms"
+              title="Larmor Frequency Calculator - Read Only">
+            </iframe>
+          </div>
+
+          <!-- RIGHT: NOUS Analysis -->
+          <div style="display:flex;flex-direction:column;gap:12px;">
+
+            <!-- Quick Calculator -->
+            <div class="card">
+              <h3 style="margin:0 0 12px 0;font-size:14px;">⚡ Γρήγορος Υπολογισμός</h3>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <select id="larmorMaterial" style="padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+                  <option value="au-pure">197Au (χρυσός καθαρός) — 0.7379 MHz/T</option>
+                  <option value="ottoman-5lira">Ottoman 5 Lira (91.7% Au) — 1.6155 MHz/T</option>
+                  <option value="22k-alloy">22K Κράμα Λίρας — 1.619 MHz/T</option>
+                  <option value="ag">109Ag (άργυρος) — 1.989 MHz/T</option>
+                  <option value="cu" selected>63Cu (χαλκός) — 11.311 MHz/T</option>
+                  <option value="al">27Al (αλουμίνιο) — 11.101 MHz/T</option>
+                  <option value="fe">57Fe (σίδηρος) — 1.382 MHz/T</option>
+                  <option value="ammo-box">55Mn (WWII box) — 10.571 MHz/T</option>
+                  <option value="ba-137">137Ba (χειροβομβίδες) — 4.763 MHz/T</option>
+                  <option value="sn-119">119Sn (κασσίτερος) — 15.945 MHz/T</option>
+                  <option value="sb-121">121Sb (αντιμόνιο) — 10.239 MHz/T</option>
+                  <option value="b-11">11B (βόριο) — 13.662 MHz/T</option>
+                </select>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <label style="font-size:12px;color:var(--muted);white-space:nowrap;">B (T):</label>
+                  <input id="larmorBField" type="number" value="0.04823" step="0.00001"
+                    style="flex:1;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+                  <button onclick="larmorCalculate()" style="padding:7px 14px;border-radius:8px;border:none;background:var(--accent);color:white;font-size:13px;cursor:pointer;white-space:nowrap;">
+                    Υπολόγισε
+                  </button>
+                </div>
+              </div>
+              <div id="larmorCalcResult" style="margin-top:10px;font-size:13px;display:none;"></div>
+            </div>
+
+            <!-- Paste & Analyze -->
+            <div class="card" style="flex:1;">
+              <h3 style="margin:0 0 10px 0;font-size:14px;">🔬 Ανάλυση Δεδομένων ΝΟΥΣ</h3>
+              <p style="font-size:12px;color:var(--muted);margin:0 0 10px 0;">
+                Επικόλλησε αποτελέσματα από την εφαρμογή Larmor (αριθμούς, παραμέτρους, αποτελέσματα)
+                και ο ΝΟΥΣ τα αναλύει με εξειδικευμένη NMR γνώση.
+              </p>
+              <textarea id="larmorPasteData" rows="5"
+                style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;resize:vertical;"
+                placeholder="π.χ.: Υλικό: 63Cu, B=0.04823T, fL=0.546 kHz, Αρμονική 3=1.638 kHz, Βάθος=1.5m, Έτος=Αντάρτικα…"></textarea>
+              <input id="larmorQuestion" type="text"
+                style="width:100%;margin-top:6px;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;"
+                placeholder="(προαιρετικό) Ερώτηση: π.χ. «Ποια αρμονική για βάθος 2m σε υγρό έδαφος;»">
+              <button onclick="larmorAnalyze()"
+                style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;font-size:14px;font-weight:700;cursor:pointer;">
+                🧠 Ανάλυσε με ΝΟΥΣ
+              </button>
+              <div id="larmorAnalysisResult" style="margin-top:12px;font-size:13px;line-height:1.6;display:none;"></div>
+            </div>
+
+            <!-- Chat with NOUS about Larmor -->
+            <div class="card">
+              <h3 style="margin:0 0 10px 0;font-size:14px;">💬 Ερώτηση NMR / Γεωφυσική</h3>
+              <div id="larmorChatLog" style="max-height:220px;overflow-y:auto;margin-bottom:10px;font-size:13px;line-height:1.5;"></div>
+              <div style="display:flex;gap:8px;">
+                <input id="larmorChatInput" type="text"
+                  style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;"
+                  placeholder="π.χ. «Τι αρμονική για χρυσό σε βάθος 2m;»"
+                  onkeydown="if(event.key==='Enter')larmorChatSend()">
+                <button onclick="larmorChatSend()"
+                  style="padding:8px 14px;border-radius:8px;border:none;background:var(--accent);color:white;font-size:13px;cursor:pointer;">
+                  ➤
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <section id="remote-access" class="section">
         <div class="hero">
           <h1>📱 Απομακρυσμένη Πρόσβαση</h1>
@@ -1234,6 +1340,7 @@ async function refreshSection(id){
   if(id==="deploy") return loadDeploy();
   if(id==="system") return loadSystem();
   if(id==="approvals") return loadApprovals();
+  if(id==="larmor") return larmorPing();
 }
 
 
@@ -1299,6 +1406,73 @@ function sysBar(pct, color){
   return `<div style="background:#222;border-radius:4px;height:6px;margin:2px 0 6px;">
     <div style="width:${w}%;background:${color};height:6px;border-radius:4px;transition:width .5s;"></div>
   </div>`;
+}
+
+// ── LARMOR MONITOR ──────────────────────────────────────────────────────────
+let larmorChatHistory = [];
+
+async function larmorPing(){
+  document.getElementById("larmorStatus").textContent = "⏳ Έλεγχος…";
+  try{
+    const d = await getJson("/larmor/ping");
+    const el = document.getElementById("larmorStatus");
+    if(d.online){ el.innerHTML='<span style="color:var(--ok)">🟢 Online</span>'; }
+    else{ el.innerHTML='<span style="color:var(--bad)">🔴 Offline</span> — '+( d.error||""); }
+  }catch(e){ document.getElementById("larmorStatus").textContent="⚠️ Σφάλμα"; }
+}
+
+async function larmorCalculate(){
+  const material = document.getElementById("larmorMaterial").value;
+  const b = parseFloat(document.getElementById("larmorBField").value)||0.04823;
+  const el = document.getElementById("larmorCalcResult");
+  el.style.display="block"; el.textContent="⏳ Υπολογισμός…";
+  try{
+    const d = await postJson("/larmor/calculate", {material, b_field_T: b});
+    if(d.error){ el.textContent="⚠️ "+d.error; return; }
+    const top3 = d.harmonics.slice(0,5).map(h=>`n=${h.n}: ${(h.hz/1000).toFixed(3)} kHz`).join(" | ");
+    el.innerHTML=`<div style="background:rgba(34,211,238,.08);border-radius:8px;padding:10px;">
+      <strong>${d.material}</strong><br>
+      B = ${b.toFixed(5)} T &nbsp;|&nbsp; γ/2π = ${(d.gamma_hz_per_T/1e6).toFixed(4)} MHz/T<br>
+      <strong style="color:var(--accent2)">fL = ${d.f_larmor_khz.toFixed(3)} kHz (${d.f_larmor_mhz.toFixed(6)} MHz)</strong><br>
+      <span style="color:var(--muted);font-size:12px">${top3}</span>
+    </div>`;
+  }catch(e){ el.textContent="⚠️ "+e; }
+}
+
+async function larmorAnalyze(){
+  const session = document.getElementById("larmorPasteData").value.trim();
+  const question = document.getElementById("larmorQuestion").value.trim();
+  if(!session){ alert("Επικόλλησε δεδομένα για ανάλυση."); return; }
+  const el = document.getElementById("larmorAnalysisResult");
+  el.style.display="block"; el.innerHTML='<span style="color:var(--muted)">⏳ Ο ΝΟΥΣ αναλύει…</span>';
+  try{
+    const d = await postJson("/larmor/analyze", {session_data: session, question});
+    el.innerHTML='<div style="background:rgba(124,92,255,.08);border-radius:10px;padding:12px;white-space:pre-wrap;">'+
+      d.analysis.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')+'</div>';
+  }catch(e){ el.textContent="⚠️ "+e; }
+}
+
+async function larmorChatSend(){
+  const input = document.getElementById("larmorChatInput");
+  const msg = input.value.trim();
+  if(!msg) return;
+  input.value="";
+  larmorChatHistory.push({role:"user", content:msg});
+  const log = document.getElementById("larmorChatLog");
+  log.innerHTML += `<div style="margin:6px 0;text-align:right;"><span style="background:rgba(124,92,255,.22);padding:5px 9px;border-radius:10px;display:inline-block;max-width:90%;">${msg}</span></div>`;
+  log.innerHTML += '<div id="larmorTyping" style="color:var(--muted);font-size:12px;padding:4px 0;">⏳ ΝΟΥΣ σκέφτεται…</div>';
+  log.scrollTop=log.scrollHeight;
+  try{
+    const d = await postJson("/larmor/chat", {conversation: larmorChatHistory});
+    document.getElementById("larmorTyping")?.remove();
+    const reply = d.reply||"—";
+    larmorChatHistory.push({role:"assistant", content:reply});
+    log.innerHTML += `<div style="margin:6px 0;"><span style="background:rgba(34,211,238,.10);padding:6px 10px;border-radius:10px;display:inline-block;max-width:95%;white-space:pre-wrap;">${reply.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</span></div>`;
+    log.scrollTop=log.scrollHeight;
+  }catch(e){
+    document.getElementById("larmorTyping")?.remove();
+    log.innerHTML+=`<div style="color:var(--bad);font-size:12px;">⚠️ ${e}</div>`;
+  }
 }
 
 async function loadSysInfo(){

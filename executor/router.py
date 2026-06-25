@@ -198,6 +198,41 @@ from executor.health import backup as create_backup
 from executor.health import status as health_status
 
 from executor.remote_tunnel import start_tunnel, stop_tunnel, tunnel_status as get_tunnel_status
+from executor.larmor_bridge import ping_larmor_app, calculate_larmor, analyze_session, larmor_chat, MATERIALS
+
+@app.route("/larmor/ping")
+def larmor_ping():
+    return jsonify(ping_larmor_app())
+
+@app.route("/larmor/materials")
+def larmor_materials():
+    return jsonify(MATERIALS)
+
+@app.route("/larmor/calculate", methods=["POST"])
+def larmor_calculate():
+    data = request.get_json(silent=True) or {}
+    material = data.get("material", "cu")
+    b_field = float(data.get("b_field_T", 0.048))
+    return jsonify(calculate_larmor(material, b_field))
+
+@app.route("/larmor/analyze", methods=["POST"])
+def larmor_analyze():
+    data = request.get_json(silent=True) or {}
+    session_data = data.get("session_data", "")
+    question = data.get("question", "")
+    if not session_data:
+        return jsonify({"error": "Δεν δόθηκαν δεδομένα για ανάλυση"}), 400
+    result = analyze_session(session_data, question)
+    return jsonify({"analysis": result})
+
+@app.route("/larmor/chat", methods=["POST"])
+def larmor_chat_route():
+    data = request.get_json(silent=True) or {}
+    conversation = data.get("conversation", [])
+    if not conversation:
+        return jsonify({"error": "Χωρίς μήνυμα"}), 400
+    reply = larmor_chat(conversation)
+    return jsonify({"reply": reply})
 
 @app.route("/health")
 def health():
