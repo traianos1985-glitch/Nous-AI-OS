@@ -28,9 +28,9 @@ body{
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 button,input,textarea{font-family:inherit}
-.app{display:grid;grid-template-columns:280px 1fr 380px;height:100vh;overflow:hidden}
-.sidebar,.right{background:rgba(16,23,42,.94);border-color:var(--line);overflow:auto}
-.sidebar{border-right:1px solid var(--line);padding:18px}
+.app{display:grid;grid-template-columns:235px 1fr 380px;height:100vh;overflow:hidden}
+.sidebar,.right{background:rgba(10,14,26,.97);border-color:var(--line);overflow:hidden}
+.sidebar{border-right:1px solid var(--line)}
 .right{border-left:1px solid var(--line);padding:14px}
 .logo{font-size:23px;font-weight:900;margin-bottom:4px}
 .sub{color:var(--muted);font-size:13px;margin-bottom:18px}
@@ -91,7 +91,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 @media(max-width:1050px){
   .menuBtn{display:block}
   .app{grid-template-columns:1fr;height:auto;min-height:100vh;overflow:auto}
-  .sidebar{position:fixed;left:-300px;top:0;bottom:0;width:292px;z-index:60;transition:left .22s ease;border-right:1px solid var(--line)}
+  .sidebar{position:fixed;left:-250px;top:0;bottom:0;width:240px;z-index:60;transition:left .22s ease;border-right:1px solid var(--line)}
   .sidebar.open{left:0}
   .overlay.show{display:block}
   .right{border:0;border-top:1px solid var(--line)}
@@ -101,45 +101,46 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 }
 </style>
 
-<style id="nous-sidebar-groups-css">
-.navGroup{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;
-  margin:8px 10px;
-  overflow:hidden;
-  background:rgba(255,255,255,.025);
+<style id="nous-sidebar-css">
+/* ── Flat nav items (Replit-style) ── */
+.navItem{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:8px;cursor:pointer;
+  font-size:13.5px;color:var(--muted);
+  border:none;background:none;width:100%;text-align:left;
+  transition:background .12s,color .12s;margin:1px 0;
 }
-.navGroup summary{
-  cursor:pointer;
-  padding:10px 12px;
-  font-weight:700;
-  opacity:.95;
-  list-style:none;
-  user-select:none;
+.navItem:hover{background:rgba(124,92,255,.13);color:var(--text)}
+.navItem.active{
+  background:rgba(124,92,255,.22);color:var(--text);
+  font-weight:600;
 }
-.navGroup summary::-webkit-details-marker{display:none}
-.navGroup summary:after{
-  content:"▾";
-  float:right;
-  opacity:.65;
+.navItem .ni{width:22px;text-align:center;font-size:15px;flex-shrink:0}
+.navSection{
+  font-size:10.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.9px;color:var(--muted);opacity:.55;
+  padding:12px 10px 3px 10px;user-select:none;
 }
-.navGroup:not([open]) summary:after{content:"▸"}
-.navGroup .navGroupBody{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  padding:0 8px 10px 8px;
+.navDivider{height:1px;background:var(--line);margin:7px 4px}
+.navMore{display:none}
+.navMore.open{display:block}
+.navMoreBtn{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 10px;border-radius:8px;cursor:pointer;
+  font-size:12px;color:var(--muted);opacity:.7;
+  border:none;background:none;width:100%;text-align:left;
 }
-.navGroup .navGroupBody button,
-.navGroup .navGroupBody a{
-  width:100%;
-  text-align:left;
-}
-.sidebarHint{
-  font-size:12px;
-  opacity:.65;
-  padding:6px 18px 2px 18px;
-}
+.navMoreBtn:hover{opacity:1;color:var(--text)}
+/* Sidebar layout */
+.sidebar{display:flex;flex-direction:column;padding:0;background:rgba(10,14,26,.97)}
+.sidebarTop{padding:16px 14px 10px 14px;flex-shrink:0}
+.sidebarNav{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 8px 8px 8px}
+.sidebarNav::-webkit-scrollbar{width:3px}
+.sidebarNav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.sidebarBottom{padding:8px 10px 10px 10px;border-top:1px solid var(--line);flex-shrink:0}
+.sysStatRow{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted);padding:3px 0}
+.sysStatBar{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden}
+.sysStatFill{height:100%;border-radius:99px;background:var(--accent);transition:width .5s}
 </style>
 
 
@@ -309,75 +310,74 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 
 <div class="app">
   <aside class="sidebar" id="sidebar">
-    <div class="logo">🧠 NOUS AI OS</div>
-    <div class="sub">Personal agent workspace</div>
 
-    <div class="nav" id="nav">
-      
-<div class="navGroup" open id="nous-chat-main-nav">
-  <summary>💬 Chat</summary>
-  <div class="navGroupBody">
-    <button onclick="showSection('chat')">💬 Άνοιγμα Chat</button>
-  </div>
-</div>
-
-<div class="sidebarHint">NOUS modules grouped</div>
-<details class="navGroup" open><summary>🏠 Κέντρο</summary><div class="navGroupBody"><button onclick="showSection('home')" class="active">🏠 Home</button>
-<button onclick="showSection('command')">🧭 Command</button></div></details>
-<details class="navGroup"><summary>🎯 Goals & Missions</summary><div class="navGroupBody"><button onclick="showSection('goals')">🏁 Goals</button>
-<button onclick="showSection('missions')">🎯 Missions</button>
-<button onclick="showSection('planner')">🧩 Planner</button></div></details>
-<details class="navGroup"><summary>🧠 Memory & Knowledge</summary><div class="navGroupBody"><button onclick="showSection('brain')">🧠 Brain</button></div></details>
-<details class="navGroup"><summary>🛠 Maintenance</summary><div class="navGroupBody"><button onclick="showSection('diagnosis')">🩺 Diagnosis</button>
-<button onclick="showSection('repair')">🛠 Repair</button>
-<button onclick="showSection('patchapply')">🩹 PatchApply</button></div></details>
-<details class="navGroup"><summary>🤖 Automation</summary><div class="navGroupBody"><button onclick="showSection('scheduler')">⏱ Scheduler</button>
-<button onclick="showSection('autoexec')">🤖 AutoExec</button>
-<button onclick="showSection('autoscheduler')">🔁 AutoSched</button>
-<button onclick="showSection('loopv2')">♻ Loop v2</button>
-<button onclick="showSection('loopv3')">👑 LoopV3</button></div></details>
-<details class="navGroup"><summary>☁ Cloud & Deploy</summary><div class="navGroupBody"><button onclick="showSection('deploy')">🚀 Deploy</button>
-<button onclick="showSection('backup')">☁️ Backup</button></div></details>
-<details class="navGroup"><summary>⚙ Settings</summary><div class="navGroupBody"><button onclick="showSection('settings')">⚙ Settings</button></div></details>
-<details class="navGroup"><summary>📦 Other</summary><div class="navGroupBody"><button onclick="showSection('chat')">💬 Chat</button>
-<button onclick="showSection('approvals')">✅ Approvals</button>
-<button onclick="showSection('companion')">📱 Companion</button>
-<button onclick="showSection('system')">📊 System</button>
-<button onclick="showSection('intelligence')">🧭 Intelligence</button>
-<button onclick="showSection('learning')">🎓 Learning</button>
-<button onclick="showSection('audit')">🧪 Audit</button>
-<button onclick="showSection('analyst')">🧠 Analyst</button>
-<button onclick="showSection('pending')">📥 Pending</button>
-<button onclick="showSection('selfheal')">🧬 SelfHeal</button>
-<button onclick="showSection('mega')">🧱 Mega</button>
-<button onclick="showSection('upgrades')">📦 Upgrades</button>
-<button onclick="showSection('graphs')">🕸 Graphs</button>
-<button onclick="showSection('appbuilder')">🏗️ App Builder</button></div></details>
+    <!-- Logo -->
+    <div class="sidebarTop">
+      <div class="logo" style="font-size:19px;font-weight:900;letter-spacing:-.5px">🧠 NOUS AI OS</div>
+      <div style="color:var(--muted);font-size:12px;margin-top:2px">Personal agent workspace</div>
     </div>
 
-    <div class="card">
-      <h3>Quick Actions</h3>
-      <div class="quick">
-        <button onclick="ops('full_validation')">🧠 Full Validation</button>
-        <button onclick="ops('git_status')">📦 Git Status</button>
-        <button onclick="ops('code_health')">🧪 Code Health</button>
-        <button onclick="ops('reality_status')">✅ Reality Check</button>
-        <button onclick="postAction('/remote/companion/home')">🏠 Android Home</button>
-        <button onclick="postAction('/remote/companion/back')">↩ Android Back</button>
+    <!-- Navigation -->
+    <nav class="sidebarNav" id="nav">
+
+      <button class="navItem active" data-sec="chat" onclick="showSection('chat')"><span class="ni">💬</span> Chat</button>
+      <button class="navItem" data-sec="home" onclick="showSection('home')"><span class="ni">🏠</span> Dashboard</button>
+
+      <div class="navDivider"></div>
+      <div class="navSection">Εργασία</div>
+      <button class="navItem" data-sec="goals" onclick="showSection('goals')"><span class="ni">🎯</span> Goals</button>
+      <button class="navItem" data-sec="missions" onclick="showSection('missions')"><span class="ni">📋</span> Missions</button>
+      <button class="navItem" data-sec="planner" onclick="showSection('planner')"><span class="ni">🧩</span> Planner</button>
+      <button class="navItem" data-sec="brain" onclick="showSection('brain')"><span class="ni">🧠</span> Brain & Memory</button>
+      <button class="navItem" data-sec="appbuilder" onclick="showSection('appbuilder')"><span class="ni">🏗</span> App Builder</button>
+
+      <div class="navDivider"></div>
+      <div class="navSection">Εργαλεία</div>
+      <button class="navItem" data-sec="documents" onclick="showSection('documents')"><span class="ni">📚</span> Documents</button>
+      <button class="navItem" data-sec="scheduler" onclick="showSection('scheduler')"><span class="ni">⏱</span> Scheduler</button>
+      <button class="navItem" data-sec="deploy" onclick="showSection('deploy')"><span class="ni">🚀</span> Deploy</button>
+      <button class="navItem" data-sec="backup" onclick="showSection('backup')"><span class="ni">☁</span> Backup</button>
+      <button class="navItem" data-sec="remote-access" onclick="showSection('remote-access')"><span class="ni">📡</span> Remote Access</button>
+      <button class="navItem" data-sec="settings" onclick="showSection('settings')"><span class="ni">⚙</span> Settings</button>
+
+      <div class="navDivider"></div>
+      <button class="navMoreBtn" onclick="toggleAdvancedNav()" id="moreNavBtn">
+        <span style="font-size:14px">⋯</span> Προχωρημένα <span id="moreArrow" style="margin-left:auto;font-size:11px">▸</span>
+      </button>
+      <div class="navMore" id="advancedNav">
+        <div class="navSection">Αυτοματισμός</div>
+        <button class="navItem" data-sec="autoexec" onclick="showSection('autoexec')"><span class="ni">🤖</span> Auto Exec</button>
+        <button class="navItem" data-sec="loopv3" onclick="showSection('loopv3')"><span class="ni">♾</span> Agent Loop</button>
+        <button class="navItem" data-sec="autoscheduler" onclick="showSection('autoscheduler')"><span class="ni">🔁</span> AutoSched</button>
+        <div class="navSection">Σύστημα</div>
+        <button class="navItem" data-sec="diagnosis" onclick="showSection('diagnosis')"><span class="ni">🩺</span> Diagnosis</button>
+        <button class="navItem" data-sec="repair" onclick="showSection('repair')"><span class="ni">🛠</span> Repair</button>
+        <button class="navItem" data-sec="selfheal" onclick="showSection('selfheal')"><span class="ni">🧬</span> Self Heal</button>
+        <button class="navItem" data-sec="intelligence" onclick="showSection('intelligence')"><span class="ni">🧭</span> Intelligence</button>
+        <button class="navItem" data-sec="learning" onclick="showSection('learning')"><span class="ni">🎓</span> Learning</button>
+        <button class="navItem" data-sec="system" onclick="showSection('system')"><span class="ni">📊</span> System</button>
+        <button class="navItem" data-sec="command" onclick="showSection('command')"><span class="ni">⌨</span> Command</button>
+        <button class="navItem" data-sec="approvals" onclick="showSection('approvals')"><span class="ni">✅</span> Approvals</button>
+        <button class="navItem" data-sec="audit" onclick="showSection('audit')"><span class="ni">🧪</span> Audit</button>
+        <button class="navItem" data-sec="patchapply" onclick="showSection('patchapply')"><span class="ni">🩹</span> PatchApply</button>
+        <button class="navItem" data-sec="loopv2" onclick="showSection('loopv2')"><span class="ni">♻</span> Loop v2</button>
+        <button class="navItem" data-sec="companion" onclick="showSection('companion')"><span class="ni">📱</span> Companion</button>
+        <button class="navItem" data-sec="pending" onclick="showSection('pending')"><span class="ni">📥</span> Pending</button>
+        <button class="navItem" data-sec="graphs" onclick="showSection('graphs')"><span class="ni">🕸</span> Graphs</button>
+        <button class="navItem" data-sec="analyst" onclick="showSection('analyst')"><span class="ni">🧮</span> Analyst</button>
+        <button class="navItem" data-sec="upgrades" onclick="showSection('upgrades')"><span class="ni">📦</span> Upgrades</button>
+        <button class="navItem" data-sec="mega" onclick="showSection('mega')"><span class="ni">🧱</span> Mega</button>
       </div>
-    </div>
-  <button onclick="showSection('documents')">📚 Documents</button>
 
-  <div class="card" style="margin:10px 8px 4px;padding:10px 12px;">
-    <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">📊 Πόροι Υπολογιστή</div>
-    <div id="sysBarWidget" style="font-size:12px;line-height:1.9;">
-      <div>⏳ Φόρτωση...</div>
+    </nav>
+
+    <!-- Bottom: system stats -->
+    <div class="sidebarBottom" id="sysBarWidget">
+      <div class="sysStatRow"><span>CPU</span><div class="sysStatBar"><div class="sysStatFill" id="cpuBar" style="width:0%"></div></div><span id="cpuPct">…</span></div>
+      <div class="sysStatRow"><span>RAM</span><div class="sysStatBar"><div class="sysStatFill" id="ramBar" style="width:0%;background:var(--accent2)"></div></div><span id="ramPct">…</span></div>
     </div>
-    <div style="margin-top:8px;">
-      <button onclick="showSection('remote-access')" style="width:100%;font-size:11px;padding:5px 0;background:#1a3a2a;border:1px solid #2a5a3a;color:#6cf;border-radius:6px;cursor:pointer;">📱 Απομακρυσμένη Πρόσβαση</button>
-    </div>
-  </div>
-</aside>
+
+  </aside>
 
   <main class="main">
     <div class="topbar">
@@ -1204,13 +1204,26 @@ function addMsg(text,cls=""){const c=document.getElementById("chatlog");const d=
 function showSection(id){
   closeMenu(); currentSection=id;
   document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
-  [...document.querySelectorAll(".nav button")].find(b=>b.textContent.toLowerCase().includes(labelFor(id)))?.classList.add("active");
-  document.getElementById("title").textContent="NOUS "+id.charAt(0).toUpperCase()+id.slice(1);
+  const sec=document.getElementById(id);
+  if(sec) sec.classList.add("active");
+  document.querySelectorAll(".navItem").forEach(x=>x.classList.remove("active"));
+  const btn=document.querySelector(`.navItem[data-sec="${id}"]`);
+  if(btn){
+    btn.classList.add("active");
+    /* auto-open advanced panel if section is inside it */
+    const adv=document.getElementById("advancedNav");
+    if(adv && adv.contains(btn)) adv.classList.add("open");
+  }
+  const labels={home:"Dashboard",chat:"Chat",goals:"Goals",missions:"Missions",planner:"Planner",brain:"Brain & Memory",appbuilder:"App Builder","remote-access":"Remote Access",documents:"Documents",scheduler:"Scheduler",deploy:"Deploy",backup:"Backup",settings:"Settings",autoexec:"Auto Exec",loopv3:"Agent Loop",autoscheduler:"AutoSched",diagnosis:"Diagnosis",repair:"Repair",selfheal:"Self Heal",intelligence:"Intelligence",learning:"Learning",system:"System",command:"Command",approvals:"Approvals",audit:"Audit",patchapply:"PatchApply",loopv2:"Loop v2",companion:"Companion",pending:"Pending",graphs:"Graphs",analyst:"Analyst",upgrades:"Upgrades",mega:"Mega"};
+  document.getElementById("title").textContent="NOUS — "+(labels[id]||id.charAt(0).toUpperCase()+id.slice(1));
   refreshSection(id);
 }
-function labelFor(id){return ({home:"home",chat:"chat",missions:"missions",approvals:"approvals",companion:"companion",deploy:"deploy",system:"system",settings:"settings"}[id]||id)}
+function toggleAdvancedNav(){
+  const adv=document.getElementById("advancedNav");
+  const arrow=document.getElementById("moreArrow");
+  adv.classList.toggle("open");
+  arrow.textContent=adv.classList.contains("open")?"▾":"▸";
+}
 
 async function refreshSection(id){
   if(id==="home") return loadHome();
@@ -1314,21 +1327,22 @@ async function loadSysInfo(){
       <div>🔷 <strong>NOUS RAM:</strong> ${d.nous_ram_mb}MB</div>
       <div>💻 <strong>Σύστημα:</strong> ${d.platform}</div>`;
 
-    const miniHtml = `
-      <div>CPU ${sysBar(d.cpu_percent, cpuColor)} ${d.cpu_percent}%</div>
-      <div>RAM ${sysBar(d.ram_percent, ramColor)} ${d.ram_used_gb}/${d.ram_total_gb}GB</div>
-      <div>NOUS ${d.nous_ram_mb}MB &nbsp;|&nbsp; ${d.uptime}</div>`;
-
+    /* Full system section */
     const el1 = document.getElementById("sysInfoFull");
-    const el2 = document.getElementById("sysBarWidget");
     if(el1) el1.innerHTML = fullHtml;
-    if(el2) el2.innerHTML = miniHtml;
+
+    /* Sidebar mini bars */
+    const cpuFill = document.getElementById("cpuBar");
+    const ramFill = document.getElementById("ramBar");
+    const cpuTxt  = document.getElementById("cpuPct");
+    const ramTxt  = document.getElementById("ramPct");
+    if(cpuFill){ cpuFill.style.width=d.cpu_percent+"%"; cpuFill.style.background=cpuColor; }
+    if(ramFill){ ramFill.style.width=d.ram_percent+"%"; ramFill.style.background=ramColor; }
+    if(cpuTxt)  cpuTxt.textContent = d.cpu_percent+"%";
+    if(ramTxt)  ramTxt.textContent = d.ram_used_gb+"/"+(d.ram_total_gb||"?")+"GB";
   }catch(e){
-    const msg = `<div style="color:#888;">—</div>`;
     const el1 = document.getElementById("sysInfoFull");
-    const el2 = document.getElementById("sysBarWidget");
-    if(el1) el1.innerHTML = msg;
-    if(el2) el2.innerHTML = msg;
+    if(el1) el1.innerHTML = `<div style="color:#888;">—</div>`;
   }
 }
 
