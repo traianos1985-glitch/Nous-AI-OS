@@ -325,23 +325,10 @@ def casual_answer(message: str) -> str | None:
 
 
 def looks_corrupted_answer(text: str) -> bool:
+    """Conservative check — prefers keeping a borderline answer over
+    replacing a valid one with the fallback."""
     t = str(text or "").strip()
-
-    if not t:
-        return True
-
-    if len(t) < 2:
-        return True
-
-    greek = sum(1 for ch in t if "\u0370" <= ch <= "\u03ff")
-    latin = sum(1 for ch in t if ("a" <= ch.lower() <= "z"))
-    letters = sum(1 for ch in t if ch.isalpha())
-    weird = sum(1 for ch in t if ord(ch) > 127 and not ("\u0370" <= ch <= "\u03ff") and ch not in "€–—“”‘’•…")
-
-    if letters >= 30 and greek < 6 and latin < 20:
-        return True
-
-    if weird > max(8, len(t) * 0.08):
+    if not t or len(t) < 3:
         return True
 
     bad_fragments = [
@@ -350,25 +337,22 @@ def looks_corrupted_answer(text: str) -> bool:
         "έπληθιστε",
         "ακριηζον",
         "ηπαγωγή",
-        "ναιμησίας",
-        "πлавή",
     ]
-
     low = t.lower()
     if any(x in low for x in bad_fragments):
         return True
 
-    words = [w.strip(".,;:!?()[]{}\"'") for w in low.split()]
-    if len(words) >= 8:
-        short_or_odd = 0
-        for w in words:
-            if not w:
-                continue
-            has_letter = any(ch.isalpha() for ch in w)
-            if has_letter and len(w) <= 2:
-                short_or_odd += 1
-        if short_or_odd > len(words) * 0.45:
-            return True
+    # Only flag extreme weird-char ratios (Cyrillic mixed in Greek, etc)
+    weird = sum(
+        1 for ch in t
+        if ord(ch) > 127
+        and not ("Ͱ" <= ch <= "Ͽ")
+        and not ("ἀ" <= ch <= "῿")
+        and not ("̀" <= ch <= "ͯ")
+        and ch not in "€–—“”‘’•…°·"
+    )
+    if weird > max(15, len(t) * 0.15):
+        return True
 
     return False
 

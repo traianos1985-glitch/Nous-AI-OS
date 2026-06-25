@@ -18,17 +18,17 @@ VISION_MODELS = [
     "openrouter/auto",
 ]
 
-TIMEOUT = 45
+TIMEOUT = 60
 
 SYSTEM_PROMPT = (
     "Είσαι ο ΝΟΥΣ, ένας έξυπνος AI βοηθός στα ελληνικά. "
     "Απάντα πάντα σε φυσικά, σωστά ελληνικά. "
     "Μην απαντάς με JSON εκτός αν σου ζητηθεί ρητά. "
-    "Δώσε σαφή, ολοκληρωμένη αλλά σύντομη απάντηση."
+    "Δώσε σαφή και ολοκληρωμένη απάντηση — μην σταματάς πριν ολοκληρώσεις."
 )
 
 
-def _post(messages: list, max_tokens: int = 2200) -> dict:
+def _post(messages: list, max_tokens: int = 4096) -> dict:
     key = os.environ.get("OPENROUTER_API_KEY", "")
     if not key:
         return {"success": False, "error": "no_api_key"}
