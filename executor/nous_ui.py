@@ -1028,6 +1028,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
           <button onclick="larmorPing()" style="font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);cursor:pointer;">↺ Refresh</button>
           <button onclick="larmorInjectKnowledge()" id="larmorInjectBtn" style="font-size:12px;padding:4px 12px;border-radius:8px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:var(--accent2);cursor:pointer;" title="Φόρτωσε όλη τη γνώση NMR στον εγκέφαλο του ΝΟΥΣ">🧠 Φόρτωση Γνώσης NMR</button>
           <button onclick="injectCacheKnowledge()" id="cacheInjectBtn" style="font-size:12px;padding:4px 12px;border-radius:8px;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fbbf24;cursor:pointer;" title="Εισαγωγή γνώσης US Army SF Caching Techniques ST 31-205 στον ΝΟΥΣ">⚔️ Εγχυση SF Caching</button>
+          <button onclick="injectGuerrillaKnowledge()" id="guerrillaInjectBtn" style="font-size:12px;padding:4px 12px;border-radius:8px;border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);color:#34d399;cursor:pointer;" title="Εισαγωγή αντάρτικων σημαδιών, στρατ. χαρτών & βυζ/οθωμ. συμβόλων">🗺️ Σημάδια &amp; Χάρτες</button>
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -1605,6 +1606,26 @@ async function larmorInjectKnowledge(){
   } finally {
     setTimeout(()=>{ btn.textContent=orig; btn.disabled=false;
       btn.style.borderColor=""; btn.style.color=""; }, 4000);
+  }
+}
+
+async function injectGuerrillaKnowledge(){
+  const btn = document.getElementById("guerrillaInjectBtn");
+  const orig = btn.textContent;
+  btn.textContent = "⏳ Εγχυση…"; btn.disabled = true;
+  try{
+    const d = await postJson("/larmor/inject-guerrilla-knowledge", {});
+    if(d.ok){
+      btn.textContent = `✅ ${d.stored}/${d.total} chunks`;
+      btn.style.borderColor = "var(--ok)"; btn.style.color = "var(--ok)";
+    } else {
+      btn.textContent = "⚠️ Σφάλμα";
+    }
+  }catch(e){
+    btn.textContent = "⚠️ " + e;
+  } finally {
+    setTimeout(()=>{ btn.textContent=orig; btn.disabled=false;
+      btn.style.borderColor=""; btn.style.color=""; }, 5000);
   }
 }
 

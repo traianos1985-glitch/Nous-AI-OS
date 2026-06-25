@@ -296,6 +296,34 @@ def larmor_inject_knowledge():
             skipped += 1
     return jsonify({"ok": True, "stored": stored, "skipped": skipped, "total": len(chunks)})
 
+@app.route("/larmor/inject-guerrilla-knowledge", methods=["POST"])
+def inject_guerrilla_knowledge():
+    """Inject guerrilla signs, military maps & Byzantine/Ottoman symbols knowledge into NOUS."""
+    from executor.knowledge_memory_engine import remember_knowledge
+    from executor.guerrilla_signs_knowledge import get_guerrilla_signs_chunks
+    chunks = get_guerrilla_signs_chunks()
+    stored, skipped = 0, 0
+    for chunk in chunks:
+        result = remember_knowledge(
+            question=chunk["question"],
+            answer=chunk["answer"],
+            sources=[{"document": "Guerrilla_Signs_MilitaryMaps_ByzOttoman"}],
+            kind="research",
+            confidence="high",
+            tags=chunk.get("tags", ["αντάρτες", "χάρτες", "WWII"]),
+        )
+        if result.get("stored"):
+            stored += 1
+        else:
+            skipped += 1
+    return jsonify({
+        "ok": True,
+        "stored": stored,
+        "skipped": skipped,
+        "total": len(chunks),
+        "source": "Αντάρτικα Σημάδια / Στρατ. Χάρτες / Βυζ-Οθωμ. Σύμβολα",
+    })
+
 @app.route("/larmor/inject-cache-knowledge", methods=["POST"])
 def inject_cache_knowledge():
     """Inject US Army SF Caching Techniques (ST 31-205) knowledge into NOUS brain."""

@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": 1782387755.5243814,
+  "time": 1782388602.5291235,
   "checks": {
     "compile": {
       "executor/router.py": {
@@ -300,13 +300,13 @@
           "status": 401
         }
       ],
-      "time": 1782387768.8304894,
+      "time": 1782388617.2426538,
       "total": 18
     },
     "git_status": {
       "ok": true,
       "code": 0,
-      "stdout": " M data/agent_journal.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/knowledge_memory.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M executor/nous_ui.py\n M executor/router.py\n?? executor/cache_knowledge.py\n",
+      "stdout": " M data/agent_journal.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M executor/nous_ui.py\n M executor/router.py\n?? executor/guerrilla_signs_knowledge.py\n",
       "stderr": ""
     }
   },
