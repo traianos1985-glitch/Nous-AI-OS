@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": 1782380147.8199267,
+  "time": 1782380567.0820274,
   "checks": {
     "compile": {
       "executor/router.py": {
@@ -300,13 +300,13 @@
           "status": 401
         }
       ],
-      "time": 1782380161.0278606,
+      "time": 1782380580.2106402,
       "total": 18
     },
     "git_status": {
       "ok": true,
       "code": 0,
-      "stdout": " M .replit\n M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/internet_search_cache.json\n M data/knowledge_memory.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/internet_search_engine.py\n M executor/nous_ui.py\n M executor/remote_llm.py\n?? data/chat_memory_v3.json\n?? data/conversation_index.json\n?? data/conversations/\n",
+      "stdout": " M data/agent_journal.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M executor/chat_brain_v3.py\n M executor/internet_search_engine.py\n M executor/natural_chat_orchestrator.py\n M executor/nous_ui.py\n M executor/remote_llm.py\n",
       "stderr": ""
     }
   },

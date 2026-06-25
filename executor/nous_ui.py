@@ -413,12 +413,17 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
 </div>
 
 <div class="chatlog" id="chatlog">
-            <div class="msg">Γράψε εντολή. Παραδείγματα: /status, /home, /back, /plan βελτίωσε το UI, /run έλεγξε το companion. Αν γράψεις απλό στόχο, ο Executive Layer θα φτιάξει mission και θα τρέξει ασφαλή βήματα.</div>
+            <div class="msg bot">👋 Γεια! Γράψε οτιδήποτε στα ελληνικά — ρώτα, συζήτα, ζήτα αναζήτηση.<br><br>Παραδείγματα:<br>• «κατάσταση» — live εικόνα συστήματος<br>• «ψάξε για τεχνητή νοημοσύνη» — web search<br>• «βοήθεια» — τι μπορώ να κάνω<br>• <code>/plan βελτίωσε το UI</code> — δημιούργησε αποστολή</div>
           </div>
+          <div id="nousTypingIndicator" style="display:none;padding:6px 14px;font-size:13px;opacity:.6;font-style:italic;">ΝΟΥΣ σκέφτεται...</div>
           <div class="composer">
             <div class="composer-inner">
-              <textarea id="prompt" placeholder="Γράψε στον ΝΟΥΣ..."></textarea>
-              <button class="send" onclick="sendPrompt()">Send</button>
+              <textarea id="prompt" placeholder="Γράψε στον ΝΟΥΣ... (Enter για αποστολή, Shift+Enter για νέα γραμμή)"></textarea>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <label for="chatFileQuick" title="Upload αρχείο" style="cursor:pointer;font-size:20px;padding:4px 8px;opacity:.7;">📎</label>
+                <input type="file" id="chatFileQuick" style="display:none" onchange="quickUpload(this)">
+                <button class="send" id="sendBtn" onclick="sendPrompt()">↑</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1372,11 +1377,47 @@ async function ops(action){closeMenu();const payload={};if(action==="checkpoint"
 async function createMission(kind){const data=await postJson("/remote/missions/create-standard",{kind});renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}feed("Mission created "+kind);await loadMissions()}
 async function createWorkspaceMission(){const prompt=document.getElementById("missionPrompt").value||"";const data=await postJson("/remote/workspace/create-mission",{prompt});renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}feed("Workspace mission created");await loadMissions()}
 
+function nousShowTyping(show){
+  const el=document.getElementById("nousTypingIndicator");
+  if(el) el.style.display=show?"block":"none";
+  const btn=document.getElementById("sendBtn");
+  if(btn){ btn.disabled=show; btn.textContent=show?"…":"↑"; }
+  if(show){const c=document.getElementById("chatlog");if(c)c.scrollTop=c.scrollHeight;}
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  const ta=document.getElementById("prompt");
+  if(ta){
+    ta.addEventListener("keydown",function(e){
+      if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendPrompt();}
+    });
+  }
+});
+
+async function quickUpload(input){
+  if(!input.files||!input.files.length)return;
+  const f=input.files[0];
+  input.value="";
+  addMsg("📎 Ανεβάζω αρχείο: "+f.name,"user");
+  nousShowTyping(true);
+  try{
+    const fd=new FormData();
+    fd.append("file",f);
+    fd.append("note","uploaded_from_chat");
+    const r=await fetch("/upload",{method:"POST",body:fd});
+    const d=await r.json();
+    addMsg(d.answer||d.message||JSON.stringify(d),"bot");
+  }catch(e){addMsg("Σφάλμα upload: "+e,"bot");}
+  finally{nousShowTyping(false);}
+}
+
 async function sendPrompt(){
   const p=document.getElementById("prompt"); const text=p.value.trim(); if(!text)return; p.value=""; addMsg(text,"user");
 
   if(text==="/status"){
+    nousShowTyping(true);
     const d=await getJson("/remote/status");
+    nousShowTyping(false);
     renderObject(d);
     const lines=[];
     if(d.system) lines.push("Σύστημα: "+d.system);
@@ -1386,29 +1427,36 @@ async function sendPrompt(){
     return;
   }
 
-  if(text==="/home"){const d=await postJson("/remote/companion/home",{});renderObject(d);addMsg(d.ok?"Android Home ✅":"Companion unavailable","bot");return}
-  if(text==="/back"){const d=await postJson("/remote/companion/back",{});renderObject(d);addMsg(d.ok?"Android Back ✅":"Companion unavailable","bot");return}
+  if(text==="/home"){nousShowTyping(true);const d=await postJson("/remote/companion/home",{});nousShowTyping(false);renderObject(d);addMsg(d.ok?"Android Home ✅":"Companion unavailable","bot");return}
+  if(text==="/back"){nousShowTyping(true);const d=await postJson("/remote/companion/back",{});nousShowTyping(false);renderObject(d);addMsg(d.ok?"Android Back ✅":"Companion unavailable","bot");return}
 
   if(text.startsWith("/mission ")){
+    nousShowTyping(true);
     const d=await postJson("/remote/workspace/create-mission",{prompt:text.slice(9)});
+    nousShowTyping(false);
     renderObject(d);
     addMsg(d,"bot");
     return;
   }
   if(text.startsWith("/plan ")){
+    nousShowTyping(true);
     const d=await postJson("/remote/executive/plan",{prompt:text.slice(6)});
+    nousShowTyping(false);
     renderObject(d);
     addMsg(d,"bot");
     return;
   }
   if(text.startsWith("/run ")){
+    nousShowTyping(true);
     const d=await postJson("/remote/executive/run",{prompt:text.slice(5),max_steps:3,execute:true});
+    nousShowTyping(false);
     renderObject(d);
     addMsg(d,"bot");
     return;
   }
 
   // Φυσική γλώσσα → brain/chat endpoint
+  nousShowTyping(true);
   try {
     const r = await fetch("/chat", {
       method: "POST",
@@ -1420,6 +1468,8 @@ async function sendPrompt(){
     addMsg(d, "bot");
   } catch(e) {
     addMsg("Σφάλμα επικοινωνίας: " + e, "bot");
+  } finally {
+    nousShowTyping(false);
   }
 }
 

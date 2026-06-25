@@ -187,6 +187,38 @@ def natural_chat_answer(message: str) -> dict[str, Any] | None:
                     answer = "Πες μου τον στόχο! Π.χ.: φτιάξε αποστολή βελτίωσε το UI"
                 return pack(answer, "mission_guide")
 
+    # --- Scheduler από φυσική γλώσσα ---
+    sched_triggers = [
+        "προγραμμάτισε", "πρόγραμμάτισε", "programmatise", "schedule",
+        "βάλε χρονοδιάγραμμα", "βαλε χρονοδιαγραμμα",
+        "τρέξε κάθε", "τρεξε καθε", "εκτέλεσε κάθε", "εκτελεσε καθε",
+        "κάνε αυτόματα", "κανε αυτοματα",
+        "αυτόματη εκτέλεση", "αυτοματη εκτελεση",
+    ]
+    if any(x in m for x in sched_triggers):
+        try:
+            from executor.scheduler_agent import add_schedule, parse_schedule
+            parsed = parse_schedule(message)
+            if parsed and parsed.get("task"):
+                item = add_schedule(message)
+                stype = item.get("schedule_type", "interval")
+                if stype == "interval":
+                    secs = item.get("interval_seconds") or 3600
+                    period = f"κάθε {secs // 60} λεπτά" if secs < 3600 else f"κάθε {secs // 3600} ώρα/ες"
+                else:
+                    period = f"καθημερινά {item.get('hour', 0):02d}:{item.get('minute', 0):02d}"
+                answer = f"✅ Προγραμμάτισα: **{parsed['task']}** — {period}\n\nΑπό το μενού **Automation** μπορείς να δεις και να διαχειριστείς όλες τις αυτόματες εργασίες."
+            else:
+                answer = (
+                    "Πες μου τι να προγραμματίσω και πότε. Παραδείγματα:\n\n"
+                    "• «προγραμμάτισε έλεγχο κατάστασης κάθε 30 λεπτά»\n"
+                    "• «προγραμμάτισε daily brief κάθε μέρα στις 9:00»\n"
+                    "• «τρέξε αυτόματα κάθε 2 ώρες repair system»"
+                )
+        except Exception as e:
+            answer = f"Σφάλμα scheduler: {e}. Δοκίμασε: «προγραμμάτισε X κάθε 30 λεπτά»"
+        return pack(answer, "scheduler")
+
     # --- Αυτοβελτίωση ---
     if any(x in m for x in [
         "αυτοβελτί", "αυτοβελτι", "self-improv", "βελτιώνεσαι", "βελτιωνεσαι",

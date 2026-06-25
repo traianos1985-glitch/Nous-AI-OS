@@ -353,56 +353,71 @@ def safe_llm_fallback() -> str:
     )
 
 
+def build_llm_turns(message: str, conversation_id: str | None = None) -> list[dict]:
+    """Build multi-turn messages list from recent chat history."""
+    memory = load_json(CHAT_MEMORY, [])
+    turns: list[dict] = []
+
+    if isinstance(memory, list):
+        clean_items = []
+        for item in memory:
+            if not isinstance(item, dict):
+                continue
+            u = str(item.get("user", "")).strip()
+            a = str(item.get("answer", "")).strip()
+            mode = str(item.get("mode", ""))
+            if not u or not a:
+                continue
+            if mode in {"memory_recall", "system_status", "missions_list", "goals_list"}:
+                continue
+            clean_items.append((u, a))
+
+        for u, a in clean_items[-6:]:
+            if len(a) > 400:
+                a = a[:400].rstrip() + "..."
+            turns.append({"role": "user", "content": u})
+            turns.append({"role": "assistant", "content": a})
+
+    turns.append({"role": "user", "content": message})
+    return turns
+
+
 def try_llm_answer(message: str, conversation_id: str | None = None) -> str | None:
     try:
-        from executor.llm_core import ask
+        from executor.remote_llm import ask_with_turns
     except Exception:
         return None
 
-    recent = recent_chat_context(6)
-    selected_context = conversation_context(conversation_id, 10)
-    selected_summary = summary_context(conversation_id)
-    global_memory = cross_conversation_context(message, limit=3) if has_cross_memory_intent(message) else ""
-    context = selected_context or selected_summary or global_memory or recent
-    code_context = coding_context(message)
-    engineering_context = engineering_memory_context(message)
+    code_ctx = coding_context(message)
+    eng_ctx = engineering_memory_context(message)
 
-    prompt = f"""
-Απάντησε στα ελληνικά, καθαρά και σύντομα, σαν βοηθός τύπου ChatGPT.
-Μην δημιουργείς αποστολή. Μην δίνεις JSON.
-Μην εφευρίσκεις δυνατότητες, τεχνικές λεπτομέρειες ή χαρακτηριστικά που δεν υπάρχουν στο ιστορικό.
-Αν κάτι δεν είναι γνωστό, πες καθαρά ότι δεν είναι επιβεβαιωμένο.
+    system_extra = ""
+    if code_ctx:
+        system_extra += f"\n\nΠλαίσιο κώδικα:\n{code_ctx}"
+    if eng_ctx:
+        system_extra += f"\n\nΜνήμη μηχανικής:\n{eng_ctx}"
 
-Ιστορικό ενεργής συνομιλίας:
-{context}
+    system = (
+        "Είσαι ο ΝΟΥΣ, έξυπνος AI βοηθός. "
+        "Απάντα σε φυσικά ελληνικά, σύντομα και ουσιαστικά. "
+        "Μην δημιουργείς αποστολές, μην δίνεις JSON. "
+        "Αν κάτι δεν το ξέρεις, πες το ειλικρινά."
+        + system_extra
+    )
 
-{code_context}
-
-{engineering_context}
-
-Ερώτηση χρήστη:
-{message}
-""".strip()
+    turns = build_llm_turns(message, conversation_id)
 
     try:
-        result = ask(prompt)
+        result = ask_with_turns(turns, system=system)
     except Exception:
         return None
 
     if isinstance(result, dict):
-        for key in ["answer", "response", "text", "content"]:
-            if isinstance(result.get(key), str) and result.get(key).strip():
-                candidate = result[key].strip()
-                if looks_corrupted_answer(candidate):
-                    return safe_llm_fallback()
-                return candidate
-        return None
-
-    if isinstance(result, str) and result.strip():
-        candidate = result.strip()
-        if looks_corrupted_answer(candidate):
-            return safe_llm_fallback()
-        return candidate
+        candidate = result.get("response", "")
+        if candidate and isinstance(candidate, str) and candidate.strip():
+            if looks_corrupted_answer(candidate):
+                return safe_llm_fallback()
+            return candidate.strip()
 
     return None
 
