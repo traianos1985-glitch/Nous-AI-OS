@@ -130,5 +130,33 @@
         "snippet": "Η πλατφόρμα «Agentforce» της Salesforce ενσωματώνει ένα «trust layer», μια ενδιάμεση υποδομή που μεσολαβεί ανάμεσα στον AI agent , τα εταιρικά δεδομένα και τα εξωτερικά μοντέλα ΤΝ."
       }
     ]
+  },
+  {
+    "ok": true,
+    "tool": "Internet Search Engine",
+    "timestamp": "2026-06-25T09:33:48.000476+00:00",
+    "query": "python programming 2025",
+    "results": []
+  },
+  {
+    "ok": true,
+    "tool": "Internet Search Engine",
+    "timestamp": "2026-06-25T09:35:01.343167+00:00",
+    "query": "Elon Musk AI news",
+    "results": []
+  },
+  {
+    "ok": true,
+    "tool": "Internet Search Engine",
+    "timestamp": "2026-06-25T09:35:03.946943+00:00",
+    "query": "πες μου για τον Αριστοτέλη σε 3 προτάσεις",
+    "results": []
+  },
+  {
+    "ok": true,
+    "tool": "Internet Search Engine",
+    "timestamp": "2026-06-25T09:35:56.697493+00:00",
+    "query": "ποιος ήταν ο Σωκράτης;",
+    "results": []
   }
 ]

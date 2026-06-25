@@ -2464,6 +2464,25 @@ function nousFindChatLog(){
       || document.querySelector(".messages");
 }
 
+function nousMarkdown(text){
+  // Convert basic markdown to HTML safely
+  let s = text
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g,"<em>$1</em>")
+    .replace(/`(.+?)`/g,"<code>$1</code>")
+    .replace(/^(#{1,3})\s+(.+)$/gm, function(_,h,t){
+      const n=h.length; return `<h${n} style="margin:.3em 0;font-size:${1.2-n*.1}em">${t}</h${n}>`;
+    })
+    .replace(/^[-•]\s+(.+)$/gm,"<li>$1</li>")
+    .replace(/\n/g,"<br>");
+  // wrap consecutive <li> in <ul>
+  s = s.replace(/(<li>.*?<\/li>)(<br>(<li>.*?<\/li>))*/g, function(m){
+    return "<ul style='margin:.3em 0 .3em 1.2em;padding:0'>"+m.replace(/<br>/g,"")+"</ul>";
+  });
+  return s;
+}
+
 function nousAddMsgClean(content, who){
   const log = nousFindChatLog();
   const text = nousTextFromResponse(content);
@@ -2471,7 +2490,11 @@ function nousAddMsgClean(content, who){
 
   const div = document.createElement("div");
   div.className = "msg chatMsg " + (who || "bot");
-  div.textContent = text;
+  if(who === "user"){
+    div.textContent = text;
+  } else {
+    div.innerHTML = nousMarkdown(text);
+  }
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
   return true;
