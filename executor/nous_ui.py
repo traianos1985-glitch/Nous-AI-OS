@@ -338,6 +338,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button class="navItem" data-sec="deploy" onclick="showSection('deploy')"><span class="ni">🚀</span> Deploy</button>
       <button class="navItem" data-sec="backup" onclick="showSection('backup')"><span class="ni">☁</span> Backup</button>
       <button class="navItem" data-sec="larmor" onclick="showSection('larmor')"><span class="ni">🧲</span> Larmor Monitor</button>
+      <button class="navItem" data-sec="field" onclick="showSection('field');fieldDiaryLoad();fieldMarkersLoad()"><span class="ni">🔍</span> Πεδίο & Χάρτης</button>
       <button class="navItem" data-sec="remote-access" onclick="showSection('remote-access')"><span class="ni">📡</span> Remote Access</button>
       <button class="navItem" data-sec="settings" onclick="showSection('settings')"><span class="ni">⚙</span> Settings</button>
 
@@ -2835,6 +2836,162 @@ boot();
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════
+     ΠΕΔΙΟ & ΧΑΡΤΗΣ — Field Diary / Image Analysis / Map
+     ═══════════════════════════════════════════════════════════ -->
+<section id="field" class="section">
+<div class="workspace" style="max-width:1100px;margin:auto;">
+
+  <!-- Header -->
+  <div class="hero" style="margin-bottom:16px;">
+    <h1 style="margin:0 0 4px 0;">🔍 Εργαλείο Πεδίου</h1>
+    <p style="margin:0;color:var(--muted);">Ανάλυση εικόνων σημαδιών · Ημερολόγιο ευρημάτων · Διαδραστικός χάρτης Μεσσηνίας</p>
+  </div>
+
+  <!-- Tab buttons -->
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+    <button id="ftab-img"    onclick="fieldTab('img')"    style="padding:8px 18px;border-radius:10px;border:1px solid rgba(34,211,238,.5);background:rgba(34,211,238,.15);color:#22d3ee;font-weight:700;cursor:pointer;font-size:13px;">📷 Ανάλυση Εικόνας</button>
+    <button id="ftab-diary"  onclick="fieldTab('diary')"  style="padding:8px 18px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:600;cursor:pointer;font-size:13px;">📓 Ημερολόγιο</button>
+    <button id="ftab-map"    onclick="fieldTab('map')"    style="padding:8px 18px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:600;cursor:pointer;font-size:13px;">🗺️ Χάρτης</button>
+  </div>
+
+  <!-- ──────── TAB: IMAGE ANALYSIS ──────── -->
+  <div id="field-tab-img">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+
+      <!-- Upload + Preview -->
+      <div class="card">
+        <h3 style="margin:0 0 12px 0;">📤 Ανέβασε Εικόνα</h3>
+        <!-- Drop zone -->
+        <div id="fieldDropZone"
+          ondragover="event.preventDefault();this.style.borderColor='#22d3ee'"
+          ondragleave="this.style.borderColor=''"
+          ondrop="fieldDropImage(event)"
+          style="border:2px dashed var(--line);border-radius:14px;padding:28px;text-align:center;cursor:pointer;color:var(--muted);font-size:13px;transition:border-color .2s;"
+          onclick="document.getElementById('fieldImgInput').click()">
+          <div style="font-size:36px;margin-bottom:8px;">🖼️</div>
+          <div>Σύρε εδώ εικόνα ή <b style="color:#22d3ee;">κλικ για επιλογή</b></div>
+          <div style="font-size:11px;margin-top:6px;">JPG · PNG · WEBP · HEIC</div>
+        </div>
+        <input type="file" id="fieldImgInput" accept="image/*" style="display:none" onchange="fieldPreviewImage(this)">
+
+        <!-- Preview -->
+        <div id="fieldImgPreview" style="margin-top:12px;display:none;">
+          <img id="fieldImgTag" style="width:100%;border-radius:10px;max-height:280px;object-fit:contain;background:#0a0e1a;" src="" alt="">
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+            <select id="fieldAnalysisType" style="flex:1;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+              <option value="signs">🔣 Αναγνώριση Σημαδιών/Συμβόλων</option>
+              <option value="terrain">🏔️ Ανάλυση Εδάφους/Τοπογραφίας</option>
+              <option value="map">🗺️ Ανάγνωση Παλιού Χάρτη</option>
+              <option value="rock">🪨 Χαραγμάτα σε Βράχο/Τοίχο</option>
+              <option value="artifact">✨ Αναγνώριση Ευρήματος/Αντικειμένου</option>
+              <option value="general">🔍 Γενική Ανάλυση</option>
+            </select>
+            <button onclick="fieldAnalyzeImage()"
+              style="padding:7px 16px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;">
+              🧠 Ανάλυση AI
+            </button>
+          </div>
+          <textarea id="fieldImgExtraCtx" rows="2" placeholder="Πρόσθεσε πλαίσιο: π.χ. 'βράχος στην πλαγιά του Ταϋγέτου, ύψος 1.2m από έδαφος'" style="width:100%;margin-top:8px;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;resize:none;"></textarea>
+        </div>
+      </div>
+
+      <!-- Analysis Result -->
+      <div class="card" style="display:flex;flex-direction:column;">
+        <h3 style="margin:0 0 12px 0;">🤖 Ανάλυση ΝΟΥΣ</h3>
+        <div id="fieldAnalysisStatus" style="color:var(--muted);font-size:13px;">← Ανέβασε εικόνα και πάτα «Ανάλυση AI»</div>
+        <div id="fieldAnalysisResult" style="flex:1;font-size:13px;line-height:1.7;color:var(--text);display:none;overflow-y:auto;max-height:420px;"></div>
+
+        <!-- Save to diary button -->
+        <div id="fieldSaveToDiary" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">💾 Αποθήκευσε στο Ημερολόγιο:</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input id="fieldSaveTitle" type="text" placeholder="Τίτλος ευρήματος…" style="flex:1;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;min-width:120px;">
+            <input id="fieldSaveLat" type="number" step="0.000001" placeholder="Lat" style="width:110px;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+            <input id="fieldSaveLon" type="number" step="0.000001" placeholder="Lon" style="width:110px;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+            <button onclick="fieldSaveAnalysis()" style="padding:7px 14px;border-radius:8px;border:none;background:var(--ok);color:white;font-weight:700;cursor:pointer;font-size:13px;">💾 Αποθήκευση</button>
+          </div>
+          <div id="fieldSaveMsg" style="font-size:12px;margin-top:6px;color:var(--ok);display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent analyses -->
+    <div class="card" style="margin-top:14px;">
+      <h3 style="margin:0 0 10px 0;font-size:14px;">🕓 Πρόσφατες Αναλύσεις από το Ημερολόγιο</h3>
+      <div id="fieldRecentAnalyses" style="font-size:13px;color:var(--muted);">Φόρτωση…</div>
+    </div>
+  </div>
+
+  <!-- ──────── TAB: DIARY ──────── -->
+  <div id="field-tab-diary" style="display:none;">
+    <div style="display:grid;grid-template-columns:380px 1fr;gap:14px;">
+
+      <!-- Add entry form -->
+      <div class="card">
+        <h3 style="margin:0 0 12px 0;">➕ Νέα Καταχώρηση</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <input id="diaryTitle" type="text" placeholder="Τίτλος *" style="padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+          <select id="diaryType" style="padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+            <option value="sign">🔣 Σημάδι/Σύμβολο</option>
+            <option value="cache">📦 Cache/Ταφή</option>
+            <option value="frp">📍 FRP — Σημείο Αναφοράς</option>
+            <option value="irp">🗺️ IRP — Γενική Αναφορά</option>
+            <option value="terrain">🏔️ Τοπογραφία</option>
+            <option value="anomaly">⚡ Ανωμαλία Εδάφους</option>
+            <option value="find">✨ Εύρημα</option>
+            <option value="note">📝 Σημείωση</option>
+          </select>
+          <textarea id="diaryNote" rows="3" placeholder="Περιγραφή…" style="padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;resize:none;"></textarea>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <input id="diaryLat" type="number" step="0.000001" placeholder="Latitude (π.χ. 37.0)" style="padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+            <input id="diaryLon" type="number" step="0.000001" placeholder="Longitude (π.χ. 22.1)" style="padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+          </div>
+          <input id="diaryTags" type="text" placeholder="Tags: ELAS, FRP, χρυσός…" style="padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+          <button onclick="fieldGetGPS()" style="padding:7px;border-radius:8px;border:1px solid rgba(34,211,238,.3);background:rgba(34,211,238,.07);color:#22d3ee;font-size:12px;cursor:pointer;">📡 Χρήση GPS συσκευής</button>
+          <button onclick="fieldDiaryAdd()" style="padding:9px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer;font-size:13px;">➕ Προσθήκη</button>
+          <div id="diaryAddMsg" style="font-size:12px;color:var(--ok);display:none;text-align:center;"></div>
+        </div>
+      </div>
+
+      <!-- Entries list -->
+      <div class="card" style="overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <h3 style="margin:0;flex:1;font-size:14px;">📋 Καταχωρήσεις</h3>
+          <select id="diaryFilterType" onchange="fieldDiaryLoad()" style="padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+            <option value="">Όλες</option>
+            <option value="sign">🔣 Σημάδια</option>
+            <option value="cache">📦 Cache</option>
+            <option value="frp">📍 FRP</option>
+            <option value="find">✨ Ευρήματα</option>
+            <option value="anomaly">⚡ Ανωμαλίες</option>
+          </select>
+          <button onclick="fieldDiaryLoad()" style="padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">↺</button>
+        </div>
+        <div id="diaryList" style="overflow-y:auto;max-height:520px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────── TAB: MAP ──────── -->
+  <div id="field-tab-map" style="display:none;">
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span style="font-weight:700;font-size:14px;">🗺️ Χάρτης Ευρημάτων — Μεσσηνία</span>
+        <span style="font-size:12px;color:var(--muted);">OpenStreetMap · Κλικ σε marker για λεπτομέρειες</span>
+        <button onclick="fieldMarkersLoad()" style="margin-left:auto;padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">↺ Ανανέωση</button>
+      </div>
+      <!-- Leaflet map container -->
+      <div id="fieldMap" style="height:560px;width:100%;background:#0a0e1a;"></div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h3 style="margin:0 0 10px 0;font-size:14px;">📊 Σύνοψη Markers</h3>
+      <div id="fieldMapSummary" style="font-size:13px;color:var(--muted);">Φόρτωση…</div>
+    </div>
+  </div>
+
+</div>
+</section>
 
 <script id="nous-document-intake-ui">
 function _docStore(){
@@ -3531,6 +3688,307 @@ document.addEventListener("click", function(e){
     setTimeout(loadAppBuilderList, 100);
   }
 });
+
+// ══════════════════════════════════════════════════════════════
+// ΠΕΔΙΟ & ΧΑΡΤΗΣ — Field Diary / Image Analysis / Map
+// ══════════════════════════════════════════════════════════════
+
+// ── Tab switching ──
+function fieldTab(tab){
+  ["img","diary","map"].forEach(t=>{
+    const el = document.getElementById("field-tab-"+t);
+    const btn = document.getElementById("ftab-"+t);
+    if(!el||!btn) return;
+    const active = t===tab;
+    el.style.display = active ? "block" : "none";
+    if(active){
+      btn.style.borderColor="rgba(34,211,238,.5)";
+      btn.style.background="rgba(34,211,238,.15)";
+      btn.style.color="#22d3ee";
+    } else {
+      btn.style.borderColor="var(--line)";
+      btn.style.background="var(--panel2)";
+      btn.style.color="var(--muted)";
+    }
+  });
+  if(tab==="map") setTimeout(fieldInitMap, 100);
+  if(tab==="diary") fieldDiaryLoad();
+  if(tab==="img") fieldDiaryLoadRecent();
+}
+
+// ── Image Analysis ──
+let _fieldImgB64 = null;
+let _fieldImgMime = "image/jpeg";
+let _fieldLastAnalysis = "";
+
+function fieldPreviewImage(input){
+  const file = input.files[0];
+  if(!file) return;
+  _fieldImgMime = file.type || "image/jpeg";
+  const reader = new FileReader();
+  reader.onload = e => {
+    _fieldImgB64 = e.target.result.split(",")[1];
+    document.getElementById("fieldImgTag").src = e.target.result;
+    document.getElementById("fieldImgPreview").style.display = "block";
+    document.getElementById("fieldAnalysisResult").style.display = "none";
+    document.getElementById("fieldSaveToDiary").style.display = "none";
+    document.getElementById("fieldAnalysisStatus").textContent = "✅ Εικόνα φορτώθηκε — πάτα «Ανάλυση AI»";
+  };
+  reader.readAsDataURL(file);
+}
+
+function fieldDropImage(e){
+  e.preventDefault();
+  document.getElementById("fieldDropZone").style.borderColor="";
+  const file = e.dataTransfer.files[0];
+  if(!file || !file.type.startsWith("image/")) return;
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  const inp = document.getElementById("fieldImgInput");
+  inp.files = dt.files;
+  fieldPreviewImage(inp);
+}
+
+async function fieldAnalyzeImage(){
+  if(!_fieldImgB64){
+    alert("Ανέβασε πρώτα μια εικόνα.");
+    return;
+  }
+  const analysisType = document.getElementById("fieldAnalysisType").value;
+  const extraCtx = document.getElementById("fieldImgExtraCtx").value.trim();
+  const status = document.getElementById("fieldAnalysisStatus");
+  const result = document.getElementById("fieldAnalysisResult");
+  const saveDiv = document.getElementById("fieldSaveToDiary");
+
+  status.textContent = "⏳ Ο ΝΟΥΣ αναλύει την εικόνα…";
+  result.style.display = "none";
+  saveDiv.style.display = "none";
+
+  try {
+    const r = await fetch("/field/analyze-image", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        image_b64: _fieldImgB64,
+        mime: _fieldImgMime,
+        analysis_type: analysisType,
+        context: extraCtx
+      })
+    });
+    const d = await r.json();
+    if(d.ok && d.analysis){
+      _fieldLastAnalysis = d.analysis;
+      result.innerHTML = "<div style='white-space:pre-wrap;'>"+escHtml(d.analysis)+"</div>"
+        + "<div style='margin-top:8px;font-size:11px;color:var(--muted);'>🤖 "+escHtml(d.model||"")+"</div>";
+      result.style.display = "block";
+      status.textContent = "✅ Ανάλυση ολοκληρώθηκε";
+      saveDiv.style.display = "block";
+    } else {
+      status.textContent = "⚠️ " + (d.error||"Σφάλμα ανάλυσης");
+    }
+  } catch(e){
+    status.textContent = "⚠️ " + e;
+  }
+}
+
+async function fieldSaveAnalysis(){
+  const title = document.getElementById("fieldSaveTitle").value.trim();
+  if(!title){ alert("Δώσε τίτλο για την καταχώρηση."); return; }
+  const lat = parseFloat(document.getElementById("fieldSaveLat").value)||null;
+  const lon = parseFloat(document.getElementById("fieldSaveLon").value)||null;
+  const atype = document.getElementById("fieldAnalysisType").value;
+  const typeMap = {signs:"sign",terrain:"terrain",map:"note",rock:"sign",artifact:"find",general:"note"};
+  const msg = document.getElementById("fieldSaveMsg");
+  try {
+    const r = await fetch("/field/add",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        title, note: _fieldLastAnalysis.substring(0,1000),
+        lat, lon, entry_type: typeMap[atype]||"note",
+        analysis: _fieldLastAnalysis, tags:["image_analysis"]
+      })
+    });
+    const d = await r.json();
+    if(d.ok){ msg.textContent="✅ Αποθηκεύτηκε στο ημερολόγιο!"; msg.style.display="block"; }
+  } catch(e){ msg.textContent="⚠️ "+e; msg.style.display="block"; }
+  setTimeout(()=>{ msg.style.display="none"; }, 3000);
+}
+
+function escHtml(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+async function fieldDiaryLoadRecent(){
+  const el = document.getElementById("fieldRecentAnalyses");
+  if(!el) return;
+  try {
+    const d = await getJson("/field/list?limit=5&type=sign");
+    const items = (d.entries||[]).concat(await getJson("/field/list?limit=3&type=find").then(x=>x.entries||[]));
+    if(!items.length){ el.textContent="Δεν υπάρχουν καταχωρήσεις ακόμα."; return; }
+    el.innerHTML = items.slice(0,5).map(e=>`
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);">
+        <span style="font-size:18px;">${diaryTypeIcon(e.type)}</span>
+        <div>
+          <div style="font-weight:600;font-size:13px;">${escHtml(e.title)}</div>
+          <div style="font-size:12px;color:var(--muted);">${(e.note||"").substring(0,80)}…</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${e.timestamp.substring(0,10)}</div>
+        </div>
+      </div>`).join("");
+  } catch(e){ el.textContent="—"; }
+}
+
+// ── Field Diary ──
+function diaryTypeIcon(t){
+  return {sign:"🔣",cache:"📦",frp:"📍",irp:"🗺️",terrain:"🏔️",anomaly:"⚡",find:"✨",note:"📝"}[t]||"📝";
+}
+
+async function fieldDiaryLoad(){
+  const el = document.getElementById("diaryList");
+  if(!el) return;
+  el.innerHTML = "<div style='color:var(--muted);font-size:13px;'>⏳ Φόρτωση…</div>";
+  const ft = document.getElementById("diaryFilterType");
+  const typeQ = ft ? ft.value : "";
+  try {
+    const url = "/field/list?limit=80" + (typeQ ? "&type="+typeQ : "");
+    const d = await getJson(url);
+    const entries = d.entries||[];
+    if(!entries.length){ el.innerHTML="<div style='color:var(--muted);font-size:13px;padding:12px 0;'>Δεν υπάρχουν καταχωρήσεις ακόμα.</div>"; return; }
+    el.innerHTML = entries.map(e=>`
+      <div style="background:var(--panel2);border-radius:10px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);">
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <span style="font-size:20px;flex-shrink:0;">${diaryTypeIcon(e.type)}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:13px;">${escHtml(e.title)}</div>
+            ${e.note ? `<div style="font-size:12px;color:var(--muted);margin-top:2px;white-space:pre-wrap;">${escHtml(e.note.substring(0,200))}${e.note.length>200?"…":""}</div>` : ""}
+            <div style="display:flex;gap:12px;margin-top:4px;flex-wrap:wrap;">
+              ${e.lat!==null ? `<span style="font-size:11px;color:#22d3ee;">📍 ${e.lat.toFixed(5)}, ${e.lon.toFixed(5)}</span>` : ""}
+              ${(e.tags||[]).map(t=>`<span class="pill">${escHtml(t)}</span>`).join("")}
+              <span style="font-size:11px;color:var(--muted);">${e.timestamp.substring(0,16).replace("T"," ")}</span>
+            </div>
+          </div>
+          <button onclick="fieldDiaryDelete('${e.id}')" style="padding:3px 8px;border-radius:6px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.07);color:#ef4444;font-size:11px;cursor:pointer;flex-shrink:0;">✕</button>
+        </div>
+      </div>`).join("");
+  } catch(e){ el.innerHTML="<div style='color:var(--bad);'>⚠️ "+escHtml(String(e))+"</div>"; }
+}
+
+async function fieldDiaryAdd(){
+  const title = document.getElementById("diaryTitle").value.trim();
+  if(!title){ alert("Δώσε τίτλο."); return; }
+  const note  = document.getElementById("diaryNote").value.trim();
+  const type  = document.getElementById("diaryType").value;
+  const lat   = parseFloat(document.getElementById("diaryLat").value)||null;
+  const lon   = parseFloat(document.getElementById("diaryLon").value)||null;
+  const tags  = document.getElementById("diaryTags").value.split(",").map(s=>s.trim()).filter(Boolean);
+  const msg   = document.getElementById("diaryAddMsg");
+  try {
+    const r = await fetch("/field/add",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({title, note, lat, lon, entry_type:type, tags})
+    });
+    const d = await r.json();
+    if(d.ok){
+      msg.textContent="✅ Αποθηκεύτηκε!"; msg.style.display="block";
+      document.getElementById("diaryTitle").value="";
+      document.getElementById("diaryNote").value="";
+      document.getElementById("diaryTags").value="";
+      fieldDiaryLoad();
+      fieldMarkersLoad();
+      setTimeout(()=>msg.style.display="none",2500);
+    }
+  } catch(e){ msg.textContent="⚠️ "+e; msg.style.display="block"; }
+}
+
+async function fieldDiaryDelete(id){
+  if(!confirm("Διαγραφή καταχώρησης;")) return;
+  await fetch("/field/delete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});
+  fieldDiaryLoad();
+  fieldMarkersLoad();
+}
+
+function fieldGetGPS(){
+  if(!navigator.geolocation){ alert("GPS δεν υποστηρίζεται."); return; }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    document.getElementById("diaryLat").value = pos.coords.latitude.toFixed(6);
+    document.getElementById("diaryLon").value = pos.coords.longitude.toFixed(6);
+  }, err=>alert("GPS σφάλμα: "+err.message));
+}
+
+// ── Leaflet Map ──
+let _fieldMap = null;
+let _fieldMarkers = [];
+
+async function fieldMarkersLoad(){
+  try {
+    const d = await getJson("/field/markers");
+    _fieldMarkers = d.markers||[];
+    const el = document.getElementById("fieldMapSummary");
+    if(el){
+      const counts = {};
+      _fieldMarkers.forEach(m=>{ counts[m.type]=(counts[m.type]||0)+1; });
+      el.innerHTML = Object.entries(counts).map(([t,c])=>`<span class="pill">${diaryTypeIcon(t)} ${t}: <b>${c}</b></span>`).join(" ")
+        + `<span class="pill" style="color:#22d3ee;">Σύνολο: <b>${_fieldMarkers.length}</b></span>`;
+    }
+    if(_fieldMap) _refreshMapMarkers();
+  } catch(e){ console.error(e); }
+}
+
+function fieldInitMap(){
+  if(_fieldMap) return;
+  const el = document.getElementById("fieldMap");
+  if(!el) return;
+  // Load Leaflet CSS + JS dynamically
+  if(!document.getElementById("leaflet-css")){
+    const lnk = document.createElement("link");
+    lnk.id="leaflet-css"; lnk.rel="stylesheet";
+    lnk.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(lnk);
+  }
+  if(!window.L){
+    const sc = document.createElement("script");
+    sc.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    sc.onload = ()=>_buildMap();
+    document.head.appendChild(sc);
+  } else {
+    _buildMap();
+  }
+}
+
+function _buildMap(){
+  const el = document.getElementById("fieldMap");
+  if(!el||_fieldMap) return;
+  // Center on Messenia, Greece
+  _fieldMap = L.map("fieldMap").setView([37.05, 22.10], 10);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    maxZoom:18,
+    attribution:'© <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+  }).addTo(_fieldMap);
+  _fieldMap.on("click", e=>{
+    // Auto-fill lat/lon in diary form
+    document.getElementById("diaryLat").value = e.latlng.lat.toFixed(6);
+    document.getElementById("diaryLon").value = e.latlng.lng.toFixed(6);
+  });
+  _refreshMapMarkers();
+}
+
+function _refreshMapMarkers(){
+  if(!_fieldMap) return;
+  _fieldMap.eachLayer(l=>{ if(l instanceof L.Marker) _fieldMap.removeLayer(l); });
+  const colorMap = {
+    sign:"#22d3ee",cache:"#fbbf24",frp:"#a78bfa",irp:"#60a5fa",
+    terrain:"#86efac",anomaly:"#f87171",find:"#fde68a",note:"#94a3b8"
+  };
+  _fieldMarkers.forEach(m=>{
+    const color = colorMap[m.type]||"#94a3b8";
+    const icon = L.divIcon({
+      className:"",
+      html:`<div style="background:${color};border-radius:50%;width:14px;height:14px;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:9px;">${m.icon}</div>`,
+      iconSize:[18,18], iconAnchor:[9,9]
+    });
+    L.marker([m.lat,m.lon],{icon})
+      .bindPopup(`<b>${escHtml(m.icon)} ${escHtml(m.title)}</b><br/><small style="color:#888;">${m.ts}</small>${m.note?`<br/><small>${escHtml(m.note)}</small>`:""}`)
+      .addTo(_fieldMap);
+  });
+}
+
 </script>
 
 </body>

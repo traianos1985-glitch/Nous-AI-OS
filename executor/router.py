@@ -13,6 +13,8 @@ from executor.conversation_title_engine import generate_conversation_title, auto
 from executor.knowledge_memory_engine import status as knowledge_memory_status, search_knowledge, remember_knowledge, search_code_lessons
 from executor.patch_quality_gate import quality_gate
 from executor.error_learning_engine import status as error_learning_status, search_errors, search_solutions
+from executor.field_engine import add_entry, list_entries, delete_entry, get_map_markers
+from executor.remote_llm import ask_with_image
 from executor.nous_ui import nous_dashboard_html
 from executor.kernel import handle
 from executor.control_center import CONTROL_CENTER_HTML
@@ -2577,6 +2579,149 @@ def remote_error_learning_search_errors_route():
 def remote_error_learning_search_solutions_route():
     data = request.get_json(silent=True) or {}
     return jsonify(search_solutions(data.get("query", ""), int(data.get("limit", 8))))
+
+
+# ─────────────────────────────────────────────
+# ΠΕΔΙΟ & ΧΑΡΤΗΣ — Field Diary / Vision AI
+# ─────────────────────────────────────────────
+
+FIELD_VISION_PROMPTS = {
+    "signs": (
+        "Είσαι ειδικός σε παραδοσιακά σημάδια θησαυρού και κρυφής επικοινωνίας στην Ελλάδα. "
+        "Αναλύει αυτή την εικόνα και εντόπισε: "
+        "1) Συμβολισμοί — βυζαντινά, οθωμανικά, ή ΕΛΑΣ/ΕΑΜ σημάδια "
+        "2) Κατεύθυνση — βέλη, γραμμές, σχήματα που δείχνουν κατεύθυνση ή απόσταση "
+        "3) Τύπος σημαδιού — FRP, IRP, cache marker, ή αναγνωριστικό "
+        "4) Τεχνική — σκαλιστό, βαμμένο, φυσικό σχήμα "
+        "5) Ερμηνεία — τι πιθανολογεί να σημαίνει στο πλαίσιο κρυμμένου θησαυρού "
+        "Να είσαι συγκεκριμένος και πρακτικός."
+    ),
+    "terrain": (
+        "Είσαι ειδικός σε ανάλυση εδάφους και γεωμορφολογία. "
+        "Εξέτασε αυτή την εικόνα τοπίου/εδάφους και αναφέρου: "
+        "1) Ανωμαλίες εδάφους — ασυνήθιστα υψώματα, βυθίσματα, αλλαγές χρώματος χώματος "
+        "2) Βλάστηση — ανώμαλη ανάπτυξη που μπορεί να υποδηλώνει διατάραξη εδάφους "
+        "3) Τεχνητά χαρακτηριστικά — παλιά τοιχοδομία, κατεδαφισμένα κτίσματα, μονοπάτια "
+        "4) Υδρολογία — κανάλια, φρέατα, πηγές "
+        "5) Πιθανές θέσεις ενδιαφέροντος για ανασκαφή"
+    ),
+    "map": (
+        "Είσαι ειδικός αναγνώστης παλαιών χαρτών και χαρτογραφίας. "
+        "Αναλύσε αυτόν τον χάρτη: "
+        "1) Εποχή και στυλ χαρτογράφησης "
+        "2) Τοπωνύμια — αναγνώρισε ονόματα τοποθεσιών "
+        "3) Σύμβολα — εκκλησίες, πηγές, κτήρια, μονοπάτια "
+        "4) Σημεία αναφοράς IRP/FRP αν υπάρχουν "
+        "5) Σχέση με σύγχρονη γεωγραφία Μεσσηνίας"
+    ),
+    "rock": (
+        "Είσαι ειδικός σε επιγραφές και χαράγματα σε πέτρα. "
+        "Εξέτασε αυτή την εικόνα και αναφέρου: "
+        "1) Τύπος χαράγματος — σύμβολα, γράμματα, αριθμοί, σχήματα "
+        "2) Εποχή — πότε πιθανόν έγινε (βυζαντινό, οθωμανικό, νεότερο) "
+        "3) Γλώσσα/αλφάβητο αν αναγνωρίζεται "
+        "4) Σημασία στο πλαίσιο σημαδιών θησαυρού "
+        "5) Προτεινόμενες επόμενες ενέργειες έρευνας"
+    ),
+    "artifact": (
+        "Είσαι ειδικός σε αρχαιολογικά και ιστορικά ευρήματα Μεσσηνίας. "
+        "Αναγνώρισε αυτό το αντικείμενο: "
+        "1) Τύπος — νόμισμα, κοσμήματα, σκεύος, όπλο, άλλο "
+        "2) Εποχή και προέλευση "
+        "3) Υλικό — μέταλλο, κεραμικό, πέτρα "
+        "4) Κατάσταση διατήρησης "
+        "5) Ιστορική και αρχαιολογική σημασία"
+    ),
+    "general": (
+        "Είσαι ο ΝΟΥΣ, ειδικός σύμβουλος ηλεκτρονικής ανίχνευσης και θησαυροθηρίας στη Μεσσηνία. "
+        "Αναλύσε αυτή την εικόνα από κάθε πιθανή οπτική γωνία: "
+        "σημάδια, σύμβολα, τοπογραφία, ανωμαλίες εδάφους, ιστορικά στοιχεία. "
+        "Δώσε πρακτικές συστάσεις για την έρευνα."
+    ),
+}
+
+
+@app.route("/field/analyze-image", methods=["POST"])
+def field_analyze_image_route():
+    try:
+        data = request.get_json(silent=True) or {}
+        image_b64 = data.get("image_b64", "")
+        mime = data.get("mime", "image/jpeg")
+        analysis_type = data.get("analysis_type", "general")
+        extra_context = data.get("context", "").strip()
+
+        if not image_b64:
+            return jsonify({"ok": False, "error": "Δεν δόθηκε εικόνα."})
+
+        system_prompt = FIELD_VISION_PROMPTS.get(analysis_type, FIELD_VISION_PROMPTS["general"])
+        prompt = "Αναλύσε αυτή την εικόνα."
+        if extra_context:
+            prompt += f"\n\nΠλαίσιο από χρήστη: {extra_context}"
+
+        result = ask_with_image(prompt, image_b64, mime, system=system_prompt)
+        if result.get("ok"):
+            return jsonify({
+                "ok": True,
+                "analysis": result.get("response", ""),
+                "model": result.get("model", ""),
+            })
+        else:
+            return jsonify({"ok": False, "error": result.get("error", "Σφάλμα ανάλυσης")})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+@app.route("/field/add", methods=["POST"])
+def field_add_route():
+    try:
+        data = request.get_json(silent=True) or {}
+        title = data.get("title", "").strip()
+        if not title:
+            return jsonify({"ok": False, "error": "Ο τίτλος είναι υποχρεωτικός."})
+        result = add_entry(
+            title=title,
+            note=data.get("note", ""),
+            lat=data.get("lat"),
+            lon=data.get("lon"),
+            entry_type=data.get("entry_type", "note"),
+            tags=data.get("tags") or [],
+            analysis=data.get("analysis", ""),
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+@app.route("/field/list", methods=["GET"])
+def field_list_route():
+    try:
+        limit = int(request.args.get("limit", 80))
+        entry_type = request.args.get("type", None) or None
+        entries = list_entries(limit=limit, entry_type=entry_type)
+        return jsonify({"ok": True, "entries": entries, "count": len(entries)})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e), "entries": []})
+
+
+@app.route("/field/delete", methods=["POST"])
+def field_delete_route():
+    try:
+        data = request.get_json(silent=True) or {}
+        entry_id = data.get("id", "")
+        if not entry_id:
+            return jsonify({"ok": False, "error": "Δεν δόθηκε id."})
+        return jsonify(delete_entry(entry_id))
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+@app.route("/field/markers", methods=["GET"])
+def field_markers_route():
+    try:
+        markers = get_map_markers()
+        return jsonify({"ok": True, "markers": markers, "count": len(markers)})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e), "markers": []})
 
 
 if __name__ == "__main__":
