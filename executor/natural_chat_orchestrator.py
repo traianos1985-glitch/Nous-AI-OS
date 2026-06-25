@@ -187,6 +187,33 @@ def natural_chat_answer(message: str) -> dict[str, Any] | None:
                     answer = "Πες μου τον στόχο! Π.χ.: φτιάξε αποστολή βελτίωσε το UI"
                 return pack(answer, "mission_guide")
 
+    # --- Code generation ---
+    code_triggers = [
+        "γράψε κώδικα", "γραψε κωδικα", "φτιάξε script", "φτιαξε script",
+        "φτιάξε κώδικα", "φτιαξε κωδικα", "κώδικα για", "κωδικα για",
+        "python script", "python κώδικα", "python κωδικα",
+        "γράψε python", "γραψε python", "δημιούργησε κώδικα", "δημιουργησε κωδικα",
+        "write code", "generate code", "create script",
+        "φτιάξε πρόγραμμα", "φτιαξε προγραμμα", "γράψε πρόγραμμα", "γραψε προγραμμα",
+    ]
+    if any(x in m for x in code_triggers):
+        try:
+            from executor.remote_llm import ask_remote_llm
+            prompt = (
+                f"Ο χρήστης ζητάει:\n{message}\n\n"
+                "Γράψε ολοκληρωμένο Python κώδικα που να λύνει ακριβώς αυτό το πρόβλημα. "
+                "Πρόσθεσε σύντομη επεξήγηση στα ελληνικά πριν και μετά τον κώδικα. "
+                "Χρησιμοποίησε markdown code blocks (```python ... ```)."
+            )
+            res = ask_remote_llm(prompt)
+            if res.get("success") and res.get("response"):
+                answer = res["response"]
+            else:
+                answer = "Δεν μπόρεσα να παράγω κώδικα αυτή τη στιγμή. Δοκίμασε πάλι."
+        except Exception as e:
+            answer = f"Σφάλμα κατά τη δημιουργία κώδικα: {e}"
+        return pack(answer, "code_generation")
+
     # --- Scheduler από φυσική γλώσσα ---
     sched_triggers = [
         "προγραμμάτισε", "πρόγραμμάτισε", "programmatise", "schedule",

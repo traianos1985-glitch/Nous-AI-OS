@@ -353,6 +353,31 @@ def safe_llm_fallback() -> str:
     )
 
 
+def document_context_for_llm(message: str) -> str:
+    """Search stored documents and return relevant excerpts for LLM context.
+    Always runs if documents exist — no keyword trigger needed."""
+    try:
+        from executor.document_intelligence_engine import answer_from_documents, status as doc_status
+        st = doc_status()
+        if not st.get("chunks", 0):
+            return ""
+        result = answer_from_documents(message, limit=4)
+        sources = result.get("sources", [])
+        if not sources:
+            return ""
+        parts = []
+        for src in sources[:3]:
+            excerpt = str(src.get("excerpt", "")).strip()
+            doc_name = src.get("document", "")
+            if excerpt:
+                parts.append(f"[{doc_name}]: {excerpt[:500]}")
+        if parts:
+            return "Σχετικά αποσπάσματα από ανεβασμένα έγγραφα:\n" + "\n\n".join(parts)
+    except Exception:
+        pass
+    return ""
+
+
 def build_llm_turns(message: str, conversation_id: str | None = None) -> list[dict]:
     """Build multi-turn messages list from recent chat history."""
     memory = load_json(CHAT_MEMORY, [])
@@ -390,8 +415,11 @@ def try_llm_answer(message: str, conversation_id: str | None = None) -> str | No
 
     code_ctx = coding_context(message)
     eng_ctx = engineering_memory_context(message)
+    doc_ctx = document_context_for_llm(message)
 
     system_extra = ""
+    if doc_ctx:
+        system_extra += f"\n\n{doc_ctx}"
     if code_ctx:
         system_extra += f"\n\nΠλαίσιο κώδικα:\n{code_ctx}"
     if eng_ctx:

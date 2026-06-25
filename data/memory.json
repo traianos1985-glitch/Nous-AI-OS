@@ -4,588 +4,6 @@
     "changed": []
   },
   {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380155.6101847,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380155.6141305,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380155.618335,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380155.6212347,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380156.2215493,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380156.2359648,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380156.8342638,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380156.8421695,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380168.9833515,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380168.987888,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380168.9922523,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380168.9942791,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380169.6413906,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380169.6596947,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380170.2421978,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380170.2498906,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380567.5428002,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380567.5513577,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380567.5545194,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380567.5565076,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380568.2403557,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380568.256164,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380568.8533716,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380568.8613424,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380570.1312656,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380570.1345222,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380570.1389043,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380570.1414828,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "research_query",
-    "query": "Python Flask",
-    "learn": false
-  },
-  {
-    "event": "browser_read_url",
-    "url": "https://example.com",
-    "learn": false
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380570.7473574,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380570.7688346,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "code_health",
-    "ok": true
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380571.3931632,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
-    "event": "android_sense",
-    "data": {
-      "time": 1782380571.4070797,
-      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
-      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
-      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
-    }
-  },
-  {
-    "event": "goal_progress_refreshed",
-    "changed": []
-  },
-  {
     "event": "android_sense",
     "data": {
       "time": 1782380572.0050805,
@@ -1156,6 +574,588 @@
   {
     "event": "goal_progress_refreshed",
     "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.6810994,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.7141104,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.7229888,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.7298875,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.741969,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.744855,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.7481568,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380817.7507668,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380818.8155909,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380818.8426447,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380818.9248106,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380818.9526758,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380819.5125706,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380819.5232346,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380819.626581,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380819.6393154,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380821.2608805,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380821.2745078,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380821.2913895,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380821.294757,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380822.186208,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380822.20376,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380822.9148135,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380822.9254391,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380826.7438266,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380826.7465248,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380826.7499108,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380826.7524426,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380827.3791447,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380827.3966916,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380827.9862027,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782380827.9929729,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
   },
   {
     "event": "research_query",
