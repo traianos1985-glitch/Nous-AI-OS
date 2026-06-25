@@ -1373,8 +1373,6 @@ function closeMenu(){document.getElementById("sidebar").classList.remove("open")
 function renderObject(obj){document.getElementById("raw").textContent=JSON.stringify(obj,null,2)}
 function feed(text){document.getElementById("activity").innerHTML=new Date().toLocaleTimeString()+" — "+text+"<br>"+document.getElementById("activity").innerHTML}
 function kv(k,v){return `<div class="kv"><span>${k}</span><b>${v}</b></div>`}
-async function getJson(path){const r=await fetch(path);return await r.json()}
-async function postJson(path,body={}){const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json","X-NOUS-TOKEN":token()},body:JSON.stringify(body)});return await r.json()}
 function addMsg(text,cls=""){const c=document.getElementById("chatlog");const d=document.createElement("div");d.className="msg "+cls;if(window.NOUS_RENDER_CLEAN_MESSAGE){window.NOUS_RENDER_CLEAN_MESSAGE(d,text)}else{d.textContent=(typeof text==="object"?JSON.stringify(text):String(text))}c.appendChild(d);c.scrollTop=c.scrollHeight}
 
 function showSection(id){

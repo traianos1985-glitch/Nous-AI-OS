@@ -2659,7 +2659,7 @@ def field_analyze_image_route():
             prompt += f"\n\nΠλαίσιο από χρήστη: {extra_context}"
 
         result = ask_with_image(prompt, image_b64, mime, system=system_prompt)
-        if result.get("ok"):
+        if result.get("success") or result.get("ok"):
             return jsonify({
                 "ok": True,
                 "analysis": result.get("response", ""),

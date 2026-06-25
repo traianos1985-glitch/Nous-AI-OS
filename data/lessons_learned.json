@@ -1157,5 +1157,35 @@
       "auto_mission_scheduler"
     ],
     "created": 1782389307.886491
+  },
+  {
+    "id": 1782389558900865528,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1782389558.9008672
+  },
+  {
+    "id": 1782389568395202917,
+    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782389568.3952045
   }
 ]
