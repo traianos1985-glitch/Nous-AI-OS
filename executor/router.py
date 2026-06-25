@@ -296,6 +296,34 @@ def larmor_inject_knowledge():
             skipped += 1
     return jsonify({"ok": True, "stored": stored, "skipped": skipped, "total": len(chunks)})
 
+@app.route("/larmor/inject-cache-knowledge", methods=["POST"])
+def inject_cache_knowledge():
+    """Inject US Army SF Caching Techniques (ST 31-205) knowledge into NOUS brain."""
+    from executor.knowledge_memory_engine import remember_knowledge
+    from executor.cache_knowledge import get_cache_knowledge_chunks
+    chunks = get_cache_knowledge_chunks()
+    stored, skipped = 0, 0
+    for chunk in chunks:
+        result = remember_knowledge(
+            question=chunk["question"],
+            answer=chunk["answer"],
+            sources=[{"document": "SF_Caching_Techniques_ST31-205"}],
+            kind="research",
+            confidence="high",
+            tags=chunk.get("tags", ["cache", "WWII", "αντάρτες"]),
+        )
+        if result.get("stored"):
+            stored += 1
+        else:
+            skipped += 1
+    return jsonify({
+        "ok": True,
+        "stored": stored,
+        "skipped": skipped,
+        "total": len(chunks),
+        "source": "US Army SF Caching Techniques ST 31-205",
+    })
+
 @app.route("/health")
 def health():
     return jsonify(health_status())
