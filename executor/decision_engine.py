@@ -50,7 +50,7 @@ def decide_next_action():
     knowledge = knowledge_status()
     goal_progress = goal_progress_summary()
 
-    if int(battery.get("level", 100)) < 25 and str(battery.get("plugged", "")).upper() == "UNPLUGGED":
+    if int(battery.get("level") or 100) < 25 and str(battery.get("plugged", "")).upper() == "UNPLUGGED":
         decision = {
             "action": "pause",
             "reason": "low_battery",

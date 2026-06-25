@@ -46,7 +46,10 @@ def code_health():
         if os.path.exists(path):
             results[path] = run_cmd(f"python -m py_compile {path}")
 
-    git = run_cmd("git status --short")
+    try:
+        git = run_cmd("git --no-optional-locks status --short")
+    except Exception as e:
+        git = {"ok": False, "error": str(e)}
 
     output = {
         "time": time.time(),

@@ -1374,16 +1374,43 @@ async function createWorkspaceMission(){const prompt=document.getElementById("mi
 
 async function sendPrompt(){
   const p=document.getElementById("prompt"); const text=p.value.trim(); if(!text)return; p.value=""; addMsg(text,"user");
-  if(text==="/status"){const d=await getJson("/remote/status");renderObject(d);addMsg(JSON.stringify(d,null,2));return}
-  if(text==="/home"){const d=await postJson("/remote/companion/home",{});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
-  if(text==="/back"){const d=await postJson("/remote/companion/back",{});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
-  if(text.startsWith("/mission ")){const d=await postJson("/remote/workspace/create-mission",{prompt:text.slice(9)});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
-  if(text.startsWith("/plan ")){const d=await postJson("/remote/executive/plan",{prompt:text.slice(6)});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
-  if(text.startsWith("/run ")){const d=await postJson("/remote/executive/run",{prompt:text.slice(5),max_steps:3,execute:true});renderObject(d);addMsg(JSON.stringify(d,null,2));return}
+
+  if(text==="/status"){
+    const d=await getJson("/remote/status");
+    renderObject(d);
+    const lines=[];
+    if(d.system) lines.push("Σύστημα: "+d.system);
+    if(d.goals) lines.push("Goals: "+JSON.stringify(d.goals));
+    if(d.missions) lines.push("Missions: "+JSON.stringify(d.missions));
+    addMsg(lines.length ? lines.join("\n") : "NOUS AI OS — Online ✅","bot");
+    return;
+  }
+
+  if(text==="/home"){const d=await postJson("/remote/companion/home",{});renderObject(d);addMsg(d.ok?"Android Home ✅":"Companion unavailable","bot");return}
+  if(text==="/back"){const d=await postJson("/remote/companion/back",{});renderObject(d);addMsg(d.ok?"Android Back ✅":"Companion unavailable","bot");return}
+
+  if(text.startsWith("/mission ")){
+    const d=await postJson("/remote/workspace/create-mission",{prompt:text.slice(9)});
+    renderObject(d);
+    addMsg(d,"bot");
+    return;
+  }
+  if(text.startsWith("/plan ")){
+    const d=await postJson("/remote/executive/plan",{prompt:text.slice(6)});
+    renderObject(d);
+    addMsg(d,"bot");
+    return;
+  }
+  if(text.startsWith("/run ")){
+    const d=await postJson("/remote/executive/run",{prompt:text.slice(5),max_steps:3,execute:true});
+    renderObject(d);
+    addMsg(d,"bot");
+    return;
+  }
 
   const d=await postJson("/remote/executive/run",{prompt:text,max_steps:2,execute:true});
   renderObject(d);
-  addMsg(JSON.stringify(d,null,2));
+  addMsg(d,"bot");
 }
 
 
