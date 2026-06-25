@@ -2652,7 +2652,13 @@ def apps_list():
 
 @app.route("/apps/<name>/")
 def open_generated_app(name):
-    return send_from_directory(f"generated_apps/{name}", "index.html")
+    abs_dir = os.path.join(os.getcwd(), "generated_apps", name)
+    return send_from_directory(abs_dir, "index.html")
+
+@app.route("/apps/<name>/<path:filename>")
+def open_generated_app_asset(name, filename):
+    abs_dir = os.path.join(os.getcwd(), "generated_apps", name)
+    return send_from_directory(abs_dir, filename)
 
 # ── App Builder API ─────────────────────────────────────────────────────────
 
