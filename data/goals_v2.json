@@ -5,7 +5,7 @@
     "description": "NOUS should survive device loss and run from cloud.",
     "priority": 1,
     "status": "active",
-    "progress": 45,
+    "progress": 50,
     "missions": [],
     "notes": [
       {
@@ -42,11 +42,16 @@
         "time": 1782379362.537314,
         "note": "Goal progress intelligence recalibrated progress from 40% to 45%.",
         "evidence_count": 8
+      },
+      {
+        "time": 1782379749.8031247,
+        "note": "Goal progress intelligence recalibrated progress from 45% to 50%.",
+        "evidence_count": 9
       }
     ],
     "next_actions": [],
     "created": 1780327547.9287705,
-    "updated": 1782379362.5373127
+    "updated": 1782379749.803124
   },
   {
     "id": 1780327547945471638,

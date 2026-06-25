@@ -1,7 +1,12 @@
 from __future__ import annotations
 
 import re
+import json
+import time
+from pathlib import Path
 from typing import Any
+
+DATA = Path("data")
 
 def norm(text: str) -> str:
     return re.sub(r"\s+", " ", str(text or "").strip().lower())
@@ -20,35 +25,184 @@ def is_natural_chat(message: str) -> bool:
         "τι μπορείς να κάνεις", "τι μπορεις να κανεις",
         "τι είναι να κάνεις", "τι ειναι να κανεις",
         "τι μπορείς", "τι μπορεις",
+        "κατάσταση", "κατασταση", "status",
+        "missions", "αποστολές", "αποστολες",
+        "στόχοι", "στοχοι", "goals",
+        "πόσα", "ποσα", "πόσες", "ποσες",
+        "τι τρέχει", "τι τρεχει",
+        "τι γίνεται", "τι γινεται",
+        "πρόοδος", "προοδος", "progress",
     ]
     return any(x in m for x in patterns)
+
+
+def _load(path: Path, default):
+    try:
+        if path.exists():
+            return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        pass
+    return default
+
+
+def _system_status_answer() -> str:
+    missions_data = _load(DATA / "missions.json", [])
+    goals_data = _load(DATA / "goals_v2.json", {})
+    brain_data = _load(DATA / "brain_state.json", {})
+
+    total_missions = len(missions_data) if isinstance(missions_data, list) else 0
+    active = sum(1 for m in missions_data if isinstance(m, dict) and m.get("status") in ("active", "running")) if isinstance(missions_data, list) else 0
+    done = sum(1 for m in missions_data if isinstance(m, dict) and m.get("status") == "done") if isinstance(missions_data, list) else 0
+    blocked = sum(1 for m in missions_data if isinstance(m, dict) and m.get("status") == "blocked") if isinstance(missions_data, list) else 0
+
+    goals_list = goals_data.get("goals", []) if isinstance(goals_data, dict) else []
+    total_goals = len(goals_list)
+
+    brain_level = brain_data.get("level", "—") if isinstance(brain_data, dict) else "—"
+
+    lines = ["**Κατάσταση NOUS AI OS** ✅", ""]
+    lines.append(f"• Σύστημα: **online**")
+    lines.append(f"• Επίπεδο εγκεφάλου: **{brain_level}**")
+    lines.append(f"• Αποστολές: **{total_missions}** συνολικά — {active} ενεργές, {done} ολοκληρωμένες, {blocked} blocked")
+    lines.append(f"• Στόχοι: **{total_goals}** καταγεγραμμένοι")
+
+    if total_goals > 0 and isinstance(goals_list, list):
+        for g in goals_list[:3]:
+            title = g.get("title") or g.get("goal") or str(g) if isinstance(g, dict) else str(g)
+            lines.append(f"  — {title}")
+
+    lines.append("")
+    lines.append("Πες μου τι θέλεις να κάνουμε ή ρώτησέ με οτιδήποτε.")
+    return "\n".join(lines)
+
+
+def _missions_answer() -> str:
+    missions_data = _load(DATA / "missions.json", [])
+    if not isinstance(missions_data, list) or not missions_data:
+        return "Δεν υπάρχουν αποστολές ακόμα. Μπορείς να δημιουργήσεις μία γράφοντας /plan <στόχος>."
+
+    lines = [f"**Αποστολές** ({len(missions_data)} συνολικά):", ""]
+    for m in missions_data[-8:]:
+        if not isinstance(m, dict):
+            continue
+        title = m.get("title", "Αποστολή")
+        status = m.get("status", "άγνωστη")
+        emoji = {"active": "🔄", "running": "⚡", "done": "✅", "blocked": "❌", "pending": "⏳"}.get(status, "•")
+        lines.append(f"{emoji} **{title}** — {status}")
+
+    return "\n".join(lines)
+
+
+def _goals_answer() -> str:
+    goals_data = _load(DATA / "goals_v2.json", {})
+    goals_list = goals_data.get("goals", []) if isinstance(goals_data, dict) else []
+    if not goals_list:
+        return "Δεν υπάρχουν καταγεγραμμένοι στόχοι ακόμα. Γράψε: στόχος <τι θέλεις να πετύχεις>"
+
+    lines = [f"**Στόχοι** ({len(goals_list)} συνολικά):", ""]
+    for g in goals_list[:8]:
+        title = g.get("title") or g.get("goal") or str(g) if isinstance(g, dict) else str(g)
+        lines.append(f"🎯 {title}")
+
+    return "\n".join(lines)
 
 def natural_chat_answer(message: str) -> dict[str, Any] | None:
     m = norm(message)
 
+    # --- Ταυτότητα ---
     if any(x in m for x in ["με λένε", "με λενε", "εμένα με λένε", "εμενα με λενε"]):
-        answer = "Χάρηκα Τραϊανέ. Εμένα μπορείς να με λες ΝΟΥΣ. Είμαι ο προσωπικός σου AI βοηθός μέσα στο NOUS AI OS."
+        answer = "Χάρηκα! Εμένα μπορείς να με λες ΝΟΥΣ. Είμαι ο προσωπικός σου AI βοηθός μέσα στο NOUS AI OS."
         return pack(answer, "identity")
 
     if any(x in m for x in ["εσένα", "εσενα", "πως σε λένε", "πώς σε λένε", "πως σε λενε", "ποιος είσαι", "ποιος εισαι"]):
-        answer = "Εμένα με λένε ΝΟΥΣ. Είμαι ο προσωπικός σου AI βοηθός για συζήτηση, κώδικα, έρευνα, έγγραφα, μνήμη και αποστολές όταν μου το ζητάς ρητά."
+        answer = "Εμένα με λένε ΝΟΥΣ. Είμαι ο προσωπικός σου AI βοηθός για συζήτηση, κώδικα, έρευνα, έγγραφα, μνήμη και αποστολές. Ρώτα με ό,τι θέλεις στα ελληνικά!"
         return pack(answer, "identity")
 
-    if any(x in m for x in ["τι μπορείς", "τι μπορεις", "τι είναι να κάνεις", "τι ειναι να κανεις"]):
+    # --- Δυνατότητες ---
+    if any(x in m for x in ["τι μπορείς", "τι μπορεις", "τι κάνεις εσύ", "τι κανεις εσυ", "βοήθεια", "βοηθεια", "help"]):
         answer = (
-            "Μπορώ να σε βοηθήσω με φυσική συζήτηση, ερωτήσεις, κώδικα, αναζήτηση στο internet, "
-            "ανάγνωση URL, ανάλυση αρχείων που ανεβάζεις, μόνιμη μνήμη γνώσης και παλιές συνομιλίες. "
-            "Για αποστολές ή αλλαγές στο σύστημα θέλω ρητή εντολή όπως /plan ή /run."
+            "Μπορώ να σε βοηθήσω με:\n"
+            "• **Φυσική συζήτηση** — ρώτα με ό,τι θέλεις στα ελληνικά\n"
+            "• **Κώδικα** — ανάλυση, debug, βελτίωση\n"
+            "• **Αναζήτηση internet** — πες «ψάξε για...»\n"
+            "• **Έγγραφα** — ανέβασε PDF/Word και ρώτα γι' αυτό\n"
+            "• **Μνήμη** — θυμάμαι τις συνομιλίες μας\n"
+            "• **Αποστολές** — γράψε /plan <στόχος> για να δημιουργήσω αποστολή\n"
+            "• **Κατάσταση** — πες «κατάσταση» για live εικόνα συστήματος"
         )
         return pack(answer, "capabilities")
 
+    # --- Χαιρετισμοί ---
     if any(x in m for x in ["τι κάνεις", "τι κανεις", "πως είσαι", "πώς είσαι", "πως εισαι"]):
-        answer = "Είμαι εδώ φίλε μου και λειτουργώ κανονικά. Πες μου τι θέλεις να δούμε και θα το πιάσουμε βήμα-βήμα."
+        answer = "Είμαι εδώ και λειτουργώ κανονικά! Πες μου τι θέλεις να δούμε."
         return pack(answer, "normal_chat")
 
-    if any(x in m for x in ["καλημέρα", "καλημερα", "καλησπέρα", "καλησπερα", "γεια", "γειά"]):
-        answer = "Γεια σου φίλε μου. Είμαι έτοιμος. Τι θέλεις να δούμε;"
+    if any(x in m for x in ["καλημέρα", "καλημερα", "καλησπέρα", "καλησπερα", "γεια", "γειά", "hello", "hi"]):
+        answer = "Γεια σου! Είμαι έτοιμος. Τι θέλεις να δούμε;"
         return pack(answer, "normal_chat")
+
+    # --- Κατάσταση συστήματος ---
+    if any(x in m for x in [
+        "κατάσταση", "κατασταση", "status", "τι τρέχει", "τι τρεχει",
+        "τι γίνεται", "τι γινεται", "πρόοδος", "προοδος", "progress",
+        "πώς πάει", "πως παει", "τι έχουμε", "τι εχουμε"
+    ]):
+        return pack(_system_status_answer(), "system_status")
+
+    # --- Αποστολές ---
+    if any(x in m for x in [
+        "missions", "αποστολές", "αποστολες", "αποστολη", "αποστολή",
+        "πόσες αποστολές", "ποσες αποστολες", "τι αποστολές", "τι αποστολες",
+        "ποιες αποστολές", "ποιες αποστολες"
+    ]):
+        return pack(_missions_answer(), "missions_list")
+
+    # --- Στόχοι ---
+    if any(x in m for x in [
+        "στόχοι", "στοχοι", "goals", "στόχος", "στοχος",
+        "τι στόχους", "τι στοχους", "ποιοι στόχοι", "ποιοι στοχοι"
+    ]):
+        return pack(_goals_answer(), "goals_list")
+
+    # --- Δημιουργία αποστολής με φυσική γλώσσα ---
+    mission_triggers = [
+        "φτιάξε αποστολή", "φτιαξε αποστολη", "δημιούργησε αποστολή", "δημιουργησε αποστολη",
+        "κάνε αποστολή", "κανε αποστολη", "νέα αποστολή", "νεα αποστολη",
+        "ξεκίνα αποστολή", "ξεκινα αποστολη", "βάλε αποστολή", "βαλε αποστολη",
+        "θέλω αποστολή", "θελω αποστολη", "create mission", "new mission"
+    ]
+    if any(x in m for x in mission_triggers):
+        # Extract what comes after the trigger
+        for trigger in mission_triggers:
+            if trigger in m:
+                idx = m.index(trigger) + len(trigger)
+                goal = message[idx:].strip(" :—-")
+                if goal:
+                    answer = (
+                        f"Εντάξει! Για να δημιουργήσω αποστολή για «{goal}», "
+                        f"γράψε: /plan {goal}\n\n"
+                        f"Ή αν θέλεις να εκτελεστεί αμέσως: /run {goal}"
+                    )
+                else:
+                    answer = "Πες μου τον στόχο! Π.χ.: φτιάξε αποστολή βελτίωσε το UI"
+                return pack(answer, "mission_guide")
+
+    # --- Αυτοβελτίωση ---
+    if any(x in m for x in [
+        "αυτοβελτί", "αυτοβελτι", "self-improv", "βελτιώνεσαι", "βελτιωνεσαι",
+        "αναβαθμίζεσαι", "αναβαθμιζεσαι", "μαθαίνεις", "μαθαινεις",
+        "μάθηση", "μαθηση", "εξέλιξη", "εξελιξη", "evolution"
+    ]):
+        answer = (
+            "Ναι, έχω πραγματικό μηχανισμό αυτοβελτίωσης:\n\n"
+            "• **Patch system** — μπορώ να προτείνω αλλαγές σε συγκεκριμένα αρχεία μου\n"
+            "• **Απαιτεί έγκρισή σου** — για ασφάλεια, δεν τρέχω τίποτα χωρίς «ναι» από σένα\n"
+            "• **Learning engine** — αποθηκεύω λάθη και λύσεις στη μνήμη μου\n"
+            "• **Agent review** — μετά κάθε κύκλο, αξιολογώ τι έκανα\n\n"
+            "Δεν ξαναγράφω τον εαυτό μου αυτόνομα — αυτό είναι σκόπιμο για ασφάλεια. "
+            "Αλλά μπορώ να σου προτείνω patch για συγκεκριμένα modules αν με ρωτήσεις."
+        )
+        return pack(answer, "self_improvement_explain")
 
     return None
 

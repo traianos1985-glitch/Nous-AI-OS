@@ -1408,9 +1408,19 @@ async function sendPrompt(){
     return;
   }
 
-  const d=await postJson("/remote/executive/run",{prompt:text,max_steps:2,execute:true});
-  renderObject(d);
-  addMsg(d,"bot");
+  // Φυσική γλώσσα → brain/chat endpoint
+  try {
+    const r = await fetch("/chat", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({message: text, conversation_id: window.NOUS_ACTIVE_CONVERSATION_ID || ""})
+    });
+    const d = await r.json();
+    renderObject(d);
+    addMsg(d, "bot");
+  } catch(e) {
+    addMsg("Σφάλμα επικοινωνίας: " + e, "bot");
+  }
 }
 
 

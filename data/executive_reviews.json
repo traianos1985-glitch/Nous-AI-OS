@@ -1380,5 +1380,88 @@
       "cloud_ready_foundation": false,
       "device_control_foundation": true
     }
+  },
+  {
+    "id": 1782379754581281156,
+    "time": 1782379754.5812824,
+    "trigger": "scheduler_loop",
+    "summary": {
+      "goals_total": 4,
+      "goals_active": 3,
+      "missions_total": 1,
+      "missions_active": 0,
+      "missions_blocked": 1,
+      "approvals_pending": 1,
+      "decisions_total": 16,
+      "lessons_total": 29,
+      "lessons_success": 29,
+      "lessons_failure": 0,
+      "cloud_ready": false,
+      "device_ready": true
+    },
+    "next_best_action": {
+      "priority": 1,
+      "type": "approval",
+      "title": "Resolve pending approval",
+      "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+      "action": "open_approvals",
+      "target": {
+        "mission_id": 1780326802824661037,
+        "mission_title": "Deploy verification",
+        "task_id": 1780326802824673069,
+        "task_title": "Deploy test app",
+        "action": "deploy_vercel_test_app",
+        "status": "waiting_approval",
+        "approved": false,
+        "created": 1780326802.8246746
+      }
+    },
+    "recommendations": [
+      {
+        "priority": 1,
+        "type": "approval",
+        "title": "Resolve pending approval",
+        "reason": "A mission is blocked and cannot continue until you approve or reject its task.",
+        "action": "open_approvals",
+        "target": {
+          "mission_id": 1780326802824661037,
+          "mission_title": "Deploy verification",
+          "task_id": 1780326802824673069,
+          "task_title": "Deploy test app",
+          "action": "deploy_vercel_test_app",
+          "status": "waiting_approval",
+          "approved": false,
+          "created": 1780326802.8246746
+        }
+      },
+      {
+        "priority": 2,
+        "type": "blocked_mission",
+        "title": "Review blocked missions",
+        "reason": "Blocked missions prevent goal progress and should be reviewed.",
+        "action": "review_missions",
+        "target": [
+          {
+            "id": 1780326802824661037,
+            "title": "Deploy verification"
+          }
+        ]
+      }
+    ],
+    "report": "NOUS Executive Intelligence Report\n\nGoals: 3 active / 4 total\nMissions: 0 active, 1 blocked\nPending approvals: 1\nDecisions: 16\nLessons: 29 total, 29 success, 0 failure\nCloud ready: False\nDevice ready: True\n\nNext best action:\n- Resolve pending approval\n- Reason: A mission is blocked and cannot continue until you approve or reject its task.\n- Action: open_approvals",
+    "brain_readiness": {
+      "ready": [
+        "goals",
+        "missions",
+        "android_companion",
+        "internet_or_browser_read"
+      ],
+      "missing": [
+        "vercel_deploy"
+      ],
+      "pending_approvals": 1,
+      "cloud_ready_foundation": false,
+      "device_control_foundation": true
+    }
   }
 ]
