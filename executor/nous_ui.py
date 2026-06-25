@@ -274,8 +274,6 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
     white-space: pre-wrap;
   }
 
-  #liveOutput,
-  .liveOutput,
   #output {
     max-height: 240px;
     overflow: auto;
@@ -337,7 +335,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <button class="navItem" data-sec="scheduler" onclick="showSection('scheduler')"><span class="ni">⏱</span> Scheduler</button>
       <button class="navItem" data-sec="deploy" onclick="showSection('deploy')"><span class="ni">🚀</span> Deploy</button>
       <button class="navItem" data-sec="backup" onclick="showSection('backup')"><span class="ni">☁</span> Backup</button>
-      <button class="navItem" data-sec="larmor" onclick="showSection('larmor')"><span class="ni">🧲</span> Larmor Monitor</button>
+      <button class="navItem" data-sec="larmor" onclick="showSection('larmor');larmorLoadHistory()"><span class="ni">🧲</span> Larmor Monitor</button>
       <button class="navItem" data-sec="field" onclick="showSection('field');fieldDiaryLoad();fieldMarkersLoad()"><span class="ni">🔍</span> Πεδίο & Χάρτης</button>
       <button class="navItem" data-sec="remote-access" onclick="showSection('remote-access')"><span class="ni">📡</span> Remote Access</button>
       <button class="navItem" data-sec="settings" onclick="showSection('settings')"><span class="ni">⚙</span> Settings</button>
@@ -352,7 +350,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <button class="navItem" data-sec="loopv3" onclick="showSection('loopv3')"><span class="ni">♾</span> Agent Loop</button>
         <button class="navItem" data-sec="autoscheduler" onclick="showSection('autoscheduler')"><span class="ni">🔁</span> AutoSched</button>
         <div class="navSection">Σύστημα</div>
-        <button class="navItem" data-sec="diagnosis" onclick="showSection('diagnosis')"><span class="ni">🩺</span> Diagnosis</button>
+        <button class="navItem" data-sec="diagnosis" onclick="showSection('diagnosis');diagRefresh();safetyLoad()"><span class="ni">🩺</span> Diagnosis</button>
         <button class="navItem" data-sec="repair" onclick="showSection('repair')"><span class="ni">🛠</span> Repair</button>
         <button class="navItem" data-sec="selfheal" onclick="showSection('selfheal')"><span class="ni">🧬</span> Self Heal</button>
         <button class="navItem" data-sec="intelligence" onclick="showSection('intelligence')"><span class="ni">🧭</span> Intelligence</button>
@@ -398,6 +396,17 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
           <div class="card"><h3>Capabilities</h3><div id="homeCaps">Loading...</div></div>
           <div class="card"><h3>Companion</h3><div id="homeCompanion">Loading...</div></div>
           <div class="card"><h3>Missions</h3><div id="homeMissions">Loading...</div></div>
+        </div>
+
+        <!-- ── Daily Brief ── -->
+        <div class="card" style="margin-top:4px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+            <h3 style="margin:0;flex:1;">📋 Ημερήσια Αναφορά</h3>
+            <button onclick="loadDailyBrief()" style="padding:5px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">↺ Ανανέωση</button>
+          </div>
+          <div id="dailyBriefBox" style="font-size:13px;line-height:1.7;">
+            <div style="color:var(--muted);">Φόρτωση αναφοράς…</div>
+          </div>
         </div>
       </section>
 
@@ -567,6 +576,20 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
           <button class="miniBtn" onclick="loadIntelligence()">Refresh Intelligence</button>
           <pre id="executiveReport">Loading...</pre>
         </div>
+
+        <!-- ── Decision Memory ── -->
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+            <h3 style="margin:0;flex:1;">🧠 Αποφάσεις Πράκτορα</h3>
+            <button onclick="loadDecisionMemory()" style="padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">↺ Refresh</button>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <input id="decisionSearchQ" type="text" placeholder="Αναζήτηση απόφασης…" style="flex:1;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;" onkeydown="if(event.key==='Enter') searchDecisionMemory()">
+            <button onclick="searchDecisionMemory()" style="padding:7px 14px;border-radius:8px;border:none;background:var(--accent);color:white;font-size:13px;cursor:pointer;font-weight:600;">🔍</button>
+          </div>
+          <div id="decisionMemoryStats" style="font-size:12px;color:var(--muted);margin-bottom:8px;"></div>
+          <div id="decisionMemoryList" style="max-height:380px;overflow-y:auto;font-size:13px;"></div>
+        </div>
       </section>
 
 
@@ -598,6 +621,21 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
         <div class="card">
           <h3>Lesson Search Results</h3>
           <pre id="lessonSearchResults">–</pre>
+        </div>
+
+        <!-- ── Internet Learning Pipeline ── -->
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+            <h3 style="margin:0;flex:1;">🌐 Αυτόνομη Μάθηση από το Ιντερνέτ</h3>
+            <button onclick="loadInternetLearning()" style="padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">↺ Refresh</button>
+          </div>
+          <div id="internetLearningStatus" style="font-size:13px;color:var(--muted);margin-bottom:12px;">Φόρτωση…</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+            <input id="internetLearnTopic" type="text" placeholder="Θέμα (π.χ. 'Byzantine treasure signs Messenia')…" style="flex:1;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+            <button onclick="triggerInternetLearn()" style="padding:7px 16px;border-radius:8px;border:none;background:var(--accent);color:white;font-size:13px;cursor:pointer;font-weight:700;">▶ Μάθε</button>
+            <button onclick="triggerInternetLearn(true)" style="padding:7px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:13px;cursor:pointer;">⚡ Επόμενο Θέμα</button>
+          </div>
+          <pre id="internetLearnResult" style="font-size:12px;max-height:280px;overflow-y:auto;display:none;"></pre>
         </div>
       </section>
 
@@ -704,45 +742,144 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       </section>
 
 
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- 🩺  SELF DIAGNOSIS + REPAIR  (unified section)       -->
+      <!-- ══════════════════════════════════════════════════════ -->
       <section id="diagnosis" class="section">
+
         <div class="hero">
-          <h1>🩺 Self Diagnosis</h1>
-          <p>Ο ΝΟΥΣ ελέγχει backend, frontend endpoints, dashboard actions και προτείνει ασφαλείς διορθώσεις.</p>
+          <h1>🩺 Αυτοδιάγνωση ΝΟΥΣ</h1>
+          <p>Ο ΝΟΥΣ σαρώνει τον εαυτό του, εντοπίζει αδυναμίες και προτείνει διορθώσεις — μόνο με δική σου έγκριση.</p>
         </div>
+
+        <!-- ── Action bar ── -->
+        <div class="card" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:14px 18px;">
+          <button id="diagRunBtn" onclick="diagRun()"
+            style="padding:9px 20px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700;font-size:14px;cursor:pointer;">
+            🔍 Εκτέλεση Διάγνωσης
+          </button>
+          <button onclick="diagAiAnalyze()"
+            style="padding:9px 20px;border-radius:10px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:#22d3ee;font-weight:600;font-size:13px;cursor:pointer;">
+            🤖 AI Ανάλυση &amp; Προτάσεις
+          </button>
+          <button onclick="diagRefresh()"
+            style="padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:13px;cursor:pointer;">
+            ↺ Refresh
+          </button>
+          <span id="diagRunning" style="font-size:12px;color:var(--muted);display:none;">⏳ Τρέχει…</span>
+        </div>
+
+        <!-- ── Summary bar ── -->
+        <div id="diagSummaryBar" style="display:none;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+            <div id="diagBadgeOk"   style="padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;background:rgba(34,197,94,.12);color:#22c55e;border:1px solid rgba(34,197,94,.25);">✅ OK</div>
+            <div id="diagBadgeCrit" style="padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.25);display:none;">🔴 <span id="diagCritN">0</span> Κρίσιμα</div>
+            <div id="diagBadgeWarn" style="padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;background:rgba(234,179,8,.12);color:#eab308;border:1px solid rgba(234,179,8,.25);display:none;">🟡 <span id="diagWarnN">0</span> Προειδοποιήσεις</div>
+            <div id="diagBadgeInfo" style="padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;background:rgba(99,102,241,.10);color:#818cf8;border:1px solid rgba(99,102,241,.2);display:none;">ℹ️ <span id="diagInfoN">0</span> Πληροφορίες</div>
+            <div id="diagTimeLbl"  style="margin-left:auto;font-size:11px;color:var(--muted);align-self:center;"></div>
+          </div>
+        </div>
+
+        <!-- ── Issues list ── -->
+        <div id="diagIssuesList"></div>
+
+        <!-- ── AI Analysis result ── -->
+        <div id="diagAiBox" style="display:none;" class="card">
+          <h3 style="margin:0 0 12px;font-size:14px;">🤖 AI Ανάλυση</h3>
+          <div id="diagAiSummary" style="font-size:13px;line-height:1.7;margin-bottom:16px;padding:12px;background:rgba(34,211,238,.06);border-radius:10px;border:1px solid rgba(34,211,238,.15);"></div>
+          <div id="diagAiProposals"></div>
+        </div>
+
+        <!-- ── Repair Proposals ── -->
         <div class="card">
-          <button class="miniBtn" onclick="runSelfDiagnosis()">Run Self Diagnosis</button>
-          <button class="miniBtn" onclick="loadSelfDiagnosis()">Refresh Report</button>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+            <h3 style="margin:0;font-size:14px;">🛠 Προτάσεις Διόρθωσης</h3>
+            <button onclick="diagProposeRepair()"
+              style="padding:6px 14px;border-radius:8px;border:1px solid rgba(124,92,255,.4);background:rgba(124,92,255,.1);color:#a78bfa;font-size:12px;cursor:pointer;">
+              + Δημιούργησε Πρόταση
+            </button>
+            <button onclick="diagLoadRepair()"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">
+              ↺
+            </button>
+          </div>
+          <div id="diagRepairStatus" style="font-size:12px;color:var(--muted);margin-bottom:10px;"></div>
+          <div id="diagRepairList"><div style="color:var(--muted);font-size:13px;text-align:center;padding:20px 0;">Δεν υπάρχουν ακόμα προτάσεις. Εκτέλεσε πρώτα διάγνωση.</div></div>
         </div>
-        <div class="card">
-          <h3>Diagnosis Report</h3>
-          <pre id="diagnosisReport">–</pre>
+
+        <!-- ════════════════════════════════════════════════════════ -->
+        <!-- 🛡️  ΔΙΚΛΕΙΔΑ ΑΣΦΑΛΕΙΑΣ  (Safety Net / Circuit Breaker) -->
+        <!-- ════════════════════════════════════════════════════════ -->
+        <div class="card" style="margin-top:6px;border:1px solid rgba(34,197,94,.2);background:rgba(34,197,94,.03);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+            <h3 style="margin:0;font-size:14px;">🛡️ Δικλείδα Ασφαλείας</h3>
+            <div id="safetyCircuitBadge" style="padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700;background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);">● ΚΛΕΙΣΤΟΣ</div>
+            <button onclick="safetyLoad()"
+              style="padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;margin-left:auto;">
+              ↺ Refresh
+            </button>
+            <button id="safetyResetBtn" onclick="safetyCircuitReset()" style="display:none;padding:5px 14px;border-radius:8px;border:none;background:#ef4444;color:white;font-size:12px;font-weight:700;cursor:pointer;">
+              ⚡ Reset Circuit
+            </button>
+          </div>
+
+          <!-- Stats row -->
+          <div id="safetyStatsRow" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+            <div style="flex:1;min-width:100px;padding:10px;background:var(--panel2);border-radius:10px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#22c55e;" id="safetyStatOk">–</div>
+              <div style="font-size:11px;color:var(--muted);">Επιτυχίες</div>
+            </div>
+            <div style="flex:1;min-width:100px;padding:10px;background:var(--panel2);border-radius:10px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#ef4444;" id="safetyStatFail">–</div>
+              <div style="font-size:11px;color:var(--muted);">Αποτυχίες</div>
+            </div>
+            <div style="flex:1;min-width:100px;padding:10px;background:var(--panel2);border-radius:10px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#a78bfa;" id="safetyStatRollback">–</div>
+              <div style="font-size:11px;color:var(--muted);">Rollbacks</div>
+            </div>
+            <div style="flex:1;min-width:140px;padding:10px;background:var(--panel2);border-radius:10px;text-align:center;">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);" id="safetyStatCircuitFail">–</div>
+              <div style="font-size:11px;color:var(--muted);">Circuit failures</div>
+            </div>
+          </div>
+
+          <!-- How it works -->
+          <details style="margin-bottom:12px;">
+            <summary style="font-size:12px;color:var(--muted);cursor:pointer;user-select:none;">ℹ️ Πώς λειτουργεί η δικλείδα ασφαλείας;</summary>
+            <div style="font-size:12px;color:var(--text);line-height:1.7;margin-top:8px;padding:10px;background:var(--panel2);border-radius:8px;">
+              <b>Πριν κάθε αυτόνομη αλλαγή:</b><br>
+              1️⃣ <b>Backup</b> — αντίγραφα όλων των αρχείων-στόχων<br>
+              2️⃣ <b>Εφαρμογή</b> — η αλλαγή εκτελείται κανονικά<br>
+              3️⃣ <b>Validation</b> — compile check + import check<br>
+              4️⃣α Αν <b>ΕΠΙΤΥΧΙΑ</b> → καταγραφή λύσης, μηδενισμός counter<br>
+              4️⃣β Αν <b>ΑΠΟΤΥΧΙΑ</b> → <span style="color:#ef4444;font-weight:700;">αυτόματο restore</span> + καταγραφή λάθους<br>
+              <br>
+              <b>Circuit Breaker:</b> Μετά από 3 αποτυχίες, ο ΝΟΥΣ <span style="color:#ef4444;">παγώνει</span> αυτόνομες ενέργειες για 2 λεπτά ή μέχρι χειροκίνητο reset.
+            </div>
+          </details>
+
+          <!-- Incident log -->
+          <div style="font-weight:700;font-size:12px;margin-bottom:8px;color:var(--muted);">📋 Ιστορικό Ενεργειών</div>
+          <div id="safetyIncidentList" style="max-height:360px;overflow-y:auto;">
+            <div style="color:var(--muted);font-size:13px;text-align:center;padding:20px 0;">Φόρτωση…</div>
+          </div>
         </div>
+
+        <!-- ── Project Health Snapshot ── -->
+        <div class="card" style="margin-top:14px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+            <h3 style="margin:0;flex:1;">🏥 Project Health Snapshot</h3>
+            <button onclick="runProjectHealth()" style="padding:7px 18px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:700;font-size:13px;cursor:pointer;">▶ Εκτέλεση</button>
+            <button onclick="loadProjectHealth()" style="padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">↺ Refresh</button>
+          </div>
+          <div id="projectHealthSummary" style="margin-bottom:10px;font-size:13px;"></div>
+          <pre id="projectHealthBox" style="font-size:12px;max-height:320px;overflow-y:auto;display:none;"></pre>
+        </div>
+
       </section>
 
-
-      <section id="repair" class="section">
-        <div class="hero">
-          <h1>🛠 Autonomous Repair</h1>
-          <p>Ο ΝΟΥΣ δημιουργεί ασφαλείς repair proposals από τη διάγνωση και τα εφαρμόζει μόνο με έγκριση.</p>
-        </div>
-
-        <div class="grid">
-          <div class="card">
-            <h3>Repair Actions</h3>
-            <button class="miniBtn" onclick="proposeRepair()">Generate Repair Proposal</button>
-            <button class="miniBtn" onclick="loadRepair()">Refresh</button>
-          </div>
-          <div class="card">
-            <h3>Repair Status</h3>
-            <div id="repairStatus">Loading...</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Repair Proposals</h3>
-          <div id="repairProposals">Loading...</div>
-        </div>
-      </section>
+      <!-- Repair keeps working as hidden alias -->
+      <section id="repair" class="section" style="display:none!important;"></section>
 
 
       <section id="autoexec" class="section">
@@ -1006,6 +1143,13 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
           <h3>📋 Ιστορικό Builds</h3>
           <div id="appBuilderList">Φόρτωση...</div>
         </div>
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <h3 style="margin:0;flex:1;">📁 Φάκελος Εφαρμογών — <code style="font-size:13px;color:#22d3ee;">apps/</code></h3>
+            <button onclick="loadAppFiles()" style="padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">↺ Ανανέωση</button>
+          </div>
+          <div id="appFilesBrowser" style="font-size:13px;color:var(--muted);">Φόρτωση…</div>
+        </div>
         <div class="card" id="appBuilderPreview" style="display:none;">
           <h3>👁️ Preview Σχεδίου</h3>
           <div id="appBuilderPreviewContent"></div>
@@ -1013,177 +1157,278 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       </section>
 
       <section id="larmor" class="section">
-        <div class="hero" style="background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(124,92,255,.12))">
-          <h1>🧲 Larmor Monitor</h1>
-          <p>Read-only σύνδεση με τον Υπολογιστή Συχνότητας Larmor — παρακολούθηση, ανάλυση και προτάσεις έρευνας.</p>
+        <div class="hero" style="background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(124,92,255,.12));margin-bottom:12px;">
+          <h1 style="margin:0 0 4px 0;">🧲 Larmor Monitor</h1>
+          <p style="margin:0;color:var(--muted);">Read-only σύνδεση με τον Υπολογιστή Συχνότητας Larmor — παρακολούθηση, ανάλυση και προτάσεις έρευνας.</p>
         </div>
 
-        <!-- Status bar -->
-        <div class="card" style="display:flex;align-items:center;gap:12px;padding:10px 14px;margin-bottom:10px;">
-          <span style="font-size:12px;color:var(--muted)">Κατάσταση εφαρμογής:</span>
-          <span id="larmorStatus" style="font-size:13px;color:var(--muted)">⏳ Έλεγχος…</span>
+        <!-- ── Status bar Row 1: status + link + refresh ── -->
+        <div class="card" style="padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:12px;color:var(--muted);white-space:nowrap;">Κατάσταση:</span>
+          <span id="larmorStatus" style="font-size:13px;color:var(--muted);flex:1;min-width:80px;">⏳ Έλεγχος…</span>
           <a href="https://insta-giveaway-bot-1--traianos1985.replit.app" target="_blank"
-             style="margin-left:auto;font-size:12px;color:var(--accent2);text-decoration:none;border:1px solid rgba(34,211,238,.3);padding:4px 10px;border-radius:8px;">
-            🔗 Άνοιγμα εφαρμογής ↗
+             style="font-size:12px;color:var(--accent2);text-decoration:none;border:1px solid rgba(34,211,238,.3);padding:5px 12px;border-radius:8px;white-space:nowrap;">
+            🔗 Άνοιγμα ↗
           </a>
-          <button onclick="larmorPing()" style="font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);cursor:pointer;">↺ Refresh</button>
-          <button onclick="larmorInjectKnowledge()" id="larmorInjectBtn" style="font-size:12px;padding:4px 12px;border-radius:8px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:var(--accent2);cursor:pointer;" title="Φόρτωσε όλη τη γνώση NMR στον εγκέφαλο του ΝΟΥΣ">🧠 Φόρτωση Γνώσης NMR</button>
-          <button onclick="injectCacheKnowledge()" id="cacheInjectBtn" style="font-size:12px;padding:4px 12px;border-radius:8px;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fbbf24;cursor:pointer;" title="Εισαγωγή γνώσης US Army SF Caching Techniques ST 31-205 στον ΝΟΥΣ">⚔️ Εγχυση SF Caching</button>
-          <button onclick="injectGuerrillaKnowledge()" id="guerrillaInjectBtn" style="font-size:12px;padding:4px 12px;border-radius:8px;border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);color:#34d399;cursor:pointer;" title="Εισαγωγή αντάρτικων σημαδιών, στρατ. χαρτών & βυζ/οθωμ. συμβόλων">🗺️ Σημάδια &amp; Χάρτες</button>
+          <button onclick="larmorPing()" style="padding:5px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);cursor:pointer;font-size:12px;white-space:nowrap;">↺ Refresh</button>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <!-- ── Knowledge inject buttons Row 2 ── -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+          <button onclick="larmorInjectKnowledge()" id="larmorInjectBtn"
+            style="padding:7px 14px;border-radius:8px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:var(--accent2);cursor:pointer;font-size:12px;font-weight:600;">
+            🧠 Γνώση NMR
+          </button>
+          <button onclick="injectCacheKnowledge()" id="cacheInjectBtn"
+            style="padding:7px 14px;border-radius:8px;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fbbf24;cursor:pointer;font-size:12px;font-weight:600;">
+            ⚔️ SF Caching
+          </button>
+          <button onclick="injectGuerrillaKnowledge()" id="guerrillaInjectBtn"
+            style="padding:7px 14px;border-radius:8px;border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);color:#34d399;cursor:pointer;font-size:12px;font-weight:600;">
+            🗺️ Σημάδια &amp; Χάρτες
+          </button>
+        </div>
+
+        <!-- ── Main grid: iframe LEFT | tabs RIGHT ── -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
 
           <!-- LEFT: Embed iframe -->
-          <div class="card" style="padding:0;overflow:hidden;min-height:600px;">
+          <div class="card" style="padding:0;overflow:hidden;">
             <div style="padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--muted);">
               👁 Live View — Read Only
             </div>
             <iframe
               src="https://insta-giveaway-bot-1--traianos1985.replit.app"
-              style="width:100%;height:580px;border:none;background:#fff;"
+              style="width:100%;height:600px;border:none;background:#fff;display:block;"
               sandbox="allow-scripts allow-same-origin allow-forms"
               title="Larmor Frequency Calculator - Read Only">
             </iframe>
           </div>
 
-          <!-- RIGHT: NOUS Analysis -->
-          <div style="display:flex;flex-direction:column;gap:12px;">
+          <!-- RIGHT: Tab panel -->
+          <div style="display:flex;flex-direction:column;gap:0;">
 
-            <!-- Quick Calculator -->
-            <div class="card">
-              <h3 style="margin:0 0 12px 0;font-size:14px;">⚡ Γρήγορος Υπολογισμός</h3>
-              <div style="display:flex;flex-direction:column;gap:8px;">
-                <select id="larmorMaterial" style="padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
-                  <option value="au-pure">197Au (χρυσός καθαρός) — 0.7379 MHz/T</option>
-                  <option value="ottoman-5lira">Ottoman 5 Lira (91.7% Au) — 1.6155 MHz/T</option>
-                  <option value="22k-alloy">22K Κράμα Λίρας — 1.619 MHz/T</option>
-                  <option value="ag">109Ag (άργυρος) — 1.989 MHz/T</option>
-                  <option value="cu" selected>63Cu (χαλκός) — 11.311 MHz/T</option>
-                  <option value="al">27Al (αλουμίνιο) — 11.101 MHz/T</option>
-                  <option value="fe">57Fe (σίδηρος) — 1.382 MHz/T</option>
-                  <option value="ammo-box">55Mn (WWII box) — 10.571 MHz/T</option>
-                  <option value="ba-137">137Ba (χειροβομβίδες) — 4.763 MHz/T</option>
-                  <option value="sn-119">119Sn (κασσίτερος) — 15.945 MHz/T</option>
-                  <option value="sb-121">121Sb (αντιμόνιο) — 10.239 MHz/T</option>
-                  <option value="b-11">11B (βόριο) — 13.662 MHz/T</option>
-                </select>
-                <div style="display:flex;gap:8px;align-items:center;">
-                  <label style="font-size:12px;color:var(--muted);white-space:nowrap;">B (T):</label>
-                  <input id="larmorBField" type="number" value="0.04823" step="0.00001"
-                    style="flex:1;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
-                  <button onclick="larmorCalculate()" style="padding:7px 14px;border-radius:8px;border:none;background:var(--accent);color:white;font-size:13px;cursor:pointer;white-space:nowrap;">
-                    Υπολόγισε
-                  </button>
-                </div>
-              </div>
-              <div id="larmorCalcResult" style="margin-top:10px;font-size:13px;display:none;"></div>
-            </div>
-
-            <!-- Paste & Analyze -->
-            <div class="card" style="flex:1;">
-              <h3 style="margin:0 0 10px 0;font-size:14px;">🔬 Ανάλυση Δεδομένων ΝΟΥΣ</h3>
-              <p style="font-size:12px;color:var(--muted);margin:0 0 10px 0;">
-                Επικόλλησε αποτελέσματα από την εφαρμογή Larmor (αριθμούς, παραμέτρους, αποτελέσματα)
-                και ο ΝΟΥΣ τα αναλύει με εξειδικευμένη NMR γνώση.
-              </p>
-              <textarea id="larmorPasteData" rows="5"
-                style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;resize:vertical;"
-                placeholder="π.χ.: Υλικό: 63Cu, B=0.04823T, fL=0.546 kHz, Αρμονική 3=1.638 kHz, Βάθος=1.5m, Έτος=Αντάρτικα…"></textarea>
-              <input id="larmorQuestion" type="text"
-                style="width:100%;margin-top:6px;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;"
-                placeholder="(προαιρετικό) Ερώτηση: π.χ. «Ποια αρμονική για βάθος 2m σε υγρό έδαφος;»">
-              <button onclick="larmorAnalyze()"
-                style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;font-size:14px;font-weight:700;cursor:pointer;">
-                🧠 Ανάλυσε με ΝΟΥΣ
+            <!-- Tab switcher -->
+            <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+              <button id="ltab-calc" onclick="larmorTab('calc')"
+                style="padding:7px 16px;border-radius:10px;border:1px solid rgba(34,211,238,.5);background:rgba(34,211,238,.15);color:#22d3ee;font-weight:700;cursor:pointer;font-size:13px;">
+                🔢 Υπολογιστές
               </button>
-              <div id="larmorAnalysisResult" style="margin-top:12px;font-size:13px;line-height:1.6;display:none;"></div>
+              <button id="ltab-chat" onclick="larmorTab('chat')"
+                style="padding:7px 16px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:600;cursor:pointer;font-size:13px;">
+                💬 Chat &amp; Εικόνες
+              </button>
             </div>
 
-            <!-- Classical EM Resonance Calculator -->
-            <div class="card" style="border-color:rgba(34,211,238,.25);">
-              <h3 style="margin:0 0 4px 0;font-size:14px;">⚡ Κλασικός ΗΜ Συντονισμός (Faraday/Lenz)</h3>
-              <p style="font-size:11px;color:var(--muted);margin:0 0 10px 0;">
-                Βέλτιστη συχνότητα για κλασικό μαγνητικό συντονισμό (eddy current) — ανεξάρτητα από NMR.
-              </p>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-                <div>
-                  <label style="font-size:11px;color:var(--muted);">Υλικό στόχου</label>
-                  <select id="emMetal" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
-                    <option value="22k_alloy">Λίρα 22K (Au+Cu κράμα)</option>
-                    <option value="au">Χρυσός καθαρός (Au)</option>
-                    <option value="ag">Άργυρος (Ag)</option>
-                    <option value="cu">Χαλκός (Cu)</option>
-                    <option value="bronze">Μπρούντζος (αρχαίος)</option>
-                    <option value="fe_pure">Σίδηρος (Fe αγνός)</option>
-                    <option value="steel">Χάλυβας/WWII αντικ.</option>
-                    <option value="brass">Ορείχαλκος</option>
-                    <option value="pb">Μόλυβδος (Pb)</option>
+            <!-- ── TAB: CALCULATORS ── -->
+            <div id="larmor-tab-calc" style="display:flex;flex-direction:column;gap:12px;">
+
+              <!-- Quick Calculator -->
+              <div class="card">
+                <h3 style="margin:0 0 12px 0;font-size:14px;">⚡ Γρήγορος Υπολογισμός NMR</h3>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <select id="larmorMaterial" style="padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+                    <option value="au-pure">197Au — Χρυσός καθαρός (0.7379 MHz/T)</option>
+                    <option value="ottoman-5lira">Ottoman 5 Lira 91.7% Au (1.6155 MHz/T)</option>
+                    <option value="22k-alloy">22K Κράμα Λίρας (1.619 MHz/T)</option>
+                    <option value="ag">109Ag — Άργυρος (1.989 MHz/T)</option>
+                    <option value="cu" selected>63Cu — Χαλκός (11.311 MHz/T)</option>
+                    <option value="al">27Al — Αλουμίνιο (11.101 MHz/T)</option>
+                    <option value="fe">57Fe — Σίδηρος (1.382 MHz/T)</option>
+                    <option value="ammo-box">55Mn — WWII box (10.571 MHz/T)</option>
+                    <option value="ba-137">137Ba — Χειροβομβίδες (4.763 MHz/T)</option>
+                    <option value="sn-119">119Sn — Κασσίτερος (15.945 MHz/T)</option>
+                    <option value="sb-121">121Sb — Αντιμόνιο (10.239 MHz/T)</option>
+                    <option value="b-11">11B — Βόριο (13.662 MHz/T)</option>
                   </select>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    <label style="font-size:12px;color:var(--muted);white-space:nowrap;">B (Tesla):</label>
+                    <input id="larmorBField" type="number" value="0.04823" step="0.00001"
+                      style="flex:1;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;">
+                    <button onclick="larmorCalculate()" style="padding:7px 16px;border-radius:8px;border:none;background:var(--accent);color:white;font-size:13px;cursor:pointer;white-space:nowrap;font-weight:600;">
+                      ⚡ Υπολόγισε
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <label style="font-size:11px;color:var(--muted);">Ακτίνα στόχου (cm)</label>
-                  <select id="emRadius" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
-                    <option value="1.1">1.1 cm — μεμονωμένο νόμισμα</option>
-                    <option value="2.0">2.0 cm — λίγα νομίσματα</option>
-                    <option value="3.0" selected>3.0 cm — χούφτα νομισμάτων</option>
-                    <option value="5.0">5.0 cm — μικρό κεραμικό/σωλήνας</option>
-                    <option value="8.0">8.0 cm — κιβωτάκι λιρών</option>
-                    <option value="12.0">12.0 cm — μεγάλο αγγείο</option>
-                    <option value="20.0">20.0 cm — WWII κιβώτιο</option>
-                  </select>
+                <div id="larmorCalcResult" style="margin-top:10px;font-size:13px;display:none;"></div>
+              </div>
+
+              <!-- Paste & Analyze -->
+              <div class="card">
+                <h3 style="margin:0 0 8px 0;font-size:14px;">🔬 Ανάλυση Δεδομένων</h3>
+                <p style="font-size:12px;color:var(--muted);margin:0 0 8px 0;">
+                  Επικόλλησε αποτελέσματα Larmor — ο ΝΟΥΣ αναλύει με NMR γνώση.
+                </p>
+                <textarea id="larmorPasteData" rows="4"
+                  style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;resize:vertical;box-sizing:border-box;"
+                  placeholder="π.χ.: 63Cu, B=0.04823T, fL=0.546 kHz, Αρμ.3=1.638 kHz, Βάθος=1.5m…"></textarea>
+                <input id="larmorQuestion" type="text"
+                  style="width:100%;margin-top:6px;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;box-sizing:border-box;"
+                  placeholder="Ερώτηση (προαιρ.): «Ποια αρμονική για βάθος 2m;»">
+                <button onclick="larmorAnalyze()"
+                  style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;font-size:14px;font-weight:700;cursor:pointer;">
+                  🧠 Ανάλυσε με ΝΟΥΣ
+                </button>
+                <div id="larmorAnalysisResult" style="margin-top:12px;font-size:13px;line-height:1.6;display:none;"></div>
+              </div>
+
+              <!-- Classical EM Resonance Calculator -->
+              <div class="card" style="border-color:rgba(34,211,238,.25);">
+                <h3 style="margin:0 0 4px 0;font-size:14px;">⚡ ΗΜ Συντονισμός Faraday/Lenz</h3>
+                <p style="font-size:11px;color:var(--muted);margin:0 0 10px 0;">
+                  Βέλτιστη συχνότητα για eddy current — ανεξάρτητα από NMR.
+                </p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+                  <div>
+                    <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Υλικό στόχου</label>
+                    <select id="emMetal" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                      <option value="22k_alloy">Λίρα 22K (Au+Cu)</option>
+                      <option value="au">Χρυσός (Au)</option>
+                      <option value="ag">Άργυρος (Ag)</option>
+                      <option value="cu">Χαλκός (Cu)</option>
+                      <option value="bronze">Μπρούντζος αρχαίος</option>
+                      <option value="fe_pure">Σίδηρος (Fe)</option>
+                      <option value="steel">Χάλυβας/WWII</option>
+                      <option value="brass">Ορείχαλκος</option>
+                      <option value="pb">Μόλυβδος (Pb)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Ακτίνα στόχου (cm)</label>
+                    <select id="emRadius" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                      <option value="1.1">1.1 cm — μεμ. νόμισμα</option>
+                      <option value="2.0">2.0 cm — λίγα νομίσματα</option>
+                      <option value="3.0" selected>3.0 cm — χούφτα</option>
+                      <option value="5.0">5.0 cm — κεραμικό</option>
+                      <option value="8.0">8.0 cm — κιβωτάκι λιρών</option>
+                      <option value="12.0">12.0 cm — αγγείο</option>
+                      <option value="20.0">20.0 cm — WWII κιβώτιο</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Βάθος (m)</label>
+                    <input id="emDepth" type="number" value="1.5" step="0.1" min="0.1"
+                      style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;box-sizing:border-box;">
+                  </div>
+                  <div>
+                    <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Τύπος εδάφους</label>
+                    <select id="emSoil" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                      <option value="rock">Βραχώδες (σ=0.00001)</option>
+                      <option value="dry_sand">Ξηρό/Αμμώδες (σ=0.001)</option>
+                      <option value="medium" selected>Μέτριο/Υγρό (σ=0.01)</option>
+                      <option value="wet_clay">Υγρό/Αργιλώδες (σ=0.05)</option>
+                      <option value="saturated">Κορεσμένο (σ=0.1)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px;">Ηλικία ταφής</label>
+                    <select id="emAge" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                      <option value="recent">Πρόσφατο (0-20 χρ.)</option>
+                      <option value="guerrilla" selected>Αντάρτικα 1940-50</option>
+                      <option value="ottoman">Οθωμανικό (&lt;1900)</option>
+                      <option value="ancient">Αρχαίο (&gt;500 χρ.)</option>
+                    </select>
+                  </div>
+                  <div style="display:flex;align-items:flex-end;">
+                    <button onclick="emCalcRun()" style="width:100%;padding:8px;border-radius:6px;border:none;background:linear-gradient(135deg,rgba(34,211,238,.6),rgba(139,92,246,.6));color:white;font-size:13px;font-weight:700;cursor:pointer;">
+                      ⚡ f_optimal
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <label style="font-size:11px;color:var(--muted);">Βάθος (m)</label>
-                  <input id="emDepth" type="number" value="1.5" step="0.1" min="0.1"
-                    style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
-                </div>
-                <div>
-                  <label style="font-size:11px;color:var(--muted);">Τύπος εδάφους</label>
-                  <select id="emSoil" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
-                    <option value="rock">Βραχώδες (σ=0.00001)</option>
-                    <option value="dry_sand">Ξηρό/Αμμώδες (σ=0.001)</option>
-                    <option value="medium" selected>Μέτριο/Υγρό (σ=0.01)</option>
-                    <option value="wet_clay">Υγρό/Αργιλώδες (σ=0.05)</option>
-                    <option value="saturated">Κορεσμένο (σ=0.1)</option>
-                  </select>
-                </div>
-                <div>
-                  <label style="font-size:11px;color:var(--muted);">Ηλικία ταφής</label>
-                  <select id="emAge" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
-                    <option value="recent">Πρόσφατο (0-20 χρόνια)</option>
-                    <option value="guerrilla" selected>Αντάρτικα 1940-50</option>
-                    <option value="ottoman">Οθωμανικό (&lt;1900)</option>
-                    <option value="ancient">Αρχαίο (&gt;500 χρόνια)</option>
-                  </select>
-                </div>
-                <div style="display:flex;align-items:flex-end;">
-                  <button onclick="emCalcRun()" style="width:100%;padding:7px;border-radius:6px;border:none;background:linear-gradient(135deg,rgba(34,211,238,.6),rgba(139,92,246,.6));color:white;font-size:13px;font-weight:700;cursor:pointer;">
-                    ⚡ Υπολόγισε f_optimal
+                <div id="emCalcResult" style="display:none;margin-top:8px;"></div>
+              </div>
+
+            </div><!-- end larmor-tab-calc -->
+
+            <!-- ── TAB: CHAT & IMAGES ── -->
+            <div id="larmor-tab-chat" style="display:none;">
+
+              <!-- Chat container: full flex column, bounded by viewport -->
+              <div id="larmorChatBox"
+                style="display:flex;flex-direction:column;border-radius:14px;border:1px solid var(--line);background:var(--panel);overflow:hidden;max-height:72vh;min-height:0;">
+
+                <!-- ── Header ── -->
+                <div style="padding:10px 14px;background:var(--panel2);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-shrink:0;cursor:pointer;" onclick="larmorChatToggleMin()">
+                  <span style="font-size:16px;">🧲</span>
+                  <span style="font-weight:700;font-size:13px;flex:1;">Chat ΝΟΥΣ — Σημεία Ενδιαφέροντος</span>
+                  <!-- history label -->
+                  <span id="larmorHistoryLbl" style="font-size:10px;color:var(--muted);margin-right:6px;"></span>
+                  <!-- minimize toggle -->
+                  <button id="larmorMinBtn" onclick="event.stopPropagation();larmorChatToggleMin()"
+                    title="Ελαχιστοποίηση / Επαναφορά"
+                    style="padding:3px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:13px;cursor:pointer;line-height:1;flex-shrink:0;">
+                    ▾
+                  </button>
+                  <!-- clear -->
+                  <button onclick="event.stopPropagation();larmorChatClear()"
+                    title="Καθαρισμός ιστορικού"
+                    style="padding:3px 8px;border-radius:6px;border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.07);color:#ef4444;font-size:12px;cursor:pointer;line-height:1;flex-shrink:0;">
+                    🗑
                   </button>
                 </div>
-              </div>
-              <div id="emCalcResult" style="display:none;margin-top:8px;"></div>
-            </div>
 
-            <!-- Chat with NOUS about Larmor -->
-            <div class="card">
-              <h3 style="margin:0 0 10px 0;font-size:14px;">💬 Ερώτηση NMR / Γεωφυσική</h3>
-              <div id="larmorChatLog" style="max-height:220px;overflow-y:auto;margin-bottom:10px;font-size:13px;line-height:1.5;"></div>
-              <div style="display:flex;gap:8px;">
-                <input id="larmorChatInput" type="text"
-                  style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;"
-                  placeholder="π.χ. «Τι αρμονική για χρυσό σε βάθος 2m;»"
-                  onkeydown="if(event.key==='Enter')larmorChatSend()">
-                <button onclick="larmorChatSend()"
-                  style="padding:8px 14px;border-radius:8px;border:none;background:var(--accent);color:white;font-size:13px;cursor:pointer;">
-                  ➤
-                </button>
-              </div>
-            </div>
+                <!-- ── Collapsible body ── -->
+                <div id="larmorChatBody" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
 
-          </div>
-        </div>
+                  <!-- Chat log -->
+                  <div id="larmorChatLog"
+                    style="flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-height:0;scroll-behavior:smooth;">
+                    <div data-placeholder="1" style="text-align:center;color:var(--muted);font-size:13px;padding:30px 0 20px;">
+                      <div style="font-size:36px;margin-bottom:10px;">🧲</div>
+                      <div>Ρώτα τον ΝΟΥΣ για NMR, σημάδια<br>ή ανέβασε φωτογραφία σημείου.</div>
+                    </div>
+                  </div>
+
+                  <!-- Image preview bar (shown when image staged) -->
+                  <div id="larmorImgPreviewBar" style="display:none;padding:8px 14px;border-top:1px solid var(--line);background:var(--panel2);flex-shrink:0;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <img id="larmorImgPreviewThumb" style="height:48px;width:48px;object-fit:cover;border-radius:6px;border:1px solid var(--line);" src="" alt="">
+                      <div style="flex:1;min-width:0;">
+                        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">📎 Εικόνα επισυνάφθηκε — τύπος ανάλυσης:</div>
+                        <select id="larmorImgAnalysisType"
+                          style="width:100%;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                          <option value="signs">🔣 Σημάδια/Σύμβολα</option>
+                          <option value="terrain">🏔️ Έδαφος/Τοπίο</option>
+                          <option value="map">🗺️ Παλιός Χάρτης</option>
+                          <option value="rock">🪨 Χαράγματα σε Βράχο</option>
+                          <option value="artifact">✨ Εύρημα</option>
+                          <option value="general">🔍 Γενική</option>
+                        </select>
+                      </div>
+                      <button onclick="larmorChatCancelImg()"
+                        style="padding:5px 9px;border-radius:6px;border:1px solid rgba(239,68,68,.4);background:rgba(239,68,68,.08);color:#ef4444;font-size:13px;cursor:pointer;flex-shrink:0;">✕</button>
+                    </div>
+                  </div>
+
+                  <!-- Input bar -->
+                  <div style="padding:10px 12px;border-top:1px solid var(--line);background:var(--panel2);flex-shrink:0;">
+                    <div style="display:flex;gap:8px;align-items:flex-end;">
+                      <button onclick="document.getElementById('larmorChatImgInput').click()"
+                        title="Επισύναψη εικόνας"
+                        style="padding:8px 11px;border-radius:10px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:#22d3ee;font-size:17px;cursor:pointer;flex-shrink:0;line-height:1;align-self:flex-end;">
+                        📎
+                      </button>
+                      <input type="file" id="larmorChatImgInput" accept="image/*" style="display:none"
+                        onchange="larmorChatStageImg(this)">
+                      <textarea id="larmorChatInput" rows="1"
+                        style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;resize:none;line-height:1.55;max-height:120px;overflow-y:auto;"
+                        placeholder="Γράψε μήνυμα… (Enter = αποστολή, Shift+Enter = νέα γραμμή)"
+                        oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';"
+                        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();larmorChatSend();}"></textarea>
+                      <button onclick="larmorChatSend()"
+                        style="padding:9px 15px;border-radius:10px;border:none;background:var(--accent);color:white;font-size:16px;cursor:pointer;flex-shrink:0;font-weight:700;line-height:1;align-self:flex-end;">
+                        ➤
+                      </button>
+                    </div>
+                  </div>
+
+                </div><!-- end larmorChatBody -->
+              </div><!-- end larmorChatBox -->
+
+            </div><!-- end larmor-tab-chat -->
+
+          </div><!-- end right panel -->
+        </div><!-- end main grid -->
       </section>
 
       <section id="remote-access" class="section">
@@ -1352,7 +1597,6 @@ bash deploy/remote_access/setup_tailscale.sh
 </main>
 
   <aside class="right">
-    <div class="card"><h3>Live Output</h3><pre id="raw">–</pre></div>
     <div class="card"><h3>Activity Feed</h3><div class="activity" id="activity">Ready.</div></div>
   </aside>
 </div>
@@ -1438,6 +1682,15 @@ async function getJson(url){
   return data;
 }
 
+// Silent version — for background polling (no feed logging on failure)
+async function getJsonSilent(url){
+  try{
+    const r = await fetch(url, {headers: authHeaders({})});
+    if(!r.ok) return {ok:false, status:r.status};
+    return await r.json().catch(()=>({ok:false}));
+  }catch(e){ return {ok:false}; }
+}
+
 async function postJson(url, body){
   const r = await fetch(url, {
     method:"POST",
@@ -1445,10 +1698,11 @@ async function postJson(url, body){
     body: JSON.stringify(body || {})
   });
   const data = await r.json().catch(()=>({error:"invalid_json"}));
-  if(!r.ok || data.error){
+  // Only log to feed when the HTTP status itself indicates failure (not 2xx)
+  if(!r.ok){
     const err = {ok:false, status:r.status, error:data.error || "request_failed", url, data};
     renderObject(err);
-    feed("POST failed " + r.status + " " + url + " — " + err.error);
+    feed("POST failed " + r.status + " " + url + (data.error ? " — " + data.error : ""));
     return err;
   }
   return data;
@@ -1478,6 +1732,135 @@ function sysBar(pct, color){
 
 // ── LARMOR MONITOR ──────────────────────────────────────────────────────────
 let larmorChatHistory = [];
+let _larmorStagedImgB64 = null;
+let _larmorStagedImgMime = "image/jpeg";
+
+// ── Larmor tab switcher ──
+function larmorTab(tab){
+  ["calc","chat"].forEach(t=>{
+    const el  = document.getElementById("larmor-tab-"+t);
+    const btn = document.getElementById("ltab-"+t);
+    if(!el||!btn) return;
+    const active = t===tab;
+    el.style.display = active ? (t==="calc"?"flex":"block") : "none";
+    if(active){
+      btn.style.borderColor="rgba(34,211,238,.5)";
+      btn.style.background="rgba(34,211,238,.15)";
+      btn.style.color="#22d3ee";
+    } else {
+      btn.style.borderColor="var(--line)";
+      btn.style.background="var(--panel2)";
+      btn.style.color="var(--muted)";
+    }
+  });
+}
+
+// ── Chat: stage image ──
+function larmorChatStageImg(input){
+  const file = input.files[0];
+  if(!file) return;
+  _larmorStagedImgMime = file.type || "image/jpeg";
+  const reader = new FileReader();
+  reader.onload = e => {
+    _larmorStagedImgB64 = e.target.result.split(",")[1];
+    const thumb = document.getElementById("larmorImgPreviewThumb");
+    if(thumb) thumb.src = e.target.result;
+    const bar = document.getElementById("larmorImgPreviewBar");
+    if(bar) bar.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+  input.value = "";
+}
+
+function larmorChatCancelImg(){
+  _larmorStagedImgB64 = null;
+  const bar = document.getElementById("larmorImgPreviewBar");
+  if(bar) bar.style.display = "none";
+}
+
+function larmorChatClear(){
+  if(!confirm("Να διαγραφεί όλο το ιστορικό του chat;")) return;
+  larmorChatHistory = [];
+  fetch("/larmor/history",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({history:[]})}).catch(()=>{});
+  const lbl = document.getElementById("larmorHistoryLbl");
+  if(lbl) lbl.textContent = "";
+  const log = document.getElementById("larmorChatLog");
+  if(log) log.innerHTML = `<div data-placeholder="1" style="text-align:center;color:var(--muted);font-size:13px;padding:30px 0 20px;">
+    <div style="font-size:36px;margin-bottom:10px;">🧲</div>
+    <div>Ρώτα τον ΝΟΥΣ για NMR, σημάδια<br>ή ανέβασε φωτογραφία σημείου.</div>
+  </div>`;
+}
+
+// ── Minimize / expand chat ──
+let _larmorMinimized = false;
+function larmorChatToggleMin(){
+  _larmorMinimized = !_larmorMinimized;
+  const body = document.getElementById("larmorChatBody");
+  const btn  = document.getElementById("larmorMinBtn");
+  if(body) body.style.display = _larmorMinimized ? "none" : "flex";
+  if(btn)  btn.textContent   = _larmorMinimized ? "▸" : "▾";
+}
+
+// ── Persist history to server ──
+async function larmorSaveHistory(){
+  try{
+    await fetch("/larmor/history",{method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({history:larmorChatHistory})});
+  }catch(e){}
+}
+
+// ── Restore history from server on section open ──
+async function larmorLoadHistory(){
+  try{
+    const r = await fetch("/larmor/history");
+    const d = await r.json();
+    if(!d.ok || !Array.isArray(d.history) || d.history.length===0) return;
+    larmorChatHistory = d.history;
+    const log = document.getElementById("larmorChatLog");
+    if(!log) return;
+    log.innerHTML = "";
+    // Replay all messages from history
+    for(const msg of larmorChatHistory){
+      if(msg.role==="user"){
+        const tmp = document.createElement("div");
+        tmp.style.cssText="margin:4px 0;display:flex;justify-content:flex-end;";
+        tmp.innerHTML=`<div style="max-width:85%;background:rgba(124,92,255,.18);padding:8px 12px;border-radius:14px 14px 4px 14px;font-size:13px;">${escHtml(msg.content)}</div>`;
+        log.appendChild(tmp);
+      } else {
+        const tmp = document.createElement("div");
+        tmp.style.cssText="margin:4px 0;display:flex;align-items:flex-start;gap:8px;";
+        tmp.innerHTML=`<div style="width:28px;height:28px;border-radius:50%;background:rgba(34,211,238,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🧲</div>
+        <div style="max-width:88%;background:rgba(34,211,238,.08);padding:10px 13px;border-radius:14px 14px 14px 4px;font-size:13px;line-height:1.65;white-space:pre-wrap;">${_lcMd(msg.content)}</div>`;
+        log.appendChild(tmp);
+      }
+    }
+    log.scrollTop = log.scrollHeight;
+    const lbl = document.getElementById("larmorHistoryLbl");
+    if(lbl){
+      const pairs = Math.floor(larmorChatHistory.length/2);
+      lbl.textContent = `📂 ${pairs} μήνυμα${pairs===1?"":"τα"} αποθηκευμένα`;
+    }
+  }catch(e){}
+}
+
+function _lcAppend(html){
+  const log = document.getElementById("larmorChatLog");
+  if(!log) return;
+  const ph = log.querySelector("[data-placeholder]");
+  if(ph) ph.remove();
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html;
+  log.appendChild(tmp.firstElementChild || tmp);
+  log.scrollTop = log.scrollHeight;
+}
+
+function _lcMd(text){
+  return text
+    .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>")
+    .replace(/\n/g,"<br>");
+}
 
 async function larmorPing(){
   document.getElementById("larmorStatus").textContent = "⏳ Έλεγχος…";
@@ -1521,25 +1904,83 @@ async function larmorAnalyze(){
 }
 
 async function larmorChatSend(){
-  const input = document.getElementById("larmorChatInput");
-  const msg = input.value.trim();
-  if(!msg) return;
-  input.value="";
-  larmorChatHistory.push({role:"user", content:msg});
-  const log = document.getElementById("larmorChatLog");
-  log.innerHTML += `<div style="margin:6px 0;text-align:right;"><span style="background:rgba(124,92,255,.22);padding:5px 9px;border-radius:10px;display:inline-block;max-width:90%;">${msg}</span></div>`;
-  log.innerHTML += '<div id="larmorTyping" style="color:var(--muted);font-size:12px;padding:4px 0;">⏳ ΝΟΥΣ σκέφτεται…</div>';
-  log.scrollTop=log.scrollHeight;
-  try{
-    const d = await postJson("/larmor/chat", {conversation: larmorChatHistory});
-    document.getElementById("larmorTyping")?.remove();
-    const reply = d.reply||"—";
-    larmorChatHistory.push({role:"assistant", content:reply});
-    log.innerHTML += `<div style="margin:6px 0;"><span style="background:rgba(34,211,238,.10);padding:6px 10px;border-radius:10px;display:inline-block;max-width:95%;white-space:pre-wrap;">${reply.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</span></div>`;
-    log.scrollTop=log.scrollHeight;
-  }catch(e){
-    document.getElementById("larmorTyping")?.remove();
-    log.innerHTML+=`<div style="color:var(--bad);font-size:12px;">⚠️ ${e}</div>`;
+  const input  = document.getElementById("larmorChatInput");
+  const msg    = input ? input.value.trim() : "";
+  const hasImg = !!_larmorStagedImgB64;
+  if(!msg && !hasImg) return;
+  if(input) input.value = "";
+
+  // User bubble
+  if(hasImg){
+    const thumbSrc = document.getElementById("larmorImgPreviewThumb")?.src || "";
+    const stagedB64 = _larmorStagedImgB64;
+    const stagedMime = _larmorStagedImgMime;
+    const atype = document.getElementById("larmorImgAnalysisType")?.value || "signs";
+    larmorChatCancelImg();
+    _lcAppend(`<div style="margin:4px 0;display:flex;justify-content:flex-end;">
+      <div style="max-width:85%;background:rgba(124,92,255,.18);padding:8px 12px;border-radius:14px 14px 4px 14px;">
+        ${thumbSrc?`<img src="${thumbSrc}" style="max-width:190px;max-height:150px;border-radius:8px;display:block;margin-bottom:${msg?"6px":"0"};">`:""}
+        ${msg?`<span style="font-size:13px;">${escHtml(msg)}</span>`:""}
+        <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;text-align:right;">${new Date().toLocaleTimeString("el-GR",{hour:"2-digit",minute:"2-digit"})}</div>
+      </div>
+    </div>`);
+    const typId = "lct-"+Date.now();
+    _lcAppend(`<div id="${typId}" style="margin:4px 0;display:flex;align-items:center;gap:6px;">
+      <div style="width:28px;height:28px;border-radius:50%;background:rgba(34,211,238,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🧲</div>
+      <div style="background:rgba(34,211,238,.08);padding:8px 12px;border-radius:14px 14px 14px 4px;font-size:12px;color:var(--muted);">⏳ Αναλύει εικόνα…</div>
+    </div>`);
+    try{
+      const r = await fetch("/field/analyze-image",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({image_b64:stagedB64,mime:stagedMime,analysis_type:atype,context:msg||""})});
+      const d = await r.json();
+      document.getElementById(typId)?.remove();
+      const reply = d.ok ? (d.analysis||"—") : ("⚠️ "+(d.error||"Σφάλμα"));
+      const modelLbl = d.model||"";
+      larmorChatHistory.push({role:"user",content:msg?"Εικόνα + πλαίσιο: "+msg:"[Εικόνα για ανάλυση]"});
+      larmorChatHistory.push({role:"assistant",content:reply});
+      _lcAppend(`<div style="margin:4px 0;display:flex;align-items:flex-start;gap:8px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(34,211,238,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🧲</div>
+        <div style="max-width:88%;background:rgba(34,211,238,.08);padding:10px 13px;border-radius:14px 14px 14px 4px;font-size:13px;line-height:1.65;white-space:pre-wrap;">
+          ${_lcMd(reply)}
+          ${modelLbl?`<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:6px;">🤖 ${escHtml(modelLbl)}</div>`:""}
+        </div>
+      </div>`);
+      larmorSaveHistory();
+      { const p=Math.floor(larmorChatHistory.length/2); const l=document.getElementById("larmorHistoryLbl"); if(l) l.textContent=`📂 ${p} μηνύματα`; }
+    }catch(e){
+      document.getElementById(typId)?.remove();
+      _lcAppend(`<div style="margin:4px 0;color:var(--bad);font-size:12px;padding:0 8px;">⚠️ ${escHtml(String(e))}</div>`);
+    }
+  } else {
+    larmorChatHistory.push({role:"user",content:msg});
+    _lcAppend(`<div style="margin:4px 0;display:flex;justify-content:flex-end;">
+      <div style="max-width:85%;background:rgba(124,92,255,.18);padding:8px 12px;border-radius:14px 14px 4px 14px;font-size:13px;">
+        ${escHtml(msg)}
+        <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;text-align:right;">${new Date().toLocaleTimeString("el-GR",{hour:"2-digit",minute:"2-digit"})}</div>
+      </div>
+    </div>`);
+    const typId = "lct-"+Date.now();
+    _lcAppend(`<div id="${typId}" style="margin:4px 0;display:flex;align-items:center;gap:6px;">
+      <div style="width:28px;height:28px;border-radius:50%;background:rgba(34,211,238,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🧲</div>
+      <div style="background:rgba(34,211,238,.08);padding:8px 12px;border-radius:14px 14px 14px 4px;font-size:12px;color:var(--muted);">⏳ ΝΟΥΣ σκέφτεται…</div>
+    </div>`);
+    try{
+      const d = await postJson("/larmor/chat",{conversation:larmorChatHistory});
+      document.getElementById(typId)?.remove();
+      const reply = d.reply||"—";
+      larmorChatHistory.push({role:"assistant",content:reply});
+      _lcAppend(`<div style="margin:4px 0;display:flex;align-items:flex-start;gap:8px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(34,211,238,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🧲</div>
+        <div style="max-width:88%;background:rgba(34,211,238,.08);padding:10px 13px;border-radius:14px 14px 14px 4px;font-size:13px;line-height:1.65;white-space:pre-wrap;">
+          ${_lcMd(reply)}
+        </div>
+      </div>`);
+      larmorSaveHistory();
+      { const p=Math.floor(larmorChatHistory.length/2); const l=document.getElementById("larmorHistoryLbl"); if(l) l.textContent=`📂 ${p} μηνύματα`; }
+    }catch(e){
+      document.getElementById(typId)?.remove();
+      _lcAppend(`<div style="margin:4px 0;color:var(--bad);font-size:12px;padding:0 8px;">⚠️ ${escHtml(String(e))}</div>`);
+    }
   }
 }
 
@@ -1650,7 +2091,7 @@ async function injectCacheKnowledge(){
 
 async function loadSysInfo(){
   try{
-    const d = await getJson("/system-info");
+    const d = await getJsonSilent("/system-info");
     if(d.error){
       const msg = `<div style="color:#f88;">⚠️ ${d.error}</div>`;
       const el1 = document.getElementById("sysInfoFull");
@@ -1749,7 +2190,7 @@ function applyTunnelState(d){
 }
 
 async function checkTunnel(){
-  const d = await getJson("/remote/tunnel/status");
+  const d = await getJsonSilent("/remote/tunnel/status");
   applyTunnelState(d);
 }
 
@@ -2558,79 +2999,297 @@ async function disableAutoExec(){
 }
 
 
-async function loadRepair(){
-  const status = await getJson("/remote/autonomous-repair/status");
-  const proposals = await getJson("/remote/autonomous-repair/proposals");
+// ── DIAGNOSIS UI helpers ────────────────────────────────────────────────────
 
-  renderObject({status, proposals});
+function _diagSevStyle(sev){
+  const s = {
+    critical: {bg:"rgba(239,68,68,.10)",  border:"rgba(239,68,68,.3)",  color:"#ef4444", icon:"🔴"},
+    warning:  {bg:"rgba(234,179,8,.09)",  border:"rgba(234,179,8,.3)",  color:"#eab308", icon:"🟡"},
+    info:     {bg:"rgba(99,102,241,.08)", border:"rgba(99,102,241,.2)", color:"#818cf8", icon:"ℹ️"},
+  };
+  return s[sev] || s.info;
+}
 
-  document.getElementById("repairStatus").innerHTML =
-    kv("total", status.total ?? "-") +
-    kv("pending", status.pending ?? "-") +
-    kv("approved", status.approved ?? "-") +
-    kv("rejected", status.rejected ?? "-");
-
-  if(!proposals || proposals.length===0){
-    document.getElementById("repairProposals").innerHTML = "No repair proposals yet.";
+function _diagRenderIssues(issues){
+  const el = document.getElementById("diagIssuesList");
+  if(!el) return;
+  if(!issues || issues.length === 0){
+    el.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:28px 0;">
+      <div style="font-size:32px;margin-bottom:8px;">✅</div>
+      <div style="font-size:14px;">Δεν εντοπίστηκαν προβλήματα — ο ΝΟΥΣ είναι σε άριστη κατάσταση!</div>
+    </div>`;
     return;
   }
-
-  document.getElementById("repairProposals").innerHTML = proposals.slice().reverse().map(p=>`
-    <div class="card">
-      <h3>${p.title}</h3>
-      ${kv("status", p.status)}
-      ${kv("fix", p.fix_id)}
-      ${kv("risk", p.risk)}
-      <div class="small">${p.description || ""}</div>
-      <h4>Diff / Patch</h4>
-      <pre>${p.diff || ""}</pre>
-      ${
-        p.status === "pending" && p.fix_id !== "no_action_needed"
-        ? `<button class="miniBtn" onclick="approveRepair('${p.id}')">✅ Approve Repair</button>
-           <button class="miniBtn" onclick="rejectRepair('${p.id}')">❌ Reject</button>`
-        : ""
-      }
-    </div>
-  `).join("");
+  el.innerHTML = issues.map(iss => {
+    const st = _diagSevStyle(iss.severity || "info");
+    return `<div class="card" style="margin-bottom:10px;border-left:4px solid ${st.border};padding:14px 16px;">
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <span style="font-size:18px;flex-shrink:0;">${st.icon}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:700;font-size:13px;color:${st.color};margin-bottom:3px;">${escHtml(iss.title||"")}</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">📂 ${escHtml(iss.category||"")} ${iss.file?`· <code>${escHtml(iss.file)}</code>`:""}</div>
+          ${iss.detail?`<div style="font-size:12px;color:var(--text);opacity:.8;background:var(--panel2);padding:6px 10px;border-radius:6px;white-space:pre-wrap;max-height:100px;overflow-y:auto;">${escHtml(iss.detail)}</div>`:""}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
 }
 
-async function proposeRepair(){
-  const data = await postJson("/remote/autonomous-repair/propose", {});
-  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
-  feed("Repair proposal generated");
-  await loadRepair();
+function _diagRenderSummary(report){
+  const sum = report.summary || {};
+  const bar = document.getElementById("diagSummaryBar");
+  if(bar) bar.style.display = "block";
+  const crit = sum.critical || 0;
+  const warn = sum.warning  || 0;
+  const info = sum.info     || 0;
+  const elOk   = document.getElementById("diagBadgeOk");
+  const elCrit = document.getElementById("diagBadgeCrit");
+  const elWarn = document.getElementById("diagBadgeWarn");
+  const elInfo = document.getElementById("diagBadgeInfo");
+  const elTime = document.getElementById("diagTimeLbl");
+  const elCritN = document.getElementById("diagCritN");
+  const elWarnN = document.getElementById("diagWarnN");
+  const elInfoN = document.getElementById("diagInfoN");
+  if(elOk)   elOk.style.display   = (crit===0 && warn===0) ? "block" : "none";
+  if(elCrit) { elCrit.style.display = crit>0 ? "block":"none"; if(elCritN) elCritN.textContent=crit; }
+  if(elWarn) { elWarn.style.display = warn>0 ? "block":"none"; if(elWarnN) elWarnN.textContent=warn; }
+  if(elInfo) { elInfo.style.display = info>0 ? "block":"none"; if(elInfoN) elInfoN.textContent=info; }
+  if(elTime && report.time) elTime.textContent = "🕐 " + new Date(report.time*1000).toLocaleString("el-GR");
 }
 
-async function approveRepair(id){
-  const ok = confirm("Να εφαρμόσω αυτή την ασφαλή διόρθωση;");
-  if(!ok) return;
-  const data = await postJson("/remote/autonomous-repair/approve", {proposal_id:String(id)});
-  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
-  if(data.ok){ feed("Repair approved/applied"); }
-  else { feed("Repair failed: " + (data.error || "unknown")); }
-  await loadRepair();
+function _diagRenderRepairList(proposals){
+  const el = document.getElementById("diagRepairList");
+  if(!el) return;
+  if(!proposals || proposals.length === 0){
+    el.innerHTML = `<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px 0;">Δεν υπάρχουν ακόμα προτάσεις διόρθωσης.</div>`;
+    return;
+  }
+  const sorted = [...proposals].sort((a,b)=>(b.created||0)-(a.created||0));
+  el.innerHTML = sorted.map(p => {
+    const statusStyle = {
+      pending:  "color:#eab308;",
+      approved: "color:#22c55e;",
+      rejected: "color:#ef4444;",
+      failed:   "color:#f97316;",
+    }[p.status] || "";
+    const statusIcon = {pending:"⏳",approved:"✅",rejected:"❌",failed:"⚠️"}[p.status]||"•";
+    return `<div style="border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;background:var(--panel2);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-weight:700;font-size:13px;flex:1;">${escHtml(p.title||"Πρόταση")}</span>
+        <span style="font-size:12px;${statusStyle}">${statusIcon} ${escHtml(p.status||"")}</span>
+        <span style="font-size:10px;color:var(--muted);">${p.created?new Date(p.created*1000).toLocaleString("el-GR"):""}</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">${escHtml(p.description||"")}</div>
+      ${p.target_files&&p.target_files.length?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">📁 ${p.target_files.map(f=>`<code>${escHtml(f)}</code>`).join(", ")}</div>`:""}
+      ${p.diff?`<details style="margin-bottom:8px;"><summary style="font-size:11px;cursor:pointer;color:var(--muted);">Diff / Patch</summary><pre style="font-size:10px;overflow:auto;max-height:180px;margin-top:6px;">${escHtml(p.diff)}</pre></details>`:""}
+      ${p.status==="pending"&&p.fix_id!=="no_action_needed"?
+        `<div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="diagApproveRepair('${p.id}')"
+            style="padding:6px 14px;border-radius:8px;border:none;background:#22c55e;color:white;font-size:12px;font-weight:700;cursor:pointer;">✅ Εγκρίνω &amp; Εφαρμόζω</button>
+          <button onclick="diagRejectRepair('${p.id}')"
+            style="padding:6px 14px;border-radius:8px;border:1px solid rgba(239,68,68,.4);background:rgba(239,68,68,.08);color:#ef4444;font-size:12px;cursor:pointer;">❌ Απορρίπτω</button>
+        </div>`:
+        p.status==="pending"?`<div style="font-size:12px;color:var(--muted);">Δεν απαιτείται ενέργεια.</div>`:""}
+    </div>`;
+  }).join("");
 }
 
-async function rejectRepair(id){
-  const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected repair proposal";
-  const data = await postJson("/remote/autonomous-repair/reject", {proposal_id:String(id), reason});
-  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
-  feed("Repair proposal rejected");
-  await loadRepair();
+async function diagRefresh(){
+  const d = await getJson("/remote/self-diagnosis/status");
+  const rep = d.report || d;
+  if(rep.issues){ _diagRenderSummary(rep); _diagRenderIssues(rep.issues||[]); }
+  await diagLoadRepair();
+  await safetyLoad();
 }
 
-
-async function loadSelfDiagnosis(){
-  const data = await getJson("/remote/self-diagnosis/status");
-  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
-  document.getElementById("diagnosisReport").textContent = JSON.stringify(data, null, 2);
+async function diagRun(){
+  const btn = document.getElementById("diagRunBtn");
+  const spin = document.getElementById("diagRunning");
+  if(btn){ btn.disabled=true; btn.textContent="⏳ Σαρώνω…"; }
+  if(spin) spin.style.display="inline";
+  const d = await postJson("/remote/self-diagnosis/run", {});
+  if(btn){ btn.disabled=false; btn.textContent="🔍 Εκτέλεση Διάγνωσης"; }
+  if(spin) spin.style.display="none";
+  const rep = d.report || d;
+  _diagRenderSummary(rep);
+  _diagRenderIssues(rep.issues || []);
+  feed("Αυτοδιάγνωση ολοκληρώθηκε — " + (rep.summary?.total_issues||0) + " θέματα");
+  await diagLoadRepair();
 }
 
-async function runSelfDiagnosis(){
-  const data = await postJson("/remote/self-diagnosis/run", {});
-  renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
-  document.getElementById("diagnosisReport").textContent = JSON.stringify(data, null, 2);
-  feed("Self diagnosis completed");
+async function diagAiAnalyze(){
+  const box  = document.getElementById("diagAiBox");
+  const sumEl = document.getElementById("diagAiSummary");
+  const propEl = document.getElementById("diagAiProposals");
+  if(box) box.style.display="block";
+  if(sumEl) sumEl.innerHTML = "⏳ Ο ΝΟΥΣ αναλύει τα δεδομένα διάγνωσης…";
+  if(propEl) propEl.innerHTML = "";
+  const d = await postJson("/remote/self-diagnosis/ai-analyze", {});
+  if(!d.ok){
+    if(sumEl) sumEl.innerHTML = `<span style="color:var(--bad);">⚠️ ${escHtml(d.error||"Σφάλμα")}</span>`;
+    return;
+  }
+  if(sumEl) sumEl.innerHTML = escHtml(d.analysis||"—").replace(/\n/g,"<br>");
+  const proposals = d.proposals || [];
+  if(propEl && proposals.length){
+    const riskColor = {low:"#22c55e", medium:"#eab308", high:"#ef4444"};
+    propEl.innerHTML = `<div style="font-weight:700;font-size:13px;margin-bottom:10px;">📋 Προτεινόμενες Ενέργειες (${proposals.length})</div>` +
+    proposals.map((p,i) => {
+      const rc = riskColor[p.risk] || "#818cf8";
+      return `<div style="border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:8px;background:var(--panel2);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-weight:700;font-size:13px;flex:1;">${i+1}. ${escHtml(p.issue_title||"")}</span>
+          <span style="font-size:11px;padding:2px 8px;border-radius:6px;border:1px solid ${rc};color:${rc};">⚡ ${escHtml(p.risk||"")}</span>
+          ${p.auto_fixable?`<span style="font-size:11px;color:#22d3ee;">🤖 Αυτόματη διόρθωση</span>`:`<span style="font-size:11px;color:var(--muted);">✋ Χειροκίνητη</span>`}
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">💬 ${escHtml(p.explanation_el||"")}</div>
+        <div style="font-size:12px;color:var(--text);background:rgba(34,211,238,.06);padding:8px 10px;border-radius:6px;border:1px solid rgba(34,211,238,.1);">
+          ✅ ${escHtml(p.action_el||"")}
+        </div>
+      </div>`;
+    }).join("");
+  } else if(propEl){
+    propEl.innerHTML = `<div style="color:#22c55e;font-size:13px;">✅ Δεν απαιτείται καμία ενέργεια.</div>`;
+  }
+  feed("AI ανάλυση ολοκληρώθηκε");
+}
+
+async function diagLoadRepair(){
+  const statusEl = document.getElementById("diagRepairStatus");
+  const d = await getJson("/remote/autonomous-repair/status");
+  if(statusEl && d.total !== undefined){
+    statusEl.textContent = `Σύνολο: ${d.total} · Εκκρεμή: ${d.pending} · Εγκεκριμένα: ${d.approved} · Απορριφθέντα: ${d.rejected}`;
+  }
+  const pd = await getJson("/remote/autonomous-repair/proposals");
+  const proposals = Array.isArray(pd) ? pd : (pd.proposals || []);
+  _diagRenderRepairList(proposals);
+}
+
+async function diagProposeRepair(){
+  const d = await postJson("/remote/autonomous-repair/propose", {});
+  feed("Πρόταση διόρθωσης δημιουργήθηκε");
+  await diagLoadRepair();
+}
+
+async function diagApproveRepair(id){
+  if(!confirm("Να εφαρμόσω αυτή τη διόρθωση;")) return;
+  const d = await postJson("/remote/autonomous-repair/approve", {proposal_id:String(id)});
+  if(d.ok){ feed("✅ Διόρθωση εφαρμόστηκε"); }
+  else { feed("⚠️ Αποτυχία διόρθωσης: " + (d.error||"unknown")); }
+  await diagLoadRepair();
+}
+
+async function diagRejectRepair(id){
+  const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected";
+  await postJson("/remote/autonomous-repair/reject", {proposal_id:String(id), reason});
+  feed("Πρόταση απορρίφθηκε");
+  await diagLoadRepair();
+}
+
+// Legacy aliases (kept for backward compat)
+async function loadSelfDiagnosis(){ await diagRefresh(); }
+async function runSelfDiagnosis(){ await diagRun(); }
+async function loadRepair(){ await diagLoadRepair(); }
+async function proposeRepair(){ await diagProposeRepair(); }
+async function approveRepair(id){ await diagApproveRepair(id); }
+async function rejectRepair(id){ await diagRejectRepair(id); }
+
+// ── ΔΙΚΛΕΙΔΑ ΑΣΦΑΛΕΙΑΣ (Safety Net / Circuit Breaker) ─────────────────────
+
+async function safetyLoad(){
+  const d = await getJson("/remote/safety/status");
+  const sum = d.summary || {};
+  const circ = sum.circuit || d.circuit || {};
+
+  const okEl    = document.getElementById("safetyStatOk");
+  const failEl  = document.getElementById("safetyStatFail");
+  const rbEl    = document.getElementById("safetyStatRollback");
+  const cfEl    = document.getElementById("safetyStatCircuitFail");
+  const badge   = document.getElementById("safetyCircuitBadge");
+  const resetBtn= document.getElementById("safetyResetBtn");
+
+  if(okEl)   okEl.textContent   = sum.successes ?? "–";
+  if(failEl) failEl.textContent = sum.failures  ?? "–";
+  if(rbEl)   rbEl.textContent   = sum.rollbacks  ?? "–";
+  if(cfEl)   cfEl.textContent   = (circ.failures ?? 0) + " / 3";
+
+  const state = circ.state || "closed";
+  if(badge){
+    if(state === "closed"){
+      badge.textContent = "● ΚΛΕΙΣΤΟΣ";
+      badge.style.background = "rgba(34,197,94,.15)"; badge.style.color="#22c55e";
+      badge.style.borderColor = "rgba(34,197,94,.3)";
+    } else if(state === "open"){
+      const rem = circ.cooldown_remaining_sec ?? "?";
+      badge.textContent = `🔴 ΑΝΟΙΧΤΟΣ — αναμονή ${rem}s`;
+      badge.style.background = "rgba(239,68,68,.15)"; badge.style.color="#ef4444";
+      badge.style.borderColor = "rgba(239,68,68,.3)";
+    } else {
+      badge.textContent = "🟡 ΜΙΣΟ-ΑΝΟΙΧΤΟΣ (δοκιμή)";
+      badge.style.background = "rgba(234,179,8,.15)"; badge.style.color="#eab308";
+      badge.style.borderColor = "rgba(234,179,8,.3)";
+    }
+  }
+  if(resetBtn) resetBtn.style.display = (state !== "closed") ? "inline-block" : "none";
+
+  _safetyRenderIncidents(d.recent_incidents || []);
+}
+
+function _safetyRenderIncidents(incidents){
+  const el = document.getElementById("safetyIncidentList");
+  if(!el) return;
+  if(!incidents || incidents.length === 0){
+    el.innerHTML = `<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px 0;">Δεν υπάρχουν ακόμα ενέργειες.</div>`;
+    return;
+  }
+  el.innerHTML = incidents.map(inc => {
+    const isOk      = inc.outcome === "success";
+    const isBlock   = inc.outcome === "blocked";
+    const isRollback= inc.outcome === "rollback_manual";
+    const color = isOk ? "#22c55e" : isBlock ? "#eab308" : isRollback ? "#a78bfa" : "#ef4444";
+    const icon  = isOk ? "✅" : isBlock ? "🚫" : isRollback ? "↩️" : (inc.rolled_back ? "🔄" : "❌");
+    const label = isOk ? "Επιτυχία" : isBlock ? "Μπλοκαρισμένο" : isRollback ? "Χειρ. Rollback" : (inc.rolled_back ? "Αποτυχία + Restore" : "Αποτυχία");
+    const ts = inc.iso ? new Date(inc.iso).toLocaleString("el-GR") : "–";
+    const files = (inc.files||[]).map(f=>`<code style="font-size:10px;">${escHtml(f)}</code>`).join(", ");
+
+    return `<div style="border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:7px;background:var(--panel2);border-left:3px solid ${color};">
+      <div style="display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:16px;flex-shrink:0;">${icon}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px;">
+            <span style="font-weight:700;font-size:12px;color:${color};">${label}</span>
+            <span style="font-size:11px;color:var(--muted);">· ${escHtml(inc.action||"")}</span>
+            <span style="font-size:10px;color:var(--muted);margin-left:auto;">${ts}</span>
+          </div>
+          ${files ? `<div style="font-size:11px;color:var(--muted);margin-bottom:3px;">📁 ${files}</div>` : ""}
+          ${inc.error ? `<div style="font-size:11px;color:#ef4444;background:rgba(239,68,68,.06);padding:4px 8px;border-radius:5px;white-space:pre-wrap;max-height:60px;overflow-y:auto;">${escHtml(inc.error.substring(0,200))}</div>` : ""}
+        </div>
+        ${(inc.rolled_back===false && inc.outcome!=="success" && inc.backup_ids && inc.backup_ids.length) ?
+          `<button onclick="safetyManualRollback('${inc.id}')"
+            style="padding:4px 10px;border-radius:6px;border:1px solid rgba(167,139,250,.4);background:rgba(167,139,250,.1);color:#a78bfa;font-size:11px;cursor:pointer;flex-shrink:0;">
+            ↩ Rollback
+          </button>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+async function safetyCircuitReset(){
+  if(!confirm("Να επαναφέρω τον circuit breaker; Η εφαρμογή θα επιτρέψει ξανά αυτόνομες ενέργειες.")) return;
+  const d = await postJson("/remote/safety/circuit-reset", {});
+  feed(d.ok ? "✅ Circuit breaker επαναφέρθηκε" : "⚠️ " + (d.error||"Σφάλμα"));
+  await safetyLoad();
+}
+
+async function safetyManualRollback(incidentId){
+  if(!confirm("Να κάνω rollback στα αρχεία αυτής της αποτυχημένης ενέργειας;")) return;
+  const d = await postJson("/remote/safety/rollback", {incident_id: incidentId});
+  if(d.ok){
+    feed("↩️ Rollback επιτυχής — αρχεία αποκαταστάθηκαν");
+  } else {
+    feed("⚠️ Rollback απέτυχε: " + (d.error||"unknown"));
+  }
+  await safetyLoad();
 }
 
 
@@ -2691,7 +3350,6 @@ async function approveProposal(id){
   const ok = confirm("Να εγκρίνω αυτή την πρόταση και να δημιουργηθεί mission;");
   if(!ok) return;
   const data = await postJson("/remote/mission-planner/approve", {proposal_id:String(id)});
-  document.getElementById("liveOutput").textContent = JSON.stringify(data, null, 2);
   renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(data.ok){ feed("Mission proposal approved"); }
   else { feed("Mission proposal approval failed: " + (data.error || "unknown")); }
@@ -2701,7 +3359,6 @@ async function approveProposal(id){
 async function rejectProposal(id){
   const reason = prompt("Λόγος απόρριψης:", "Δεν το εγκρίνω τώρα") || "User rejected mission proposal";
   const data = await postJson("/remote/mission-planner/reject", {proposal_id:String(id), reason});
-  document.getElementById("liveOutput").textContent = JSON.stringify(data, null, 2);
   renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   if(data.ok){ feed("Mission proposal rejected"); }
   else { feed("Mission proposal rejection failed: " + (data.error || "unknown")); }
@@ -2734,9 +3391,210 @@ async function schedulerStop(){
   await loadScheduler();
 }
 
+// ══════════════════════════════════════════════════════════════
+// DAILY BRIEF
+// ══════════════════════════════════════════════════════════════
+async function loadDailyBrief(){
+  const box = document.getElementById("dailyBriefBox");
+  if(!box) return;
+  box.innerHTML = '<div style="color:var(--muted);">Φόρτωση…</div>';
+  try {
+    const d = await getJson("/remote/daily-brief");
+    if(d.error){ box.innerHTML='<div style="color:#ef4444;">'+escHtml(d.error)+'</div>'; return; }
+    let html = '';
+    if(d.goals && d.goals.length){
+      html += '<div style="margin-bottom:8px;"><b>🎯 Goals:</b> ';
+      html += d.goals.map(g=>'<span style="background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.2);border-radius:6px;padding:2px 8px;font-size:12px;margin:2px;display:inline-block;">'+escHtml(String(g))+'</span>').join('');
+      html += '</div>';
+    }
+    if(d.active_learning_topics && d.active_learning_topics.length){
+      html += '<div style="margin-bottom:8px;"><b>🌐 Ενεργά Θέματα Μάθησης:</b> ';
+      html += d.active_learning_topics.map(t=>'<span style="background:rgba(124,92,255,.1);border:1px solid rgba(124,92,255,.2);border-radius:6px;padding:2px 8px;font-size:12px;margin:2px;display:inline-block;">'+escHtml(String(t))+'</span>').join('');
+      html += '</div>';
+    }
+    if(d.learning){
+      const l = d.learning;
+      html += '<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">📚 Lessons: <b>'+( l.total||0)+'</b> σύνολο</div>';
+    }
+    if(d.recent_memory && d.recent_memory.length){
+      html += '<div style="margin-bottom:4px;"><b>🧠 Πρόσφατη Μνήμη (τελευταία '+d.recent_memory.length+'):</b></div>';
+      html += '<div style="display:flex;flex-direction:column;gap:4px;">';
+      d.recent_memory.slice(-5).reverse().forEach(m=>{
+        const ev = m.event||m.type||JSON.stringify(m).slice(0,60);
+        html += '<div style="font-size:12px;padding:4px 8px;background:var(--panel2);border-radius:6px;color:var(--muted);">'+escHtml(ev)+'</div>';
+      });
+      html += '</div>';
+    }
+    if(!html) html='<div style="color:var(--muted);font-size:13px;">Δεν υπάρχουν δεδομένα ακόμα.</div>';
+    box.innerHTML = html;
+  } catch(e){
+    box.innerHTML='<div style="color:#ef4444;">'+escHtml(String(e))+'</div>';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// DECISION MEMORY
+// ══════════════════════════════════════════════════════════════
+async function loadDecisionMemory(){
+  try {
+    const d = await getJson("/remote/decision-memory/status");
+    const stats = document.getElementById("decisionMemoryStats");
+    if(stats) stats.textContent = '📊 Σύνολο: ' + (d.total||0) + ' αποφάσεις';
+    const list = document.getElementById("decisionMemoryList");
+    if(list && d.recent){
+      renderDecisions(list, d.recent.slice().reverse());
+    }
+  } catch(e){}
+}
+
+async function searchDecisionMemory(){
+  const q = (document.getElementById("decisionSearchQ")||{}).value||"";
+  try {
+    const d = await postJson("/remote/decision-memory/search", {query:q, limit:30});
+    const stats = document.getElementById("decisionMemoryStats");
+    if(stats) stats.textContent = '🔍 Αποτελέσματα: ' + (d.length||0);
+    const list = document.getElementById("decisionMemoryList");
+    if(list) renderDecisions(list, (d||[]).slice().reverse());
+  } catch(e){}
+}
+
+function renderDecisions(container, items){
+  if(!items||!items.length){
+    container.innerHTML='<div style="color:var(--muted);text-align:center;padding:16px;">Καμία απόφαση ακόμα.</div>';
+    return;
+  }
+  const confColor = c => c>=0.8?'#22c55e':c>=0.5?'#f59e0b':'#ef4444';
+  container.innerHTML = items.map(dec=>{
+    const conf = (dec.confidence||0);
+    const pct = Math.round(conf*100);
+    const ts = dec.created ? new Date(dec.created*1000).toLocaleString('el-GR') : '';
+    const tags = (dec.tags||[]).map(t=>'<span style="background:rgba(124,92,255,.1);border:1px solid rgba(124,92,255,.2);border-radius:4px;padding:1px 6px;font-size:11px;">'+escHtml(t)+'</span>').join(' ');
+    return `<div style="padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--panel2);">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+        <span style="font-weight:700;font-size:13px;flex:1;">${escHtml(dec.title||'—')}</span>
+        <span style="font-size:12px;font-weight:700;color:${confColor(conf)};">${pct}%</span>
+        <span style="font-size:11px;color:var(--muted);">${escHtml(ts)}</span>
+      </div>
+      ${dec.reason?'<div style="font-size:12px;color:var(--muted);margin-bottom:4px;">'+escHtml(dec.reason)+'</div>':''}
+      ${tags?'<div style="margin-top:4px;">'+tags+'</div>':''}
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════════
+// INTERNET LEARNING PIPELINE
+// ══════════════════════════════════════════════════════════════
+async function loadInternetLearning(){
+  const el = document.getElementById("internetLearningStatus");
+  if(!el) return;
+  try {
+    const d = await getJson("/remote/internet-learning/status");
+    const k = d.knowledge||{};
+    let html = '';
+    html += '<div style="display:flex;gap:16px;flex-wrap:wrap;">';
+    html += '<span>📚 Γνώσεις: <b>'+(k.learned||0)+'</b></span>';
+    html += '<span>📋 Ουρά: <b>'+(k.queue_open||0)+'</b> ανοιχτά</span>';
+    if(d.next_topic) html += '<span>⏭️ Επόμενο: <b>'+escHtml(String(d.next_topic.topic||d.next_topic))+'</b></span>';
+    html += '</div>';
+    el.innerHTML = html;
+  } catch(e){ el.textContent = String(e); }
+}
+
+async function triggerInternetLearn(useNext=false){
+  const topicIn = document.getElementById("internetLearnTopic");
+  const topic = (!useNext && topicIn && topicIn.value.trim()) ? topicIn.value.trim() : null;
+  const resEl = document.getElementById("internetLearnResult");
+  if(resEl){ resEl.style.display="block"; resEl.textContent="⏳ Μαθαίνω…"; }
+  try {
+    const payload = topic ? {topic} : {};
+    const d = await postJson("/remote/internet-learning/topic", payload);
+    if(resEl) resEl.textContent = JSON.stringify(d, null, 2);
+    await loadInternetLearning();
+    feed("Μάθηση ολοκληρώθηκε: " + (d.topic||"επόμενο θέμα"));
+  } catch(e){
+    if(resEl) resEl.textContent = String(e);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// PROJECT HEALTH
+// ══════════════════════════════════════════════════════════════
+async function loadProjectHealth(){}
+async function runProjectHealth(){
+  const sumEl = document.getElementById("projectHealthSummary");
+  const boxEl = document.getElementById("projectHealthBox");
+  if(sumEl) sumEl.innerHTML='<div style="color:var(--muted);">⏳ Εκτέλεση health check…</div>';
+  if(boxEl){ boxEl.style.display="none"; boxEl.textContent=""; }
+  try {
+    const d = await getJson("/remote/project-health");
+    if(boxEl){ boxEl.style.display="block"; boxEl.textContent=JSON.stringify(d,null,2); }
+    const ok = d.compile_ok;
+    const counts = d.counts||{};
+    let badges = '';
+    badges += '<span style="padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700;background:'+(ok?'rgba(34,197,94,.15)':'rgba(239,68,68,.15)')+';color:'+(ok?'#22c55e':'#ef4444')+';border:1px solid '+(ok?'rgba(34,197,94,.3)':'rgba(239,68,68,.3)')+';">'+(ok?'✅ Compile OK':'❌ Compile Fail')+'</span> ';
+    Object.entries(counts).forEach(([k,v])=>{
+      badges += '<span style="padding:2px 8px;border-radius:6px;font-size:11px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);">'+escHtml(k.replace('.json',''))+': '+(v===null?'–':v)+'</span> ';
+    });
+    if(sumEl) sumEl.innerHTML = badges;
+  } catch(e){
+    if(sumEl) sumEl.innerHTML='<div style="color:#ef4444;">'+escHtml(String(e))+'</div>';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// SIGNS KNOWLEDGE BASE (Guerrilla / Byzantine / Ottoman)
+// ══════════════════════════════════════════════════════════════
+async function signsSearch(overrideQuery){
+  const qEl = document.getElementById("signsQuery");
+  const q = overrideQuery !== undefined ? overrideQuery : (qEl ? qEl.value.trim() : "");
+  const metaEl = document.getElementById("signsSearchMeta");
+  const listEl = document.getElementById("signsResultsList");
+  if(listEl) listEl.innerHTML = '<div style="color:var(--muted);text-align:center;padding:20px;">Αναζήτηση…</div>';
+  try {
+    const d = await postJson("/field/signs/search", {query: q});
+    if(metaEl){
+      metaEl.textContent = d.query
+        ? '🔍 Αποτελέσματα για "'+d.query+'": '+d.total+' κατηγορίες'
+        : '📖 Σύνολο κατηγοριών: '+d.total;
+    }
+    if(listEl){
+      if(!d.results||!d.results.length){
+        listEl.innerHTML='<div class="card" style="text-align:center;color:var(--muted);padding:30px;">Κανένα αποτέλεσμα για "'+escHtml(q)+'".</div>';
+        return;
+      }
+      listEl.innerHTML = d.results.map((chunk, i)=>{
+        const tags = (chunk.tags||[]).map(t=>'<span style="background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:4px;padding:1px 7px;font-size:11px;color:#22d3ee;">'+escHtml(t)+'</span>').join(' ');
+        const ans = (chunk.answer||"").replace(/\\n/g,'\n');
+        const id = 'signs-chunk-'+i;
+        return `<div class="card" style="margin-bottom:12px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;cursor:pointer;" onclick="document.getElementById('${id}').style.display=document.getElementById('${id}').style.display==='none'?'block':'none'">
+            <div style="flex:1;">
+              <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--text);">❓ ${escHtml(chunk.question||"")}</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">${tags}</div>
+            </div>
+            <span style="font-size:12px;color:var(--muted);white-space:nowrap;user-select:none;">▼ Εμφάνιση</span>
+          </div>
+          <div id="${id}" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);">
+            <div style="font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">${escHtml(ans)}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+  } catch(e){
+    if(listEl) listEl.innerHTML='<div style="color:#ef4444;text-align:center;padding:20px;">'+escHtml(String(e))+'</div>';
+  }
+}
+
+function signsQuick(q){
+  const el = document.getElementById("signsQuery");
+  if(el) el.value = q;
+  signsSearch(q);
+}
+
 async function boot(){
   try{await getJson("/health");document.getElementById("healthBadge").textContent="healthy";document.getElementById("healthBadge").className="badge ok"}catch(e){document.getElementById("healthBadge").textContent="offline";document.getElementById("healthBadge").className="badge bad"}
   await loadHome();
+  await loadDailyBrief();
 }
 boot();
 </script>
@@ -2851,6 +3709,7 @@ boot();
     <button id="ftab-img"    onclick="fieldTab('img')"    style="padding:8px 18px;border-radius:10px;border:1px solid rgba(34,211,238,.5);background:rgba(34,211,238,.15);color:#22d3ee;font-weight:700;cursor:pointer;font-size:13px;">📷 Ανάλυση Εικόνας</button>
     <button id="ftab-diary"  onclick="fieldTab('diary')"  style="padding:8px 18px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:600;cursor:pointer;font-size:13px;">📓 Ημερολόγιο</button>
     <button id="ftab-map"    onclick="fieldTab('map')"    style="padding:8px 18px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:600;cursor:pointer;font-size:13px;">🗺️ Χάρτης</button>
+    <button id="ftab-signs"  onclick="fieldTab('signs')"  style="padding:8px 18px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-weight:600;cursor:pointer;font-size:13px;">📚 Γνωσιακή Βάση</button>
   </div>
 
   <!-- ──────── TAB: IMAGE ANALYSIS ──────── -->
@@ -2988,6 +3847,37 @@ boot();
     </div>
   </div>
 
+  <!-- ──────── TAB: SIGNS KNOWLEDGE BASE ──────── -->
+  <div id="field-tab-signs" style="display:none;">
+
+    <!-- Search bar -->
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="margin:0 0 12px 0;">📚 Γνωσιακή Βάση — Αντάρτικα Σημάδια, Χάρτες, Βυζαντινά &amp; Οθωμανικά Σύμβολα</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="signsQuery" type="text" placeholder="Αναζήτηση: π.χ. ELAS, βυζαντινό, cairn, WGS84, οθωμανικό, Μεσσηνία…"
+          style="flex:1;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:13px;"
+          onkeydown="if(event.key==='Enter') signsSearch()">
+        <button onclick="signsSearch()" style="padding:9px 20px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer;font-size:13px;">🔍 Αναζήτηση</button>
+        <button onclick="signsSearch('')" style="padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;">📖 Όλες οι Κατηγορίες</button>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="font-size:11px;color:var(--muted);">Γρήγορη επιλογή:</span>
+        <button onclick="signsQuick('αντάρτικα')" class="miniBtn">🪖 Αντάρτικα</button>
+        <button onclick="signsQuick('βυζαντιν')" class="miniBtn">⛪ Βυζαντινά</button>
+        <button onclick="signsQuick('οθωμανικ')" class="miniBtn">☽ Οθωμανικά</button>
+        <button onclick="signsQuick('χάρτης')" class="miniBtn">🗺️ Χάρτες</button>
+        <button onclick="signsQuick('WGS84')" class="miniBtn">📡 GPS/WGS84</button>
+        <button onclick="signsQuick('cairn')" class="miniBtn">🪨 Cairn</button>
+        <button onclick="signsQuick('τοπωνύμ')" class="miniBtn">📍 Τοπωνύμια</button>
+        <button onclick="signsQuick('Μεσσηνία')" class="miniBtn">🏛️ Μεσσηνία</button>
+      </div>
+      <div id="signsSearchMeta" style="font-size:12px;color:var(--muted);margin-top:8px;"></div>
+    </div>
+
+    <!-- Results -->
+    <div id="signsResultsList"></div>
+  </div>
+
 </div>
 </section>
 
@@ -3113,8 +4003,8 @@ function previewLocalFiles(event){
 
   function scan(){
     const candidates = [
-      "#raw", "#output", "#liveOutput", "#live-output",
-      ".raw", ".output", ".liveOutput", ".live-output",
+      "#raw", "#output", "#live-output",
+      ".raw", ".output", ".live-output",
       "pre"
     ];
     document.querySelectorAll(candidates.join(",")).forEach(cleanLiveOutputElement);
@@ -3457,13 +4347,8 @@ window.renderObject = function(data){
   try{
     if(window.nousCaptureConversation) window.nousCaptureConversation(data);
 
-    const out = document.getElementById("liveOutput")
-             || document.querySelector(".liveOutput")
-             || document.getElementById("output");
-
-    if(out){
-      out.textContent = JSON.stringify(data, null, 2);
-    }
+    const out = document.getElementById("output");
+    if(out){ out.textContent = JSON.stringify(data, null, 2); }
   }catch(e){}
 };
 
@@ -3680,10 +4565,42 @@ async function loadAppBuilderList(){
   } catch(e){ el.textContent = "Σφάλμα: " + e; }
 }
 
+async function loadAppFiles(){
+  const el = document.getElementById("appFilesBrowser");
+  if(!el) return;
+  try {
+    const d = await getJson("/remote/app-builder/files");
+    const apps = d.apps || [];
+    if(!apps.length){
+      el.innerHTML = `<div style="padding:10px;background:var(--panel2);border-radius:8px;border:1px dashed var(--line);">
+        <span style="color:var(--muted);">Ο φάκελος <code>apps/</code> είναι άδειος. Δημιούργησε και έγκρινε μια εφαρμογή πρώτα.</span>
+      </div>`;
+      return;
+    }
+    el.innerHTML = apps.map(app => `
+      <div style="background:var(--panel2);border-radius:10px;padding:12px 14px;margin-bottom:10px;border:1px solid var(--line);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span style="font-size:18px;">📂</span>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;color:#22d3ee;">${escHtml(app.name)}</div>
+            <div style="font-size:11px;color:var(--muted);">${app.path} · ${app.file_count} αρχεία</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          ${(app.files||[]).map(f=>`
+            <div style="background:rgba(0,0,0,.3);border-radius:6px;padding:3px 8px;font-size:11px;font-family:monospace;color:var(--muted);">
+              ${escHtml(f.name)} <span style="color:rgba(255,255,255,.3);">${f.size_kb}KB</span>
+            </div>`).join("")}
+        </div>
+      </div>`).join("");
+    el.innerHTML += `<div style="font-size:11px;color:var(--muted);margin-top:6px;">📁 Βρίσκεται στον κατάλογο <code>apps/</code> του project</div>`;
+  } catch(e){ el.textContent = "⚠️ " + e; }
+}
+
 // Load app builder list when section opens
 document.addEventListener("click", function(e){
   if(e.target && e.target.textContent && e.target.textContent.includes("App Builder")){
-    setTimeout(loadAppBuilderList, 100);
+    setTimeout(()=>{ loadAppBuilderList(); loadAppFiles(); }, 100);
   }
 });
 
@@ -3693,7 +4610,7 @@ document.addEventListener("click", function(e){
 
 // ── Tab switching ──
 function fieldTab(tab){
-  ["img","diary","map"].forEach(t=>{
+  ["img","diary","map","signs"].forEach(t=>{
     const el = document.getElementById("field-tab-"+t);
     const btn = document.getElementById("ftab-"+t);
     if(!el||!btn) return;
@@ -3712,6 +4629,7 @@ function fieldTab(tab){
   if(tab==="map") setTimeout(fieldInitMap, 100);
   if(tab==="diary") fieldDiaryLoad();
   if(tab==="img") fieldDiaryLoadRecent();
+  if(tab==="signs") signsSearch("");
 }
 
 // ── Image Analysis ──

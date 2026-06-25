@@ -755,14 +755,14 @@ def remote_goal_manager_v2_projects():
 
 @app.route("/remote/goal-manager-v2/generate", methods=["POST"])
 def remote_goal_manager_v2_generate():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     return jsonify(generate_projects_from_goals())
 
 
 @app.route("/remote/goal-manager-v2/update-progress", methods=["POST"])
 def remote_goal_manager_v2_update():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     return jsonify(update_project_progress())
 
@@ -797,7 +797,7 @@ def remote_upgrade_planner_plans():
 
 @app.route("/remote/upgrade-planner/propose", methods=["POST"])
 def remote_upgrade_planner_propose():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     return jsonify(propose_upgrade_plan())
 
@@ -1036,6 +1036,37 @@ def remote_autonomous_repair_reject():
         data.get("reason", "User rejected repair proposal")
     ))
 
+# ── Safety Net / Circuit Breaker ─────────────────────────────────────────────
+
+@app.route("/remote/safety/status")
+def remote_safety_status():
+    from executor.safety_net import safety_status
+    return jsonify(safety_status())
+
+@app.route("/remote/safety/incidents")
+def remote_safety_incidents():
+    from executor.safety_net import list_incidents
+    limit = int(request.args.get("limit", 40))
+    return jsonify({"ok": True, "incidents": list_incidents(limit)})
+
+@app.route("/remote/safety/circuit-reset", methods=["POST"])
+def remote_safety_circuit_reset():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    from executor.safety_net import reset_circuit
+    return jsonify(reset_circuit())
+
+@app.route("/remote/safety/rollback", methods=["POST"])
+def remote_safety_rollback():
+    if not check_admin_token(request):
+        return jsonify({"error": "unauthorized"}), 401
+    data = request.get_json(silent=True) or {}
+    incident_id = data.get("incident_id", "")
+    if not incident_id:
+        return jsonify({"ok": False, "error": "Δεν δόθηκε incident_id"})
+    from executor.safety_net import manual_rollback
+    return jsonify(manual_rollback(incident_id))
+
 @app.route("/remote/self-diagnosis/status")
 def remote_self_diagnosis_status():
     return jsonify(self_diagnosis_status())
@@ -1054,6 +1085,11 @@ def remote_self_diagnosis_apply_fix():
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(apply_safe_self_fix(data.get("fix_id")))
+
+@app.route("/remote/self-diagnosis/ai-analyze", methods=["POST"])
+def remote_self_diagnosis_ai_analyze():
+    from executor.self_diagnosis import ai_analyze_diagnosis
+    return jsonify(ai_analyze_diagnosis())
 
 @app.route("/remote/dashboard-action-audit")
 def remote_dashboard_action_audit():
@@ -1354,15 +1390,25 @@ def remote_goals_v2_link_mission_route():
 
 @app.route("/remote/goals-v2/refresh", methods=["POST"])
 def remote_goals_v2_refresh_route():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
-    return jsonify(refresh_goal_progress(data.get("id")))
+    goal_id = data.get("id")
+    try:
+        result = refresh_goal_progress(goal_id) if goal_id else refresh_goal_progress()
+    except TypeError:
+        try:
+            result = refresh_goal_progress()
+        except Exception as e:
+            result = {"ok": False, "error": str(e)}
+    except Exception as e:
+        result = {"ok": False, "error": str(e)}
+    return jsonify(result)
 
 
 @app.route("/remote/goals-v2/create-mission", methods=["POST"])
 def remote_goals_v2_create_mission_route():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(create_goal_mission(
@@ -2400,6 +2446,38 @@ def app_builder_get_route(plan_id):
     return jsonify({"ok": True, "build": build})
 
 
+@app.route("/remote/app-builder/files")
+def app_builder_files_route():
+    """Browse the apps/ folder — list all built app directories and their files."""
+    import os as _os
+    from pathlib import Path as _Path
+    apps_dir = _Path("apps")
+    if not apps_dir.exists():
+        return jsonify({"ok": True, "apps": [], "total": 0, "path": "apps/"})
+    apps = []
+    for entry in sorted(apps_dir.iterdir()):
+        if entry.is_dir():
+            files = []
+            try:
+                for f in sorted(entry.rglob("*")):
+                    if f.is_file():
+                        size = f.stat().st_size
+                        files.append({
+                            "name": str(f.relative_to(entry)),
+                            "size": size,
+                            "size_kb": round(size / 1024, 1),
+                        })
+            except Exception:
+                pass
+            apps.append({
+                "name": entry.name,
+                "path": str(entry),
+                "file_count": len(files),
+                "files": files[:30],
+            })
+    return jsonify({"ok": True, "apps": apps, "total": len(apps), "path": "apps/"})
+
+
 
 @app.route("/remote/document-chat/ask", methods=["POST"])
 def remote_document_chat_ask_route():
@@ -2722,6 +2800,91 @@ def field_markers_route():
         return jsonify({"ok": True, "markers": markers, "count": len(markers)})
     except Exception as e:
         return jsonify({"ok": False, "error": str(e), "markers": []})
+
+
+@app.route("/larmor/history", methods=["GET"])
+def larmor_history_load():
+    """Load persisted Larmor chat history from disk."""
+    try:
+        import json as _json
+        path = os.path.join("data", "larmor_chat_history.json")
+        if not os.path.exists(path):
+            return jsonify({"ok": True, "history": [], "count": 0})
+        with open(path, "r", encoding="utf-8") as f:
+            history = _json.load(f)
+        if not isinstance(history, list):
+            history = []
+        return jsonify({"ok": True, "history": history, "count": len(history)})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e), "history": []})
+
+
+@app.route("/larmor/history", methods=["POST"])
+def larmor_history_save():
+    """Persist Larmor chat history to disk."""
+    try:
+        import json as _json
+        data = request.get_json(silent=True) or {}
+        history = data.get("history", [])
+        if not isinstance(history, list):
+            return jsonify({"ok": False, "error": "history must be an array"})
+        os.makedirs("data", exist_ok=True)
+        path = os.path.join("data", "larmor_chat_history.json")
+        with open(path, "w", encoding="utf-8") as f:
+            _json.dump(history, f, ensure_ascii=False, indent=2)
+        return jsonify({"ok": True, "saved": len(history)})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+# ─── DAILY BRIEF ──────────────────────────────────────────────────────────────
+@app.route("/remote/daily-brief", methods=["GET"])
+def remote_daily_brief_route():
+    try:
+        from executor.daily_brief import daily_brief
+        return jsonify(daily_brief())
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+# ─── PROJECT HEALTH SNAPSHOT ──────────────────────────────────────────────────
+@app.route("/remote/project-health", methods=["GET"])
+def remote_project_health_route():
+    try:
+        from executor.project_health_snapshot import run_project_health_snapshot
+        return jsonify(run_project_health_snapshot())
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+# ─── GUERRILLA SIGNS KNOWLEDGE SEARCH ────────────────────────────────────────
+@app.route("/field/signs/search", methods=["POST"])
+def field_signs_search_route():
+    try:
+        from executor.guerrilla_signs_knowledge import get_guerrilla_signs_chunks
+        data = request.get_json(silent=True) or {}
+        query = (data.get("query") or "").lower().strip()
+        chunks = get_guerrilla_signs_chunks()
+        if not query:
+            return jsonify({"ok": True, "results": chunks, "total": len(chunks)})
+        results = []
+        for c in chunks:
+            hay = (c.get("question", "") + " " + c.get("answer", "") + " " + " ".join(c.get("tags", []))).lower()
+            if query in hay:
+                results.append(c)
+        return jsonify({"ok": True, "results": results, "total": len(results), "query": query})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+# ─── RUNTIME METRICS ──────────────────────────────────────────────────────────
+@app.route("/remote/runtime-metrics", methods=["GET"])
+def remote_runtime_metrics_route():
+    try:
+        from executor.runtime_metrics import collect_metrics
+        return jsonify(collect_metrics())
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 
 if __name__ == "__main__":
