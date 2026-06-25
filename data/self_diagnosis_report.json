@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": 1782383953.202237,
+  "time": 1782385553.5642314,
   "checks": {
     "compile": {
       "executor/router.py": {
@@ -300,13 +300,13 @@
           "status": 401
         }
       ],
-      "time": 1782383967.9713871,
+      "time": 1782385566.2766945,
       "total": 18
     },
     "git_status": {
       "ok": true,
       "code": 0,
-      "stdout": " M data/agent_journal.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M executor/nous_ui.py\n",
+      "stdout": " M data/agent_journal.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n",
       "stderr": ""
     }
   },
