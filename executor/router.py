@@ -205,6 +205,19 @@ def _chat_intent_route(msg: str):
 @app.route("/chat", methods=["POST"])
 def chat():
 
+    # ── INTENT ROUTING (πριν από όλα τα early returns) ───────────────────────
+    try:
+        _raw = request.get_json(silent=True) or {}
+        _intent_msg = (
+            _raw.get("message") or _raw.get("prompt")
+            or _raw.get("text") or _raw.get("command") or ""
+        )
+        _routed = _chat_intent_route(str(_intent_msg))
+        if _routed is not None:
+            return jsonify(_routed)
+    except Exception:
+        pass
+
     # NOUS_CHATGPT_STYLE_EARLY_RETURN
     try:
         data = request.get_json(silent=True) or {}
