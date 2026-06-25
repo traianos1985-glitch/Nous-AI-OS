@@ -80,7 +80,7 @@ from executor.patch_generator import patch_generator_status, list_patch_proposal
 from executor.cleanup_engine import cleanup_status, list_cleanup_reports, run_cleanup_preview, apply_cleanup
 from executor.goal_manager_v2 import goal_manager_status, generate_projects_from_goals, update_project_progress, list_goal_projects
 from executor.executive_memory_v3 import executive_memory_status, search_executive_memory, learn_from_recent_state
-from executor.upgrade_planner import upgrade_planner_status, list_upgrade_plans, propose_upgrade_plan, approve_upgrade_plan, reject_upgrade_plan
+from executor.upgrade_planner import upgrade_planner_status, list_upgrade_plans, propose_upgrade_plan, approve_upgrade_plan, reject_upgrade_plan, get_plan as upgrade_get_plan
 from executor.nous_drive import (
     think as nous_drive_think, status as nous_drive_status,
     list_pending as nous_drive_pending, list_proposals as nous_drive_proposals,
@@ -827,6 +827,13 @@ def remote_upgrade_planner_reject():
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(reject_upgrade_plan(data.get("plan_id"), data.get("reason", "User rejected upgrade plan")))
+
+@app.route("/remote/upgrade-planner/plan/<plan_id>")
+def remote_upgrade_planner_get_plan(plan_id):
+    p = upgrade_get_plan(plan_id)
+    if p:
+        return jsonify({"ok": True, "plan": p})
+    return jsonify({"ok": False, "error": "not found"}), 404
 
 @app.route("/remote/nous-initiatives")
 def remote_nous_initiatives():
