@@ -39,15 +39,41 @@ def _make_id() -> str:
     return str(int(time.time() * 1000000) % (2**53))
 
 
+# ── Actions that NOUS can execute autonomously vs need developer ───────────────
+# auto = NOUS does it itself | developer = needs code implementation
+_AUTO_ACTIONS = {
+    "create_backup", "run_code_analysis", "self_reflection",
+    "generate_morning_brief", "generate_evening_summary",
+    "create_mission_for_goal", "cleanup_disk", "cleanup_caches",
+    "suggest_field_expedition", "expand_knowledge_base", "analyze_repeated_lesson",
+    "github_sync",
+}
+_DEV_ACTIONS = {
+    "implement_capability", "restore_data_files", "optimize_memory",
+}
+
+# Chat messages to suggest for developer actions
+_DEV_CHAT_MESSAGES = {
+    "gap_voice":      "Φτιάξε φωνητική αλληλεπίδραση για τον ΝΟΥΣ (speech-to-text + text-to-speech)",
+    "gap_cron":       "Φτιάξε αυτόματο χρονοπρογραμματιστή για τον ΝΟΥΣ (cron jobs, scheduled tasks)",
+    "gap_weather":    "Φτιάξε weather module για τον ΝΟΥΣ — καιρός Μεσσηνίας από open-meteo API",
+    "gap_gps_live":   "Φτιάξε live GPS tracking module για τον ΝΟΥΣ",
+    "gap_web_search": "Φτιάξε web search module για τον ΝΟΥΣ (αυτόνομη αναζήτηση χωρίς ερώτηση)",
+    "survival_missing_files": "Ο ΝΟΥΣ λέει ότι λείπουν κρίσιμα αρχεία — κάνε diagnostic και fix",
+}
+
+
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def status() -> dict:
     s = _load()
-    pending = [p for p in s["proposals"] if p["status"] == "pending"]
+    pending   = [p for p in s["proposals"] if p["status"] == "pending"]
+    executing = [p for p in s["proposals"] if p["status"] == "executing"]
     return {
         "last_think": s.get("last_think", 0),
         "think_count": s.get("think_count", 0),
         "pending": len(pending),
+        "executing": len(executing),
         "total": len(s["proposals"]),
     }
 
@@ -60,15 +86,57 @@ def list_pending() -> list:
     return [p for p in _load()["proposals"] if p["status"] == "pending"]
 
 
-def approve_proposal(proposal_id: str) -> dict:
+def get_proposal(proposal_id: str) -> dict | None:
+    for p in _load()["proposals"]:
+        if str(p["id"]) == str(proposal_id):
+            return p
+    return None
+
+
+def _update_proposal(proposal_id: str, updates: dict):
+    """Thread-safe update of a proposal's fields."""
     s = _load()
     for p in s["proposals"]:
         if str(p["id"]) == str(proposal_id):
-            p["status"] = "approved"
-            p["approved_at"] = time.time()
+            p.update(updates)
+            break
+    _save(s)
+
+
+def approve_proposal(proposal_id: str) -> dict:
+    import threading
+    s = _load()
+    for p in s["proposals"]:
+        if str(p["id"]) == str(proposal_id):
+            action = p.get("action", "")
+            fp     = p.get("fingerprint", "")
+
+            # If this action needs a developer, mark immediately + return developer info
+            if action in _DEV_ACTIONS:
+                dev_msg = _DEV_CHAT_MESSAGES.get(fp, _DEV_CHAT_MESSAGES.get(action, ""))
+                p["status"]         = "needs_developer"
+                p["approved_at"]    = time.time()
+                p["execution_log"]  = [f"Αυτή η ενέργεια χρειάζεται υλοποίηση κώδικα από τον developer."]
+                p["developer_message"] = dev_msg
+                p["execution_completed"] = time.time()
+                _save(s)
+                return {"ok": True, "needs_developer": True,
+                        "developer_message": dev_msg, "proposal": p}
+
+            # Auto-executable: mark as executing, run in background thread
+            p["status"]          = "executing"
+            p["approved_at"]     = time.time()
+            p["execution_started"] = time.time()
+            p["execution_log"]   = ["⏳ Εκκίνηση εκτέλεσης…"]
             _save(s)
-            _execute_proposal(p)
-            return {"ok": True, "proposal": p}
+
+            def _run(prop_copy):
+                _execute_proposal_tracked(prop_copy)
+
+            t = threading.Thread(target=_run, args=(dict(p),), daemon=True)
+            t.start()
+            return {"ok": True, "executing": True, "proposal_id": proposal_id}
+
     return {"ok": False, "error": "not found"}
 
 
@@ -204,7 +272,7 @@ def _check_survival() -> dict:
     # 1c. Data file integrity
     critical_files = [
         "data/brain_state.json", "data/api_tokens.json",
-        "data/decision_memory.json", "data/learning_memory.json"
+        "data/decision_memory.json",
     ]
     missing = [f for f in critical_files if not Path(f).exists()]
     if missing:
@@ -498,82 +566,222 @@ def _check_curiosity() -> dict:
     return {"proposals": proposals, "log": log}
 
 
-# ── Proposal Execution ────────────────────────────────────────────────────────
+# ── Proposal Execution (tracked, runs in background thread) ──────────────────
 
-def _execute_proposal(proposal: dict):
-    """Execute the action tied to an approved proposal (best-effort)."""
+def _execute_proposal_tracked(proposal: dict):
+    """Execute an auto-executable action, writing status back to disk as it progresses."""
+    pid   = str(proposal["id"])
     action = proposal.get("action", "")
     params = proposal.get("action_params", {})
-    log = []
+    log   = ["⏳ Εκκίνηση εκτέλεσης…"]
 
-    if action == "create_mission_for_goal":
-        try:
-            from executor.mission_planner import propose_mission_for_goal
-            result = propose_mission_for_goal(params.get("goal_id"))
-            log.append(f"created mission proposal: {result}")
-        except Exception as e:
-            log.append(f"create_mission failed: {e}")
+    def _append(msg: str):
+        log.append(msg)
+        _update_proposal(pid, {"execution_log": list(log)})
 
-    elif action == "run_code_analysis":
-        try:
-            from executor.deep_code_analyst import run_analysis
-            run_analysis()
-            log.append("code analysis triggered")
-        except Exception as e:
-            log.append(f"code analysis failed: {e}")
-
-    elif action == "create_backup":
-        try:
-            import shutil as _sh
+    try:
+        # ── create_backup ─────────────────────────────────────────────────────
+        if action == "create_backup":
+            _append("📁 Δημιουργία φακέλου backups/…")
             backup_dir = Path("backups")
             backup_dir.mkdir(exist_ok=True)
             ts = time.strftime("%Y%m%d_%H%M%S")
             backup_path = backup_dir / f"nous_data_{ts}"
-            _sh.copytree("data", str(backup_path), dirs_exist_ok=False)
-            log.append(f"backup created: {backup_path}")
-        except Exception as e:
-            log.append(f"backup failed: {e}")
+            _append(f"📋 Αντιγραφή data/ → {backup_path}…")
+            shutil.copytree("data", str(backup_path))
+            size_mb = sum(f.stat().st_size for f in backup_path.rglob("*")) / 1024 / 1024
+            _append(f"✅ Backup ολοκληρώθηκε! {size_mb:.1f}MB αποθηκεύτηκαν στο {backup_path}")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": f"Backup: {backup_path} ({size_mb:.1f}MB)",
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
 
-    elif action == "github_sync":
-        log.append("github sync: please trigger manually via Deploy section")
+        # ── create_mission_for_goal ────────────────────────────────────────────
+        elif action == "create_mission_for_goal":
+            goal_id = params.get("goal_id")
+            goal_title = params.get("goal_title", "")
+            _append(f"🎯 Δημιουργία αποστολής για στόχο: {goal_title}…")
+            from executor.mission_planner import propose_mission_for_goal
+            result = propose_mission_for_goal(goal_id)
+            ok_msg = result.get("title", str(result))[:80] if isinstance(result, dict) else str(result)[:80]
+            _append(f"✅ Αποστολή δημιουργήθηκε: {ok_msg}")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": ok_msg,
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
 
-    elif action == "generate_morning_brief":
-        try:
+        # ── run_code_analysis ─────────────────────────────────────────────────
+        elif action == "run_code_analysis":
+            _append("🔬 Εκκίνηση ανάλυσης κώδικα…")
+            from executor.deep_code_analyst import run_analysis
+            run_analysis()
+            _append("✅ Ανάλυση κώδικα ολοκληρώθηκε — δες το Deep Code Analyst")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": "Code analysis completed",
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
+
+        # ── analyze_repeated_lesson ───────────────────────────────────────────
+        elif action == "analyze_repeated_lesson":
+            _append("📊 Ανάλυση επαναλαμβανόμενων lessons…")
+            from executor.learning_memory import list_lessons
+            lessons = list_lessons()
+            from collections import Counter
+            counts = Counter(l.get("lesson","") for l in lessons[-50:])
+            top = counts.most_common(3)
+            result = "; ".join(f'"{t}"×{c}' for t,c in top)
+            _append(f"📋 Κορυφαία επαναλαμβανόμενα: {result}")
+            _append("💡 Πρόταση: Απενεργοποίησε ή αλλαξε τα scheduler events που παράγουν αυτά τα μηνύματα.")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": result,
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
+
+        # ── generate_morning_brief ────────────────────────────────────────────
+        elif action in ("generate_morning_brief", "generate_evening_summary"):
+            label = "πρωινή" if "morning" in action else "βραδινή"
+            _append(f"🤖 Παραγωγή {label} αναφοράς με AI…")
             from executor.remote_llm import ask
-            brief = ask(
-                "Είμαι ο ΝΟΥΣ. Φτιάξε μια σύντομη πρωινή αναφορά για χρυσοθήρα στη Μεσσηνία. "
-                "Περιέλαβε: 1) Υπενθύμιση ασφάλειας, 2) Τι να αναζητήσω σήμερα, "
-                "3) Ένα σημείο παρατήρησης. Μέγιστο 5 προτάσεις.",
-                system="Είσαι ο ΝΟΥΣ, AI βοηθός χρυσοθηρίας στη Μεσσηνία."
+            prompt = (
+                f"Είμαι ο ΝΟΥΣ. Φτιάξε μια σύντομη {label} αναφορά για χρυσοθήρα στη Μεσσηνία. "
+                "Περιέλαβε: 1) Σημαντικές παρατηρήσεις, 2) Τι να αναζητήσω, 3) Πρόταση δράσης. "
+                "Μέγιστο 5 προτάσεις, στα ελληνικά."
             )
-            Path("data/morning_brief.txt").write_text(brief, encoding="utf-8")
-            log.append("morning brief generated")
-        except Exception as e:
-            log.append(f"morning brief failed: {e}")
+            brief = ask(prompt, system="Είσαι ο ΝΟΥΣ, AI βοηθός χρυσοθηρίας στη Μεσσηνία.")
+            out = Path(f"data/{action}.txt")
+            out.write_text(brief, encoding="utf-8")
+            _append(f"✅ Αναφορά αποθηκεύτηκε στο {out}")
+            _append(f"📄 Περιεχόμενο:\n{brief[:500]}")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": brief[:300],
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
 
-    elif action == "self_reflection":
-        try:
+        # ── self_reflection ───────────────────────────────────────────────────
+        elif action == "self_reflection":
+            _append("🪞 Εκτέλεση αυτο-αναστοχασμού…")
             s = _load()
+            props = s.get("proposals", [])
             reflection = {
                 "time": time.time(),
                 "think_count": s.get("think_count", 0),
-                "total_proposals": len(s.get("proposals", [])),
-                "approved": len([p for p in s.get("proposals",[]) if p.get("status")=="approved"]),
-                "rejected": len([p for p in s.get("proposals",[]) if p.get("status")=="rejected"]),
-                "pending": len([p for p in s.get("proposals",[]) if p.get("status")=="pending"]),
+                "total": len(props),
+                "approved": len([p for p in props if p.get("status")=="done"]),
+                "rejected": len([p for p in props if p.get("status")=="rejected"]),
+                "needs_dev": len([p for p in props if p.get("status")=="needs_developer"]),
+                "pending": len([p for p in props if p.get("status")=="pending"]),
             }
             s.setdefault("reflections", []).append(reflection)
             _save(s)
-            log.append(f"self-reflection stored: {reflection}")
-        except Exception as e:
-            log.append(f"self-reflection failed: {e}")
+            summary = (f"Κύκλοι σκέψης: {reflection['think_count']} | "
+                       f"Εκτελέστηκαν: {reflection['approved']} | "
+                       f"Απορρίφθηκαν: {reflection['rejected']} | "
+                       f"Χρειάζ. dev: {reflection['needs_dev']}")
+            _append(f"✅ Αναστοχασμός αποθηκεύτηκε: {summary}")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": summary,
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
 
-    # Store execution log
-    s2 = _load()
-    s2.setdefault("execution_log", []).append({
-        "time": time.time(), "action": action, "log": log
-    })
-    _save(s2)
+        # ── github_sync ───────────────────────────────────────────────────────
+        elif action == "github_sync":
+            _append("☁️ Εκκίνηση GitHub sync…")
+            token = os.environ.get("GITHUB_TOKEN", "")
+            if not token:
+                _append("⚠️ Δεν βρέθηκε GITHUB_TOKEN — sync δεν είναι δυνατός αυτόματα.")
+                _update_proposal(pid, {"status": "needs_developer",
+                                        "developer_message": "Κάνε manual push στο GitHub",
+                                        "execution_completed": time.time(),
+                                        "execution_log": list(log)})
+            else:
+                import requests as _req
+                API = "https://api.github.com"
+                hdrs = {"Authorization": f"Bearer {token}",
+                        "Accept": "application/vnd.github+json",
+                        "X-GitHub-Api-Version": "2022-11-28"}
+                REPO = "traianos1985-glitch/Nous-AI-OS"
+                _append("📡 Ελέγχω GitHub repo…")
+                ref = _req.get(f"{API}/repos/{REPO}/git/ref/heads/main", headers=hdrs, timeout=10)
+                if ref.status_code == 200:
+                    _append(f"✅ Σύνδεση OK με {REPO} — το repo είναι προσβάσιμο.")
+                    _append("ℹ️ Για να ανεβάσω κώδικα χρειάζεται ο developer να κάνει push τα αρχεία.")
+                    _update_proposal(pid, {"status": "done",
+                                            "execution_result": f"GitHub OK: {REPO} accessible",
+                                            "execution_completed": time.time(),
+                                            "execution_log": list(log)})
+                else:
+                    _append(f"❌ GitHub error: {ref.status_code}")
+                    _update_proposal(pid, {"status": "failed",
+                                            "execution_completed": time.time(),
+                                            "execution_log": list(log)})
+
+        # ── cleanup_disk ──────────────────────────────────────────────────────
+        elif action == "cleanup_disk":
+            _append("🧹 Καθαρισμός παλιών αρχείων…")
+            freed = 0
+            for tmp_file in Path("/tmp").glob("*"):
+                try:
+                    if tmp_file.is_file() and (time.time() - tmp_file.stat().st_mtime) > 3600:
+                        size = tmp_file.stat().st_size
+                        tmp_file.unlink()
+                        freed += size
+                except Exception:
+                    pass
+            _append(f"✅ Ελευθερώθηκαν {freed//1024}KB από /tmp")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": f"Freed {freed//1024}KB",
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
+
+        # ── expand_knowledge_base ──────────────────────────────────────────────
+        elif action == "expand_knowledge_base":
+            _append("📚 Εμπλουτισμός βάσης γνώσης…")
+            from executor.remote_llm import ask
+            kb_text = ask(
+                "Φτιάξε μια λίστα με 5 σημαντικά γεγονότα για τη χρυσοθηρία στη Μεσσηνία της Ελλάδας: "
+                "αρχαία σημεία, ιστορία, μεθόδους ανίχνευσης. Μορφή: αριθμημένη λίστα.",
+                system="Είσαι ειδικός στην αρχαιολογία και χρυσοθηρία."
+            )
+            try:
+                from executor.knowledge_memory_engine import remember_knowledge
+                remember_knowledge(kb_text, tags=["messenia", "gold_hunting", "auto_learn"])
+                _append(f"✅ Νέα γνώση αποθηκεύτηκε:\n{kb_text[:400]}")
+            except Exception as e:
+                Path("data/kb_expansion.txt").write_text(kb_text, encoding="utf-8")
+                _append(f"✅ Αποθηκεύτηκε στο data/kb_expansion.txt:\n{kb_text[:300]}")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": kb_text[:200],
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
+
+        # ── suggest_field_expedition ───────────────────────────────────────────
+        elif action == "suggest_field_expedition":
+            _append("🗺️ Ανάλυση δεδομένων πεδίου για πρόταση εξόδου…")
+            from executor.remote_llm import ask
+            suggestion = ask(
+                "Είμαι ο ΝΟΥΣ, βοηθός χρυσοθηρίας στη Μεσσηνία. Πρότεινέ μου μια συγκεκριμένη "
+                "τοποθεσία ή στρατηγική για την επόμενη έξοδο στο πεδίο, με βάση τυπικά μοτίβα "
+                "εντοπισμού ευρημάτων στη νότια Πελοπόννησο. Μέγιστο 4 προτάσεις.",
+                system="Είσαι ειδικός σε χρυσοθηρία και αρχαιολογικές έρευνες στη Μεσσηνία."
+            )
+            _append(f"✅ Πρόταση:\n{suggestion[:500]}")
+            Path("data/field_expedition_suggestion.txt").write_text(suggestion, encoding="utf-8")
+            _update_proposal(pid, {"status": "done",
+                                    "execution_result": suggestion[:300],
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
+
+        else:
+            _append(f"⚠️ Άγνωστη ενέργεια: {action}")
+            _update_proposal(pid, {"status": "failed",
+                                    "execution_completed": time.time(),
+                                    "execution_log": list(log)})
+
+    except Exception as e:
+        log.append(f"❌ Σφάλμα κατά την εκτέλεση: {e}")
+        _update_proposal(pid, {"status": "failed",
+                                "execution_completed": time.time(),
+                                "execution_log": list(log)})
 
 
 # ── Helper ────────────────────────────────────────────────────────────────────

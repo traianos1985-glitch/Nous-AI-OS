@@ -85,6 +85,7 @@ from executor.nous_drive import (
     think as nous_drive_think, status as nous_drive_status,
     list_pending as nous_drive_pending, list_proposals as nous_drive_proposals,
     approve_proposal as nous_drive_approve, reject_proposal as nous_drive_reject,
+    get_proposal as nous_drive_get_proposal,
 )
 from executor.patch_apply_engine import patch_apply_status, list_patch_apply_history, apply_patch_proposal
 from executor.rollback_engine import rollback_status, list_rollbacks, rollback_backup
@@ -942,6 +943,13 @@ def remote_nous_drive_proposals():
 def remote_nous_drive_approve():
     data = request.get_json(silent=True) or {}
     return jsonify(nous_drive_approve(data.get("proposal_id")))
+
+@app.route("/remote/nous-drive/proposal/<proposal_id>")
+def remote_nous_drive_get_proposal(proposal_id):
+    p = nous_drive_get_proposal(proposal_id)
+    if p:
+        return jsonify({"ok": True, "proposal": p})
+    return jsonify({"ok": False, "error": "not found"}), 404
 
 @app.route("/remote/nous-drive/reject", methods=["POST"])
 def remote_nous_drive_reject():

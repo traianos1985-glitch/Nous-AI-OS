@@ -3494,42 +3494,119 @@ async function loadNousInitiatives(){
 async function nousInitiativeAct(idx, action){
   const item = (window._nousInitiatives || [])[idx];
   if(!item) return;
-  const fb = document.getElementById("initiativeFeedback_"+idx);
+  const fb   = document.getElementById("initiativeFeedback_"+idx);
   const card = document.getElementById("initiative_"+idx);
   const btns = card ? card.querySelectorAll("button") : [];
   btns.forEach(b=>b.disabled=true);
-  if(fb){ fb.style.display="block"; fb.style.background="rgba(0,0,0,.3)"; fb.style.color="var(--muted)"; fb.textContent="⏳ Επεξεργασία…"; }
-  const route   = action === "approve" ? item.approve_route : item.reject_route;
-  const payload = action === "approve" ? item.approve_payload : item.reject_payload;
-  try {
-    const r = await fetch(route, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify(payload || {})
-    });
-    const d = await r.json();
-    const ok = d.ok !== false && !d.error;
-    if(fb){
-      fb.style.background = ok ? "rgba(34,197,94,.1)" : "rgba(239,68,68,.1)";
-      fb.style.color = ok ? "#86efac" : "#fca5a5";
-      fb.style.border = ok ? "1px solid rgba(34,197,94,.3)" : "1px solid rgba(239,68,68,.3)";
-      fb.textContent = ok
-        ? (action==="approve" ? "✅ Εγκρίθηκε! Ο ΝΟΥΣ ξεκινά την εκτέλεση." : "❌ Απορρίφθηκε.")
-        : ("⚠️ " + (d.error || JSON.stringify(d)).slice(0,100));
-    }
-    if(ok){
-      // Fade out card after 2s and reload
-      setTimeout(()=>{
-        if(card) card.style.opacity="0.4";
-        setTimeout(()=>loadNousInitiatives(), 1500);
-      }, 1800);
-    } else {
-      btns.forEach(b=>b.disabled=false);
-    }
-  } catch(e){
-    if(fb){ fb.style.display="block"; fb.textContent="⚠️ "+e; }
-    btns.forEach(b=>b.disabled=false);
+
+  // ── REJECT ────────────────────────────────────────────────────────────────
+  if(action === "reject"){
+    if(fb){ fb.style.cssText="display:block;padding:8px 12px;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;font-size:12px;margin-top:8px;"; fb.textContent="❌ Απορρίφθηκε."; }
+    try { await fetch(item.reject_route,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(item.reject_payload||{})}); } catch(_){}
+    setTimeout(()=>{ if(card){card.style.transition="opacity .5s";card.style.opacity="0";} setTimeout(()=>loadNousInitiatives(),600); }, 1200);
+    return;
   }
+
+  // ── APPROVE ───────────────────────────────────────────────────────────────
+  // Show "executing" state immediately — card stays visible
+  if(fb){
+    fb.style.cssText="display:block;padding:10px 12px;border-radius:8px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.4);color:#c4b5fd;font-size:12px;margin-top:8px;white-space:pre-wrap;line-height:1.6;";
+    fb.innerHTML='<b>⏳ Εκτελείται…</b>\n<span style="color:var(--muted);font-size:11px;">Περιμένετε…</span>';
+  }
+
+  let approveResp;
+  try {
+    const r = await fetch(item.approve_route,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(item.approve_payload||{})});
+    approveResp = await r.json();
+  } catch(e){
+    if(fb){ fb.style.background="rgba(239,68,68,.1)"; fb.style.border="1px solid rgba(239,68,68,.3)"; fb.style.color="#fca5a5"; fb.textContent="⚠️ Σφάλμα: "+e; }
+    btns.forEach(b=>b.disabled=false);
+    return;
+  }
+
+  if(!approveResp.ok){
+    if(fb){ fb.style.background="rgba(239,68,68,.1)"; fb.style.border="1px solid rgba(239,68,68,.3)"; fb.style.color="#fca5a5"; fb.textContent="⚠️ "+(approveResp.error||"Σφάλμα"); }
+    btns.forEach(b=>b.disabled=false);
+    return;
+  }
+
+  // ── NEEDS DEVELOPER ───────────────────────────────────────────────────────
+  if(approveResp.needs_developer){
+    const devMsg = approveResp.developer_message || "";
+    if(fb){
+      fb.style.cssText="display:block;padding:10px 14px;border-radius:8px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.35);color:#fde68a;font-size:12px;margin-top:8px;";
+      fb.innerHTML=`<b>🛠️ Χρειάζεται υλοποίηση από τον Developer</b><br><span style="color:var(--muted);font-size:11px;margin-top:4px;display:block;">Ο ΝΟΥΣ δεν μπορεί να το κάνει μόνος του — χρειάζεται κώδικας.</span>`
+        + (devMsg ? `<button onclick="nousAskDeveloper(${JSON.stringify(devMsg)})" style="margin-top:8px;padding:5px 12px;border-radius:8px;border:none;background:rgba(251,191,36,.2);color:#fde68a;cursor:pointer;font-size:12px;font-weight:700;">💬 Ζήτα από τον Developer</button>` : "");
+    }
+    // Don't fade — stays visible so user can click the button
+    return;
+  }
+
+  // ── EXECUTING: poll for status ─────────────────────────────────────────────
+  const proposalId = approveResp.proposal_id || (approveResp.proposal && approveResp.proposal.id);
+  if(!proposalId){
+    if(fb){ fb.textContent="✅ Εγκρίθηκε!"; }
+    setTimeout(()=>loadNousInitiatives(), 2000);
+    return;
+  }
+
+  // Poll every 1.5s until done/failed/needs_developer
+  let polls=0;
+  const pollInterval = setInterval(async ()=>{
+    polls++;
+    if(polls > 40){ clearInterval(pollInterval); return; } // max 60s
+    try {
+      const pr = await fetch("/remote/nous-drive/proposal/"+proposalId);
+      const pd = await pr.json();
+      const p  = pd.proposal || {};
+      const log = Array.isArray(p.execution_log) ? p.execution_log : [];
+      const st  = p.status || "executing";
+
+      // Update log display
+      if(fb){
+        const logHtml = log.map(l=>{
+          const col = l.startsWith("✅") ? "#86efac" : l.startsWith("❌") ? "#fca5a5" : l.startsWith("⚠️") ? "#fde68a" : "#c4b5fd";
+          return `<span style="color:${col};">${escHtml(l)}</span>`;
+        }).join("\n");
+
+        if(st==="executing"){
+          fb.style.cssText="display:block;padding:10px 12px;border-radius:8px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.4);color:#c4b5fd;font-size:12px;margin-top:8px;white-space:pre-wrap;line-height:1.6;";
+          fb.innerHTML="<b>⏳ Εκτελείται…</b>\n"+logHtml;
+
+        } else if(st==="done"){
+          clearInterval(pollInterval);
+          fb.style.cssText="display:block;padding:10px 12px;border-radius:8px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#86efac;font-size:12px;margin-top:8px;white-space:pre-wrap;line-height:1.6;";
+          fb.innerHTML="<b>✅ Ολοκληρώθηκε!</b>\n"+logHtml;
+          // Fade out after user sees result
+          setTimeout(()=>{ if(card){card.style.transition="opacity .6s";card.style.opacity="0";} setTimeout(()=>loadNousInitiatives(),700); },3500);
+
+        } else if(st==="failed"){
+          clearInterval(pollInterval);
+          fb.style.cssText="display:block;padding:10px 12px;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;font-size:12px;margin-top:8px;white-space:pre-wrap;line-height:1.6;";
+          fb.innerHTML="<b>❌ Αποτυχία εκτέλεσης</b>\n"+logHtml;
+          btns.forEach(b=>b.disabled=false);
+
+        } else if(st==="needs_developer"){
+          clearInterval(pollInterval);
+          const devMsg = p.developer_message || "";
+          fb.style.cssText="display:block;padding:10px 14px;border-radius:8px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.35);color:#fde68a;font-size:12px;margin-top:8px;";
+          fb.innerHTML=`<b>🛠️ Χρειάζεται Developer</b>\n`+logHtml
+            +(devMsg?`\n<button onclick="nousAskDeveloper(${JSON.stringify(devMsg)})" style="margin-top:8px;padding:5px 12px;border-radius:8px;border:none;background:rgba(251,191,36,.2);color:#fde68a;cursor:pointer;font-size:12px;font-weight:700;">💬 Ζήτα από τον Developer</button>`:"");
+        }
+      }
+    } catch(_){ /* network hiccup, keep polling */ }
+  }, 1500);
+}
+
+function nousAskDeveloper(message){
+  // Pre-fill the chat input and switch to Chat tab
+  const chatInput = document.getElementById("chatInput") || document.querySelector('textarea[id*="chat"]') || document.querySelector('input[placeholder*="Ρώτα"]');
+  if(chatInput){ chatInput.value = message; chatInput.focus(); }
+  // Switch to chat section if possible
+  const chatNav = document.querySelector('[data-sec="chat"]') || document.querySelector('.navItem[onclick*="chat"]');
+  if(chatNav){ chatNav.click(); }
+  // Also try scrolling to top
+  window.scrollTo(0,0);
 }
 
 async function nousThinkNow(){
