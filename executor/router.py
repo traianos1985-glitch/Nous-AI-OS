@@ -815,7 +815,7 @@ def remote_upgrade_planner_propose():
 
 @app.route("/remote/upgrade-planner/approve", methods=["POST"])
 def remote_upgrade_planner_approve():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(approve_upgrade_plan(data.get("plan_id")))
@@ -823,7 +823,7 @@ def remote_upgrade_planner_approve():
 
 @app.route("/remote/upgrade-planner/reject", methods=["POST"])
 def remote_upgrade_planner_reject():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(reject_upgrade_plan(data.get("plan_id"), data.get("reason", "User rejected upgrade plan")))
@@ -1274,7 +1274,7 @@ def remote_autonomous_repair_propose():
 
 @app.route("/remote/autonomous-repair/approve", methods=["POST"])
 def remote_autonomous_repair_approve():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(approve_repair_proposal(data.get("proposal_id")))
@@ -1282,7 +1282,7 @@ def remote_autonomous_repair_approve():
 
 @app.route("/remote/autonomous-repair/reject", methods=["POST"])
 def remote_autonomous_repair_reject():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(reject_repair_proposal(
@@ -1370,7 +1370,7 @@ def remote_mission_planner_propose():
 
 @app.route("/remote/mission-planner/approve", methods=["POST"])
 def remote_mission_planner_approve():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(approve_mission_proposal(data.get("proposal_id")))
@@ -1378,7 +1378,7 @@ def remote_mission_planner_approve():
 
 @app.route("/remote/mission-planner/reject", methods=["POST"])
 def remote_mission_planner_reject():
-    if not check_admin_token(request):
+    if not check_token(request):
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json(silent=True) or {}
     return jsonify(reject_mission_proposal(
