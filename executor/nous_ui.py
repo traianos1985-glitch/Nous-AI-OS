@@ -3503,7 +3503,8 @@ async function nousInitiativeAct(idx, action){
   // ── REJECT ────────────────────────────────────────────────────────────────
   if(action === "reject"){
     if(fb){ fb.style.cssText="display:block;padding:8px 12px;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;font-size:12px;margin-top:8px;"; fb.textContent="❌ Απορρίφθηκε."; }
-    try { await fetch(item.reject_route,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(item.reject_payload||{})}); } catch(_){}
+    const _rh={"Content-Type":"application/json","X-NOUS-TOKEN":localStorage.getItem(tokenKey)||""};
+    try { await fetch(item.reject_route,{method:"POST",headers:_rh,body:JSON.stringify(item.reject_payload||{})}); } catch(_){}
     setTimeout(()=>{ if(card){card.style.transition="opacity .5s";card.style.opacity="0";} setTimeout(()=>loadNousInitiatives(),600); }, 1200);
     return;
   }
@@ -3515,9 +3516,10 @@ async function nousInitiativeAct(idx, action){
     fb.innerHTML='<b>⏳ Εκτελείται…</b>\n<span style="color:var(--muted);font-size:11px;">Περιμένετε…</span>';
   }
 
+  const _ah={"Content-Type":"application/json","X-NOUS-TOKEN":localStorage.getItem(tokenKey)||""};
   let approveResp;
   try {
-    const r = await fetch(item.approve_route,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(item.approve_payload||{})});
+    const r = await fetch(item.approve_route,{method:"POST",headers:_ah,body:JSON.stringify(item.approve_payload||{})});
     approveResp = await r.json();
   } catch(e){
     if(fb){ fb.style.background="rgba(239,68,68,.1)"; fb.style.border="1px solid rgba(239,68,68,.3)"; fb.style.color="#fca5a5"; fb.textContent="⚠️ Σφάλμα: "+e; }
