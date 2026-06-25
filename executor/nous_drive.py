@@ -209,8 +209,13 @@ def think(force: bool = False) -> dict:
     new_proposals.extend(curiosity["proposals"])
     log_entries.extend(curiosity["log"])
 
-    # Deduplicate: don't re-add proposals with same fingerprint
-    existing_fps = {p.get("fingerprint") for p in s["proposals"] if p["status"] == "pending"}
+    # Deduplicate: exclude pending, executing, recently-done (7d), rejected, needs_developer
+    _DONE_COOLDOWN = 7 * 24 * 3600
+    existing_fps = {
+        p.get("fingerprint") for p in s["proposals"]
+        if p.get("status") in ("pending", "executing", "rejected", "needs_developer", "approved")
+        or (p.get("status") == "done" and time.time() - p.get("execution_completed", 0) < _DONE_COOLDOWN)
+    }
     added = []
     for p in new_proposals:
         fp = p.get("fingerprint", p["title"])
@@ -643,11 +648,41 @@ def _execute_proposal_tracked(proposal: dict):
             from executor.learning_memory import list_lessons
             lessons = list_lessons()
             from collections import Counter
-            counts = Counter(l.get("lesson","") for l in lessons[-50:])
-            top = counts.most_common(3)
-            result = "; ".join(f'"{t}"×{c}' for t,c in top)
-            _append(f"📋 Κορυφαία επαναλαμβανόμενα: {result}")
-            _append("💡 Πρόταση: Απενεργοποίησε ή αλλαξε τα scheduler events που παράγουν αυτά τα μηνύματα.")
+            counts = Counter(l.get("lesson","") for l in lessons[-100:])
+            top = counts.most_common(5)
+            result = "; ".join(f'"{t[:60]}"×{c}' for t,c in top)
+            _append(f"📋 Κορυφαία επαναλαμβανόμενα: {result[:300]}")
+
+            # ΠΡΑΓΜΑΤΙΚΗ ΕΝΕΡΓΕΙΑ: Αφαίρεση noisy lessons ώστε να μη ξαναπροτείνεται
+            noise_threshold = 5
+            noisy = [t for t, c in top if c >= noise_threshold]
+            if noisy:
+                _append(f"🔇 Αφαίρεση {len(noisy)} noisy lessons (>{noise_threshold}x)…")
+                try:
+                    lm_file = Path("data/learning_memory.json")
+                    if lm_file.exists():
+                        lm = json.loads(lm_file.read_text(encoding="utf-8"))
+                        before = len(lm)
+                        seen_noisy: dict = {}
+                        kept = []
+                        for entry in lm:
+                            txt = entry.get("lesson", "")
+                            if any(n in txt for n in noisy):
+                                seen_noisy[txt] = seen_noisy.get(txt, 0) + 1
+                                if seen_noisy[txt] <= 2:
+                                    kept.append(entry)
+                            else:
+                                kept.append(entry)
+                        lm_file.write_text(
+                            json.dumps(kept, ensure_ascii=False, indent=2), encoding="utf-8"
+                        )
+                        removed = before - len(kept)
+                        _append(f"✅ Αφαιρέθηκαν {removed} διπλότυπα — μνήμη καθαρίστηκε.")
+                except Exception as e:
+                    _append(f"⚠️ Σφάλμα καθαρισμού μνήμης: {e}")
+            else:
+                _append("ℹ️ Δεν βρέθηκαν lessons με >5 επαναλήψεις.")
+
             _update_proposal(pid, {"status": "done",
                                     "execution_result": result,
                                     "execution_completed": time.time(),
