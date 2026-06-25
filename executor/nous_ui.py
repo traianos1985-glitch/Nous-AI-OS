@@ -408,6 +408,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <button onclick="nousThinkNow()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.5);background:rgba(139,92,246,.15);color:#a78bfa;font-size:12px;cursor:pointer;font-weight:600;">🧠 Σκέψου</button>
               <button onclick="loadNousInitiatives()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.3);background:rgba(139,92,246,.07);color:#a78bfa;font-size:12px;cursor:pointer;">↺</button>
+              <button onclick="nousSetTokenPrompt()" title="Ορισμός NOUS Token για authenticated actions" style="padding:5px 10px;border-radius:8px;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fbbf24;font-size:12px;cursor:pointer;">🔑</button>
             </div>
           </div>
           <div id="nousInitiativesBox">
@@ -1630,6 +1631,18 @@ function token(){
   return t||"";
 }
 function setToken(){ const t=prompt("NOUS token:", localStorage.getItem(tokenKey)||""); if(t)localStorage.setItem(tokenKey,t); }
+function nousSetTokenPrompt(){
+  const cur=localStorage.getItem(tokenKey)||"";
+  const t=prompt("🔑 NOUS Token (π.χ. nous_PTuD…)\nΑντέγραψε το token που έβαλες στο Termux:", cur);
+  if(t===null) return;
+  if(t.trim()){
+    localStorage.setItem(tokenKey,t.trim());
+    alert("✅ Token αποθηκεύτηκε! Τώρα μπορείς να εγκρίνεις προτάσεις.");
+  } else {
+    localStorage.removeItem(tokenKey);
+    alert("🔓 Token αφαιρέθηκε — open access mode.");
+  }
+}
 function openMenu(){document.getElementById("sidebar").classList.add("open");document.getElementById("overlay").classList.add("show")}
 function closeMenu(){document.getElementById("sidebar").classList.remove("open");document.getElementById("overlay").classList.remove("show")}
 function renderObject(obj){document.getElementById("raw").textContent=JSON.stringify(obj,null,2)}
@@ -3503,7 +3516,7 @@ async function nousInitiativeAct(idx, action){
   // ── REJECT ────────────────────────────────────────────────────────────────
   if(action === "reject"){
     if(fb){ fb.style.cssText="display:block;padding:8px 12px;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;font-size:12px;margin-top:8px;"; fb.textContent="❌ Απορρίφθηκε."; }
-    const _rh={"Content-Type":"application/json","X-NOUS-TOKEN":localStorage.getItem(tokenKey)||""};
+    const _rh={"Content-Type":"application/json","X-NOUS-TOKEN":token()};
     try { await fetch(item.reject_route,{method:"POST",headers:_rh,body:JSON.stringify(item.reject_payload||{})}); } catch(_){}
     setTimeout(()=>{ if(card){card.style.transition="opacity .5s";card.style.opacity="0";} setTimeout(()=>loadNousInitiatives(),600); }, 1200);
     return;
@@ -3516,7 +3529,7 @@ async function nousInitiativeAct(idx, action){
     fb.innerHTML='<b>⏳ Εκτελείται…</b>\n<span style="color:var(--muted);font-size:11px;">Περιμένετε…</span>';
   }
 
-  const _ah={"Content-Type":"application/json","X-NOUS-TOKEN":localStorage.getItem(tokenKey)||""};
+  const _ah={"Content-Type":"application/json","X-NOUS-TOKEN":token()};
   let approveResp;
   try {
     const r = await fetch(item.approve_route,{method:"POST",headers:_ah,body:JSON.stringify(item.approve_payload||{})});
