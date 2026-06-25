@@ -398,6 +398,20 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
           <div class="card"><h3>Missions</h3><div id="homeMissions">Loading...</div></div>
         </div>
 
+        <!-- ── NOUS Πρωτοβουλίες ── -->
+        <div class="card" style="margin-top:4px;border:1px solid rgba(139,92,246,.35);background:linear-gradient(135deg,rgba(139,92,246,.06) 0%,var(--panel) 60%);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+            <div style="flex:1;">
+              <h3 style="margin:0 0 2px;font-size:15px;">🤖 Τι θέλει να κάνει ο ΝΟΥΣ</h3>
+              <div style="font-size:11px;color:var(--muted);">Προτάσεις που περιμένουν την έγκρισή σου</div>
+            </div>
+            <button onclick="loadNousInitiatives()" style="padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.4);background:rgba(139,92,246,.1);color:#a78bfa;font-size:12px;cursor:pointer;">↺ Ανανέωση</button>
+          </div>
+          <div id="nousInitiativesBox">
+            <div style="color:var(--muted);font-size:13px;">Φόρτωση προτάσεων…</div>
+          </div>
+        </div>
+
         <!-- ── Daily Brief ── -->
         <div class="card" style="margin-top:4px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
@@ -3390,6 +3404,125 @@ async function schedulerStop(){
   renderObject(data); if(window.nousCaptureConversation){nousCaptureConversation(data);}
   await loadScheduler();
 }
+
+// ══════════════════════════════════════════════════════════════
+// NOUS INITIATIVES — Approve / Reject panel
+// ══════════════════════════════════════════════════════════════
+const _PRIORITY_STYLE = {
+  high:   { bg: "rgba(239,68,68,.12)",   border: "rgba(239,68,68,.4)",   badge: "#fca5a5", label: "🔴 ΥΨΗΛΗ" },
+  medium: { bg: "rgba(251,191,36,.10)",  border: "rgba(251,191,36,.35)", badge: "#fcd34d", label: "🟡 ΜΕΣΑΙΑ" },
+  low:    { bg: "rgba(34,197,94,.08)",   border: "rgba(34,197,94,.3)",   badge: "#86efac", label: "🟢 ΧΑΜΗΛΗ" },
+};
+const _RISK_LABEL = { none:"✅ Μηδενικό", low:"🟢 Χαμηλό", medium:"🟡 Μέτριο", high:"🔴 Υψηλό" };
+const _TYPE_LABEL  = { upgrade:"Αναβάθμιση", mission:"Αποστολή", repair:"Επιδιόρθωση", goal_action:"Στόχος" };
+
+async function loadNousInitiatives(){
+  const box = document.getElementById("nousInitiativesBox");
+  if(!box) return;
+  box.innerHTML = '<div style="color:var(--muted);font-size:13px;">⏳ Φόρτωση προτάσεων…</div>';
+  try {
+    const d = await getJson("/remote/nous-initiatives");
+    const items = d.initiatives || [];
+    if(!items.length){
+      box.innerHTML = `
+        <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:24px;">✅</span>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#86efac;">Όλα εντάξει!</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px;">Ο ΝΟΥΣ δεν έχει εκκρεμείς προτάσεις αυτή τη στιγμή.</div>
+          </div>
+        </div>`;
+      return;
+    }
+    box.innerHTML = items.map((item, idx) => {
+      const ps = _PRIORITY_STYLE[item.priority] || _PRIORITY_STYLE.medium;
+      const riskLabel = _RISK_LABEL[item.risk] || item.risk;
+      const typeLabel = _TYPE_LABEL[item.type] || item.type;
+      const hasReject = !!item.reject_route;
+      return `
+      <div id="initiative_${idx}" style="background:${ps.bg};border:1px solid ${ps.border};border-radius:12px;padding:14px 16px;margin-bottom:10px;">
+        <!-- Top row -->
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+          <span style="font-size:24px;line-height:1;">${escHtml(item.icon||'💡')}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:14px;color:#f1f5f9;margin-bottom:4px;">${escHtml(item.title)}</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">${escHtml(item.description)}</div>
+          </div>
+        </div>
+        <!-- Meta badges -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span style="background:rgba(0,0,0,.3);border-radius:6px;padding:2px 8px;font-size:11px;color:${ps.badge};">${ps.label}</span>
+          <span style="background:rgba(0,0,0,.2);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--muted);">📂 ${escHtml(typeLabel)}</span>
+          <span style="background:rgba(0,0,0,.2);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--muted);">⚠️ Κίνδυνος: ${escHtml(riskLabel)}</span>
+        </div>
+        <!-- Action buttons -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="nousInitiativeAct(${idx}, 'approve')"
+            style="flex:1;min-width:120px;padding:10px 16px;border-radius:10px;border:none;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;font-weight:700;font-size:13px;cursor:pointer;">
+            ✅ Εγκρίνω
+          </button>
+          ${hasReject ? `<button onclick="nousInitiativeAct(${idx}, 'reject')"
+            style="flex:1;min-width:120px;padding:10px 16px;border-radius:10px;border:1px solid rgba(239,68,68,.4);background:rgba(239,68,68,.08);color:#fca5a5;font-weight:700;font-size:13px;cursor:pointer;">
+            ❌ Απορρίπτω
+          </button>` : ''}
+        </div>
+        <!-- Feedback area -->
+        <div id="initiativeFeedback_${idx}" style="display:none;margin-top:10px;padding:8px 12px;border-radius:8px;font-size:12px;"></div>
+      </div>`;
+    }).join("");
+    // Store items for act function
+    window._nousInitiatives = items;
+  } catch(e){
+    box.innerHTML = `<div style="color:var(--bad);font-size:13px;">⚠️ ${escHtml(String(e))}</div>`;
+  }
+}
+
+async function nousInitiativeAct(idx, action){
+  const item = (window._nousInitiatives || [])[idx];
+  if(!item) return;
+  const fb = document.getElementById("initiativeFeedback_"+idx);
+  const card = document.getElementById("initiative_"+idx);
+  const btns = card ? card.querySelectorAll("button") : [];
+  btns.forEach(b=>b.disabled=true);
+  if(fb){ fb.style.display="block"; fb.style.background="rgba(0,0,0,.3)"; fb.style.color="var(--muted)"; fb.textContent="⏳ Επεξεργασία…"; }
+  const route   = action === "approve" ? item.approve_route : item.reject_route;
+  const payload = action === "approve" ? item.approve_payload : item.reject_payload;
+  try {
+    const r = await fetch(route, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload || {})
+    });
+    const d = await r.json();
+    const ok = d.ok !== false && !d.error;
+    if(fb){
+      fb.style.background = ok ? "rgba(34,197,94,.1)" : "rgba(239,68,68,.1)";
+      fb.style.color = ok ? "#86efac" : "#fca5a5";
+      fb.style.border = ok ? "1px solid rgba(34,197,94,.3)" : "1px solid rgba(239,68,68,.3)";
+      fb.textContent = ok
+        ? (action==="approve" ? "✅ Εγκρίθηκε! Ο ΝΟΥΣ ξεκινά την εκτέλεση." : "❌ Απορρίφθηκε.")
+        : ("⚠️ " + (d.error || JSON.stringify(d)).slice(0,100));
+    }
+    if(ok){
+      // Fade out card after 2s and reload
+      setTimeout(()=>{
+        if(card) card.style.opacity="0.4";
+        setTimeout(()=>loadNousInitiatives(), 1500);
+      }, 1800);
+    } else {
+      btns.forEach(b=>b.disabled=false);
+    }
+  } catch(e){
+    if(fb){ fb.style.display="block"; fb.textContent="⚠️ "+e; }
+    btns.forEach(b=>b.disabled=false);
+  }
+}
+
+// Auto-load on Home section open
+document.addEventListener("DOMContentLoaded", ()=>{
+  loadNousInitiatives();
+  setInterval(loadNousInitiatives, 60000);
+});
 
 // ══════════════════════════════════════════════════════════════
 // DAILY BRIEF

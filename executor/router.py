@@ -817,6 +817,129 @@ def remote_upgrade_planner_reject():
     data = request.get_json(silent=True) or {}
     return jsonify(reject_upgrade_plan(data.get("plan_id"), data.get("reason", "User rejected upgrade plan")))
 
+@app.route("/remote/nous-initiatives")
+def remote_nous_initiatives():
+    """Unified: all pending proposals NOUS wants executed, ordered by priority."""
+    import time as _time
+    items = []
+
+    # ── Upgrade plans ─────────────────────────────────────────────────────────
+    try:
+        for p in list_upgrade_plans():
+            if p.get("status") == "pending":
+                upgrades = p.get("upgrades", [])
+                detail = "; ".join(u.get("title","") for u in upgrades[:3])
+                items.append({
+                    "id": str(p["id"]),
+                    "type": "upgrade",
+                    "priority": "high",
+                    "icon": "🚀",
+                    "title": p.get("title", "Upgrade Plan"),
+                    "description": detail or p.get("description", ""),
+                    "risk": "medium",
+                    "created": p.get("created", 0),
+                    "approve_route": "/remote/upgrade-planner/approve",
+                    "reject_route":  "/remote/upgrade-planner/reject",
+                    "approve_payload": {"plan_id": p["id"]},
+                    "reject_payload":  {"plan_id": p["id"], "reason": "User rejected"},
+                })
+    except Exception:
+        pass
+
+    # ── Mission proposals ─────────────────────────────────────────────────────
+    try:
+        for p in list_mission_proposals():
+            if p.get("status") == "pending":
+                items.append({
+                    "id": str(p["id"]),
+                    "type": "mission",
+                    "priority": "medium",
+                    "icon": "🎯",
+                    "title": p.get("title", "Mission Proposal"),
+                    "description": p.get("description", ""),
+                    "risk": "low",
+                    "created": p.get("created", 0),
+                    "approve_route": "/remote/mission-planner/approve",
+                    "reject_route":  "/remote/mission-planner/reject",
+                    "approve_payload": {"proposal_id": p["id"]},
+                    "reject_payload":  {"proposal_id": p["id"], "reason": "User rejected"},
+                })
+    except Exception:
+        pass
+
+    # ── Repair proposals ──────────────────────────────────────────────────────
+    try:
+        for p in list_repair_proposals():
+            if p.get("status") == "pending":
+                items.append({
+                    "id": str(p["id"]),
+                    "type": "repair",
+                    "priority": "high",
+                    "icon": "🔧",
+                    "title": p.get("title", "Repair Proposal"),
+                    "description": p.get("description", ""),
+                    "risk": p.get("risk", "medium"),
+                    "created": p.get("created", 0),
+                    "approve_route": "/remote/autonomous-repair/approve",
+                    "reject_route":  "/remote/autonomous-repair/reject",
+                    "approve_payload": {"proposal_id": p["id"]},
+                    "reject_payload":  {"proposal_id": p["id"], "reason": "User rejected"},
+                })
+    except Exception:
+        pass
+
+    # ── Auto-generate initiative from goals if nothing pending ────────────────
+    if not items:
+        try:
+            from executor.goal_system_v2 import list_goals_v2
+            goals = list_goals_v2() if callable(list_goals_v2) else []
+            in_progress = [g for g in goals if g.get("status") in ("in_progress","active","pending") and g.get("progress",100) < 100]
+            for g in in_progress[:2]:
+                items.append({
+                    "id": f"goal_{g.get('id','')}",
+                    "type": "goal_action",
+                    "priority": "medium",
+                    "icon": "🏁",
+                    "title": f"Προώθηση: {g.get('title','')}",
+                    "description": f"Πρόοδος {g.get('progress',0)}% — ο ΝΟΥΣ θέλει να δημιουργήσει αποστολή για να προχωρήσει αυτόν τον στόχο.",
+                    "risk": "low",
+                    "created": _time.time(),
+                    "approve_route": "/remote/mission-planner/propose",
+                    "reject_route":  None,
+                    "approve_payload": {"goal_id": g.get("id")},
+                    "reject_payload":  None,
+                })
+        except Exception:
+            pass
+
+    items.sort(key=lambda x: {"high":0,"medium":1,"low":2}.get(x.get("priority","low"),2))
+    return jsonify({"ok": True, "initiatives": items, "count": len(items)})
+
+
+@app.route("/remote/nous-initiatives/act", methods=["POST"])
+def remote_nous_initiatives_act():
+    """Unified approve/reject for any initiative type."""
+    import requests as _req
+    data = request.get_json(silent=True) or {}
+    action  = data.get("action")   # "approve" | "reject"
+    route   = data.get("route")
+    payload = data.get("payload", {})
+    if not route or action not in ("approve","reject"):
+        return jsonify({"ok": False, "error": "action and route required"})
+    # Internal dispatch — call the route function directly via the app
+    with app.test_request_context(route, method="POST",
+                                  json=payload,
+                                  headers={"X-NOUS-Token": request.headers.get("X-NOUS-Token",""),
+                                           "Authorization": request.headers.get("Authorization","")}):
+        try:
+            resp = app.full_dispatch_request()
+            import json as _j
+            body = _j.loads(resp.get_data(as_text=True))
+            return jsonify({"ok": True, "result": body})
+        except Exception as e:
+            return jsonify({"ok": False, "error": str(e)})
+
+
 @app.route("/remote/deep-code-analyst/status")
 def remote_deep_code_analyst_status():
     return jsonify(deep_code_analyst_status())
