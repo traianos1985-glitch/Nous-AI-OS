@@ -1156,5 +1156,25 @@
       "auto_mission_scheduler"
     ],
     "created": 1782381209.6192667
+  },
+  {
+    "id": 1782382124805577013,
+    "title": "Auto mission executor run",
+    "reason": "Executed only safe allowlisted mission tasks.",
+    "goal_id": null,
+    "mission_id": null,
+    "action": "auto_mission_executor",
+    "result": {
+      "trigger": "auto_mission_scheduler",
+      "executed_count": 0,
+      "skipped_count": 0
+    },
+    "confidence": 0.8,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782382124.8055785
   }
 ]
