@@ -197,9 +197,55 @@ def chat():
 from executor.health import backup as create_backup
 from executor.health import status as health_status
 
+from executor.remote_tunnel import start_tunnel, stop_tunnel, tunnel_status as get_tunnel_status
+
 @app.route("/health")
 def health():
     return jsonify(health_status())
+
+@app.route("/remote/tunnel/status")
+def tunnel_status_route():
+    return jsonify(get_tunnel_status())
+
+@app.route("/remote/tunnel/start", methods=["POST"])
+def tunnel_start_route():
+    data = request.get_json(silent=True) or {}
+    authtoken = data.get("authtoken", "").strip() or None
+    result = start_tunnel(port=5000, authtoken=authtoken)
+    return jsonify(result)
+
+@app.route("/remote/tunnel/stop", methods=["POST"])
+def tunnel_stop_route():
+    return jsonify(stop_tunnel())
+
+@app.route("/remote/tunnel/save-token", methods=["POST"])
+def tunnel_save_token_route():
+    data = request.get_json(silent=True) or {}
+    token = data.get("authtoken", "").strip()
+    if not token:
+        return jsonify({"ok": False, "error": "Κενό token"})
+    try:
+        env_path = ".env"
+        lines = []
+        found = False
+        if os.path.exists(env_path):
+            with open(env_path) as f:
+                lines = f.readlines()
+        new_lines = []
+        for line in lines:
+            if line.startswith("NGROK_AUTHTOKEN="):
+                new_lines.append(f"NGROK_AUTHTOKEN={token}\n")
+                found = True
+            else:
+                new_lines.append(line)
+        if not found:
+            new_lines.append(f"NGROK_AUTHTOKEN={token}\n")
+        with open(env_path, "w") as f:
+            f.writelines(new_lines)
+        os.environ["NGROK_AUTHTOKEN"] = token
+        return jsonify({"ok": True})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
 
 
 @app.route("/system-info")

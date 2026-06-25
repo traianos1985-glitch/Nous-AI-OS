@@ -1013,7 +1013,57 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
       <section id="remote-access" class="section">
         <div class="hero">
           <h1>📱 Απομακρυσμένη Πρόσβαση</h1>
-          <p>Διαχειρίσου τον ΝΟΥΣ από το κινητό σου — ακόμα κι όταν είσαι εκτός σπιτιού.</p>
+          <p>Ένα κλικ και ο ΝΟΥΣ γίνεται προσβάσιμος από το κινητό σου — από οπουδήποτε.</p>
+        </div>
+
+        <!-- TUNNEL CONTROL PANEL -->
+        <div class="card" id="tunnelCard" style="border:2px solid #2a4a6a;margin-bottom:12px;">
+          <h3>🚇 Δημόσιο URL — Ξεκίνα εδώ</h3>
+          <div id="tunnelStatus" style="margin-bottom:14px;padding:12px;background:#111;border-radius:8px;font-size:13px;">
+            Έλεγχος κατάστασης...
+          </div>
+
+          <!-- Αν δεν έχει token — εμφανίζεται -->
+          <div id="tokenSetupBox" style="display:none;margin-bottom:14px;">
+            <div style="font-size:13px;margin-bottom:8px;">
+              👤 Πρώτη φορά; <a href="https://ngrok.com" target="_blank" style="color:#6cf;">Φτιάξε δωρεάν λογαριασμό</a> και αντέγραψε το Authtoken σου:
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input id="ngrokTokenInput" type="password" placeholder="Επικόλλησε το ngrok authtoken εδώ..."
+                style="flex:1;padding:9px 12px;background:#1a1a1a;color:#e0e0e0;border:1px solid #444;border-radius:8px;font-size:13px;font-family:monospace;" />
+              <button class="miniBtn" onclick="saveTunnelToken()" style="white-space:nowrap;">💾 Αποθήκευση</button>
+            </div>
+            <div id="tokenSaveMsg" style="font-size:12px;margin-top:6px;color:#6c8;"></div>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button id="tunnelStartBtn" class="miniBtn" onclick="startTunnel()"
+              style="background:#1a4a2a;border-color:#2a7a4a;font-size:14px;padding:10px 20px;">
+              🚀 Ξεκίνα Tunnel
+            </button>
+            <button id="tunnelStopBtn" class="miniBtn" onclick="stopTunnel()"
+              style="background:#4a1a1a;border-color:#7a2a2a;font-size:14px;padding:10px 20px;display:none;">
+              ⏹ Σταμάτα
+            </button>
+            <button class="miniBtn" onclick="checkTunnel()" style="padding:10px 14px;">🔄</button>
+          </div>
+
+          <!-- QR Code + URL εφόσον τρέχει -->
+          <div id="tunnelUrlBox" style="display:none;margin-top:16px;padding:14px;background:#0a2a1a;border-radius:10px;border:1px solid #2a6a3a;">
+            <div style="font-size:12px;color:#888;margin-bottom:6px;">🌍 Δημόσιο URL:</div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <a id="tunnelUrlLink" href="#" target="_blank"
+                style="font-size:18px;font-weight:700;color:#4cf;word-break:break-all;text-decoration:none;"></a>
+              <button onclick="copyTunnelUrl()" style="font-size:11px;padding:4px 10px;background:#1a3a2a;border:1px solid #2a5a3a;color:#aaa;border-radius:6px;cursor:pointer;">📋 Αντιγραφή</button>
+            </div>
+            <div style="margin-top:12px;">
+              <div style="font-size:12px;color:#888;margin-bottom:6px;">📱 Σκάναρε με το κινητό:</div>
+              <canvas id="tunnelQR" width="140" height="140" style="background:#fff;border-radius:6px;padding:4px;"></canvas>
+            </div>
+            <div style="margin-top:10px;font-size:12px;color:#6a8a6a;">
+              ✅ Ο ΝΟΥΣ είναι τώρα προσβάσιμος από οπουδήποτε. Μοιράσου αυτό το URL μόνο με εμπιστευτικά άτομα.
+            </div>
+          </div>
         </div>
 
         <div class="grid">
@@ -1131,6 +1181,7 @@ bash deploy/remote_access/setup_tailscale.sh
   </aside>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script>
 const tokenKey="NOUS_TOKEN";
 let currentSection="home";
@@ -1283,6 +1334,100 @@ async function loadSysInfo(){
 
 // Auto-refresh system bar κάθε 15 δευτερόλεπτα
 setInterval(loadSysInfo, 15000);
+
+// ─────────────────────────────────────────────
+// TUNNEL (ngrok) CONTROL
+// ─────────────────────────────────────────────
+function drawQR(url){
+  // Απλό QR με το qrcode.js lib (CDN)
+  if(!window.QRCode) return;
+  const canvas = document.getElementById("tunnelQR");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0,0,140,140);
+  try{
+    QRCode.toCanvas(canvas, url, {width:140,margin:2}, function(){});
+  }catch(e){}
+}
+
+function applyTunnelState(d){
+  const statusEl = document.getElementById("tunnelStatus");
+  const urlBox   = document.getElementById("tunnelUrlBox");
+  const startBtn = document.getElementById("tunnelStartBtn");
+  const stopBtn  = document.getElementById("tunnelStopBtn");
+  const tokenBox = document.getElementById("tokenSetupBox");
+  if(!statusEl) return;
+
+  if(d.status === "running" && d.url){
+    statusEl.innerHTML = `<span style="color:#4c8;">●</span> <strong>Ενεργό</strong> — σύνδεση από οπουδήποτε`;
+    urlBox.style.display = "block";
+    startBtn.style.display = "none";
+    stopBtn.style.display  = "inline-block";
+    tokenBox.style.display = "none";
+    const link = document.getElementById("tunnelUrlLink");
+    link.href = d.url; link.textContent = d.url;
+    drawQR(d.url);
+  } else if(d.status === "starting"){
+    statusEl.innerHTML = `<span style="color:#fa0;">●</span> Εκκίνηση tunnel...`;
+    urlBox.style.display = "none";
+    startBtn.disabled = true;
+  } else if(d.status === "error"){
+    statusEl.innerHTML = `<span style="color:#f55;">●</span> Σφάλμα: ${d.error||"άγνωστο"}`;
+    urlBox.style.display = "none";
+    startBtn.style.display = "inline-block";
+    stopBtn.style.display  = "none";
+    if(!d.has_token) tokenBox.style.display = "block";
+  } else {
+    statusEl.innerHTML = `<span style="color:#888;">●</span> Σταματημένο`;
+    urlBox.style.display = "none";
+    startBtn.style.display = "inline-block";
+    startBtn.disabled = false;
+    stopBtn.style.display  = "none";
+    if(!d.has_token) tokenBox.style.display = "block";
+  }
+}
+
+async function checkTunnel(){
+  const d = await getJson("/remote/tunnel/status");
+  applyTunnelState(d);
+}
+
+async function startTunnel(){
+  const btn = document.getElementById("tunnelStartBtn");
+  if(btn){ btn.disabled=true; btn.textContent="⏳ Εκκίνηση..."; }
+  const inp = document.getElementById("ngrokTokenInput");
+  const body = inp && inp.value.trim() ? {authtoken: inp.value.trim()} : {};
+  const d = await postJson("/remote/tunnel/start", body);
+  applyTunnelState(d);
+  if(btn){ btn.disabled=false; btn.textContent="🚀 Ξεκίνα Tunnel"; }
+}
+
+async function stopTunnel(){
+  const d = await postJson("/remote/tunnel/stop", {});
+  applyTunnelState(d);
+}
+
+async function saveTunnelToken(){
+  const inp = document.getElementById("ngrokTokenInput");
+  const msg = document.getElementById("tokenSaveMsg");
+  if(!inp || !inp.value.trim()){ if(msg) msg.textContent="Βάλε το token πρώτα."; return; }
+  const d = await postJson("/remote/tunnel/save-token", {authtoken: inp.value.trim()});
+  if(msg) msg.textContent = d.ok ? "✅ Αποθηκεύτηκε! Τώρα πάτα Ξεκίνα." : "❌ "+d.error;
+}
+
+function copyTunnelUrl(){
+  const link = document.getElementById("tunnelUrlLink");
+  if(!link) return;
+  navigator.clipboard.writeText(link.textContent).then(()=>{
+    const btn = link.nextElementSibling;
+    if(btn){ const old=btn.textContent; btn.textContent="✅ Αντιγράφηκε!"; setTimeout(()=>btn.textContent=old,2000); }
+  });
+}
+
+// Έλεγχος tunnel κατά την εκκίνηση
+setTimeout(checkTunnel, 1500);
+// Refresh κάθε 30 δευτερόλεπτα
+setInterval(checkTunnel, 30000);
 
 async function approveRecommendation(index){
   const ok = confirm("Να εγκρίνω και να εκτελέσω αυτή την πρόταση;");
