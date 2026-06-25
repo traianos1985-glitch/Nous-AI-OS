@@ -2515,11 +2515,73 @@ def app_builder_read_file_route():
         return jsonify({"ok": False, "error": str(e)})
 
 
+def _try_autorepair_app(app_dir) -> dict:
+    """
+    Autonomous self-repair: scan all .py files in an app directory.
+    If a file is a JSON blob (NOUS plan artifact), extract the real Python code and overwrite it.
+    Returns {"repaired": bool, "files": [...], "message": str}
+    """
+    import re as _re
+    from pathlib import Path as _P
+    repaired_files = []
+    p = _P(app_dir)
+    for pyfile in p.rglob("*.py"):
+        try:
+            raw = pyfile.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+        # Detect JSON blob (NOUS plan artifact starts with ```json or { with "files" key)
+        is_json_blob = raw.strip().startswith("```json") or (
+            raw.strip().startswith("{") and '"files"' in raw and '"content"' in raw
+        )
+        if not is_json_blob:
+            continue
+        # --- Auto-repair: extract real Python from the JSON blob ---
+        extracted = None
+        # Try to extract from "content": "..." field (JSON-escaped Python)
+        m = _re.search(r'"content":\s*"(.*?)(?<!\\)"\s*[,\}]', raw, _re.DOTALL)
+        if m:
+            code = m.group(1)
+            code = (code.replace("\\n", "\n").replace("\\t", "\t")
+                       .replace('\\"', '"').replace("\\\\", "\\").replace("\\/", "/"))
+            if "def " in code or "import " in code or "class " in code:
+                extracted = code
+        if extracted:
+            pyfile.write_text(extracted, encoding="utf-8")
+            repaired_files.append(str(pyfile.relative_to(p)))
+    if repaired_files:
+        return {"repaired": True, "files": repaired_files,
+                "message": f"🔧 Αυτόματη επιδιόρθωση: εξήχθη Python κώδικας από JSON blob σε {repaired_files}"}
+    return {"repaired": False, "files": [], "message": ""}
+
+
+def _launch_app_proc(run_cmd: str, app_name: str) -> dict:
+    """Launch a subprocess and collect first 1.5s of output. Returns info dict."""
+    import subprocess as _sp, sys as _sys, threading, time
+    parts = run_cmd.replace("python ", f"{_sys.executable} ").split()
+    proc = _sp.Popen(parts, stdout=_sp.PIPE, stderr=_sp.STDOUT,
+                     cwd=str(__import__("pathlib").Path(".").resolve()),
+                     text=True, bufsize=1)
+    info = {"proc": proc, "pid": proc.pid, "cmd": run_cmd, "log": ""}
+    _running_apps[app_name] = info
+    lines = []
+    def _reader():
+        for line in proc.stdout:
+            lines.append(line)
+            _running_apps.get(app_name, {})["log"] = (
+                _running_apps.get(app_name, {}).get("log", "") + line
+            )
+            if len(lines) > 200:
+                break
+    t = threading.Thread(target=_reader, daemon=True)
+    t.start()
+    time.sleep(1.5)
+    return {"proc": proc, "pid": proc.pid, "lines": lines}
+
+
 @app.route("/remote/app-builder/run-app", methods=["POST"])
 def app_builder_run_app_route():
-    """Start an app from apps/<app_name>/ as a subprocess."""
-    import subprocess as _sp
-    import sys as _sys
+    """Start an app from apps/<app_name>/ with autonomous self-repair on failure."""
     from pathlib import Path as _P
     global _running_apps
 
@@ -2544,35 +2606,53 @@ def app_builder_run_app_route():
     if not run_cmd:
         run_cmd = _detect_run_command(app_dir)
 
-    # Parse command
-    parts = run_cmd.replace("python ", f"{_sys.executable} ").split()
+    repair_msg = ""
+
+    # ── STEP 1: Pre-flight — scan for JSON blob files before running ──────────
+    repair = _try_autorepair_app(app_dir)
+    if repair["repaired"]:
+        repair_msg = repair["message"]
+
+    # ── STEP 2: First launch attempt ──────────────────────────────────────────
     try:
-        proc = _sp.Popen(
-            parts,
-            stdout=_sp.PIPE, stderr=_sp.STDOUT,
-            cwd=str(_P(".").resolve()),
-            text=True, bufsize=1,
-        )
-        _running_apps[app_name] = {"proc": proc, "pid": proc.pid, "cmd": run_cmd, "log": ""}
-        # Collect first 2 seconds of output
-        import threading, time
-        lines = []
-        def _reader():
-            for line in proc.stdout:
-                lines.append(line)
-                _running_apps[app_name]["log"] += line
-                if len(lines) > 200:
-                    break
-        t = threading.Thread(target=_reader, daemon=True)
-        t.start()
-        time.sleep(1.5)
+        r1 = _launch_app_proc(run_cmd, app_name)
+        proc, lines = r1["proc"], r1["lines"]
+        output_text = "".join(lines[-40:])
+
+        # ── STEP 3: Detect failure + auto-repair ──────────────────────────────
+        failed = proc.poll() is not None
+        has_syntax_error = "SyntaxError" in output_text or "invalid syntax" in output_text
+        has_json_blob_error = "```json" in output_text or ("line 1" in output_text and "SyntaxError" in output_text)
+
+        if failed and (has_syntax_error or has_json_blob_error):
+            # Try repair even if pre-flight didn't catch it
+            repair2 = _try_autorepair_app(app_dir)
+            if repair2["repaired"]:
+                repair_msg += ("\n" if repair_msg else "") + repair2["message"]
+                # Re-launch after repair
+                del _running_apps[app_name]
+                r2 = _launch_app_proc(run_cmd, app_name)
+                proc, lines = r2["proc"], r2["lines"]
+                output_text = "".join(lines[-40:])
+                failed = proc.poll() is not None
+                if not failed:
+                    output_text = (repair_msg + "\n✅ Επανεκκίνηση μετά από επιδιόρθωση!\n\n") + output_text
+                else:
+                    output_text = (repair_msg + "\n⚠️ Επιδιορθώθηκε αλλά εξακολουθεί να αποτυγχάνει:\n\n") + output_text
+            else:
+                output_text = "❌ SyntaxError — δεν ήταν δυνατή η αυτόματη επιδιόρθωση.\n" + output_text
+        elif repair_msg:
+            output_text = repair_msg + "\n\n" + output_text
+
         return jsonify({
             "ok": True,
             "pid": proc.pid,
             "app": app_name,
             "cmd": run_cmd,
             "running": proc.poll() is None,
-            "output": "".join(lines[-30:]),
+            "output": output_text,
+            "repaired": bool(repair_msg),
+            "repair_msg": repair_msg,
         })
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)})

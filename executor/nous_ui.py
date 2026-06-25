@@ -4656,11 +4656,24 @@ async function appRunToggle(appName, runCmd){
       body: JSON.stringify({app: appName, run_command: runCmd})
     });
     const d = await r.json();
+    // Show repair badge if auto-repair happened
+    if(d.repaired && d.repair_msg){
+      const card = document.getElementById("appCard_"+appName);
+      if(card){
+        let badge = card.querySelector(".repair-badge");
+        if(!badge){
+          badge = document.createElement("div");
+          badge.className = "repair-badge";
+          badge.style.cssText = "background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.4);border-radius:8px;padding:6px 12px;font-size:12px;color:#fbbf24;margin-bottom:8px;";
+          card.insertBefore(badge, card.firstChild);
+        }
+        badge.textContent = "🔧 " + d.repair_msg;
+      }
+    }
     if(d.ok && d.running){
       _appRunningSet.add(appName);
       if(btn){ btn.textContent="⏹ Stop"; btn.style.background="#ef4444"; btn.disabled=false; }
       if(log) log.textContent = (d.output||"(χωρίς output ακόμα)");
-      // Poll for more output
       _pollAppLog(appName);
     } else {
       if(btn){ btn.textContent="▶ Run"; btn.style.background="#22c55e"; btn.disabled=false; }
