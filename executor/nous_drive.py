@@ -13,8 +13,12 @@ import time
 import uuid
 import os
 import shutil
+import threading
+import subprocess
 from pathlib import Path
 from typing import Any
+
+_state_lock = threading.Lock()
 
 DRIVE_FILE = Path("data/nous_drive.json")
 DRIVE_FILE.parent.mkdir(exist_ok=True)
@@ -46,10 +50,19 @@ _AUTO_ACTIONS = {
     "generate_morning_brief", "generate_evening_summary",
     "create_mission_for_goal", "cleanup_disk", "cleanup_caches",
     "suggest_field_expedition", "expand_knowledge_base", "analyze_repeated_lesson",
-    "github_sync",
+    "github_sync", "implement_capability",
 }
 _DEV_ACTIONS = {
-    "implement_capability", "restore_data_files", "optimize_memory",
+    "restore_data_files", "optimize_memory",
+}
+
+# Known gap → (file that marks it done, human-readable name, extra_setup_fn)
+_GAP_IMPLS: dict = {
+    "gap_voice":      ("executor/voice_engine.py",     "Voice Engine (Web Speech API)",    None),
+    "gap_cron":       ("executor/scheduler_cron.py",   "Scheduler Cron",                   "start_cron"),
+    "gap_weather":    ("executor/weather_engine.py",   "Weather Engine (open-meteo)",       None),
+    "gap_gps_live":   ("executor/gps_tracker.py",      "GPS Tracker",                       None),
+    "gap_web_search": (None,                            "Web Search Engine",                 None),
 }
 
 # Chat messages to suggest for developer actions
@@ -94,48 +107,51 @@ def get_proposal(proposal_id: str) -> dict | None:
 
 
 def _update_proposal(proposal_id: str, updates: dict):
-    """Thread-safe update of a proposal's fields."""
-    s = _load()
-    for p in s["proposals"]:
-        if str(p["id"]) == str(proposal_id):
-            p.update(updates)
-            break
-    _save(s)
+    """Thread-safe update — uses file lock so concurrent threads don't overwrite each other."""
+    with _state_lock:
+        s = _load()
+        for p in s["proposals"]:
+            if str(p["id"]) == str(proposal_id):
+                p.update(updates)
+                break
+        _save(s)
 
 
 def approve_proposal(proposal_id: str) -> dict:
-    import threading
-    s = _load()
-    for p in s["proposals"]:
-        if str(p["id"]) == str(proposal_id):
-            action = p.get("action", "")
-            fp     = p.get("fingerprint", "")
+    prop_copy = None
+    result    = None
 
-            # If this action needs a developer, mark immediately + return developer info
-            if action in _DEV_ACTIONS:
-                dev_msg = _DEV_CHAT_MESSAGES.get(fp, _DEV_CHAT_MESSAGES.get(action, ""))
-                p["status"]         = "needs_developer"
-                p["approved_at"]    = time.time()
-                p["execution_log"]  = [f"Αυτή η ενέργεια χρειάζεται υλοποίηση κώδικα από τον developer."]
-                p["developer_message"] = dev_msg
-                p["execution_completed"] = time.time()
+    with _state_lock:
+        s = _load()
+        for p in s["proposals"]:
+            if str(p["id"]) == str(proposal_id):
+                action = p.get("action", "")
+                fp     = p.get("fingerprint", "")
+
+                if action in _DEV_ACTIONS:
+                    dev_msg = _DEV_CHAT_MESSAGES.get(fp, _DEV_CHAT_MESSAGES.get(action, ""))
+                    p["status"]              = "needs_developer"
+                    p["approved_at"]         = time.time()
+                    p["execution_log"]       = ["Αυτή η ενέργεια χρειάζεται υλοποίηση κώδικα από τον developer."]
+                    p["developer_message"]   = dev_msg
+                    p["execution_completed"] = time.time()
+                    _save(s)
+                    return {"ok": True, "needs_developer": True,
+                            "developer_message": dev_msg, "proposal": p}
+
+                p["status"]            = "executing"
+                p["approved_at"]       = time.time()
+                p["execution_started"] = time.time()
+                p["execution_log"]     = ["⏳ Εκκίνηση εκτέλεσης…"]
                 _save(s)
-                return {"ok": True, "needs_developer": True,
-                        "developer_message": dev_msg, "proposal": p}
+                prop_copy = dict(p)
+                result    = {"ok": True, "executing": True, "proposal_id": proposal_id}
+                break
 
-            # Auto-executable: mark as executing, run in background thread
-            p["status"]          = "executing"
-            p["approved_at"]     = time.time()
-            p["execution_started"] = time.time()
-            p["execution_log"]   = ["⏳ Εκκίνηση εκτέλεσης…"]
-            _save(s)
-
-            def _run(prop_copy):
-                _execute_proposal_tracked(prop_copy)
-
-            t = threading.Thread(target=_run, args=(dict(p),), daemon=True)
-            t.start()
-            return {"ok": True, "executing": True, "proposal_id": proposal_id}
+    if prop_copy:
+        t = threading.Thread(target=_execute_proposal_tracked, args=(prop_copy,), daemon=True)
+        t.start()
+        return result
 
     return {"ok": False, "error": "not found"}
 
@@ -771,6 +787,49 @@ def _execute_proposal_tracked(proposal: dict):
                                     "execution_completed": time.time(),
                                     "execution_log": list(log)})
 
+        # ── implement_capability ──────────────────────────────────────────────
+        elif action == "implement_capability":
+            fp    = proposal.get("fingerprint", "")
+            title = proposal.get("title", fp)
+            _append(f"🔧 Ανάλυση capability gap: {title}…")
+
+            impl = _GAP_IMPLS.get(fp)
+            already_done = False
+
+            if impl:
+                marker_file, impl_name, extra = impl
+                # Check if implementation file already exists
+                if marker_file is None:
+                    already_done = _has_web_search_capability()
+                else:
+                    already_done = Path(marker_file).exists()
+
+                if already_done:
+                    _append(f"✅ '{impl_name}' — αρχείο υπάρχει ήδη!")
+                    if extra == "start_cron":
+                        try:
+                            from executor.scheduler_cron import start_scheduler, list_jobs
+                            start_scheduler()
+                            jobs = list_jobs()
+                            _append(f"✅ Scheduler εκκινήθηκε — {len(jobs)} εργασίες προγραμματίστηκαν:")
+                            for j in jobs[:4]:
+                                _append(f"   • {j['name']} στις {j['hour']:02d}:{j['minute']:02d}")
+                        except Exception as se:
+                            _append(f"⚠️ Scheduler error: {se}")
+                    _append("🔄 Η δυνατότητα είναι ενεργή — δεν χρειάζεται developer.")
+                    _update_proposal(pid, {"status": "done",
+                                           "execution_result": f"{impl_name} — ήδη υλοποιημένο",
+                                           "execution_completed": time.time(),
+                                           "execution_log": list(log)})
+                else:
+                    # File missing — try to auto-generate via LLM
+                    _append(f"📝 '{impl_name}' δεν βρέθηκε — παράγω κώδικα με AI…")
+                    _auto_generate_module(proposal, pid, marker_file, impl_name, _append, log)
+            else:
+                # Completely unknown gap — use LLM to generate implementation
+                _append(f"🤖 Άγνωστο capability '{fp}' — αυτόματη υλοποίηση με AI…")
+                _auto_generate_module(proposal, pid, None, fp, _append, log)
+
         else:
             _append(f"⚠️ Άγνωστη ενέργεια: {action}")
             _update_proposal(pid, {"status": "failed",
@@ -782,6 +841,80 @@ def _execute_proposal_tracked(proposal: dict):
         _update_proposal(pid, {"status": "failed",
                                 "execution_completed": time.time(),
                                 "execution_log": list(log)})
+
+
+# ── Auto-generate module via LLM ─────────────────────────────────────────────
+
+def _auto_generate_module(proposal: dict, pid: str, target_file: str | None,
+                           impl_name: str, _append, log: list):
+    """Χρησιμοποιεί LLM για να γράψει κώδικα και να υλοποιήσει νέο capability."""
+    fp          = proposal.get("fingerprint", "")
+    description = proposal.get("description", impl_name)
+
+    if target_file is None:
+        target_file = f"executor/auto_{fp.replace('gap_','')}_impl.py"
+
+    try:
+        from executor.remote_llm import ask
+        prompt = (
+            f"Γράψε ένα Python module για Flask app που υλοποιεί: {description}\n\n"
+            f"Fingerprint: {fp}\n"
+            "Απαιτήσεις:\n"
+            "- Μόνο Python κώδικας, χωρίς markdown blocks\n"
+            "- Χρησιμοποίησε μόνο: standard library, requests, pathlib\n"
+            "- Πρόσθεσε status() function που επιστρέφει dict\n"
+            "- Χωρίς εξωτερικά API keys\n"
+            "Γράψε μόνο τον κώδικα:"
+        )
+        code = ask(prompt, system=(
+            "Είσαι expert Python developer. Γράψε ΜΟΝΟ Python code — "
+            "χωρίς markdown, χωρίς εξηγήσεις, χωρίς ```python blocks. "
+            "Ο κώδικας πρέπει να είναι runnable αμέσως."
+        ))
+
+        # Strip accidental markdown fences
+        code = "\n".join(
+            l for l in code.splitlines()
+            if not l.strip().startswith("```")
+        )
+
+        if not code or len(code) < 30:
+            raise ValueError("LLM δεν παρήγαγε αξιόπιστο κώδικα")
+
+        Path(target_file).write_text(code, encoding="utf-8")
+        _append(f"📝 Κώδικας γράφτηκε στο {target_file} ({len(code)} χαρακτ.)")
+
+        # Validate syntax
+        result = subprocess.run(
+            ["python", "-m", "py_compile", target_file],
+            capture_output=True, text=True, timeout=15
+        )
+        if result.returncode == 0:
+            _append(f"✅ Σύνταξη OK! '{impl_name}' υλοποιήθηκε αυτόματα.")
+            _update_proposal(pid, {
+                "status": "done",
+                "execution_result": f"Auto-implemented: {target_file}",
+                "execution_completed": time.time(),
+                "execution_log": list(log),
+            })
+        else:
+            err = result.stderr[:150]
+            _append(f"⚠️ Σφάλμα σύνταξης: {err}")
+            _append("🛠️ Χρειάζεται manual διόρθωση από τον developer.")
+            _update_proposal(pid, {
+                "status": "needs_developer",
+                "developer_message": f"Auto-impl για '{fp}' έχει σφάλμα σύνταξης στο {target_file}: {err}",
+                "execution_completed": time.time(),
+                "execution_log": list(log),
+            })
+    except Exception as e:
+        _append(f"❌ Σφάλμα auto-generation: {e}")
+        _update_proposal(pid, {
+            "status": "needs_developer",
+            "developer_message": f"Auto-impl απέτυχε για '{fp}': {e}",
+            "execution_completed": time.time(),
+            "execution_log": list(log),
+        })
 
 
 # ── Helper ────────────────────────────────────────────────────────────────────

@@ -461,6 +461,7 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
               <div style="display:flex;gap:6px;align-items:center;">
                 <label for="chatFileQuick" title="Upload αρχείο" style="cursor:pointer;font-size:20px;padding:4px 8px;opacity:.7;">📎</label>
                 <input type="file" id="chatFileQuick" style="display:none" onchange="quickUpload(this)">
+                <button id="voiceMicBtn" title="Φωνητική εισαγωγή" onclick="nousVoiceInput()" style="background:none;border:1px solid rgba(139,92,246,.4);border-radius:50%;width:36px;height:36px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;" onmouseenter="this.style.background='rgba(139,92,246,.2)'" onmouseleave="this.style.background='none'">🎤</button>
                 <button class="send" id="sendBtn" onclick="sendPrompt()">↑</button>
               </div>
             </div>
@@ -3596,6 +3597,38 @@ async function nousInitiativeAct(idx, action){
       }
     } catch(_){ /* network hiccup, keep polling */ }
   }, 1500);
+}
+
+function nousVoiceInput(){
+  const btn = document.getElementById("voiceMicBtn");
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ alert("Ο browser σου δεν υποστηρίζει φωνητική εισαγωγή. Δοκίμασε Chrome."); return; }
+  if(btn && btn.dataset.listening === "1"){
+    window._nousRecognition && window._nousRecognition.stop();
+    return;
+  }
+  const rec = new SR();
+  rec.lang = "el-GR";
+  rec.continuous = false;
+  rec.interimResults = false;
+  window._nousRecognition = rec;
+  rec.onstart = ()=>{
+    if(btn){ btn.textContent="🔴"; btn.dataset.listening="1"; btn.style.border="1px solid rgba(239,68,68,.7)"; btn.style.background="rgba(239,68,68,.15)"; }
+  };
+  rec.onresult = e=>{
+    const text = e.results[0][0].transcript;
+    const prompt = document.getElementById("prompt");
+    if(prompt){ prompt.value = (prompt.value ? prompt.value+" " : "") + text; prompt.focus(); }
+    if(btn){ btn.textContent="🎤"; btn.dataset.listening="0"; btn.style.border="1px solid rgba(139,92,246,.4)"; btn.style.background="none"; }
+  };
+  rec.onerror = err=>{
+    if(btn){ btn.textContent="🎤"; btn.dataset.listening="0"; btn.style.border="1px solid rgba(139,92,246,.4)"; btn.style.background="none"; }
+    if(err.error !== "aborted") console.warn("Voice error:", err.error);
+  };
+  rec.onend = ()=>{
+    if(btn){ btn.textContent="🎤"; btn.dataset.listening="0"; btn.style.border="1px solid rgba(139,92,246,.4)"; btn.style.background="none"; }
+  };
+  rec.start();
 }
 
 function nousAskDeveloper(message){

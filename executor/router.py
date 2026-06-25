@@ -87,6 +87,11 @@ from executor.nous_drive import (
     approve_proposal as nous_drive_approve, reject_proposal as nous_drive_reject,
     get_proposal as nous_drive_get_proposal,
 )
+from executor.weather_engine import get_weather, weather_status
+from executor.gps_tracker import update_position as gps_update_pos, gps_status, get_track as gps_get_track, clear_track as gps_clear_track
+from executor.voice_engine import voice_status, prepare_tts
+from executor.web_search import search as web_search_fn
+from executor.scheduler_cron import cron_status, list_jobs as cron_list_jobs, add_job as cron_add_job, remove_job as cron_remove_job, toggle_job as cron_toggle_job, start_scheduler
 from executor.patch_apply_engine import patch_apply_status, list_patch_apply_history, apply_patch_proposal
 from executor.rollback_engine import rollback_status, list_rollbacks, rollback_backup
 from executor.repository_graph import repository_graph_status, build_repository_graph
@@ -955,6 +960,84 @@ def remote_nous_drive_get_proposal(proposal_id):
 def remote_nous_drive_reject():
     data = request.get_json(silent=True) or {}
     return jsonify(nous_drive_reject(data.get("proposal_id"), data.get("reason","User rejected")))
+
+# ── NOUS Capabilities: Weather ─────────────────────────────────────────────────
+@app.route("/nous/weather")
+def nous_weather():
+    return jsonify(get_weather(request.args.get("refresh","") == "1"))
+
+@app.route("/nous/weather/status")
+def nous_weather_status():
+    return jsonify(weather_status())
+
+# ── NOUS Capabilities: GPS ─────────────────────────────────────────────────────
+@app.route("/nous/gps/update", methods=["POST"])
+def nous_gps_update():
+    data = request.get_json(silent=True) or {}
+    lat, lon = data.get("lat"), data.get("lon")
+    if lat is None or lon is None:
+        return jsonify({"ok": False, "error": "lat/lon required"}), 400
+    fix = gps_update_pos(float(lat), float(lon), data.get("accuracy"), "browser")
+    return jsonify({"ok": True, "fix": fix})
+
+@app.route("/nous/gps/status")
+def nous_gps_status_route():
+    return jsonify(gps_status())
+
+@app.route("/nous/gps/track")
+def nous_gps_track():
+    limit = int(request.args.get("limit", 100))
+    return jsonify({"ok": True, "track": gps_get_track(limit)})
+
+@app.route("/nous/gps/clear", methods=["POST"])
+def nous_gps_clear():
+    return jsonify(gps_clear_track())
+
+# ── NOUS Capabilities: Voice ───────────────────────────────────────────────────
+@app.route("/nous/voice/status")
+def nous_voice_status():
+    return jsonify(voice_status())
+
+@app.route("/nous/voice/tts", methods=["POST"])
+def nous_voice_tts():
+    data = request.get_json(silent=True) or {}
+    return jsonify(prepare_tts(data.get("text",""), data.get("lang")))
+
+# ── NOUS Capabilities: Web Search ──────────────────────────────────────────────
+@app.route("/nous/search", methods=["POST"])
+def nous_web_search():
+    data = request.get_json(silent=True) or {}
+    query = data.get("query", "")
+    if not query:
+        return jsonify({"ok": False, "error": "query required"}), 400
+    return jsonify(web_search_fn(query, max_results=int(data.get("max_results", 5))))
+
+# ── NOUS Capabilities: Cron Scheduler ─────────────────────────────────────────
+@app.route("/nous/cron/status")
+def nous_cron_status_route():
+    return jsonify(cron_status())
+
+@app.route("/nous/cron/jobs")
+def nous_cron_jobs():
+    return jsonify({"ok": True, "jobs": cron_list_jobs()})
+
+@app.route("/nous/cron/add", methods=["POST"])
+def nous_cron_add():
+    data = request.get_json(silent=True) or {}
+    if not data.get("name") or not data.get("action"):
+        return jsonify({"ok": False, "error": "name and action required"}), 400
+    job = cron_add_job(data["name"], data["action"], int(data.get("hour",8)), int(data.get("minute",0)), data.get("days"))
+    return jsonify({"ok": True, "job": job})
+
+@app.route("/nous/cron/remove", methods=["POST"])
+def nous_cron_remove():
+    data = request.get_json(silent=True) or {}
+    return jsonify(cron_remove_job(str(data.get("job_id",""))))
+
+@app.route("/nous/cron/toggle", methods=["POST"])
+def nous_cron_toggle():
+    data = request.get_json(silent=True) or {}
+    return jsonify(cron_toggle_job(str(data.get("job_id","")), bool(data.get("enabled", True))))
 
 
 @app.route("/remote/nous-initiatives/act", methods=["POST"])
@@ -3294,6 +3377,11 @@ def _nous_drive_background():
 import threading as _threading
 _drive_thread = _threading.Thread(target=_nous_drive_background, daemon=True)
 _drive_thread.start()
+
+try:
+    start_scheduler()
+except Exception:
+    pass
 
 if __name__ == "__main__":
     print("🧠 NUS AI OS LEVEL 22 RUNNING")
