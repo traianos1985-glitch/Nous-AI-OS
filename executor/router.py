@@ -2449,7 +2449,6 @@ def app_builder_get_route(plan_id):
 @app.route("/remote/app-builder/files")
 def app_builder_files_route():
     """Browse the apps/ folder — list all built app directories and their files."""
-    import os as _os
     from pathlib import Path as _Path
     apps_dir = _Path("apps")
     if not apps_dir.exists():
@@ -2469,13 +2468,162 @@ def app_builder_files_route():
                         })
             except Exception:
                 pass
+            # Detect run command from main.py / app.py / requirements.txt
+            run_cmd = _detect_run_command(entry)
             apps.append({
                 "name": entry.name,
                 "path": str(entry),
                 "file_count": len(files),
                 "files": files[:30],
+                "run_command": run_cmd,
             })
     return jsonify({"ok": True, "apps": apps, "total": len(apps), "path": "apps/"})
+
+
+def _detect_run_command(app_dir) -> str:
+    from pathlib import Path as _P
+    p = _P(app_dir)
+    for candidate in ["main.py", "app.py", "run.py", "server.py"]:
+        if (p / candidate).exists():
+            return f"python apps/{p.name}/{candidate}"
+    return f"python apps/{p.name}/main.py"
+
+
+# ── In-memory store for running app subprocesses ──────────────────────────────
+_running_apps: dict = {}   # app_name -> {"pid": int, "proc": Popen, "port": int, "log": str}
+
+
+@app.route("/remote/app-builder/read-file")
+def app_builder_read_file_route():
+    """Return the text content of a file inside apps/<app>/<file>."""
+    from pathlib import Path as _P
+    app_name = request.args.get("app", "").strip()
+    filename = request.args.get("file", "").strip()
+    if not app_name or not filename:
+        return jsonify({"ok": False, "error": "app and file params required"})
+    # Security: no path traversal
+    base = _P("apps") / app_name
+    target = (base / filename).resolve()
+    if not str(target).startswith(str(base.resolve())):
+        return jsonify({"ok": False, "error": "invalid path"})
+    if not target.exists() or not target.is_file():
+        return jsonify({"ok": False, "error": "file not found"})
+    try:
+        content = target.read_text(encoding="utf-8", errors="replace")
+        return jsonify({"ok": True, "content": content, "file": filename, "app": app_name})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+@app.route("/remote/app-builder/run-app", methods=["POST"])
+def app_builder_run_app_route():
+    """Start an app from apps/<app_name>/ as a subprocess."""
+    import subprocess as _sp
+    import sys as _sys
+    from pathlib import Path as _P
+    global _running_apps
+
+    data = request.get_json(silent=True) or {}
+    app_name = data.get("app", "").strip()
+    run_cmd = data.get("run_command", "").strip()
+    if not app_name:
+        return jsonify({"ok": False, "error": "app name required"})
+
+    # Kill previous instance if running
+    if app_name in _running_apps:
+        try:
+            _running_apps[app_name]["proc"].terminate()
+        except Exception:
+            pass
+        del _running_apps[app_name]
+
+    app_dir = _P("apps") / app_name
+    if not app_dir.exists():
+        return jsonify({"ok": False, "error": f"apps/{app_name} not found"})
+
+    if not run_cmd:
+        run_cmd = _detect_run_command(app_dir)
+
+    # Parse command
+    parts = run_cmd.replace("python ", f"{_sys.executable} ").split()
+    try:
+        proc = _sp.Popen(
+            parts,
+            stdout=_sp.PIPE, stderr=_sp.STDOUT,
+            cwd=str(_P(".").resolve()),
+            text=True, bufsize=1,
+        )
+        _running_apps[app_name] = {"proc": proc, "pid": proc.pid, "cmd": run_cmd, "log": ""}
+        # Collect first 2 seconds of output
+        import threading, time
+        lines = []
+        def _reader():
+            for line in proc.stdout:
+                lines.append(line)
+                _running_apps[app_name]["log"] += line
+                if len(lines) > 200:
+                    break
+        t = threading.Thread(target=_reader, daemon=True)
+        t.start()
+        time.sleep(1.5)
+        return jsonify({
+            "ok": True,
+            "pid": proc.pid,
+            "app": app_name,
+            "cmd": run_cmd,
+            "running": proc.poll() is None,
+            "output": "".join(lines[-30:]),
+        })
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+@app.route("/remote/app-builder/app-log")
+def app_builder_app_log_route():
+    """Return recent stdout/stderr of a running app."""
+    global _running_apps
+    app_name = request.args.get("app", "").strip()
+    info = _running_apps.get(app_name)
+    if not info:
+        return jsonify({"ok": False, "running": False, "log": "", "error": "not running"})
+    running = info["proc"].poll() is None
+    return jsonify({"ok": True, "running": running, "pid": info["pid"],
+                    "cmd": info["cmd"], "log": info["log"][-3000:]})
+
+
+@app.route("/remote/app-builder/stop-app", methods=["POST"])
+def app_builder_stop_app_route():
+    """Terminate a running app subprocess."""
+    global _running_apps
+    data = request.get_json(silent=True) or {}
+    app_name = data.get("app", "").strip()
+    if app_name not in _running_apps:
+        return jsonify({"ok": False, "error": "not running"})
+    try:
+        _running_apps[app_name]["proc"].terminate()
+        del _running_apps[app_name]
+        return jsonify({"ok": True, "stopped": app_name})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+
+@app.route("/remote/app-builder/download/<app_name>")
+def app_builder_download_route(app_name):
+    """Download the entire app folder as a ZIP file."""
+    import zipfile, io
+    from pathlib import Path as _P
+    from flask import send_file
+    app_dir = _P("apps") / app_name
+    if not app_dir.exists():
+        return jsonify({"ok": False, "error": "not found"}), 404
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for f in sorted(app_dir.rglob("*")):
+            if f.is_file():
+                zf.write(f, arcname=str(f.relative_to(_P("apps"))))
+    buf.seek(0)
+    return send_file(buf, mimetype="application/zip",
+                     as_attachment=True, download_name=f"{app_name}.zip")
 
 
 

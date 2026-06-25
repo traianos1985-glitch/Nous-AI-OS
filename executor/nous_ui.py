@@ -4565,36 +4565,168 @@ async function loadAppBuilderList(){
   } catch(e){ el.textContent = "Σφάλμα: " + e; }
 }
 
+// ── App Files Browser (full) ─────────────────────────────────────────────────
+let _appRunningSet = new Set();
+
 async function loadAppFiles(){
   const el = document.getElementById("appFilesBrowser");
   if(!el) return;
+  el.innerHTML = `<div style="color:var(--muted);font-size:13px;">⏳ Φόρτωση…</div>`;
   try {
     const d = await getJson("/remote/app-builder/files");
     const apps = d.apps || [];
     if(!apps.length){
-      el.innerHTML = `<div style="padding:10px;background:var(--panel2);border-radius:8px;border:1px dashed var(--line);">
-        <span style="color:var(--muted);">Ο φάκελος <code>apps/</code> είναι άδειος. Δημιούργησε και έγκρινε μια εφαρμογή πρώτα.</span>
+      el.innerHTML = `<div style="padding:12px;background:var(--panel2);border-radius:10px;border:1px dashed var(--line);color:var(--muted);">
+        Ο φάκελος <code>apps/</code> είναι άδειος — δημιούργησε και έγκρινε μια εφαρμογή πρώτα.
       </div>`;
       return;
     }
-    el.innerHTML = apps.map(app => `
-      <div style="background:var(--panel2);border-radius:10px;padding:12px 14px;margin-bottom:10px;border:1px solid var(--line);">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <span style="font-size:18px;">📂</span>
-          <div style="flex:1;">
-            <div style="font-weight:700;font-size:14px;color:#22d3ee;">${escHtml(app.name)}</div>
-            <div style="font-size:11px;color:var(--muted);">${app.path} · ${app.file_count} αρχεία</div>
+    el.innerHTML = apps.map(app => {
+      const isRunning = _appRunningSet.has(app.name);
+      const filesHtml = (app.files||[]).map(f=>`
+        <button onclick="appViewFile('${escHtml(app.name)}','${escHtml(f.name)}')"
+          style="background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:4px 10px;font-size:11px;font-family:monospace;color:#a5f3fc;cursor:pointer;text-align:left;">
+          📄 ${escHtml(f.name)} <span style="color:rgba(255,255,255,.3);margin-left:4px;">${f.size_kb}KB</span>
+        </button>`).join("");
+      return `
+      <div id="appCard_${escHtml(app.name)}" style="background:var(--panel2);border-radius:12px;padding:14px 16px;margin-bottom:12px;border:1px solid var(--line);">
+        <!-- Header row -->
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+          <span style="font-size:22px;">📂</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:15px;color:#22d3ee;">${escHtml(app.name)}</div>
+            <div style="font-size:11px;color:var(--muted);">${escHtml(app.path)} · ${app.file_count} αρχεία</div>
+          </div>
+          <!-- Action buttons -->
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button id="runBtn_${escHtml(app.name)}"
+              onclick="appRunToggle('${escHtml(app.name)}','${escHtml(app.run_command||'')}')"
+              style="padding:6px 14px;border-radius:8px;border:none;background:${isRunning?'#ef4444':'#22c55e'};color:white;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;">
+              ${isRunning ? '⏹ Stop' : '▶ Run'}
+            </button>
+            <a href="/remote/app-builder/download/${escHtml(app.name)}"
+              style="padding:6px 12px;border-radius:8px;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fbbf24;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap;">
+              📥 ZIP
+            </a>
           </div>
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          ${(app.files||[]).map(f=>`
-            <div style="background:rgba(0,0,0,.3);border-radius:6px;padding:3px 8px;font-size:11px;font-family:monospace;color:var(--muted);">
-              ${escHtml(f.name)} <span style="color:rgba(255,255,255,.3);">${f.size_kb}KB</span>
-            </div>`).join("")}
+        <!-- Run command display -->
+        <div style="background:rgba(0,0,0,.4);border-radius:8px;padding:7px 12px;font-family:monospace;font-size:12px;color:#86efac;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+          <span style="color:rgba(255,255,255,.3);">▶</span>
+          <span>${escHtml(app.run_command||'python '+app.path+'/main.py')}</span>
         </div>
-      </div>`).join("");
-    el.innerHTML += `<div style="font-size:11px;color:var(--muted);margin-top:6px;">📁 Βρίσκεται στον κατάλογο <code>apps/</code> του project</div>`;
-  } catch(e){ el.textContent = "⚠️ " + e; }
+        <!-- Files list -->
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">${filesHtml}</div>
+        <!-- Output terminal (hidden by default) -->
+        <div id="appOutput_${escHtml(app.name)}" style="display:none;margin-top:10px;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">📟 Output:</div>
+          <pre id="appLog_${escHtml(app.name)}"
+            style="background:#0a0e1a;border:1px solid rgba(34,211,238,.2);border-radius:8px;padding:10px;font-size:11px;color:#86efac;white-space:pre-wrap;max-height:260px;overflow-y:auto;margin:0;"></pre>
+        </div>
+      </div>`;
+    }).join("");
+    el.innerHTML += `<div style="font-size:11px;color:var(--muted);margin-top:4px;">📁 Φάκελος: <code>apps/</code> του project</div>`;
+  } catch(e){ el.innerHTML = `<div style="color:var(--bad);">⚠️ ${escHtml(String(e))}</div>`; }
+}
+
+async function appRunToggle(appName, runCmd){
+  if(_appRunningSet.has(appName)){
+    // STOP
+    await fetch("/remote/app-builder/stop-app", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({app: appName})
+    });
+    _appRunningSet.delete(appName);
+    const btn = document.getElementById("runBtn_"+appName);
+    const out = document.getElementById("appOutput_"+appName);
+    if(btn){ btn.textContent="▶ Run"; btn.style.background="#22c55e"; }
+    if(out) out.style.display="none";
+    return;
+  }
+  // RUN
+  const btn = document.getElementById("runBtn_"+appName);
+  const out = document.getElementById("appOutput_"+appName);
+  const log = document.getElementById("appLog_"+appName);
+  if(btn){ btn.textContent="⏳ Εκκίνηση…"; btn.disabled=true; }
+  if(out) out.style.display="block";
+  if(log) log.textContent = "⏳ Εκκίνηση εφαρμογής…\n";
+  try {
+    const r = await fetch("/remote/app-builder/run-app", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({app: appName, run_command: runCmd})
+    });
+    const d = await r.json();
+    if(d.ok && d.running){
+      _appRunningSet.add(appName);
+      if(btn){ btn.textContent="⏹ Stop"; btn.style.background="#ef4444"; btn.disabled=false; }
+      if(log) log.textContent = (d.output||"(χωρίς output ακόμα)");
+      // Poll for more output
+      _pollAppLog(appName);
+    } else {
+      if(btn){ btn.textContent="▶ Run"; btn.style.background="#22c55e"; btn.disabled=false; }
+      if(log) log.textContent = "❌ Αποτυχία: " + (d.error||"unknown") + "\n" + (d.output||"");
+    }
+  } catch(e){
+    if(btn){ btn.textContent="▶ Run"; btn.style.background="#22c55e"; btn.disabled=false; }
+    if(log) log.textContent = "❌ " + e;
+  }
+}
+
+function _pollAppLog(appName){
+  let polls = 0;
+  const iv = setInterval(async ()=>{
+    if(!_appRunningSet.has(appName) || polls++ > 60){ clearInterval(iv); return; }
+    try {
+      const d = await getJsonSilent("/remote/app-builder/app-log?app="+encodeURIComponent(appName));
+      const log = document.getElementById("appLog_"+appName);
+      if(log && d.log) log.textContent = d.log;
+      if(log) log.scrollTop = log.scrollHeight;
+      if(d.running === false){
+        _appRunningSet.delete(appName);
+        const btn = document.getElementById("runBtn_"+appName);
+        if(btn){ btn.textContent="▶ Run"; btn.style.background="#22c55e"; btn.disabled=false; }
+        if(log) log.textContent += "\n[διακόπηκε]";
+        clearInterval(iv);
+      }
+    } catch(e){ clearInterval(iv); }
+  }, 2000);
+}
+
+// ── File Viewer Modal ─────────────────────────────────────────────────────────
+async function appViewFile(appName, fileName){
+  // Create/reuse modal
+  let modal = document.getElementById("appFileModal");
+  if(!modal){
+    modal = document.createElement("div");
+    modal.id = "appFileModal";
+    modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;";
+    modal.onclick = e=>{ if(e.target===modal) modal.remove(); };
+    document.body.appendChild(modal);
+  }
+  modal.innerHTML = `<div style="background:#0d1117;border:1px solid var(--line);border-radius:14px;max-width:860px;width:100%;max-height:88vh;display:flex;flex-direction:column;">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
+      <span style="font-family:monospace;font-size:13px;color:#22d3ee;font-weight:700;">📄 ${escHtml(appName)}/${escHtml(fileName)}</span>
+      <button onclick="document.getElementById('appFileModal').remove()"
+        style="margin-left:auto;padding:4px 12px;border-radius:6px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);cursor:pointer;font-size:13px;">✕ Κλείσιμο</button>
+    </div>
+    <div style="padding:12px;color:var(--muted);font-size:13px;">⏳ Φόρτωση…</div>
+  </div>`;
+  modal.style.display = "flex";
+
+  try {
+    const d = await getJson(`/remote/app-builder/read-file?app=${encodeURIComponent(appName)}&file=${encodeURIComponent(fileName)}`);
+    const inner = modal.querySelector("div");
+    const isCode = /\.(py|js|ts|html|css|json|yml|yaml|sh|txt|md|toml|ini|cfg|env)$/i.test(fileName);
+    inner.innerHTML = `
+      <div style="padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;">
+        <span style="font-family:monospace;font-size:13px;color:#22d3ee;font-weight:700;">📄 ${escHtml(appName)}/${escHtml(fileName)}</span>
+        <button onclick="document.getElementById('appFileModal').remove()"
+          style="margin-left:auto;padding:4px 12px;border-radius:6px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);cursor:pointer;font-size:13px;">✕ Κλείσιμο</button>
+      </div>
+      <pre style="margin:0;padding:16px;overflow:auto;font-size:12px;color:#e2e8f0;white-space:pre-wrap;line-height:1.6;flex:1;background:#0d1117;border-radius:0 0 14px 14px;">${escHtml(d.content||"(άδειο)")}</pre>`;
+  } catch(e){
+    modal.querySelector("div").innerHTML += `<div style="padding:12px;color:var(--bad);">⚠️ ${escHtml(String(e))}</div>`;
+  }
 }
 
 // Load app builder list when section opens
