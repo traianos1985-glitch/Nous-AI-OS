@@ -1,9 +1,9 @@
 {
-  "time": 1780185534.05,
+  "time": 1782378934.9453132,
   "battery": {
     "alert": false,
-    "level": 29,
-    "plugged": "UNPLUGGED"
+    "level": null,
+    "plugged": null
   },
   "service": {
     "enabled": false,
@@ -14,25 +14,25 @@
     "cycles": 1,
     "battery": {
       "alert": false,
-      "level": 29,
-      "plugged": "UNPLUGGED"
+      "level": null,
+      "plugged": null
     },
     "log_file": "data/autonomy.log"
   },
   "queue": {
-    "total": 1,
+    "total": 3,
     "pending": 0,
     "running": 0,
-    "done": 1,
+    "done": 3,
     "failed": 0
   },
   "projects": [
     {
       "project": "ΝΟΥΣ AI OS mobile agent",
       "status": "active",
-      "steps_total": 1,
-      "steps_done": 0,
-      "progress_percent": 0
+      "steps_total": 2,
+      "steps_done": 1,
+      "progress_percent": 50
     }
   ],
   "schedules": {

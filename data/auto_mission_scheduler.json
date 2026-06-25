@@ -1,13 +1,13 @@
 {
   "enabled": true,
   "interval_seconds": 900,
-  "started": 1780345073.7530804,
+  "started": 1782378930.0260956,
   "stopped": null,
-  "last_tick": 1780344917.1800008,
-  "ticks": 1,
+  "last_tick": 1782378937.2500024,
+  "ticks": 3,
   "last_result": {
     "ok": true,
-    "executed": 1,
+    "executed": 0,
     "skipped": 0
   }
 }

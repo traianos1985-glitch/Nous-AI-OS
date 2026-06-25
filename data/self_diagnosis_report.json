@@ -1,6 +1,6 @@
 {
-  "ok": true,
-  "time": 1780408217.3781097,
+  "ok": false,
+  "time": 1782378930.1298916,
   "checks": {
     "compile": {
       "executor/router.py": {
@@ -61,9 +61,9 @@
       },
       {
         "path": "/remote/status",
-        "status": 200,
-        "ok": true,
-        "json": true
+        "status": 500,
+        "ok": false,
+        "json": false
       },
       {
         "path": "/remote/dashboard-action-audit",
@@ -97,9 +97,9 @@
       }
     ],
     "dashboard_action_audit": {
-      "failed": 0,
-      "ok": true,
-      "passed": 18,
+      "failed": 1,
+      "ok": false,
+      "passed": 17,
       "results": [
         {
           "error": null,
@@ -114,14 +114,14 @@
         },
         {
           "error": null,
-          "json": true,
+          "json": false,
           "method": "GET",
           "name": "remote_status",
-          "ok": true,
+          "ok": false,
           "path": "/remote/status",
           "protected_ok": false,
           "requires_auth": false,
-          "status": 200
+          "status": 500
         },
         {
           "error": null,
@@ -267,51 +267,79 @@
           "status": 200
         },
         {
-          "error": null,
+          "error": "unauthorized",
           "json": true,
           "method": "POST",
           "name": "protected_planner_propose",
           "ok": true,
           "path": "/remote/mission-planner/propose",
-          "protected_ok": false,
+          "protected_ok": true,
           "requires_auth": true,
-          "status": 200
+          "status": 401
         },
         {
-          "error": null,
+          "error": "unauthorized",
           "json": true,
           "method": "POST",
           "name": "protected_scheduler_run_once",
           "ok": true,
           "path": "/remote/executive-scheduler-loop/run-once",
-          "protected_ok": false,
+          "protected_ok": true,
           "requires_auth": true,
-          "status": 200
+          "status": 401
         },
         {
-          "error": null,
+          "error": "unauthorized",
           "json": true,
           "method": "POST",
           "name": "protected_backup_create",
           "ok": true,
           "path": "/remote/brain-backup/create",
-          "protected_ok": false,
+          "protected_ok": true,
           "requires_auth": true,
-          "status": 200
+          "status": 401
         }
       ],
-      "time": 1780408362.198761,
+      "time": 1782378937.2134042,
       "total": 18
     },
     "git_status": {
       "ok": true,
       "code": 0,
-      "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_loop_v2.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/brain_backups/nous_brain_backup_1780408077.zip\n?? data/brain_backups/nous_brain_backup_1780408126.zip\n?? data/brain_backups/nous_brain_backup_1780408147.zip\n?? data/brain_backups/nous_brain_backup_1780408197.zip\n?? data/brain_backups/nous_brain_backup_1780408263.zip\n?? data/brain_backups/nous_brain_backup_1780408284.zip\n?? data/brain_backups/nous_brain_backup_1780408329.zip\n?? data/brain_backups/nous_brain_backup_1780408341.zip\n?? data/brain_backups/nous_brain_backup_1780408362.zip\n?? executor/executive_command_center.py\n",
+      "stdout": " M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/knowledge_queue.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/battery_guard.py\n?? .replit\n",
       "stderr": ""
     }
   },
-  "problems": [],
+  "problems": [
+    {
+      "type": "endpoint_failed",
+      "path": "/remote/status",
+      "status": 500
+    },
+    {
+      "type": "dashboard_action_failures",
+      "failed": [
+        {
+          "error": null,
+          "json": false,
+          "method": "GET",
+          "name": "remote_status",
+          "ok": false,
+          "path": "/remote/status",
+          "protected_ok": false,
+          "requires_auth": false,
+          "status": 500
+        }
+      ]
+    }
+  ],
   "recommended_fixes": [
+    {
+      "id": "dashboard_auth_helpers",
+      "title": "Repair dashboard auth/error helpers",
+      "risk": "low",
+      "description": "Reinstall central getJson/postJson auth helpers and error reporting."
+    },
     {
       "id": "review_runtime_files",
       "title": "Review runtime file changes",

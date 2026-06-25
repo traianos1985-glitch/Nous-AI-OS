@@ -11024,12 +11024,1265 @@
           ]
         }
       }
+    },
+    {
+      "id": 1782378903410651852,
+      "time": 1782378903.410653,
+      "trigger": "auto_mission_scheduler",
+      "max_missions": 1,
+      "max_steps_per_mission": 1,
+      "executed": [],
+      "skipped": [],
+      "post_checks": {
+        "goal_progress": {
+          "ok": true,
+          "changed": [
+            {
+              "goal_id": 1780327547928758774,
+              "title": "Make NOUS cloud-native and restorable",
+              "old": 70,
+              "new": 30
+            },
+            {
+              "goal_id": 1780327547945471638,
+              "title": "Improve NOUS user interface",
+              "old": 70,
+              "new": 55
+            },
+            {
+              "goal_id": 1780327547958112159,
+              "title": "Expand Android Companion control",
+              "old": 75,
+              "new": 65
+            }
+          ],
+          "analysis": {
+            "time": 1782378903.4126203,
+            "results": [
+              {
+                "goal_id": 1780327547928758774,
+                "title": "Make NOUS cloud-native and restorable",
+                "category": "cloud",
+                "current_progress": 70,
+                "recommended_progress": 30,
+                "delta": -40,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334468794657534,
+                    "lesson": "Backup ZIP creation works"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780336611693164725,
+                    "title": "Rejected recommendation: Resolve pending approval"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780337177486948363,
+                    "title": "Executive review: Resolve pending approval"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780344250370069687,
+                    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
+                  }
+                ]
+              },
+              {
+                "goal_id": 1780327547945471638,
+                "title": "Improve NOUS user interface",
+                "category": "ui",
+                "current_progress": 70,
+                "recommended_progress": 55,
+                "delta": -15,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334652105198662,
+                    "lesson": "Mission task completed: Request UI tree"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780341318785366836,
+                    "lesson": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344350408887617,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345420475413303,
+                    "lesson": "Mission task completed: Run full validation after UI planning"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780339650799646222,
+                    "title": "Proposed mission for goal: Improve NOUS user interface"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780341318782701627,
+                    "title": "Approved mission proposal: Advance goal: Improve NOUS user interface"
+                  }
+                ]
+              },
+              {
+                "goal_id": 1780327547958112159,
+                "title": "Expand Android Companion control",
+                "category": "android",
+                "current_progress": 75,
+                "recommended_progress": 65,
+                "delta": -10,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334468794657534,
+                    "lesson": "Backup ZIP creation works"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334649625617361,
+                    "lesson": "Mission task completed: Companion status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334652105198662,
+                    "lesson": "Mission task completed: Request UI tree"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344211573908451,
+                    "lesson": "Mission task completed: Check companion"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344230015027299,
+                    "lesson": "Mission task completed: Check companion status"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780331836724481560,
+                    "title": "Executive run: έλεγξε το android companion"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780344250370069687,
+                    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
+                  }
+                ]
+              },
+              {
+                "goal_id": 1780327547970773305,
+                "title": "Strengthen safe autonomy",
+                "category": "autonomy",
+                "current_progress": 80,
+                "recommended_progress": 80,
+                "delta": 0,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334468794657534,
+                    "lesson": "Backup ZIP creation works"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334649625617361,
+                    "lesson": "Mission task completed: Companion status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334652105198662,
+                    "lesson": "Mission task completed: Request UI tree"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780337177490069770,
+                    "lesson": "Executive review identified next best action: Resolve pending approval"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780341318785366836,
+                    "lesson": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780343988659419266,
+                    "lesson": "Mission task completed: Check reality gate"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344052283272262,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344211573908451,
+                    "lesson": "Mission task completed: Check companion"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344221094736000,
+                    "lesson": "Mission task completed: Full validation"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344230015027299,
+                    "lesson": "Mission task completed: Check companion status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344235254855682,
+                    "lesson": "Mission task completed: Run reality check"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344350408887617,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344917164850891,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345071227914894,
+                    "lesson": "Mission task completed: Check code health"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345075131286039,
+                    "lesson": "Mission task completed: Check git status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345420475413303,
+                    "lesson": "Mission task completed: Run full validation after UI planning"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345477591695000,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345524738888628,
+                    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780406990204924758,
+                    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions."
+                  }
+                ]
+              }
+            ]
+          },
+          "time": 1782378903.4684246
+        },
+        "self_diagnosis": {
+          "ok": false,
+          "time": 1782378903.468751,
+          "checks": {
+            "compile": {
+              "executor/router.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/nous_ui.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/mission_system.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/mission_planner.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/dashboard_action_audit.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/executive_intelligence.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/executive_scheduler_loop.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/goal_progress_intelligence.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              }
+            },
+            "endpoints": [
+              {
+                "path": "/dashboard",
+                "status": 200,
+                "ok": true,
+                "json": false
+              },
+              {
+                "path": "/remote/status",
+                "status": 500,
+                "ok": false,
+                "json": false
+              },
+              {
+                "path": "/remote/dashboard-action-audit",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/mission-planner/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/executive-intelligence/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/executive-scheduler-loop/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/goal-progress-intelligence/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              }
+            ],
+            "dashboard_action_audit": {
+              "failed": 1,
+              "ok": false,
+              "passed": 17,
+              "results": [
+                {
+                  "error": null,
+                  "json": false,
+                  "method": "GET",
+                  "name": "dashboard",
+                  "ok": true,
+                  "path": "/dashboard",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": false,
+                  "method": "GET",
+                  "name": "remote_status",
+                  "ok": false,
+                  "path": "/remote/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 500
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "brain_status",
+                  "ok": true,
+                  "path": "/remote/brain/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "backup_list",
+                  "ok": true,
+                  "path": "/remote/brain-backup/list",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "restore_status",
+                  "ok": true,
+                  "path": "/remote/brain-restore/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "goals_status",
+                  "ok": true,
+                  "path": "/remote/goals-v2/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "missions_status",
+                  "ok": true,
+                  "path": "/remote/missions/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "approvals",
+                  "ok": true,
+                  "path": "/remote/missions/approvals",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "lessons_status",
+                  "ok": true,
+                  "path": "/remote/lessons/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "decision_memory",
+                  "ok": true,
+                  "path": "/remote/decision-memory/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "executive_intelligence",
+                  "ok": true,
+                  "path": "/remote/executive-intelligence/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "scheduler_loop",
+                  "ok": true,
+                  "path": "/remote/executive-scheduler-loop/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "mission_planner",
+                  "ok": true,
+                  "path": "/remote/mission-planner/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "mission_proposals",
+                  "ok": true,
+                  "path": "/remote/mission-planner/proposals",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "goal_progress_intelligence",
+                  "ok": true,
+                  "path": "/remote/goal-progress-intelligence/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": "unauthorized",
+                  "json": true,
+                  "method": "POST",
+                  "name": "protected_planner_propose",
+                  "ok": true,
+                  "path": "/remote/mission-planner/propose",
+                  "protected_ok": true,
+                  "requires_auth": true,
+                  "status": 401
+                },
+                {
+                  "error": "unauthorized",
+                  "json": true,
+                  "method": "POST",
+                  "name": "protected_scheduler_run_once",
+                  "ok": true,
+                  "path": "/remote/executive-scheduler-loop/run-once",
+                  "protected_ok": true,
+                  "requires_auth": true,
+                  "status": 401
+                },
+                {
+                  "error": "unauthorized",
+                  "json": true,
+                  "method": "POST",
+                  "name": "protected_backup_create",
+                  "ok": true,
+                  "path": "/remote/brain-backup/create",
+                  "protected_ok": true,
+                  "requires_auth": true,
+                  "status": 401
+                }
+              ],
+              "time": 1782378910.29329,
+              "total": 18
+            },
+            "git_status": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goals_v2.json\n M data/lessons_learned.json\n M data/memory.json\n?? .replit\n",
+              "stderr": ""
+            }
+          },
+          "problems": [
+            {
+              "type": "endpoint_failed",
+              "path": "/remote/status",
+              "status": 500
+            },
+            {
+              "type": "dashboard_action_failures",
+              "failed": [
+                {
+                  "error": null,
+                  "json": false,
+                  "method": "GET",
+                  "name": "remote_status",
+                  "ok": false,
+                  "path": "/remote/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 500
+                }
+              ]
+            }
+          ],
+          "recommended_fixes": [
+            {
+              "id": "dashboard_auth_helpers",
+              "title": "Repair dashboard auth/error helpers",
+              "risk": "low",
+              "description": "Reinstall central getJson/postJson auth helpers and error reporting."
+            },
+            {
+              "id": "review_runtime_files",
+              "title": "Review runtime file changes",
+              "risk": "manual",
+              "description": "Runtime files changed. User should decide restore or commit."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 1782378930053307378,
+      "time": 1782378930.0533085,
+      "trigger": "auto_mission_scheduler",
+      "max_missions": 1,
+      "max_steps_per_mission": 1,
+      "executed": [],
+      "skipped": [],
+      "post_checks": {
+        "goal_progress": {
+          "ok": true,
+          "changed": [
+            {
+              "goal_id": 1780327547928758774,
+              "title": "Make NOUS cloud-native and restorable",
+              "old": 30,
+              "new": 35
+            }
+          ],
+          "analysis": {
+            "time": 1782378930.124672,
+            "results": [
+              {
+                "goal_id": 1780327547928758774,
+                "title": "Make NOUS cloud-native and restorable",
+                "category": "cloud",
+                "current_progress": 30,
+                "recommended_progress": 35,
+                "delta": 5,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334468794657534,
+                    "lesson": "Backup ZIP creation works"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780336611693164725,
+                    "title": "Rejected recommendation: Resolve pending approval"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780337177486948363,
+                    "title": "Executive review: Resolve pending approval"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780344250370069687,
+                    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1782378907618159215,
+                    "title": "Executive review: Resolve pending approval"
+                  }
+                ]
+              },
+              {
+                "goal_id": 1780327547945471638,
+                "title": "Improve NOUS user interface",
+                "category": "ui",
+                "current_progress": 55,
+                "recommended_progress": 55,
+                "delta": 0,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334652105198662,
+                    "lesson": "Mission task completed: Request UI tree"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780341318785366836,
+                    "lesson": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344350408887617,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345420475413303,
+                    "lesson": "Mission task completed: Run full validation after UI planning"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780339650799646222,
+                    "title": "Proposed mission for goal: Improve NOUS user interface"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780341318782701627,
+                    "title": "Approved mission proposal: Advance goal: Improve NOUS user interface"
+                  }
+                ]
+              },
+              {
+                "goal_id": 1780327547958112159,
+                "title": "Expand Android Companion control",
+                "category": "android",
+                "current_progress": 65,
+                "recommended_progress": 65,
+                "delta": 0,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334468794657534,
+                    "lesson": "Backup ZIP creation works"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334649625617361,
+                    "lesson": "Mission task completed: Companion status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334652105198662,
+                    "lesson": "Mission task completed: Request UI tree"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344211573908451,
+                    "lesson": "Mission task completed: Check companion"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344230015027299,
+                    "lesson": "Mission task completed: Check companion status"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780331836724481560,
+                    "title": "Executive run: έλεγξε το android companion"
+                  },
+                  {
+                    "type": "decision",
+                    "id": 1780344250370069687,
+                    "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
+                  }
+                ]
+              },
+              {
+                "goal_id": 1780327547970773305,
+                "title": "Strengthen safe autonomy",
+                "category": "autonomy",
+                "current_progress": 80,
+                "recommended_progress": 80,
+                "delta": 0,
+                "evidence": [
+                  {
+                    "type": "mission_blocked",
+                    "id": 1780326802824661037,
+                    "title": "Deploy verification"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334468794657534,
+                    "lesson": "Backup ZIP creation works"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334649625617361,
+                    "lesson": "Mission task completed: Companion status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780334652105198662,
+                    "lesson": "Mission task completed: Request UI tree"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780337177490069770,
+                    "lesson": "Executive review identified next best action: Resolve pending approval"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780341318785366836,
+                    "lesson": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780343988659419266,
+                    "lesson": "Mission task completed: Check reality gate"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344052283272262,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344211573908451,
+                    "lesson": "Mission task completed: Check companion"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344221094736000,
+                    "lesson": "Mission task completed: Full validation"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344230015027299,
+                    "lesson": "Mission task completed: Check companion status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344235254855682,
+                    "lesson": "Mission task completed: Run reality check"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344350408887617,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780344917164850891,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345071227914894,
+                    "lesson": "Mission task completed: Check code health"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345075131286039,
+                    "lesson": "Mission task completed: Check git status"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345420475413303,
+                    "lesson": "Mission task completed: Run full validation after UI planning"
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345477591695000,
+                    "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780345524738888628,
+                    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions."
+                  },
+                  {
+                    "type": "lesson",
+                    "id": 1780406990204924758,
+                    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions."
+                  }
+                ]
+              }
+            ]
+          },
+          "time": 1782378930.1298816
+        },
+        "self_diagnosis": {
+          "ok": false,
+          "time": 1782378930.1298916,
+          "checks": {
+            "compile": {
+              "executor/router.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/nous_ui.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/mission_system.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/mission_planner.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/dashboard_action_audit.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/executive_intelligence.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/executive_scheduler_loop.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              "executor/goal_progress_intelligence.py": {
+                "ok": true,
+                "code": 0,
+                "stdout": "",
+                "stderr": ""
+              }
+            },
+            "endpoints": [
+              {
+                "path": "/dashboard",
+                "status": 200,
+                "ok": true,
+                "json": false
+              },
+              {
+                "path": "/remote/status",
+                "status": 500,
+                "ok": false,
+                "json": false
+              },
+              {
+                "path": "/remote/dashboard-action-audit",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/mission-planner/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/executive-intelligence/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/executive-scheduler-loop/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              },
+              {
+                "path": "/remote/goal-progress-intelligence/status",
+                "status": 200,
+                "ok": true,
+                "json": true
+              }
+            ],
+            "dashboard_action_audit": {
+              "failed": 1,
+              "ok": false,
+              "passed": 17,
+              "results": [
+                {
+                  "error": null,
+                  "json": false,
+                  "method": "GET",
+                  "name": "dashboard",
+                  "ok": true,
+                  "path": "/dashboard",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": false,
+                  "method": "GET",
+                  "name": "remote_status",
+                  "ok": false,
+                  "path": "/remote/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 500
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "brain_status",
+                  "ok": true,
+                  "path": "/remote/brain/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "backup_list",
+                  "ok": true,
+                  "path": "/remote/brain-backup/list",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "restore_status",
+                  "ok": true,
+                  "path": "/remote/brain-restore/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "goals_status",
+                  "ok": true,
+                  "path": "/remote/goals-v2/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "missions_status",
+                  "ok": true,
+                  "path": "/remote/missions/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "approvals",
+                  "ok": true,
+                  "path": "/remote/missions/approvals",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "lessons_status",
+                  "ok": true,
+                  "path": "/remote/lessons/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "decision_memory",
+                  "ok": true,
+                  "path": "/remote/decision-memory/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "executive_intelligence",
+                  "ok": true,
+                  "path": "/remote/executive-intelligence/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "scheduler_loop",
+                  "ok": true,
+                  "path": "/remote/executive-scheduler-loop/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "mission_planner",
+                  "ok": true,
+                  "path": "/remote/mission-planner/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "mission_proposals",
+                  "ok": true,
+                  "path": "/remote/mission-planner/proposals",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": null,
+                  "json": true,
+                  "method": "GET",
+                  "name": "goal_progress_intelligence",
+                  "ok": true,
+                  "path": "/remote/goal-progress-intelligence/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 200
+                },
+                {
+                  "error": "unauthorized",
+                  "json": true,
+                  "method": "POST",
+                  "name": "protected_planner_propose",
+                  "ok": true,
+                  "path": "/remote/mission-planner/propose",
+                  "protected_ok": true,
+                  "requires_auth": true,
+                  "status": 401
+                },
+                {
+                  "error": "unauthorized",
+                  "json": true,
+                  "method": "POST",
+                  "name": "protected_scheduler_run_once",
+                  "ok": true,
+                  "path": "/remote/executive-scheduler-loop/run-once",
+                  "protected_ok": true,
+                  "requires_auth": true,
+                  "status": 401
+                },
+                {
+                  "error": "unauthorized",
+                  "json": true,
+                  "method": "POST",
+                  "name": "protected_backup_create",
+                  "ok": true,
+                  "path": "/remote/brain-backup/create",
+                  "protected_ok": true,
+                  "requires_auth": true,
+                  "status": 401
+                }
+              ],
+              "time": 1782378937.2134042,
+              "total": 18
+            },
+            "git_status": {
+              "ok": true,
+              "code": 0,
+              "stdout": " M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/knowledge_queue.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/battery_guard.py\n?? .replit\n",
+              "stderr": ""
+            }
+          },
+          "problems": [
+            {
+              "type": "endpoint_failed",
+              "path": "/remote/status",
+              "status": 500
+            },
+            {
+              "type": "dashboard_action_failures",
+              "failed": [
+                {
+                  "error": null,
+                  "json": false,
+                  "method": "GET",
+                  "name": "remote_status",
+                  "ok": false,
+                  "path": "/remote/status",
+                  "protected_ok": false,
+                  "requires_auth": false,
+                  "status": 500
+                }
+              ]
+            }
+          ],
+          "recommended_fixes": [
+            {
+              "id": "dashboard_auth_helpers",
+              "title": "Repair dashboard auth/error helpers",
+              "risk": "low",
+              "description": "Reinstall central getJson/postJson auth helpers and error reporting."
+            },
+            {
+              "id": "review_runtime_files",
+              "title": "Review runtime file changes",
+              "risk": "manual",
+              "description": "Runtime files changed. User should decide restore or commit."
+            }
+          ]
+        }
+      }
     }
   ],
   "last_run": {
-    "id": 1780408197278452631,
-    "time": 1780408197.278455,
-    "trigger": "executive_loop_v2",
+    "id": 1782378930053307378,
+    "time": 1782378930.0533085,
+    "trigger": "auto_mission_scheduler",
     "max_missions": 1,
     "max_steps_per_mission": 1,
     "executed": [],
@@ -11037,42 +12290,29 @@
     "post_checks": {
       "goal_progress": {
         "ok": true,
-        "changed": [],
+        "changed": [
+          {
+            "goal_id": 1780327547928758774,
+            "title": "Make NOUS cloud-native and restorable",
+            "old": 30,
+            "new": 35
+          }
+        ],
         "analysis": {
-          "time": 1780408197.3101447,
+          "time": 1782378930.124672,
           "results": [
             {
               "goal_id": 1780327547928758774,
               "title": "Make NOUS cloud-native and restorable",
               "category": "cloud",
-              "current_progress": 70,
-              "recommended_progress": 70,
-              "delta": 0,
+              "current_progress": 30,
+              "recommended_progress": 35,
+              "delta": 5,
               "evidence": [
-                {
-                  "type": "mission_done",
-                  "id": 1780323331619630930,
-                  "title": "System health and reality check"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780323843630738235,
-                  "title": "Android companion mission"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780326125156417827,
-                  "title": "Android companion mission"
-                },
                 {
                   "type": "mission_blocked",
                   "id": 1780326802824661037,
                   "title": "Deploy verification"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780341318766849492,
-                  "title": "Advance goal: Improve NOUS user interface"
                 },
                 {
                   "type": "lesson",
@@ -11091,63 +12331,13 @@
                 },
                 {
                   "type": "decision",
-                  "id": 1780337578295553888,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780338050898444697,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780338052130104592,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780338060162387766,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780338072167721408,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780340162913997485,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780340456089549769,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780340985737999254,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780344009862069258,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780344200787463091,
-                  "title": "Executive review: Resolve pending approval"
-                },
-                {
-                  "type": "decision",
                   "id": 1780344250370069687,
                   "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
                 },
                 {
                   "type": "decision",
-                  "id": 1780344266766375982,
-                  "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
+                  "id": 1782378907618159215,
+                  "title": "Executive review: Resolve pending approval"
                 }
               ]
             },
@@ -11155,34 +12345,14 @@
               "goal_id": 1780327547945471638,
               "title": "Improve NOUS user interface",
               "category": "ui",
-              "current_progress": 70,
-              "recommended_progress": 70,
+              "current_progress": 55,
+              "recommended_progress": 55,
               "delta": 0,
               "evidence": [
-                {
-                  "type": "mission_done",
-                  "id": 1780323331619630930,
-                  "title": "System health and reality check"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780323843630738235,
-                  "title": "Android companion mission"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780326125156417827,
-                  "title": "Android companion mission"
-                },
                 {
                   "type": "mission_blocked",
                   "id": 1780326802824661037,
                   "title": "Deploy verification"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780341318766849492,
-                  "title": "Advance goal: Improve NOUS user interface"
                 },
                 {
                   "type": "lesson",
@@ -11196,27 +12366,12 @@
                 },
                 {
                   "type": "lesson",
-                  "id": 1780344232198731100,
-                  "lesson": "Mission task completed: Request UI tree"
-                },
-                {
-                  "type": "lesson",
                   "id": 1780344350408887617,
                   "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
                 },
                 {
                   "type": "lesson",
-                  "id": 1780344856906540497,
-                  "lesson": "Mission task completed: Request UI tree"
-                },
-                {
-                  "type": "lesson",
                   "id": 1780345420475413303,
-                  "lesson": "Mission task completed: Run full validation after UI planning"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780406882906918914,
                   "lesson": "Mission task completed: Run full validation after UI planning"
                 },
                 {
@@ -11228,11 +12383,6 @@
                   "type": "decision",
                   "id": 1780341318782701627,
                   "title": "Approved mission proposal: Advance goal: Improve NOUS user interface"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780344350396148138,
-                  "title": "Auto mission executor run"
                 }
               ]
             },
@@ -11240,34 +12390,14 @@
               "goal_id": 1780327547958112159,
               "title": "Expand Android Companion control",
               "category": "android",
-              "current_progress": 75,
-              "recommended_progress": 75,
+              "current_progress": 65,
+              "recommended_progress": 65,
               "delta": 0,
               "evidence": [
-                {
-                  "type": "mission_done",
-                  "id": 1780323331619630930,
-                  "title": "System health and reality check"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780323843630738235,
-                  "title": "Android companion mission"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780326125156417827,
-                  "title": "Android companion mission"
-                },
                 {
                   "type": "mission_blocked",
                   "id": 1780326802824661037,
                   "title": "Deploy verification"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780341318766849492,
-                  "title": "Advance goal: Improve NOUS user interface"
                 },
                 {
                   "type": "lesson",
@@ -11295,16 +12425,6 @@
                   "lesson": "Mission task completed: Check companion status"
                 },
                 {
-                  "type": "lesson",
-                  "id": 1780344232198731100,
-                  "lesson": "Mission task completed: Request UI tree"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780344856906540497,
-                  "lesson": "Mission task completed: Request UI tree"
-                },
-                {
                   "type": "decision",
                   "id": 1780331836724481560,
                   "title": "Executive run: έλεγξε το android companion"
@@ -11312,36 +12432,6 @@
                 {
                   "type": "decision",
                   "id": 1780344250370069687,
-                  "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780344266766375982,
-                  "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780344318081517161,
-                  "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780344334809071165,
-                  "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780345099333978061,
-                  "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780345100650294727,
-                  "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
-                },
-                {
-                  "type": "decision",
-                  "id": 1780345104278482330,
                   "title": "Proposed mission for goal: Make NOUS cloud-native and restorable"
                 }
               ]
@@ -11355,29 +12445,9 @@
               "delta": 0,
               "evidence": [
                 {
-                  "type": "mission_done",
-                  "id": 1780323331619630930,
-                  "title": "System health and reality check"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780323843630738235,
-                  "title": "Android companion mission"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780326125156417827,
-                  "title": "Android companion mission"
-                },
-                {
                   "type": "mission_blocked",
                   "id": 1780326802824661037,
                   "title": "Deploy verification"
-                },
-                {
-                  "type": "mission_done",
-                  "id": 1780341318766849492,
-                  "title": "Advance goal: Improve NOUS user interface"
                 },
                 {
                   "type": "lesson",
@@ -11401,46 +12471,6 @@
                 },
                 {
                   "type": "lesson",
-                  "id": 1780337578296094461,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780338050900972822,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780338052133608551,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780338060163652610,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780338072169357085,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780340162915227068,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780340456090962582,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
-                  "id": 1780340985739589671,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
-                },
-                {
-                  "type": "lesson",
                   "id": 1780341318785366836,
                   "lesson": "Mission proposal approved and converted into mission: Advance goal: Improve NOUS user interface"
                 },
@@ -11451,18 +12481,78 @@
                 },
                 {
                   "type": "lesson",
-                  "id": 1780344009874268476,
-                  "lesson": "Executive review identified next best action: Resolve pending approval"
+                  "id": 1780344052283272262,
+                  "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780344211573908451,
+                  "lesson": "Mission task completed: Check companion"
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780344221094736000,
+                  "lesson": "Mission task completed: Full validation"
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780344230015027299,
+                  "lesson": "Mission task completed: Check companion status"
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780344235254855682,
+                  "lesson": "Mission task completed: Run reality check"
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780344350408887617,
+                  "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780344917164850891,
+                  "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780345071227914894,
+                  "lesson": "Mission task completed: Check code health"
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780345075131286039,
+                  "lesson": "Mission task completed: Check git status"
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780345420475413303,
+                  "lesson": "Mission task completed: Run full validation after UI planning"
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780345477591695000,
+                  "lesson": "Auto mission executor completed safe run with 1 executed missions and 0 skipped missions."
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780345524738888628,
+                  "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions."
+                },
+                {
+                  "type": "lesson",
+                  "id": 1780406990204924758,
+                  "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions."
                 }
               ]
             }
           ]
         },
-        "time": 1780408197.3131924
+        "time": 1782378930.1298816
       },
       "self_diagnosis": {
-        "ok": true,
-        "time": 1780408197.3132117,
+        "ok": false,
+        "time": 1782378930.1298916,
         "checks": {
           "compile": {
             "executor/router.py": {
@@ -11523,9 +12613,9 @@
             },
             {
               "path": "/remote/status",
-              "status": 200,
-              "ok": true,
-              "json": true
+              "status": 500,
+              "ok": false,
+              "json": false
             },
             {
               "path": "/remote/dashboard-action-audit",
@@ -11559,9 +12649,9 @@
             }
           ],
           "dashboard_action_audit": {
-            "failed": 0,
-            "ok": true,
-            "passed": 18,
+            "failed": 1,
+            "ok": false,
+            "passed": 17,
             "results": [
               {
                 "error": null,
@@ -11576,14 +12666,14 @@
               },
               {
                 "error": null,
-                "json": true,
+                "json": false,
                 "method": "GET",
                 "name": "remote_status",
-                "ok": true,
+                "ok": false,
                 "path": "/remote/status",
                 "protected_ok": false,
                 "requires_auth": false,
-                "status": 200
+                "status": 500
               },
               {
                 "error": null,
@@ -11729,51 +12819,79 @@
                 "status": 200
               },
               {
-                "error": null,
+                "error": "unauthorized",
                 "json": true,
                 "method": "POST",
                 "name": "protected_planner_propose",
                 "ok": true,
                 "path": "/remote/mission-planner/propose",
-                "protected_ok": false,
+                "protected_ok": true,
                 "requires_auth": true,
-                "status": 200
+                "status": 401
               },
               {
-                "error": null,
+                "error": "unauthorized",
                 "json": true,
                 "method": "POST",
                 "name": "protected_scheduler_run_once",
                 "ok": true,
                 "path": "/remote/executive-scheduler-loop/run-once",
-                "protected_ok": false,
+                "protected_ok": true,
                 "requires_auth": true,
-                "status": 200
+                "status": 401
               },
               {
-                "error": null,
+                "error": "unauthorized",
                 "json": true,
                 "method": "POST",
                 "name": "protected_backup_create",
                 "ok": true,
                 "path": "/remote/brain-backup/create",
-                "protected_ok": false,
+                "protected_ok": true,
                 "requires_auth": true,
-                "status": 200
+                "status": 401
               }
             ],
-            "time": 1780408341.7621052,
+            "time": 1782378937.2134042,
             "total": 18
           },
           "git_status": {
             "ok": true,
             "code": 0,
-            "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/code_analysis_reports.json\n M data/decision_memory.json\n M data/executive_loop_v2.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/lessons_learned.json\n M data/memory.json\n M data/mission_proposals.json\n M data/missions.json\n M data/project_progress.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/nous_ui.py\n M executor/router.py\n?? data/brain_backups/nous_brain_backup_1780407121.zip\n?? data/brain_backups/nous_brain_backup_1780407175.zip\n?? data/brain_backups/nous_brain_backup_1780408077.zip\n?? data/brain_backups/nous_brain_backup_1780408126.zip\n?? data/brain_backups/nous_brain_backup_1780408147.zip\n?? data/brain_backups/nous_brain_backup_1780408197.zip\n?? data/brain_backups/nous_brain_backup_1780408263.zip\n?? data/brain_backups/nous_brain_backup_1780408284.zip\n?? data/brain_backups/nous_brain_backup_1780408329.zip\n?? data/brain_backups/nous_brain_backup_1780408341.zip\n?? executor/executive_command_center.py\n",
+            "stdout": " M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/goals_v2.json\n M data/knowledge_queue.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/battery_guard.py\n?? .replit\n",
             "stderr": ""
           }
         },
-        "problems": [],
+        "problems": [
+          {
+            "type": "endpoint_failed",
+            "path": "/remote/status",
+            "status": 500
+          },
+          {
+            "type": "dashboard_action_failures",
+            "failed": [
+              {
+                "error": null,
+                "json": false,
+                "method": "GET",
+                "name": "remote_status",
+                "ok": false,
+                "path": "/remote/status",
+                "protected_ok": false,
+                "requires_auth": false,
+                "status": 500
+              }
+            ]
+          }
+        ],
         "recommended_fixes": [
+          {
+            "id": "dashboard_auth_helpers",
+            "title": "Repair dashboard auth/error helpers",
+            "risk": "low",
+            "description": "Reinstall central getJson/postJson auth helpers and error reporting."
+          },
           {
             "id": "review_runtime_files",
             "title": "Review runtime file changes",

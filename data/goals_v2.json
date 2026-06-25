@@ -5,7 +5,7 @@
     "description": "NOUS should survive device loss and run from cloud.",
     "priority": 1,
     "status": "active",
-    "progress": 70,
+    "progress": 35,
     "missions": [],
     "notes": [
       {
@@ -22,11 +22,21 @@
         "time": 1780344221.1211655,
         "note": "Goal progress intelligence recalibrated progress from 65% to 70%.",
         "evidence_count": 15
+      },
+      {
+        "time": 1782378903.434134,
+        "note": "Goal progress intelligence recalibrated progress from 70% to 30%.",
+        "evidence_count": 5
+      },
+      {
+        "time": 1782378930.125463,
+        "note": "Goal progress intelligence recalibrated progress from 30% to 35%.",
+        "evidence_count": 6
       }
     ],
     "next_actions": [],
     "created": 1780327547.9287705,
-    "updated": 1780344221.121163
+    "updated": 1782378930.125462
   },
   {
     "id": 1780327547945471638,
@@ -34,7 +44,7 @@
     "description": "Make dashboard friendly, mobile-first, and agent-like.",
     "priority": 2,
     "status": "active",
-    "progress": 70,
+    "progress": 55,
     "missions": [],
     "notes": [
       {
@@ -46,11 +56,16 @@
         "time": 1780343988.674194,
         "note": "Goal progress intelligence recalibrated progress from 45% to 70%.",
         "evidence_count": 9
+      },
+      {
+        "time": 1782378903.4341416,
+        "note": "Goal progress intelligence recalibrated progress from 70% to 55%.",
+        "evidence_count": 7
       }
     ],
     "next_actions": [],
     "created": 1780327547.9454741,
-    "updated": 1780343988.6741931
+    "updated": 1782378903.434141
   },
   {
     "id": 1780327547958112159,
@@ -58,7 +73,7 @@
     "description": "Give NOUS reliable Android eyes and hands.",
     "priority": 1,
     "status": "active",
-    "progress": 75,
+    "progress": 65,
     "missions": [],
     "notes": [
       {
@@ -70,11 +85,16 @@
         "time": 1780344221.1211774,
         "note": "Goal progress intelligence recalibrated progress from 70% to 75%.",
         "evidence_count": 9
+      },
+      {
+        "time": 1782378903.434145,
+        "note": "Goal progress intelligence recalibrated progress from 75% to 65%.",
+        "evidence_count": 8
       }
     ],
     "next_actions": [],
     "created": 1780327547.9581134,
-    "updated": 1780344221.1211762
+    "updated": 1782378903.4341447
   },
   {
     "id": 1780327547970773305,

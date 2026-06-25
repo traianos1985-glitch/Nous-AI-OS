@@ -4,6 +4,8 @@ from executor.notifications import notify
 def battery_guard():
     data = sense()
     battery = data.get("battery", {})
+    if not isinstance(battery, dict):
+        return {"alert": False, "level": None, "plugged": None}
     level = battery.get("percentage") or battery.get("level")
     plugged = battery.get("plugged")
 

@@ -1,7 +1,107 @@
 [
   {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
     "event": "goal_progress_refreshed",
     "changed": []
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782378931.6157088,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782378931.6168313,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782378931.6244056,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782378931.6268625,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "android_sense",
+    "data": {
+      "time": 1782378932.469115,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
+    }
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
   },
   {
     "event": "browser_read_url",
@@ -18,236 +118,93 @@
     "learn": false
   },
   {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
     "event": "android_sense",
     "data": {
-      "time": 1780429961.5197225,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3625,
-        "current": 934081,
-        "percentage": 45,
-        "level": 45,
-        "scale": 100,
-        "charge_counter": 1055037
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
+      "time": 1782378934.936474,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
     }
   },
   {
     "event": "android_sense",
     "data": {
-      "time": 1780429961.948856,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3625,
-        "current": 764159,
-        "percentage": 45,
-        "level": 45,
-        "scale": 100,
-        "charge_counter": 1054825
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
+      "time": 1782378934.9383152,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
     }
   },
   {
     "event": "android_sense",
     "data": {
-      "time": 1780429963.65986,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3625,
-        "current": 753417,
-        "percentage": 45,
-        "level": 45,
-        "scale": 100,
-        "charge_counter": 1054615
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
+      "time": 1782378934.9417381,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
     }
   },
   {
     "event": "android_sense",
     "data": {
-      "time": 1780429963.8647478,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3625,
-        "current": 554198,
-        "percentage": 45,
-        "level": 45,
-        "scale": 100,
-        "charge_counter": 1054461
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
+      "time": 1782378934.9435675,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
     }
+  },
+  {
+    "event": "code_health",
+    "ok": true
   },
   {
     "event": "android_sense",
     "data": {
-      "time": 1780429965.4585786,
-      "clipboard": "",
-      "battery": {
-        "present": true,
-        "technology": "Li-poly",
-        "health": "GOOD",
-        "plugged": "UNPLUGGED",
-        "status": "DISCHARGING",
-        "temperature": 36.2,
-        "voltage": 3625,
-        "current": 1150390,
-        "percentage": 45,
-        "level": 45,
-        "scale": 100,
-        "charge_counter": 1054142
-      },
-      "device": {
-        "data_enabled": "false",
-        "data_activity": "none",
-        "data_state": "disconnected",
-        "device_id": null,
-        "device_software_version": "00",
-        "phone_count": 2,
-        "phone_type": "gsm",
-        "network_operator": "",
-        "network_operator_name": "",
-        "network_country_iso": "gr",
-        "network_type": "edge",
-        "network_roaming": false,
-        "sim_country_iso": "",
-        "sim_operator": "",
-        "sim_operator_name": "",
-        "sim_serial_number": null,
-        "sim_subscriber_id": null,
-        "sim_state": "absent"
-      }
+      "time": 1782378935.5476747,
+      "clipboard": "[Errno 2] No such file or directory: 'termux-clipboard-get'",
+      "battery": "[Errno 2] No such file or directory: 'termux-battery-status'",
+      "device": "[Errno 2] No such file or directory: 'termux-telephony-deviceinfo'"
     }
   },
   {
-    "id": 1780433751842352,
-    "created_at": "2026-06-02T20:55:51.842365+00:00",
-    "source": "document_intelligence_engine",
-    "type": "learned_document",
-    "title": "test_manual.txt",
-    "document_hash": "b020ab0c52bd05899811967748e2bc21f9f3c85c3177ecc2a7f57aee8177bd94",
-    "summary": {
-      "chars": 233,
-      "words": 31,
-      "lines": 3,
-      "sample": "Εγχειρίδιο δοκιμής αποκρύψεων.\nΟι κρύπτες σε πέτρες συνήθως αναγνωρίζονται από σημάδια, τεχνητές ενώσεις, διαφορετική πατίνα και αφύσικη τοποθέτηση.\nΤο σύστημα πρέπει να ελέγχει συμφραζόμενα, θέση, βάθος και επαναλαμβανόμενα μοτίβα.",
-      "keywords": [
-        "εγχειρ",
-        "δοκιμ",
-        "αποκρ",
-        "αναγνωρ",
-        "ζονται",
-        "τεχνητ",
-        "διαφορετικ",
-        "τοποθ",
-        "στημα",
-        "συμφραζ",
-        "επαναλαμβαν"
-      ]
-    },
-    "instruction": "Use this document as a knowledge source for future answers."
+    "event": "goal_progress_refreshed",
+    "changed": []
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
+  },
+  {
+    "event": "research_query",
+    "query": "Python Flask",
+    "learn": false
+  },
+  {
+    "event": "browser_read_url",
+    "url": "https://example.com",
+    "learn": false
+  },
+  {
+    "event": "code_health",
+    "ok": true
   }
 ]
