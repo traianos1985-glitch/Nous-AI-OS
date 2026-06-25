@@ -83,23 +83,46 @@ def is_explicit_command(message: str) -> bool:
 
 
 def has_general_knowledge_question(message: str) -> bool:
+    """
+    Επιστρέφει True ΜΟΝΟ για ερωτήσεις εγκυκλοπαιδικής γνώσης
+    που ξεκινούν με συγκεκριμένα patterns.
+    ΔΕΝ πυροδοτείται μόνο από "?" — αυτό ήταν πάρα πλατύ.
+    """
     m = norm(message)
     if not m:
         return False
 
+    # Ερωτήσεις γνώμης/εκτίμησης → ΟΧΙ web search
+    opinion_starters = [
+        "πιστεύεις", "νομίζεις", "νομιζεις", "θεωρείς", "θεωρεις",
+        "χρειάζεσαι", "χρειαζεσαι", "θέλεις", "θελεις",
+        "πώς νιώθεις", "πως νιωθεις",
+        "τι πιστεύεις", "τι νομίζεις",
+        "αισθάνεσαι", "αισθανεσαι",
+        "μπορείς να", "μπορεις να",
+        "θα μπορούσες", "θα μπορουσες",
+    ]
+    if any(m.startswith(x) or x in m for x in opinion_starters):
+        return False
+
+    # Ερωτήσεις για τον ΝΟΥΣ/το σύστημα → ΟΧΙ web search
+    if any(x in m for x in ["νους", "νουσ", "nous", "σύστημα", "συστημα", "εσύ", "εσυ"]):
+        return False
+
     starters = [
         "τι είναι", "τι ειναι",
-        "ποιος", "ποια", "ποιο",
-        "πότε", "ποτε",
-        "πού", "που",
-        "γιατί", "γιατι",
-        "πώς", "πως",
+        "ποιος είναι", "ποιος ειναι",
+        "ποια είναι", "ποια ειναι",
+        "πότε έγινε", "ποτε εγινε",
+        "πού βρίσκεται", "που βρισκεται",
+        "γιατί συμβαίνει", "γιατι συμβαινει",
         "εξήγησε", "εξηγησε",
         "πες μου για",
-        "ξέρεις", "ξερεις",
+        "ξέρεις για", "ξερεις για",
+        "τι γνωρίζεις", "τι γνωριζεις",
     ]
 
-    return "?" in m or any(m.startswith(x) for x in starters)
+    return any(m.startswith(x) for x in starters)
 
 
 def has_document_intent(message: str) -> bool:
@@ -289,7 +312,11 @@ def casual_answer(message: str) -> str | None:
     if any(x in m for x in ["γεια", "γειά", "καλημέρα", "καλημερα", "καλησπέρα", "καλησπερα"]):
         return "Γεια σου φίλε μου. Είμαι έτοιμος. Τι θέλεις να δούμε;"
 
-    if is_about_nous(message) and any(x in m for x in ["βελτι", "καλυτερ", "πρέπει", "πρεπει", "λείπει", "λειπει"]):
+    if is_about_nous(message) and any(x in m for x in [
+        "βελτι", "καλυτερ", "πρέπει", "πρεπει", "λείπει", "λειπει",
+        "αναβάθμι", "αναβαθμι", "χρειάζεσαι", "χρειαζεσαι",
+        "αδυναμ", "αδυνατ", "μπορείς", "μπορεις", "ικανότητ", "ικανοτητ",
+    ]):
         return nous_status_answer()
 
     return None
@@ -613,8 +640,13 @@ def identity_answer(message: str) -> str | None:
 
 
 def should_skip_knowledge_and_web(message: str) -> bool:
+    """
+    True → μη χρησιμοποιείς knowledge_memory / web search.
+    Ισχύει για casual chat, ερωτήσεις γνώμης, ερωτήσεις για τον ίδιο τον ΝΟΥΣ.
+    """
     m = norm(message)
 
+    # Casual / identity patterns
     casual_patterns = [
         "τι κάνεις", "τι κανεις",
         "τι μπορείς να κάνεις", "τι μπορεις να κανεις",
@@ -627,8 +659,39 @@ def should_skip_knowledge_and_web(message: str) -> bool:
         "πως σε λένε", "πως σε λενε",
         "πώς σε λένε", "πώς σε λενε",
     ]
+    if any(x in m for x in casual_patterns):
+        return True
 
-    return any(x in m for x in casual_patterns)
+    # Ερωτήσεις γνώμης / εκτίμησης — ο LLM απαντά απευθείας
+    opinion_patterns = [
+        "πιστεύεις", "νομίζεις", "νομιζεις",
+        "θεωρείς", "θεωρεις",
+        "πώς νιώθεις", "πως νιωθεις",
+        "αισθάνεσαι", "αισθανεσαι",
+        "τι πιστεύεις", "τι νομιζεις",
+        "τι γνώμη", "τι γνωμη",
+        "θα ήθελες", "θα ηθελες",
+    ]
+    if any(x in m for x in opinion_patterns):
+        return True
+
+    # Ερωτήσεις για τον ΝΟΥΣ / το σύστημα / τον εαυτό του
+    if any(x in m for x in ["νους", "νουσ", "nous"]):
+        nous_self_patterns = [
+            "χρειάζεσαι", "χρειαζεσαι",
+            "αναβάθμι", "αναβαθμι",
+            "βελτίωση", "βελτιωση",
+            "βελτιώσεις", "βελτιωσεις",
+            "αδυναμίες", "αδυναμιες",
+            "δυνατότητες", "δυνατοτητες",
+            "μπορείς", "μπορεις",
+            "ικανότητες", "ικανοτητες",
+            "λειτουργε", "τρέχεις", "τρεχεις",
+        ]
+        if any(x in m for x in nous_self_patterns):
+            return True
+
+    return False
 
 
 def fallback_answer(message: str) -> str:
@@ -737,18 +800,22 @@ def answer_chat(message: str, conversation_id: str | None = None) -> dict[str, A
     if answer is None:
         answer = casual_answer(message)
 
-    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message) and not is_natural_chat(message):
-        web = answer_from_web(message)
-        answer = summarize_search_results(web)
-        sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
-        mode = "internet_search"
+    # Agent loop — LLM αποφασίζει ο ίδιος αν θέλει tools ή απαντά απευθείας.
+    # Αντικαθιστά την τυφλή web search για γενικές ερωτήσεις.
+    if answer is None:
+        try:
+            from executor.agent_loop import run_agent
+            agent_result = run_agent(message, conversation_id=conversation_id)
+            if agent_result.get("ok") and agent_result.get("answer"):
+                answer = agent_result["answer"]
+                mode = agent_result.get("mode", "agent_loop")
+                tool_used = agent_result.get("tool_used")
+                if tool_used:
+                    sources = [{"document": f"tool:{tool_used}"}]
+        except Exception:
+            pass
 
-    if answer is None and has_general_knowledge_question(message) and not should_skip_knowledge_and_web(message) and not is_natural_chat(message):
-        web = answer_from_web(message)
-        answer = summarize_search_results(web)
-        sources = [{"title": r.get("title"), "url": r.get("url")} for r in web.get("results", [])[:3]]
-        mode = "internet_search"
-
+    # Fallback: απλό LLM call αν το agent loop απέτυχε
     if answer is None:
         answer = try_llm_answer(message, conversation_id=conversation_id)
         if answer:

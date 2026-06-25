@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "id": "1782383119656632",
+  "title": "Για περιέγραψε μου τις δυνατότητες σου.",
+  "created_at": "2026-06-25T10:25:19.656696+00:00",
+  "updated_at": "2026-06-25T10:25:19.657195+00:00",
+  "messages": [
+    {
+      "time": "2026-06-25T10:25:19.657185+00:00",
+      "role": "user",
+      "content": "Για περιέγραψε μου τις δυνατότητες σου."
+    },
+    {
+      "time": "2026-06-25T10:25:19.657192+00:00",
+      "role": "assistant",
+      "mode": "capabilities",
+      "content": "Οι δυνατότητες του chat του ΝΟΥΣ τώρα είναι:\n\n• Κανονική συζήτηση τύπου ChatGPT.\n• Ανάγνωση και απαντήσεις από μαθημένα έγγραφα.\n• Upload & Learn για αρχεία.\n• Internet search όταν το ζητάς.\n• Άνοιγμα και περίληψη URL.\n• Απλοί υπολογισμοί.\n• Πρόσφατη μνήμη συνομιλίας.\n\nΑρχεία:\n• PDF text extraction: False\n• DOCX extraction: False\n• TXT/MD/JSON/CSV/code: True\n\nΕικόνες:\n• Pillow: False\n• pytesseract module: False\n• tesseract binary: False\n• Πραγματική οπτική κατανόηση εικόνας: False\n\nΣημαντικό: εικόνες και scanned PDFs διαβάζονται μόνο με OCR όταν υπάρχει κείμενο."
+    }
+  ],
+  "summary": ""
+}
