@@ -4,9 +4,9 @@
     "type": "personal_ai_operating_system",
     "owner_mode": true
   },
-  "time": 1782386622.0006154,
+  "time": 1782387373.7359364,
   "goals": {
-    "time": 1782386621.222661,
+    "time": 1782387372.5391202,
     "total": 4,
     "active": 3,
     "done": 1,
@@ -170,7 +170,7 @@
     ]
   },
   "missions": {
-    "time": 1782386621.2227545,
+    "time": 1782387372.5392299,
     "total": 1,
     "active": 0,
     "done": 0,
@@ -260,7 +260,7 @@
     ]
   },
   "approvals": {
-    "time": 1782386621.2228456,
+    "time": 1782387372.5393014,
     "count": 1,
     "approvals": [
       {
@@ -285,7 +285,7 @@
       "ui_tree",
       "tap"
     ],
-    "time": 1782386621.22285
+    "time": 1782387372.5393062
   },
   "deploy": {
     "vercel": {
@@ -325,16 +325,37 @@
           }
         }
       ],
-      "time": 1782386621.2296546
+      "time": 1782387372.5460975
     }
   },
   "reality": {
-    "time": 1782386621.229657,
+    "time": 1782387372.5461001,
     "internet": {
-      "real": false,
+      "real": true,
       "details": {
         "query": "Python Flask",
-        "results": []
+        "results": [
+          {
+            "title": "Welcome to Flask — Flask Documentation (3.1.x)",
+            "url": "https://flask.palletsprojects.com/"
+          },
+          {
+            "title": "Quickstart — Flask Documentation (3.1.x)",
+            "url": "https://flask.palletsprojects.com/en/stable/quickstart/"
+          },
+          {
+            "title": "Flask Tutorial - GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/python/flask-tutorial/"
+          },
+          {
+            "title": "Flask · PyPI",
+            "url": "https://pypi.org/project/Flask/"
+          },
+          {
+            "title": "How To Build a Web Application Using Flask in Python 3",
+            "url": "https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3"
+          }
+        ]
       }
     },
     "browser_read": {
@@ -359,7 +380,7 @@
       "details": {
         "ok": true,
         "code": 0,
-        "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/knowledge_memory.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/larmor_bridge.py\n M executor/nous_ui.py\n M executor/router.py\n",
+        "stdout": " M data/agent_journal.json\n M data/auto_mission_executor.json\n M data/auto_mission_scheduler.json\n M data/brain_state.json\n M data/decision_memory.json\n M data/executive_reviews.json\n M data/executive_scheduler_loop.json\n M data/goal_progress.json\n M data/knowledge_memory.json\n M data/lessons_learned.json\n M data/memory.json\n M data/runtime_metrics.json\n M data/self_diagnosis_report.json\n M executor/larmor_bridge.py\n M executor/nous_ui.py\n M executor/router.py\n?? attached_assets/\n",
         "stderr": ""
       }
     },
@@ -396,7 +417,7 @@
     }
   },
   "ops": {
-    "time": 1782386622.0006135,
+    "time": 1782387373.7359345,
     "safe_actions": [
       "git_status",
       "code_health",
@@ -423,11 +444,11 @@
     "size": 200
   },
   "journal_summary": {
-    "events": 99,
+    "events": 109,
     "recent": [
       {
-        "id": 1782386128285772451,
-        "time": 1782386128.2857733,
+        "id": 1782387189530336941,
+        "time": 1782387189.530338,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -532,18 +553,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386128.2799668,
+                  "updated": 1782387189.5243578,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386128.2820385
+            "time": 1782387189.5268674
           }
         }
       },
       {
-        "id": 1782386130803948796,
-        "time": 1782386130.8039496,
+        "id": 1782387192294106255,
+        "time": 1782387192.2941074,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -648,18 +669,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386130.7958593,
+                  "updated": 1782387192.2879472,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386130.799791
+            "time": 1782387192.289954
           }
         }
       },
       {
-        "id": 1782386141383764139,
-        "time": 1782386141.383765,
+        "id": 1782387198467007463,
+        "time": 1782387198.4670084,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -764,18 +785,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386141.380046,
+                  "updated": 1782387198.4619548,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386141.3803742
+            "time": 1782387198.4639673
           }
         }
       },
       {
-        "id": 1782386541918710826,
-        "time": 1782386541.918712,
+        "id": 1782387307929770250,
+        "time": 1782387307.9297712,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -880,18 +901,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386541.915055,
+                  "updated": 1782387307.9221473,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386541.9155984
+            "time": 1782387307.9256604
           }
         }
       },
       {
-        "id": 1782386544573639173,
-        "time": 1782386544.57364,
+        "id": 1782387310910471390,
+        "time": 1782387310.9104726,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -996,18 +1017,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386544.5697205,
+                  "updated": 1782387310.904137,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386544.5702863
+            "time": 1782387310.905986
           }
         }
       },
       {
-        "id": 1782386546453226777,
-        "time": 1782386546.4532275,
+        "id": 1782387317487969179,
+        "time": 1782387317.48797,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -1112,18 +1133,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386546.4490848,
+                  "updated": 1782387317.4812381,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386546.4499671
+            "time": 1782387317.484793
           }
         }
       },
       {
-        "id": 1782386550998988641,
-        "time": 1782386550.9989893,
+        "id": 1782387319046097697,
+        "time": 1782387319.0460987,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -1228,18 +1249,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386550.9945982,
+                  "updated": 1782387319.0394187,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386550.996044
+            "time": 1782387319.0414674
           }
         }
       },
       {
-        "id": 1782386609959876926,
-        "time": 1782386609.9598777,
+        "id": 1782387362011590171,
+        "time": 1782387362.0115912,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -1344,18 +1365,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386609.9557457,
+                  "updated": 1782387362.0066326,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386609.9569364
+            "time": 1782387362.008481
           }
         }
       },
       {
-        "id": 1782386612613004766,
-        "time": 1782386612.6130059,
+        "id": 1782387364178365411,
+        "time": 1782387364.1783662,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -1460,18 +1481,18 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386612.608236,
+                  "updated": 1782387364.1727033,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386612.6095493
+            "time": 1782387364.174639
           }
         }
       },
       {
-        "id": 1782386618778165826,
-        "time": 1782386618.7781665,
+        "id": 1782387369205664860,
+        "time": 1782387369.2056658,
         "event": "decision_made",
         "data": {
           "action": "seed_goal_task",
@@ -1576,12 +1597,12 @@
                   "status": "active",
                   "progress_percent": 50,
                   "created": 1780230012.9377656,
-                  "updated": 1782386618.7733033,
+                  "updated": 1782387369.1995177,
                   "last_reason": "no_change"
                 }
               ]
             },
-            "time": 1782386618.7751915
+            "time": 1782387369.201713
           }
         }
       }

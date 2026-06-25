@@ -977,5 +977,95 @@
       "auto_mission_scheduler"
     ],
     "created": 1782386622.0196462
+  },
+  {
+    "id": 1782387192631759401,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1782387192.6317606
+  },
+  {
+    "id": 1782387201541917661,
+    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782387201.5419202
+  },
+  {
+    "id": 1782387310683461867,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1782387310.6834636
+  },
+  {
+    "id": 1782387321645562071,
+    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782387321.645564
+  },
+  {
+    "id": 1782387363582479429,
+    "lesson": "Executive review identified next best action: Resolve pending approval",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.7,
+    "tags": [
+      "executive_review",
+      "scheduler",
+      "approval"
+    ],
+    "created": 1782387363.582481
+  },
+  {
+    "id": 1782387373756839898,
+    "lesson": "Auto mission executor completed safe run with 0 executed missions and 0 skipped missions.",
+    "outcome": "success",
+    "goal_id": null,
+    "mission_id": null,
+    "decision_id": null,
+    "confidence": 0.75,
+    "tags": [
+      "auto_executor",
+      "safe_mode",
+      "auto_mission_scheduler"
+    ],
+    "created": 1782387373.7568417
   }
 ]

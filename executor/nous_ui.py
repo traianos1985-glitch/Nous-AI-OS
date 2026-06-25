@@ -1097,6 +1097,72 @@ pre{white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto;ba
               <div id="larmorAnalysisResult" style="margin-top:12px;font-size:13px;line-height:1.6;display:none;"></div>
             </div>
 
+            <!-- Classical EM Resonance Calculator -->
+            <div class="card" style="border-color:rgba(34,211,238,.25);">
+              <h3 style="margin:0 0 4px 0;font-size:14px;">⚡ Κλασικός ΗΜ Συντονισμός (Faraday/Lenz)</h3>
+              <p style="font-size:11px;color:var(--muted);margin:0 0 10px 0;">
+                Βέλτιστη συχνότητα για κλασικό μαγνητικό συντονισμό (eddy current) — ανεξάρτητα από NMR.
+              </p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Υλικό στόχου</label>
+                  <select id="emMetal" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                    <option value="22k_alloy">Λίρα 22K (Au+Cu κράμα)</option>
+                    <option value="au">Χρυσός καθαρός (Au)</option>
+                    <option value="ag">Άργυρος (Ag)</option>
+                    <option value="cu">Χαλκός (Cu)</option>
+                    <option value="bronze">Μπρούντζος (αρχαίος)</option>
+                    <option value="fe_pure">Σίδηρος (Fe αγνός)</option>
+                    <option value="steel">Χάλυβας/WWII αντικ.</option>
+                    <option value="brass">Ορείχαλκος</option>
+                    <option value="pb">Μόλυβδος (Pb)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Ακτίνα στόχου (cm)</label>
+                  <select id="emRadius" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                    <option value="1.1">1.1 cm — μεμονωμένο νόμισμα</option>
+                    <option value="2.0">2.0 cm — λίγα νομίσματα</option>
+                    <option value="3.0" selected>3.0 cm — χούφτα νομισμάτων</option>
+                    <option value="5.0">5.0 cm — μικρό κεραμικό/σωλήνας</option>
+                    <option value="8.0">8.0 cm — κιβωτάκι λιρών</option>
+                    <option value="12.0">12.0 cm — μεγάλο αγγείο</option>
+                    <option value="20.0">20.0 cm — WWII κιβώτιο</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Βάθος (m)</label>
+                  <input id="emDepth" type="number" value="1.5" step="0.1" min="0.1"
+                    style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                </div>
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Τύπος εδάφους</label>
+                  <select id="emSoil" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                    <option value="rock">Βραχώδες (σ=0.00001)</option>
+                    <option value="dry_sand">Ξηρό/Αμμώδες (σ=0.001)</option>
+                    <option value="medium" selected>Μέτριο/Υγρό (σ=0.01)</option>
+                    <option value="wet_clay">Υγρό/Αργιλώδες (σ=0.05)</option>
+                    <option value="saturated">Κορεσμένο (σ=0.1)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:11px;color:var(--muted);">Ηλικία ταφής</label>
+                  <select id="emAge" style="width:100%;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:12px;">
+                    <option value="recent">Πρόσφατο (0-20 χρόνια)</option>
+                    <option value="guerrilla" selected>Αντάρτικα 1940-50</option>
+                    <option value="ottoman">Οθωμανικό (&lt;1900)</option>
+                    <option value="ancient">Αρχαίο (&gt;500 χρόνια)</option>
+                  </select>
+                </div>
+                <div style="display:flex;align-items:flex-end;">
+                  <button onclick="emCalcRun()" style="width:100%;padding:7px;border-radius:6px;border:none;background:linear-gradient(135deg,rgba(34,211,238,.6),rgba(139,92,246,.6));color:white;font-size:13px;font-weight:700;cursor:pointer;">
+                    ⚡ Υπολόγισε f_optimal
+                  </button>
+                </div>
+              </div>
+              <div id="emCalcResult" style="display:none;margin-top:8px;"></div>
+            </div>
+
             <!-- Chat with NOUS about Larmor -->
             <div class="card">
               <h3 style="margin:0 0 10px 0;font-size:14px;">💬 Ερώτηση NMR / Γεωφυσική</h3>
@@ -1473,6 +1539,51 @@ async function larmorChatSend(){
   }catch(e){
     document.getElementById("larmorTyping")?.remove();
     log.innerHTML+=`<div style="color:var(--bad);font-size:12px;">⚠️ ${e}</div>`;
+  }
+}
+
+async function emCalcRun(){
+  const metal  = document.getElementById("emMetal").value;
+  const radius = parseFloat(document.getElementById("emRadius").value);
+  const depth  = parseFloat(document.getElementById("emDepth").value);
+  const soil   = document.getElementById("emSoil").value;
+  const age    = document.getElementById("emAge").value;
+  const box    = document.getElementById("emCalcResult");
+  box.style.display="block";
+  box.innerHTML = '<div style="color:var(--muted);font-size:12px;">⏳ Υπολογισμός…</div>';
+  try{
+    const d = await postJson("/larmor/em-calculator",{metal,radius_cm:radius,depth_m:depth,soil,age});
+    if(d.error){ box.innerHTML=`<div style="color:var(--bad);">⚠️ ${d.error}</div>`; return; }
+    const pen = d.fully_penetrated
+      ? `<span style="color:var(--ok)">✅ Πλήρης διείσδυση εντός αντικειμένου (δ_μετ=${d.delta_metal_mm}mm ≥ a=${(radius*10).toFixed(0)}mm)</span>`
+      : `<span style="color:#f80">⚠️ Μερική διείσδυση δ_μετ=${d.delta_metal_mm}mm &lt; a=${(radius*10).toFixed(0)}mm — εξωτερική στρώση μόνο</span>`;
+    const tbl = d.size_table.map(r=>
+      `<tr><td style="padding:2px 8px;color:var(--muted)">${r.radius_cm}cm</td><td style="padding:2px 8px;color:var(--accent2);font-weight:700">${r.f_char_hz} Hz</td></tr>`
+    ).join("");
+    box.innerHTML = `
+    <div style="background:var(--panel);border-radius:10px;padding:12px;border:1px solid rgba(34,211,238,.2);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+        <div style="background:#111;border-radius:8px;padding:8px;text-align:center;">
+          <div style="font-size:10px;color:var(--muted);">f_char (αντικείμενο)</div>
+          <div style="font-size:22px;font-weight:900;color:var(--accent2)">${d.f_char_hz} <span style="font-size:13px">Hz</span></div>
+          <div style="font-size:10px;color:var(--muted)">Μέγιστη απόκριση eddy current</div>
+        </div>
+        <div style="background:#111;border-radius:8px;padding:8px;text-align:center;">
+          <div style="font-size:10px;color:var(--muted);">f_soil (διείσδυση εδάφους)</div>
+          <div style="font-size:22px;font-weight:900;color:var(--ok)">${d.f_soil_limit_hz} <span style="font-size:13px">Hz</span></div>
+          <div style="font-size:10px;color:var(--muted)">Max για βάθος ${depth}m</div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.1));border-radius:8px;padding:12px;text-align:center;margin-bottom:10px;border:1px solid rgba(34,211,238,.3);">
+        <div style="font-size:11px;color:var(--accent2);margin-bottom:2px;">⚡ f_optimal = √(f_char × f_soil)</div>
+        <div style="font-size:32px;font-weight:900;color:white">${d.f_optimal_hz} <span style="font-size:16px">Hz</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">δ_εδ @ f_opt = ${d.delta_soil_m}m | ${pen}</div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">📐 Πίνακας f_char ανά μέγεθος (${d.metal}):</div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse;">${tbl}</table>
+    </div>`;
+  }catch(e){
+    box.innerHTML=`<div style="color:var(--bad);">⚠️ ${e}</div>`;
   }
 }
 

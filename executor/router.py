@@ -198,7 +198,11 @@ from executor.health import backup as create_backup
 from executor.health import status as health_status
 
 from executor.remote_tunnel import start_tunnel, stop_tunnel, tunnel_status as get_tunnel_status
-from executor.larmor_bridge import ping_larmor_app, calculate_larmor, analyze_session, larmor_chat, MATERIALS, get_knowledge_chunks
+from executor.larmor_bridge import (
+    ping_larmor_app, calculate_larmor, analyze_session, larmor_chat,
+    MATERIALS, METAL_EM_PROPERTIES, get_knowledge_chunks, optimal_em_frequency_hz,
+    characteristic_frequency_hz, SOIL_TYPES, AGE_FACTORS,
+)
 
 @app.route("/larmor/ping")
 def larmor_ping():
@@ -233,6 +237,43 @@ def larmor_chat_route():
         return jsonify({"error": "Χωρίς μήνυμα"}), 400
     reply = larmor_chat(conversation)
     return jsonify({"reply": reply})
+
+@app.route("/larmor/em-calculator", methods=["POST"])
+def larmor_em_calculator():
+    """Calculate optimal EM frequency for a buried metallic object (classical Faraday/eddy-current model)."""
+    data = request.get_json(silent=True) or {}
+    metal_key   = data.get("metal", "22k_alloy")
+    radius_cm   = float(data.get("radius_cm", 3.0))
+    depth_m     = float(data.get("depth_m", 1.5))
+    soil_key    = data.get("soil", "medium")
+    age_key     = data.get("age", "guerrilla")
+
+    soil  = SOIL_TYPES.get(soil_key, SOIL_TYPES["medium"])
+    age   = AGE_FACTORS.get(age_key, AGE_FACTORS["guerrilla"])
+
+    result = optimal_em_frequency_hz(
+        metal_key  = metal_key,
+        radius_m   = radius_cm / 100.0,
+        depth_m    = depth_m,
+        soil_sigma = soil["sigma"],
+        age_factor = age["factor"],
+    )
+    if "error" in result:
+        return jsonify(result), 400
+
+    # Also supply f_char table for a range of radii
+    metal = METAL_EM_PROPERTIES.get(metal_key, {})
+    sigma = metal.get("sigma", 1e7)
+    mu_r  = metal.get("mu_r", 1.0)
+    size_table = []
+    for r_cm in [0.5, 1.0, 1.5, 2.0, 3.0, 5.0, 8.0, 10.0, 15.0, 20.0]:
+        fc = characteristic_frequency_hz(sigma, mu_r, r_cm / 100.0)
+        size_table.append({"radius_cm": r_cm, "f_char_hz": round(fc, 1)})
+
+    result["size_table"] = size_table
+    result["soil_name"]  = soil["name"]
+    result["age_desc"]   = age["desc"]
+    return jsonify(result)
 
 @app.route("/larmor/inject-knowledge", methods=["POST"])
 def larmor_inject_knowledge():
